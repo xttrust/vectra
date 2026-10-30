@@ -7,16 +7,21 @@
   <title>Vectra v2 · Direction prototype</title>
   <meta name="description" content="Vectra v2 direction prototype: one component set, four visual directions, light and dark themes, zero dependencies.">
   <script>
+    /* Applies saved direction, theme and customizer tokens before first paint. */
     (function () {
       var root = document.documentElement;
-      var directions = ['tech', 'editorial', 'soft', 'bold'];
+      var light = matchMedia('(prefers-color-scheme: light)').matches;
+      var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+      var d = get('vectra2-direction');
+      if (['tech', 'editorial', 'soft', 'aero'].indexOf(d) > -1) root.dataset.direction = d;
+      var t = get('vectra2-theme');
+      root.dataset.theme = t === 'light' || t === 'dark' ? t : (light ? 'light' : 'dark');
       try {
-        var d = localStorage.getItem('vectra2-direction');
-        var t = localStorage.getItem('vectra2-theme');
-        if (directions.indexOf(d) > -1) root.dataset.direction = d;
-        if (t === 'light' || t === 'dark') { root.dataset.theme = t; return; }
+        var c = JSON.parse(get('vectra2-custom'));
+        if (c && c.vars) Object.keys(c.vars).forEach(function (k) {
+          if (k.indexOf('--') === 0) root.style.setProperty(k, c.vars[k]);
+        });
       } catch (e) {}
-      root.dataset.theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     })();
   </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%276%27 fill=%27%2300b4c4%27/%3E%3Cpath d=%27M6 7l6 11 6-11%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%272.6%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
@@ -58,6 +63,7 @@
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
   <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/><path d="M19 17v4M17 19h4"/></symbol>
   <symbol id="i-trend-up" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
   <symbol id="i-trend-down" viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 8M15 17h6v-6"/></symbol>
 </svg>
 
@@ -76,9 +82,13 @@
       <label><input type="radio" name="direction" value="tech" checked><span>Dark tech</span></label>
       <label><input type="radio" name="direction" value="editorial"><span>Editorial</span></label>
       <label><input type="radio" name="direction" value="soft"><span>Soft depth</span></label>
-      <label><input type="radio" name="direction" value="bold"><span>Bold</span></label>
+      <label><input type="radio" name="direction" value="aero"><span>Aero</span></label>
     </fieldset>
     <span id="direction-hint" class="visually-hidden">Changes the look of every component on the page.</span>
+
+    <button class="btn btn-secondary btn-sm cz-trigger" type="button" popovertarget="customizer" aria-label="Customize theme">
+      <svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg><span class="cz-trigger-label">Customize</span>
+    </button>
 
     <button class="btn btn-icon btn-ghost" type="button" data-theme-toggle aria-label="Switch to light theme">
       <svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>
@@ -96,7 +106,7 @@
         <p class="lead">Vectra v2 is built on the platform: native dialogs, popovers, anchor positioning and container queries. Pick a direction above and every component follows.</p>
         <div class="cluster">
           <a class="btn btn-primary btn-lg" href="#components">Explore components <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-          <a class="btn btn-secondary btn-lg" href="#theming">How theming works</a>
+          <button class="btn btn-secondary btn-lg" type="button" popovertarget="customizer"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg>Customize the theme</button>
         </div>
         <dl class="hero-stats">
           <div><dt>Dependencies</dt><dd>0</dd></div>
@@ -107,7 +117,7 @@
           <span data-for="tech"><strong>Dark tech.</strong> Deep surfaces, hairline borders, a cool accent glow. Precise and quiet.</span>
           <span data-for="editorial"><strong>Editorial.</strong> Warm paper, serif display type, flat surfaces and ink-black actions.</span>
           <span data-for="soft"><strong>Soft depth.</strong> Layered surfaces, soft shadows, generous radii. Friendly and calm.</span>
-          <span data-for="bold"><strong>Bold.</strong> Heavy type, thick outlines, hard shadows and loud colour.</span>
+          <span data-for="aero"><strong>Aero.</strong> Frosted glass panels, glossy gel buttons and a sky wallpaper that glows through.</span>
         </p>
       </div>
 
@@ -369,11 +379,11 @@
           <div class="theming">
             <div class="stack-sm">
               <h3>Two attributes. That's the whole API.</h3>
-              <p class="muted">Set a direction and a theme on the root element. Colours use <code>light-dark()</code>, so each direction defines both themes in one place.</p>
+              <p class="muted">Set a direction and a theme on the root element. Colours use <code>light-dark()</code>, so each direction defines both themes in one place. The customizer exports any token overrides as a small <code>:root</code> block.</p>
             </div>
             <div class="code">
               <div class="code-head"><span>HTML</span><button class="btn btn-ghost btn-sm" type="button" data-copy="#code-theming"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button></div>
-              <pre id="code-theming"><code>&lt;html data-direction="soft" data-theme="dark"&gt;
+              <pre id="code-theming" tabindex="0" role="region" aria-label="Theming example code"><code>&lt;html data-direction="soft" data-theme="dark"&gt;
   &lt;link rel="stylesheet" href="vectra.css"&gt;
   &lt;script src="vectra.js" defer&gt;&lt;/script&gt;</code></pre>
             </div>
@@ -422,6 +432,100 @@
     </footer>
   </form>
 </dialog>
+
+<aside class="customizer" id="customizer" popover="manual" aria-labelledby="cz-title">
+  <header class="cz-head">
+    <div>
+      <h2 id="cz-title">Customize</h2>
+      <p class="muted">Changes apply live and are saved in this browser.</p>
+    </div>
+    <button class="btn btn-icon btn-ghost" type="button" popovertarget="customizer" popovertargetaction="hide" aria-label="Close customizer"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </header>
+  <form class="cz-body" id="cz-form">
+    <fieldset class="cz-group">
+      <legend class="cz-legend">Style</legend>
+      <div class="cz-styles">
+        <label class="cz-style"><input type="radio" name="cz-direction" value="tech"><span class="cz-thumb" data-thumb="tech" aria-hidden="true"><i></i><i></i><i></i></span><span>Dark tech</span></label>
+        <label class="cz-style"><input type="radio" name="cz-direction" value="editorial"><span class="cz-thumb" data-thumb="editorial" aria-hidden="true"><i></i><i></i><i></i></span><span>Editorial</span></label>
+        <label class="cz-style"><input type="radio" name="cz-direction" value="soft"><span class="cz-thumb" data-thumb="soft" aria-hidden="true"><i></i><i></i><i></i></span><span>Soft depth</span></label>
+        <label class="cz-style"><input type="radio" name="cz-direction" value="aero"><span class="cz-thumb" data-thumb="aero" aria-hidden="true"><i></i><i></i><i></i></span><span>Aero</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="cz-group">
+      <legend class="cz-legend">Mode</legend>
+      <div class="segmented cz-seg">
+        <label><input type="radio" name="cz-mode" value="light"><span>Light</span></label>
+        <label><input type="radio" name="cz-mode" value="dark"><span>Dark</span></label>
+        <label><input type="radio" name="cz-mode" value="auto"><span>Auto</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="cz-group">
+      <legend class="cz-legend">Accent</legend>
+      <div class="cz-swatches">
+        <label title="Style default"><input type="radio" name="cz-accent" value="default"><span class="cz-swatch is-default" aria-hidden="true"></span><span class="visually-hidden">Style default</span></label>
+        <label title="Cyan"><input type="radio" name="cz-accent" value="200"><span class="cz-swatch" style="--sw-h: 200" aria-hidden="true"></span><span class="visually-hidden">Cyan</span></label>
+        <label title="Blue"><input type="radio" name="cz-accent" value="245"><span class="cz-swatch" style="--sw-h: 245" aria-hidden="true"></span><span class="visually-hidden">Blue</span></label>
+        <label title="Violet"><input type="radio" name="cz-accent" value="285"><span class="cz-swatch" style="--sw-h: 285" aria-hidden="true"></span><span class="visually-hidden">Violet</span></label>
+        <label title="Pink"><input type="radio" name="cz-accent" value="340"><span class="cz-swatch" style="--sw-h: 340" aria-hidden="true"></span><span class="visually-hidden">Pink</span></label>
+        <label title="Red"><input type="radio" name="cz-accent" value="25"><span class="cz-swatch" style="--sw-h: 25" aria-hidden="true"></span><span class="visually-hidden">Red</span></label>
+        <label title="Amber"><input type="radio" name="cz-accent" value="65"><span class="cz-swatch" style="--sw-h: 65" aria-hidden="true"></span><span class="visually-hidden">Amber</span></label>
+        <label title="Green"><input type="radio" name="cz-accent" value="150"><span class="cz-swatch" style="--sw-h: 150" aria-hidden="true"></span><span class="visually-hidden">Green</span></label>
+      </div>
+      <label class="cz-range" for="cz-hue"><span>Any hue</span><output id="cz-hue-out" for="cz-hue"></output></label>
+      <input class="cz-hue" id="cz-hue" type="range" min="0" max="359" step="1">
+    </fieldset>
+
+    <fieldset class="cz-group">
+      <legend class="cz-legend">Corners</legend>
+      <div class="segmented cz-seg">
+        <label><input type="radio" name="cz-corners" value="default"><span>Default</span></label>
+        <label><input type="radio" name="cz-corners" value="sharp"><span>Sharp</span></label>
+        <label><input type="radio" name="cz-corners" value="rounded"><span>Rounded</span></label>
+        <label><input type="radio" name="cz-corners" value="round"><span>Round</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="cz-group">
+      <legend class="cz-legend">Density</legend>
+      <div class="segmented cz-seg">
+        <label><input type="radio" name="cz-density" value="compact"><span>Compact</span></label>
+        <label><input type="radio" name="cz-density" value="default"><span>Default</span></label>
+        <label><input type="radio" name="cz-density" value="spacious"><span>Spacious</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="cz-group">
+      <legend class="cz-legend">Typeface</legend>
+      <div class="segmented cz-seg">
+        <label><input type="radio" name="cz-font" value="default"><span>Default</span></label>
+        <label><input type="radio" name="cz-font" value="inter"><span>Inter</span></label>
+        <label><input type="radio" name="cz-font" value="system"><span>System</span></label>
+        <label><input type="radio" name="cz-font" value="serif"><span>Serif</span></label>
+      </div>
+    </fieldset>
+
+    <div class="cz-group">
+      <p class="cz-legend">Contrast check <span class="muted">(WCAG 2.2)</span></p>
+      <ul class="cz-contrast" aria-live="polite">
+        <li><span>Primary button text</span><span class="badge" data-ratio="button"></span></li>
+        <li><span>Accent text</span><span class="badge" data-ratio="accent"></span></li>
+        <li><span>Muted text</span><span class="badge" data-ratio="muted"></span></li>
+      </ul>
+    </div>
+
+    <div class="cz-group">
+      <p class="cz-legend">Export</p>
+      <div class="code">
+        <div class="code-head"><span>Theme</span><button class="btn btn-ghost btn-sm" type="button" data-copy="#cz-output"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button></div>
+        <pre id="cz-output" tabindex="0" role="region" aria-label="Exported theme code"></pre>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary btn-block" type="button" data-cz-reset>Reset to defaults</button>
+  </form>
+</aside>
 
 <div class="toast-region" id="toasts" popover="manual" role="status" aria-live="polite"></div>
 
