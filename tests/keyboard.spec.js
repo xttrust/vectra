@@ -74,7 +74,7 @@ test('customizer: Escape closes and returns focus to the trigger', async ({ page
 
 test('customizer: choices sync, persist across reload and reset', async ({ page }) => {
   await page.click('.cz-trigger');
-  // Soft rather than Aero: Aero's backdrop blur is very slow under software rendering in CI.
+  // Soft rather than Glass: Glass's backdrop blur is very slow under software rendering in CI.
   await page.click('label:has(input[name="cz-direction"][value="soft"])');
   await page.click('label:has(input[name="cz-accent"][value="150"])');
   await expect(page.locator('html')).toHaveAttribute('data-direction', 'soft');

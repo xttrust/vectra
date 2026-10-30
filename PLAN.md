@@ -37,15 +37,17 @@ Baseline target: browsers from roughly mid-2024 onward.
 |---|---|---|---|---|---|
 | `light-dark()` | theming | 123 | 17.5 | 120 | **required** |
 | `popover` | menus, toasts, customizer | 114 | 17 | 125 | **required** |
-| `@layer`, `:has()`, container queries | everything | 105+ | 16+ | 121 | **required** |
-| `cos()` in calc | hue correction | 111 | 15.4 | 108 | **required** |
-| Anchor positioning | menu/tooltip placement | 125 | 26 | partial | 1 KB JS fallback |
+| `@layer`, `:has()`, container queries | everything | 105 | 16 | 121 | **required** |
+| `oklch()`, `color-mix()`, `cos()` | colour maths | 111 | 16.2 | 113 | **required** |
+| `:user-invalid` | form errors | 119 | 16.5 | 88 | **required** |
+| Anchor positioning | menu/tooltip placement | 125 | 26 | 147 | 1 KB JS fallback |
 | `<details name>` | exclusive accordion | 120 | 17.2 | 130 | accordion items open independently |
 | `@starting-style`, `allow-discrete` | enter/exit animations | 117 | 17.5 | 129 | no animation |
 | View transitions | theme reveal | 111 | 18 | 144 | instant switch |
-| Scroll-driven animations | reveal on scroll | 115 | 26 | flag | no animation |
+| Scroll-driven animations | reveal on scroll | 115 | 26 | 159 | no animation |
+| `interpolate-size` | accordion height animation | 129 | no | no | instant open |
 
-Resulting floor: **Chrome/Edge 123+, Safari 17.5+, Firefox 125+**. These numbers are from memory and get verified against caniuse in M0 before they go in the README.
+Resulting floor: **Chrome/Edge 123+, Safari 17.5+, Firefox 125+**. Verified in M0 against MDN browser-compat-data; `npm run check:baseline` re-checks it in CI on every push.
 
 ## 4. Repository layout
 
@@ -164,6 +166,10 @@ Every v1 component maps to something above; the migration guide lists the exact 
 8. Visual regression (Chromium; full three-engine run nightly)
 
 `main` is protected: merge only by PR with all checks green.
+
+Locally: `npm run check` (static gates), `npm test` (Chromium), `npm run docker:test` (all engines, pinned image, required for visual tests).
+
+Screenshot budget: full-page baselines cost about 0.6 MB each. The prototype uses the full matrix (16 shots). Ported pages get default direction × light/dark × phone/desktop (4 shots); the full matrix stays on the component gallery only.
 
 ### Project slash commands
 

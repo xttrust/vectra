@@ -1,5 +1,5 @@
 /* Shared test setup. Pages are added here as they are built or ported. */
-export const DIRECTIONS = ['tech', 'editorial', 'soft', 'aero'];
+export const DIRECTIONS = ['tech', 'editorial', 'soft', 'glass'];
 export const THEMES = ['light', 'dark'];
 
 export const PAGES = [
