@@ -1,6 +1,6 @@
 # Vectra v2: build plan
 
-Status: draft for review, 30 Oct 2026. Nothing below is built yet except the prototype in `v2/prototype/`.
+Status: decisions agreed 30 Oct 2026, awaiting go-ahead for M0. Nothing below is built yet except the prototype in `v2/prototype/`.
 
 ## 1. What "best" means here
 
@@ -216,13 +216,13 @@ One branch and one PR per milestone, each merged only with green checks. Sizes a
 | M9 | Release v2.0: npm, zip, README, migration guide, announcement | S | published |
 | v2.1 | P1 components | L | per component, same gates |
 
-## 15. Decisions needed before M0
+## 15. Decisions (agreed 30 Oct 2026)
 
-1. **Browser floor** in section 3: accept Chrome 123 / Safari 17.5 / Firefox 125?
-2. **Class prefix:** keep `v-` (recommended) or go unprefixed?
-3. **Docs hosting:** GitHub Pages or your Krystal hosting (for example vectra.creativeigniter.com)?
-4. **npm scope:** `@creativeigniter/vectra`?
-5. **Icons:** Lucide subset with attribution (recommended) or fully custom drawn?
+1. **Browser floor:** Chrome/Edge 123+, Safari 17.5+, Firefox 125+, with the fallbacks in section 3.
+2. **Class prefix:** keep `v-`; tokens `--v-*`; JS hooks `data-v-*`.
+3. **Docs hosting:** GitHub Pages, deployed from the repo on each release.
+4. **Icons:** Lucide subset (ISC, attribution in LICENSE) plus custom icons where needed.
+5. **npm scope:** `@creativeigniter/vectra` unless changed before M9.
 
 ## 16. Risks
 
