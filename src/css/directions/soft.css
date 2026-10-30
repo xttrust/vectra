@@ -1,0 +1,61 @@
+/* Vectra direction: Soft depth. Layered surfaces, soft shadows, generous radii. The neutrals take on the accent hue.
+   Tokens only; component-level touches for this direction live with each component. */
+@layer tokens {
+  :root[data-direction="soft"] {
+    /* Colour */
+    --v-accent-h: 278;
+    --v-bg: light-dark(oklch(96.6% 0.011 var(--v-accent-h)), oklch(18.5% 0.022 var(--v-accent-h)));
+    --v-bg-subtle: light-dark(oklch(95% 0.013 var(--v-accent-h)), oklch(21% 0.024 var(--v-accent-h)));
+    --v-surface: light-dark(oklch(100% 0 0deg), oklch(23.5% 0.024 var(--v-accent-h)));
+    --v-surface-2: light-dark(oklch(96% 0.012 var(--v-accent-h)), oklch(28% 0.026 var(--v-accent-h)));
+    --v-border: light-dark(oklch(92% 0.012 var(--v-accent-h)), oklch(100% 0 0deg / 7%));
+    --v-border-control: light-dark(oklch(60% 0.04 var(--v-accent-h)), oklch(58% 0.03 var(--v-accent-h)));
+    --v-border-strong: light-dark(oklch(86% 0.016 var(--v-accent-h)), oklch(100% 0 0deg / 14%));
+    --v-text: light-dark(oklch(25% 0.035 var(--v-accent-h)), oklch(95.5% 0.01 var(--v-accent-h)));
+    --v-text-2: light-dark(oklch(44% 0.03 var(--v-accent-h)), oklch(81% 0.016 var(--v-accent-h)));
+    --v-text-3: light-dark(oklch(52% 0.026 var(--v-accent-h)), oklch(70% 0.02 var(--v-accent-h)));
+    --v-accent: light-dark(oklch(calc(0.54 - 0.06 * var(--v-accent-dim)) 0.2 var(--v-accent-h)), oklch(76% 0.13 var(--v-accent-h)));
+    --v-accent-hover: light-dark(oklch(calc(0.48 - 0.06 * var(--v-accent-dim)) 0.2 var(--v-accent-h)), oklch(82% 0.11 var(--v-accent-h)));
+    --v-accent-2: light-dark(oklch(70% 0.14 calc(var(--v-accent-h) + 117)), oklch(80% 0.1 calc(var(--v-accent-h) + 122)));
+    --v-accent-text: light-dark(oklch(calc(0.5 - 0.06 * var(--v-accent-dim)) 0.2 var(--v-accent-h)), oklch(80% 0.12 var(--v-accent-h)));
+    --v-accent-soft: light-dark(oklch(calc(0.54 - 0.06 * var(--v-accent-dim)) 0.2 var(--v-accent-h) / 9%), oklch(76% 0.13 var(--v-accent-h) / 14%));
+    --v-on-accent: light-dark(oklch(100% 0 0deg), oklch(20% 0.05 var(--v-accent-h)));
+
+    /* Type */
+    --v-display-weight: 700;
+    --v-display-tracking: -0.04em;
+    --v-heading-weight: 650;
+
+    /* Shape */
+    --v-radius-sm: 10px;
+    --v-radius-md: 14px;
+    --v-radius-lg: 22px;
+    --v-radius-xl: 28px;
+    --v-radius-pill: 999px;
+
+    /* Depth */
+    --v-shadow-1: 0 1px 2px light-dark(oklch(30% 0.06 var(--v-accent-h) / 5%), oklch(0% 0 0deg / 25%)),
+                0 6px 18px -6px light-dark(oklch(30% 0.06 var(--v-accent-h) / 10%), oklch(0% 0 0deg / 35%));
+    --v-shadow-2: 0 2px 4px light-dark(oklch(30% 0.06 var(--v-accent-h) / 5%), oklch(0% 0 0deg / 25%)),
+                0 18px 48px -12px light-dark(oklch(30% 0.06 var(--v-accent-h) / 18%), oklch(0% 0 0deg / 55%));
+    --v-shadow-3: 0 40px 100px -24px light-dark(oklch(30% 0.08 var(--v-accent-h) / 35%), oklch(0% 0 0deg / 75%));
+
+    /* Components */
+    --v-btn-radius: var(--v-radius-pill);
+    --v-btn-shadow: 0 6px 16px -6px color-mix(in oklch, var(--v-accent) 60%, transparent);
+    --v-card-border: light-dark(oklch(100% 0 0deg / 0%), oklch(100% 0 0deg / 6%));
+    --v-input-bg: light-dark(oklch(97.5% 0.008 var(--v-accent-h)), oklch(20.5% 0.022 var(--v-accent-h)));
+
+    /* Feature surface */
+    --v-feature-bg: linear-gradient(150deg, light-dark(oklch(48% 0.2 var(--v-accent-h)), oklch(42% 0.16 var(--v-accent-h))), light-dark(oklch(50% 0.19 calc(var(--v-accent-h) + 52)), oklch(44% 0.14 calc(var(--v-accent-h) + 52))));
+    --v-feature-fg: oklch(100% 0 0deg);
+    --v-feature-fg-2: oklch(93% 0.03 var(--v-accent-h));
+    --v-feature-border: oklch(100% 0 0deg / 22%);
+
+    /* Backgrounds */
+    --v-hero-bg:
+      radial-gradient(45% 55% at 80% 15%, light-dark(oklch(85% 0.09 var(--v-accent-h) / 60%), oklch(50% 0.15 var(--v-accent-h) / 35%)), transparent 70%),
+      radial-gradient(35% 45% at 60% 75%, light-dark(oklch(90% 0.07 calc(var(--v-accent-h) + 122) / 60%), oklch(50% 0.1 calc(var(--v-accent-h) + 112) / 22%)), transparent 70%),
+      radial-gradient(35% 40% at 5% 20%, light-dark(oklch(90% 0.06 calc(var(--v-accent-h) - 78) / 50%), oklch(45% 0.08 calc(var(--v-accent-h) - 78) / 20%)), transparent 70%);
+  }
+}

@@ -3,7 +3,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 
-const ROOTS = ['src', 'dist', 'prototype'];
+const ROOTS = ['src', 'dist', 'prototype', 'examples'];
 const EXTENSIONS = new Set(['.css', '.js', '.mjs', '.html', '.svg']);
 // SVG/XML namespace identifiers are not fetched.
 const ALLOWED = [/^https?:\/\/www\.w3\.org\//];

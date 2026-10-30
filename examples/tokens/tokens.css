@@ -1,0 +1,124 @@
+/* Showcase styles for the token page only. Not part of the kit: real components arrive in M3. */
+body {
+  background: var(--v-page-bg), var(--v-bg);
+  background-attachment: fixed;
+  color: var(--v-text);
+  font: 400 var(--v-step-0) / 1.6 var(--v-font-body);
+}
+
+.wrap { inline-size: min(100% - 2rem, 72rem); margin-inline: auto; }
+main > section { margin-block: var(--v-space-7); }
+
+h1, h2, h3, .display, .title {
+  font-family: var(--v-font-display);
+  font-weight: var(--v-heading-weight);
+  letter-spacing: var(--v-heading-tracking);
+  line-height: 1.15;
+}
+h1 { font-size: var(--v-step-3); }
+h2 { font-size: var(--v-step-2); margin-block-end: var(--v-space-4); }
+h3 { font-family: var(--v-font-mono); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0; }
+
+.display {
+  font-size: var(--v-step-display);
+  font-weight: var(--v-display-weight);
+  letter-spacing: var(--v-display-tracking);
+  line-height: var(--v-display-leading);
+}
+.lead { max-inline-size: 40rem; color: var(--v-text-2); font-size: var(--v-step-1); }
+
+.bar { border-block-end: var(--v-border-w) solid var(--v-border); background: var(--v-surface); }
+.bar-inner { display: flex; flex-wrap: wrap; gap: var(--v-space-4); align-items: center; padding-block: var(--v-space-3); }
+.title { margin-inline-end: auto; font-size: 1.125rem; }
+.title span { color: var(--v-accent-text); }
+.bar label { display: flex; gap: var(--v-space-2); align-items: center; color: var(--v-text-2); font-size: 0.875rem; }
+
+.bar select {
+  min-block-size: 2.25rem;
+  padding-inline: 0.6rem;
+  border: var(--v-border-w) solid var(--v-border-control);
+  border-radius: var(--v-radius-sm);
+  background: var(--v-input-bg);
+  color: var(--v-text);
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); gap: var(--v-space-4); }
+
+.tile {
+  display: grid;
+  gap: var(--v-space-1);
+  padding: var(--v-space-4);
+  border: var(--v-border-w) solid var(--v-border);
+  border-radius: var(--v-radius-lg);
+  background: var(--tile);
+}
+.tile.card { background: var(--v-card-bg); background-image: var(--v-card-sheen); border-color: var(--v-card-border); box-shadow: var(--v-card-shadow); }
+.tile.feature { background: var(--v-feature-bg); border-color: var(--v-feature-border); color: var(--v-feature-fg); }
+.tile.feature .t2 { color: var(--v-feature-fg-2); }
+.t2 { color: var(--v-text-2); }
+.t3 { color: var(--v-text-3); }
+.ta { color: var(--v-accent-text); }
+
+.control {
+  margin-block-start: var(--v-space-2);
+  padding: 0.45rem 0.7rem;
+  border: var(--v-border-w) solid var(--v-border-control);
+  border-radius: var(--v-radius-md);
+  background: var(--v-input-bg);
+  color: var(--v-text-2);
+  font-size: 0.875rem;
+}
+
+.row { display: flex; flex-wrap: wrap; gap: var(--v-space-3); align-items: center; margin-block-end: var(--v-space-4); }
+
+.chip {
+  padding: 0.55rem 1rem;
+  border: var(--v-border-w) solid var(--v-btn-border);
+  border-radius: var(--v-btn-radius);
+  font-size: 0.9375rem;
+  font-weight: var(--v-btn-weight);
+}
+.chip.primary { background: var(--v-primary-bg); color: var(--v-primary-fg); box-shadow: var(--v-btn-shadow); }
+.chip.primary-hover { background: var(--v-primary-hover-bg); color: var(--v-primary-hover-fg); }
+.chip.accent { background: var(--v-accent); color: var(--v-on-accent); }
+.chip.danger { background: var(--v-danger); color: var(--v-on-danger); }
+.chip.soft { background: var(--v-accent-soft); color: var(--v-accent-text); }
+
+.swatch, .status, .radius, .shadow { font-size: 0.8125rem; font-weight: 560; }
+.swatch { display: inline-flex; gap: var(--v-space-2); align-items: center; color: var(--v-text-2); }
+.swatch i { inline-size: 1.75rem; block-size: 1.75rem; border-radius: 50%; background: var(--sw); }
+.status { padding: 0.3rem 0.75rem; border-radius: var(--v-radius-pill); background: var(--tone-soft); color: var(--tone); }
+
+.radius {
+  display: grid;
+  place-items: center;
+  inline-size: 4.5rem;
+  block-size: 3rem;
+  border: var(--v-border-w) solid var(--v-border-strong);
+  border-radius: var(--r);
+  background: var(--v-surface);
+}
+
+.shadow {
+  display: grid;
+  place-items: center;
+  inline-size: 8rem;
+  block-size: 4.5rem;
+  border-radius: var(--v-radius-lg);
+  background: var(--v-surface);
+  box-shadow: var(--s);
+}
+
+.spaces { display: flex; gap: var(--v-space-2); align-items: end; margin-block-start: var(--v-space-4); }
+
+.spaces span {
+  display: grid;
+  place-items: end center;
+  inline-size: var(--w);
+  min-inline-size: 1.5rem;
+  block-size: calc(var(--w) + 1.25rem);
+  border-radius: var(--v-radius-sm);
+  background: var(--v-accent-soft);
+  color: var(--v-accent-text);
+  font-size: 0.75rem;
+}

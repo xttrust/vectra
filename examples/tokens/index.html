@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Tokens</title>
+  <meta name="description" content="Every Vectra design token in every direction and theme.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="tokens.css">
+  <script src="tokens.js" defer></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap bar-inner">
+      <p class="title">Vectra <span>tokens</span></p>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h1>Design tokens</h1>
+      <p class="lead">Every surface, text and accent token, as the components will use them. Each pairing on this page is contrast-checked in CI for every direction, theme and accent hue.</p>
+    </section>
+
+    <section>
+      <h2>Surfaces and text</h2>
+      <div class="grid">
+        <article class="tile" style="--tile: var(--v-bg)"><h3>bg</h3><p>Text</p><p class="t2">Secondary text</p><p class="t3">Muted text</p><p class="ta">Accent text</p><span class="control">Control border</span></article>
+        <article class="tile" style="--tile: var(--v-bg-subtle)"><h3>bg-subtle</h3><p>Text</p><p class="t2">Secondary text</p><p class="t3">Muted text</p><p class="ta">Accent text</p><span class="control">Control border</span></article>
+        <article class="tile" style="--tile: var(--v-surface)"><h3>surface</h3><p>Text</p><p class="t2">Secondary text</p><p class="t3">Muted text</p><p class="ta">Accent text</p><span class="control">Control border</span></article>
+        <article class="tile" style="--tile: var(--v-surface-2)"><h3>surface-2</h3><p>Text</p><p class="t2">Secondary text</p><p class="t3">Muted text</p><p class="ta">Accent text</p><span class="control">Control border</span></article>
+        <article class="tile card"><h3>card</h3><p>Text</p><p class="t2">Secondary text</p><p class="t3">Muted text</p><p class="ta">Accent text</p><span class="control">Control border</span></article>
+        <article class="tile feature"><h3>feature</h3><p>Feature text</p><p class="t2">Feature secondary</p></article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Actions and accents</h2>
+      <div class="row">
+        <span class="chip primary">Primary</span>
+        <span class="chip primary-hover">Primary hover</span>
+        <span class="chip accent">On accent</span>
+        <span class="chip danger">On danger</span>
+        <span class="chip soft">Accent soft</span>
+        <span class="swatch"><i style="--sw: var(--v-accent-2)"></i>accent-2 (decorative: gradients and glows, never behind text)</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Status</h2>
+      <div class="row">
+        <span class="status" style="--tone: var(--v-success); --tone-soft: var(--v-success-soft)">Success</span>
+        <span class="status" style="--tone: var(--v-warning); --tone-soft: var(--v-warning-soft)">Warning</span>
+        <span class="status" style="--tone: var(--v-danger); --tone-soft: var(--v-danger-soft)">Danger</span>
+        <span class="status" style="--tone: var(--v-info); --tone-soft: var(--v-info-soft)">Info</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Shape and depth</h2>
+      <div class="row">
+        <span class="radius" style="--r: var(--v-radius-sm)">sm</span>
+        <span class="radius" style="--r: var(--v-radius-md)">md</span>
+        <span class="radius" style="--r: var(--v-radius-lg)">lg</span>
+        <span class="radius" style="--r: var(--v-radius-xl)">xl</span>
+        <span class="radius" style="--r: var(--v-radius-pill)">pill</span>
+      </div>
+      <div class="row">
+        <span class="shadow" style="--s: var(--v-shadow-1)">shadow-1</span>
+        <span class="shadow" style="--s: var(--v-shadow-2)">shadow-2</span>
+        <span class="shadow" style="--s: var(--v-shadow-3)">shadow-3</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Type and space</h2>
+      <p class="display">Display</p>
+      <p style="font-size: var(--v-step-3)">Step 3 heading</p>
+      <p style="font-size: var(--v-step-2)">Step 2 heading</p>
+      <p style="font-size: var(--v-step-1)">Step 1 lead text</p>
+      <p style="font-size: var(--v-step-0)">Step 0 body text</p>
+      <p style="font-size: var(--v-step-minus-1)">Step minus 1 small text</p>
+      <div class="spaces">
+        <span style="--w: var(--v-space-1)">1</span><span style="--w: var(--v-space-2)">2</span><span style="--w: var(--v-space-3)">3</span><span style="--w: var(--v-space-4)">4</span>
+        <span style="--w: var(--v-space-5)">5</span><span style="--w: var(--v-space-6)">6</span><span style="--w: var(--v-space-7)">7</span><span style="--w: var(--v-space-8)">8</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

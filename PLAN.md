@@ -1,6 +1,6 @@
 # Vectra v2: build plan
 
-Status: M0 (tooling, CI, tests) done 30 Oct 2026; M1 next. The prototype lives in `prototype/`.
+Status: M0 (tooling, CI, tests) and M1 (tokens, four directions) done 30 Oct 2026; M2 next. The prototype lives in `prototype/`.
 
 Vectra v1 (Bootstrap 5) stays unchanged in [xttrust/Vectra-UI-KIT](https://github.com/xttrust/Vectra-UI-KIT). This repo is v2, built from scratch.
 
@@ -97,10 +97,10 @@ dist/                       built output (committed on release tags only)
 Three tiers, as in the prototype but formalised:
 
 1. **Primitives:** type scale (fluid `clamp()`), space scale × `--v-density`, motion durations and easings, status colours, radius presets.
-2. **Semantic contract:** about 40 tokens every direction must define: `bg`, `bg-subtle`, `surface`, `surface-2`, `border`, `border-strong`, `text`, `text-2`, `text-3`, `accent`, `accent-hover`, `accent-text`, `accent-soft`, `on-accent`, `accent-2`, shadows 1 to 3, radii, fonts, display weight and tracking, feature surface. A Stylelint rule fails the build if a direction misses one.
+2. **Semantic contract** (`build/token-contract.json`): 25 required tokens every direction defines (surfaces, borders including `border-control`, text, accent set, radii, shadows) plus optional overrides with defaults in `src/css/tokens/semantic.css`. `npm run check:tokens` fails if a direction misses a required token or defines one outside the contract. `border-control` exists because WCAG 1.4.11 needs form-control borders at 3:1; the decorative `border` tokens stay subtle.
 3. **Component tokens:** defaults point at semantic tokens (`--v-btn-radius: var(--v-radius-md)`); directions override only where the personality needs it.
 
-Accent maths: each direction fixes OKLCH lightness per theme and exposes one `--v-accent-h`. The `cos()` correction darkens the green-cyan band in light themes. The contrast sweep (12 hues × 4 directions × 2 themes = 96 runs, already passing in the prototype) runs in CI.
+Accent maths: each direction fixes OKLCH lightness per theme and exposes one `--v-accent-h`. The `cos()` correction darkens the green-cyan band in light themes. In CI, `tests/tokens.spec.js` resolves every token for 4 directions × 2 themes × 13 hues and checks about 4,900 pairings (text 4.5:1, control borders and focus accent 3:1), and the prototype hue sweep runs axe on top.
 
 Directions ship as separate files. `vectra.css` includes all four for convenience; production sites load `vectra.core.css` plus one direction file.
 

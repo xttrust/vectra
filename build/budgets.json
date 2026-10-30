@@ -1,5 +1,7 @@
 {
-  "_note": "Gzipped byte ceilings from PLAN.md section 1. Split per-part budgets (core, each direction) arrive with M1.",
+  "_note": "Gzipped byte ceilings from PLAN.md section 1: core + one direction <= 8 KB; whole kit CSS <= 30 KB. A * matches every file in that folder.",
+  "dist/vectra.core.min.css": 6144,
+  "dist/directions/*.min.css": 2048,
   "dist/vectra.min.css": 30720,
   "dist/vectra.js": 11264
 }

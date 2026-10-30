@@ -8,7 +8,7 @@ export default [
   },
   js.configs.recommended,
   {
-    files: ['src/**/*.js', 'prototype/**/*.js'],
+    files: ['src/**/*.js', 'prototype/**/*.js', 'examples/**/*.js'],
     languageOptions: { globals: globals.browser },
   },
   {
