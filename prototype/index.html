@@ -13,7 +13,7 @@
       var light = matchMedia('(prefers-color-scheme: light)').matches;
       var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
       var d = get('vectra2-direction');
-      if (['tech', 'editorial', 'soft', 'aero'].indexOf(d) > -1) root.dataset.direction = d;
+      if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
       var t = get('vectra2-theme');
       root.dataset.theme = t === 'light' || t === 'dark' ? t : (light ? 'light' : 'dark');
       try {
@@ -82,7 +82,7 @@
       <label><input type="radio" name="direction" value="tech" checked><span>Dark tech</span></label>
       <label><input type="radio" name="direction" value="editorial"><span>Editorial</span></label>
       <label><input type="radio" name="direction" value="soft"><span>Soft depth</span></label>
-      <label><input type="radio" name="direction" value="aero"><span>Aero</span></label>
+      <label><input type="radio" name="direction" value="glass"><span>Glass</span></label>
     </fieldset>
     <span id="direction-hint" class="visually-hidden">Changes the look of every component on the page.</span>
 
@@ -117,7 +117,7 @@
           <span data-for="tech"><strong>Dark tech.</strong> Deep surfaces, hairline borders, a cool accent glow. Precise and quiet.</span>
           <span data-for="editorial"><strong>Editorial.</strong> Warm paper, serif display type, flat surfaces and ink-black actions.</span>
           <span data-for="soft"><strong>Soft depth.</strong> Layered surfaces, soft shadows, generous radii. Friendly and calm.</span>
-          <span data-for="aero"><strong>Aero.</strong> Frosted glass panels, glossy gel buttons and a sky wallpaper that glows through.</span>
+          <span data-for="glass"><strong>Glass.</strong> Frosted translucent panels floating over a vivid colour field. Light, layered and luminous.</span>
         </p>
       </div>
 
@@ -448,7 +448,7 @@
         <label class="cz-style"><input type="radio" name="cz-direction" value="tech"><span class="cz-thumb" data-thumb="tech" aria-hidden="true"><i></i><i></i><i></i></span><span>Dark tech</span></label>
         <label class="cz-style"><input type="radio" name="cz-direction" value="editorial"><span class="cz-thumb" data-thumb="editorial" aria-hidden="true"><i></i><i></i><i></i></span><span>Editorial</span></label>
         <label class="cz-style"><input type="radio" name="cz-direction" value="soft"><span class="cz-thumb" data-thumb="soft" aria-hidden="true"><i></i><i></i><i></i></span><span>Soft depth</span></label>
-        <label class="cz-style"><input type="radio" name="cz-direction" value="aero"><span class="cz-thumb" data-thumb="aero" aria-hidden="true"><i></i><i></i><i></i></span><span>Aero</span></label>
+        <label class="cz-style"><input type="radio" name="cz-direction" value="glass"><span class="cz-thumb" data-thumb="glass" aria-hidden="true"><i></i><i></i><i></i></span><span>Glass</span></label>
       </div>
     </fieldset>
 

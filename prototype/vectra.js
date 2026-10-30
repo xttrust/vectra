@@ -11,7 +11,7 @@
     set: (key, value) => { try { localStorage.setItem(key, value); } catch { /* private mode */ } },
   };
 
-  const DIRECTIONS = { tech: 'Dark tech', editorial: 'Editorial', soft: 'Soft depth', aero: 'Aero' };
+  const DIRECTIONS = { tech: 'Dark tech', editorial: 'Editorial', soft: 'Soft depth', glass: 'Glass' };
   const MODES = ['light', 'dark', 'auto'];
 
   // Runs a DOM update inside a view transition when the browser supports it.

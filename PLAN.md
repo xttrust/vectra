@@ -58,7 +58,7 @@ src/
       primitives.css        spacing, type scale, motion, radii scales, status colours
       semantic.css          default token contract every direction must fill
     directions/
-      tech.css  editorial.css  soft.css  aero.css
+      tech.css  editorial.css  soft.css  glass.css
     base.css                typography, focus, selection, icons
     layout.css              container, stack, cluster, grid, sidebar, switcher, bento
     utilities.css           ~60 helpers that real pages need, nothing speculative
@@ -138,7 +138,7 @@ Every v1 component maps to something above; the migration guide lists the exact 
 ## 8. Icons and fonts
 
 - **Icons:** curated set of about 150 SVGs in one sprite, `<svg><use href="sprite.svg#name">`. Source: Lucide (ISC licence, attribution in LICENSE) plus our own where needed. A build script makes the sprite and a per-project subset tool (`npx vectra-icons used.html` → only the icons that page uses).
-- **Fonts:** Inter variable, self-hosted, split latin / latin-ext with `unicode-range`. Target ≤ 45 KB for latin (the prototype ships the full 66 KB file). Aero keeps Segoe UI first on Windows. Mono uses the system stack.
+- **Fonts:** Inter variable, self-hosted, split latin / latin-ext with `unicode-range`. Target ≤ 45 KB for latin (the prototype ships the full 66 KB file). Mono uses the system stack.
 
 ## 9. Tooling (dev dependencies only)
 
@@ -174,7 +174,7 @@ Every v1 component maps to something above; the migration guide lists the exact 
 ## 10. Testing beyond CI
 
 - Manual screen reader pass per release: NVDA + Firefox (Windows), VoiceOver + Safari (macOS/iOS).
-- Real device pass: an iPhone and an Android phone, plus Windows Chrome for Aero with Segoe UI.
+- Real device pass: an iPhone and an Android phone (Glass blur performance especially), plus Windows Chrome.
 - Reduced motion, forced colours (Windows high contrast) and 200% zoom checks per release.
 
 ## 11. Docs site
@@ -228,6 +228,6 @@ One branch and one PR per milestone, each merged only with green checks. Sizes a
 
 - **Scope creep** is the main one. P1 and P2 stay out of v2.0, whatever happens.
 - **Newer CSS features** shift between browser versions; the fallbacks in section 3 must stay tested, not assumed.
-- **Aero's glass** costs GPU on low-end phones (many blurred layers). Mitigation: limit blur to panels in view, and a `prefers-reduced-transparency` fallback to solid surfaces.
+- **Glass blur** costs GPU on low-end phones (many blurred layers; in CI's software-rendered WebKit it is slow enough to stall tests). Mitigation: limit blur to surfaces in view, and the `prefers-reduced-transparency` fallback to solid surfaces, already in the prototype.
 - **Breaking change for v1 users.** Mitigation: v1 branch, migration guide, class map.
 - **Visual regression noise** from font rendering across machines. Mitigation: run visual tests in one pinned container image.
