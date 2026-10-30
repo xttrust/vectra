@@ -1,0 +1,57 @@
+/* Vectra direction: Editorial. Warm paper, serif display type, flat surfaces and ink-black actions.
+   Tokens only; component-level touches for this direction live with each component. */
+@layer tokens {
+  :root[data-direction="editorial"] {
+    /* Colour */
+    --v-bg: light-dark(oklch(97.2% 0.012 85deg), oklch(18% 0.008 70deg));
+    --v-bg-subtle: light-dark(oklch(95.2% 0.014 85deg), oklch(20.5% 0.009 70deg));
+    --v-surface: light-dark(oklch(98.5% 0.008 85deg), oklch(20.5% 0.009 70deg));
+    --v-surface-2: light-dark(oklch(93.5% 0.016 85deg), oklch(25% 0.01 70deg));
+    --v-border: light-dark(oklch(84% 0.016 80deg), oklch(36% 0.012 70deg));
+    --v-border-control: light-dark(oklch(24% 0.02 60deg), oklch(70% 0.015 80deg));
+    --v-border-strong: light-dark(oklch(24% 0.02 60deg), oklch(86% 0.015 80deg));
+    --v-text: light-dark(oklch(21% 0.02 55deg), oklch(94% 0.012 85deg));
+    --v-text-2: light-dark(oklch(38% 0.02 55deg), oklch(80% 0.012 80deg));
+    --v-text-3: light-dark(oklch(48% 0.02 55deg), oklch(68% 0.012 80deg));
+    --v-accent-h: 35;
+    --v-accent: light-dark(oklch(calc(0.52 - 0.05 * var(--v-accent-dim)) 0.16 var(--v-accent-h)), oklch(74% 0.14 var(--v-accent-h)));
+    --v-accent-hover: light-dark(oklch(calc(0.46 - 0.05 * var(--v-accent-dim)) 0.15 var(--v-accent-h)), oklch(80% 0.13 var(--v-accent-h)));
+    --v-accent-2: var(--v-accent);
+    --v-accent-text: light-dark(oklch(calc(0.5 - 0.05 * var(--v-accent-dim)) 0.16 var(--v-accent-h)), oklch(76% 0.13 var(--v-accent-h)));
+    --v-accent-soft: light-dark(oklch(calc(0.52 - 0.05 * var(--v-accent-dim)) 0.16 var(--v-accent-h) / 9%), oklch(74% 0.14 var(--v-accent-h) / 12%));
+    --v-on-accent: light-dark(oklch(99% 0.01 85deg), oklch(18% 0.01 60deg));
+
+    /* Type */
+    --v-font-display: var(--v-font-serif);
+    --v-display-weight: 500;
+    --v-display-tracking: -0.025em;
+    --v-display-leading: 0.98;
+    --v-heading-weight: 500;
+    --v-heading-tracking: -0.01em;
+
+    /* Shape */
+    --v-radius-sm: 0;
+    --v-radius-md: 2px;
+    --v-radius-lg: 2px;
+    --v-radius-xl: 3px;
+    --v-radius-pill: 2px;
+
+    /* Depth */
+    --v-shadow-1: none;
+    --v-shadow-2: none;
+    --v-shadow-3: 0 0 0 1px var(--v-border-strong);
+
+    /* Components */
+    --v-primary-bg: var(--v-text);
+    --v-primary-fg: var(--v-bg);
+    --v-primary-hover-bg: var(--v-accent);
+    --v-primary-hover-fg: var(--v-on-accent);
+    --v-btn-weight: 520;
+    --v-card-shadow: none;
+    --v-input-bg: transparent;
+
+    /* Feature surface */
+    --v-feature-bg: var(--v-bg);
+    --v-feature-border: var(--v-border);
+  }
+}

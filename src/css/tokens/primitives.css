@@ -1,0 +1,54 @@
+/* Primitives: shared by every direction. Directions may override the type settings and fonts,
+   never the scales themselves. */
+@layer tokens {
+  :root {
+    /* Type */
+    --v-font-sans: "Inter Var", ui-sans-serif, system-ui, -apple-system, "Segoe UI", roboto, sans-serif;
+    --v-font-serif: "Iowan Old Style", charter, "Bitstream Charter", "Sitka Text", cambria, georgia, serif;
+    --v-font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", menlo, consolas, monospace;
+    --v-step-minus-1: clamp(0.8rem, 0.78rem + 0.1vw, 0.875rem);
+    --v-step-0: clamp(0.95rem, 0.92rem + 0.15vw, 1.0625rem);
+    --v-step-1: clamp(1.125rem, 1.07rem + 0.3vw, 1.3rem);
+    --v-step-2: clamp(1.35rem, 1.24rem + 0.55vw, 1.7rem);
+    --v-step-3: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+    --v-step-display: clamp(2.6rem, 1.6rem + 4.6vw, 5.5rem);
+
+    /* Space, scaled by density (0.85 compact, 1 default, 1.15 spacious) */
+    --v-density: 1;
+    --v-space-1: calc(0.25rem * var(--v-density));
+    --v-space-2: calc(0.5rem * var(--v-density));
+    --v-space-3: calc(0.75rem * var(--v-density));
+    --v-space-4: calc(1rem * var(--v-density));
+    --v-space-5: calc(1.5rem * var(--v-density));
+    --v-space-6: calc(2rem * var(--v-density));
+    --v-space-7: calc(3rem * var(--v-density));
+    --v-space-8: calc(4.5rem * var(--v-density));
+    --v-control-h: calc(2.625rem * (1 + (var(--v-density) - 1) / 2));
+
+    /* Motion */
+    --v-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --v-ease-spring: linear(0, 0.18 4%, 0.6 12%, 0.94 22%, 1.06 30%, 1.04 38%, 1 50%, 0.995 70%, 1);
+    --v-dur-1: 120ms;
+    --v-dur-2: 220ms;
+    --v-dur-3: 380ms;
+
+    /* Lines */
+    --v-border-w: 1px;
+    --v-focus-w: 2px;
+
+    /* Status colours, shared by every direction */
+    --v-success: light-dark(oklch(46% 0.13 150deg), oklch(80% 0.15 152deg));
+    --v-warning: light-dark(oklch(52% 0.12 70deg), oklch(84% 0.14 80deg));
+    --v-danger: light-dark(oklch(50% 0.19 25deg), oklch(74% 0.16 25deg));
+    --v-info: light-dark(oklch(52% 0.13 245deg), oklch(78% 0.11 240deg));
+    --v-success-soft: light-dark(oklch(50% 0.13 150deg / 10%), oklch(80% 0.15 152deg / 12%));
+    --v-warning-soft: light-dark(oklch(60% 0.13 75deg / 12%), oklch(84% 0.14 80deg / 12%));
+    --v-danger-soft: light-dark(oklch(53% 0.19 25deg / 9%), oklch(74% 0.16 25deg / 13%));
+    --v-info-soft: light-dark(oklch(52% 0.13 245deg / 9%), oklch(78% 0.11 240deg / 12%));
+    --v-on-danger: light-dark(oklch(100% 0 0deg), oklch(18% 0.03 25deg));
+
+    /* 0..1, peaks for green-cyan accents, which read brighter than other hues at the same OKLCH
+       lightness. Directions subtract a little light-theme lightness with it to keep AA at any hue. */
+    --v-accent-dim: max(0, cos((var(--v-accent-h) - 180) * 1deg));
+  }
+}

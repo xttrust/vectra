@@ -1,0 +1,72 @@
+/* Vectra direction: Glass. Frosted translucent surfaces over a vivid colour field that follows the accent hue.
+   Tokens only; component-level touches for this direction live with each component. */
+@layer tokens {
+  :root[data-direction="glass"] {
+    /* Colour */
+    --v-accent-h: 290;
+    --v-bg: light-dark(oklch(93% 0.04 var(--v-accent-h)), oklch(17% 0.05 var(--v-accent-h)));
+    --v-bg-subtle: light-dark(oklch(100% 0 0deg / 35%), oklch(100% 0 0deg / 5%));
+    --v-surface: light-dark(oklch(100% 0 0deg / 74%), oklch(25% 0.045 var(--v-accent-h) / 74%));
+    --v-surface-2: light-dark(oklch(100% 0 0deg / 50%), oklch(100% 0 0deg / 10%));
+    --v-border: light-dark(oklch(100% 0 0deg / 65%), oklch(100% 0 0deg / 14%));
+    --v-border-control: light-dark(oklch(55% 0.06 var(--v-accent-h)), oklch(68% 0.03 var(--v-accent-h)));
+    --v-border-strong: light-dark(oklch(40% 0.06 var(--v-accent-h) / 30%), oklch(100% 0 0deg / 24%));
+    --v-text: light-dark(oklch(22% 0.05 var(--v-accent-h)), oklch(98% 0.01 var(--v-accent-h)));
+    --v-text-2: light-dark(oklch(35% 0.05 var(--v-accent-h)), oklch(89% 0.02 var(--v-accent-h)));
+    --v-text-3: light-dark(oklch(42% 0.045 var(--v-accent-h)), oklch(80% 0.025 var(--v-accent-h)));
+    --v-accent: light-dark(oklch(50% 0.2 var(--v-accent-h)), oklch(80% 0.13 var(--v-accent-h)));
+    --v-accent-hover: light-dark(oklch(44% 0.2 var(--v-accent-h)), oklch(86% 0.11 var(--v-accent-h)));
+    --v-accent-2: light-dark(oklch(50% 0.2 calc(var(--v-accent-h) + 50)), oklch(80% 0.13 calc(var(--v-accent-h) + 50)));
+    --v-accent-text: light-dark(oklch(45% 0.2 var(--v-accent-h)), oklch(85% 0.11 var(--v-accent-h)));
+    --v-accent-soft: light-dark(oklch(50% 0.2 var(--v-accent-h) / 14%), oklch(80% 0.13 var(--v-accent-h) / 18%));
+    --v-on-accent: light-dark(oklch(100% 0 0deg), oklch(20% 0.06 var(--v-accent-h)));
+
+    /* Type */
+    --v-display-weight: 650;
+    --v-display-tracking: -0.04em;
+    --v-heading-weight: 620;
+
+    /* Shape */
+    --v-radius-sm: 10px;
+    --v-radius-md: 14px;
+    --v-radius-lg: 20px;
+    --v-radius-xl: 26px;
+    --v-radius-pill: 999px;
+
+    /* Depth */
+    --v-shadow-1: 0 4px 16px light-dark(oklch(30% 0.12 var(--v-accent-h) / 10%), oklch(0% 0 0deg / 30%));
+    --v-shadow-2: 0 12px 40px light-dark(oklch(30% 0.12 var(--v-accent-h) / 18%), oklch(0% 0 0deg / 45%));
+    --v-shadow-3: 0 0 0 1px var(--v-border), 0 24px 64px light-dark(oklch(30% 0.12 var(--v-accent-h) / 25%), oklch(0% 0 0deg / 55%));
+
+    /* Components */
+    --v-btn-shadow: 0 6px 20px -6px color-mix(in oklch, var(--v-accent) 70%, transparent);
+    --v-card-bg: light-dark(oklch(100% 0 0deg / 38%), oklch(100% 0 0deg / 7%));
+    --v-card-border: light-dark(oklch(100% 0 0deg / 60%), oklch(100% 0 0deg / 14%));
+    --v-card-shadow: inset 0 1px 0 light-dark(oklch(100% 0 0deg / 70%), oklch(100% 0 0deg / 12%)), var(--v-shadow-1);
+    --v-card-sheen: linear-gradient(135deg, light-dark(oklch(100% 0 0deg / 35%), oklch(100% 0 0deg / 6%)), transparent 60%);
+    --v-input-bg: light-dark(oklch(100% 0 0deg / 55%), oklch(100% 0 0deg / 6%));
+
+    /* Feature surface */
+    --v-feature-bg: linear-gradient(135deg, oklch(46% 0.2 var(--v-accent-h) / 92%), oklch(42% 0.2 calc(var(--v-accent-h) + 50) / 92%));
+    --v-feature-fg: oklch(100% 0 0deg);
+    --v-feature-fg-2: oklch(95% 0.03 var(--v-accent-h));
+    --v-feature-border: oklch(100% 0 0deg / 30%);
+    --v-page-bg:
+      radial-gradient(42% 38% at 12% 18%, light-dark(oklch(78% 0.15 calc(var(--v-accent-h) + 50) / 55%), oklch(50% 0.2 calc(var(--v-accent-h) + 50) / 50%)), transparent 70%),
+      radial-gradient(38% 40% at 88% 12%, light-dark(oklch(82% 0.11 calc(var(--v-accent-h) - 90) / 50%), oklch(55% 0.13 calc(var(--v-accent-h) - 90) / 38%)), transparent 70%),
+      radial-gradient(50% 45% at 72% 78%, light-dark(oklch(80% 0.13 var(--v-accent-h) / 50%), oklch(45% 0.2 var(--v-accent-h) / 55%)), transparent 70%),
+      radial-gradient(40% 40% at 8% 88%, light-dark(oklch(88% 0.1 calc(var(--v-accent-h) - 160) / 45%), oklch(50% 0.12 calc(var(--v-accent-h) - 160) / 30%)), transparent 70%);
+  }
+}
+
+/* People who ask the OS for less transparency get solid surfaces. */
+@media (prefers-reduced-transparency: reduce) {
+  @layer tokens {
+    :root[data-direction="glass"] {
+      --v-card-bg: light-dark(oklch(98% 0.015 var(--v-accent-h)), oklch(24% 0.04 var(--v-accent-h)));
+      --v-surface: light-dark(oklch(99% 0.01 var(--v-accent-h)), oklch(26% 0.045 var(--v-accent-h)));
+      --v-surface-2: light-dark(oklch(95% 0.02 var(--v-accent-h)), oklch(30% 0.045 var(--v-accent-h)));
+      --v-bg-subtle: light-dark(oklch(96% 0.02 var(--v-accent-h)), oklch(22% 0.04 var(--v-accent-h)));
+    }
+  }
+}

@@ -1,0 +1,48 @@
+/* Semantic layer: theme switching and the defaults for every optional token.
+   Each direction must define the required contract (build/token-contract.json) and may override
+   any of the optional tokens below. */
+@layer tokens {
+  /* No data-theme: light-dark() follows the OS. data-theme forces one. */
+  :root[data-theme="light"] { color-scheme: light; }
+  :root[data-theme="dark"] { color-scheme: dark; }
+
+  :root {
+    color-scheme: light dark;
+
+    /* Type */
+    --v-font-body: var(--v-font-sans);
+    --v-font-display: var(--v-font-sans);
+    --v-display-weight: 650;
+    --v-display-tracking: -0.035em;
+    --v-display-leading: 1.02;
+    --v-heading-weight: 620;
+    --v-heading-tracking: -0.02em;
+
+    /* Buttons */
+    --v-primary-bg: var(--v-accent);
+    --v-primary-fg: var(--v-on-accent);
+    --v-primary-hover-bg: var(--v-accent-hover);
+    --v-primary-hover-fg: var(--v-on-accent);
+    --v-btn-radius: var(--v-radius-md);
+    --v-btn-weight: 560;
+    --v-btn-shadow: none;
+    --v-btn-border: transparent;
+
+    /* Cards and inputs */
+    --v-card-bg: var(--v-surface);
+    --v-card-border: var(--v-border);
+    --v-card-shadow: var(--v-shadow-1);
+    --v-card-sheen: none;
+    --v-input-bg: var(--v-surface);
+
+    /* Feature surface */
+    --v-feature-bg: var(--v-surface);
+    --v-feature-fg: var(--v-text);
+    --v-feature-fg-2: var(--v-text-2);
+    --v-feature-border: var(--v-border);
+
+    /* Backgrounds */
+    --v-page-bg: none;
+    --v-hero-bg: none;
+  }
+}

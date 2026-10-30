@@ -1,3 +1,6 @@
-/* Vectra v2 entry. Tokens, foundations and components land milestone by milestone (see PLAN.md). */
-@import url("./layers.css");
-@import url("./reset.css");
+/* Vectra v2, full bundle: core plus all four directions. Components land in later milestones (see PLAN.md). */
+@import url("./vectra.core.css");
+@import url("./directions/tech.css");
+@import url("./directions/editorial.css");
+@import url("./directions/soft.css");
+@import url("./directions/glass.css");

@@ -4,6 +4,7 @@ export const THEMES = ['light', 'dark'];
 
 export const PAGES = [
   { name: 'prototype', path: '/prototype/', storage: 'vectra2' },
+  { name: 'tokens', path: '/examples/tokens/', storage: 'vectra' },
 ];
 
 export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
