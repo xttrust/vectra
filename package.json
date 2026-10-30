@@ -5,7 +5,7 @@
   "description": "Vectra v2: a zero-dependency UI kit built on the web platform.",
   "license": "MIT",
   "author": "Florin Pinta (https://github.com/xttrust)",
-  "repository": "github:xttrust/Vectra-UI-KIT",
+  "repository": "github:xttrust/vectra",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -40,5 +40,6 @@
     "lightningcss": "1.33.0",
     "stylelint": "17.16.0",
     "stylelint-config-standard": "40.0.0"
-  }
+  },
+  "homepage": "https://xttrust.github.io/vectra/"
 }

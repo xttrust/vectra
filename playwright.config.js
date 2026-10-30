@@ -19,7 +19,7 @@ export default defineConfig({
   webServer: {
     command: 'node build/serve.mjs',
     env: { PORT: String(PORT) },
-    url: `http://127.0.0.1:${PORT}/v2/prototype/`,
+    url: `http://127.0.0.1:${PORT}/prototype/`,
     reuseExistingServer: !CI,
   },
   projects: [

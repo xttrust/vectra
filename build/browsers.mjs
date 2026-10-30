@@ -1,4 +1,4 @@
-/* The supported browser floor (v2/PLAN.md, section 3). Build targets and the baseline check both read this. */
+/* The supported browser floor (PLAN.md, section 3). Build targets and the baseline check both read this. */
 export const FLOOR = {
   chrome: '123',
   edge: '123',

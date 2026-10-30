@@ -3,12 +3,12 @@ import globals from 'globals';
 
 export default [
   {
-    // v1 assets are replaced in milestone M7; built and generated files are not source.
-    ignores: ['node_modules/', 'dist/', 'assets/', 'test-results/', 'playwright-report/', 'blob-report/'],
+    // Built and generated files are not source.
+    ignores: ['node_modules/', 'dist/', 'test-results/', 'playwright-report/', 'blob-report/'],
   },
   js.configs.recommended,
   {
-    files: ['src/**/*.js', 'v2/**/*.js'],
+    files: ['src/**/*.js', 'prototype/**/*.js'],
     languageOptions: { globals: globals.browser },
   },
   {

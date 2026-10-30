@@ -1,9 +1,9 @@
-/* Vectra loads nothing from the network: fails if v2 sources or builds reference an external URL.
-   v1 pages at the repo root still use CDNs and are excluded until they are ported (milestone M7). */
+/* Vectra loads nothing from the network: fails if sources, pages or builds reference an external URL.
+   Plain <a href> links are navigation, not loads, so they are allowed. */
 import { readdir, readFile } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 
-const ROOTS = ['src', 'dist', 'v2'];
+const ROOTS = ['src', 'dist', 'prototype'];
 const EXTENSIONS = new Set(['.css', '.js', '.mjs', '.html', '.svg']);
 // SVG/XML namespace identifiers are not fetched.
 const ALLOWED = [/^https?:\/\/www\.w3\.org\//];
@@ -22,7 +22,8 @@ async function* walk(dir) {
 const hits = [];
 for (const root of ROOTS) {
   for await (const file of walk(root)) {
-    const text = decodeURIComponent((await readFile(file, 'utf8')).replace(/%(?![0-9A-Fa-f]{2})/g, '%25'));
+    const text = decodeURIComponent((await readFile(file, 'utf8')).replace(/%(?![0-9A-Fa-f]{2})/g, '%25'))
+      .replace(/<a\s[^>]*>/g, '');
     for (const url of text.match(URL_PATTERN) ?? []) {
       if (!ALLOWED.some((re) => re.test(url))) hits.push(`${file}: ${url}`);
     }

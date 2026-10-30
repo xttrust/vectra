@@ -1,6 +1,8 @@
 # Vectra v2: build plan
 
-Status: decisions agreed 30 Oct 2026, awaiting go-ahead for M0. Nothing below is built yet except the prototype in `v2/prototype/`.
+Status: M0 (tooling, CI, tests) done 30 Oct 2026; M1 next. The prototype lives in `prototype/`.
+
+Vectra v1 (Bootstrap 5) stays unchanged in [xttrust/Vectra-UI-KIT](https://github.com/xttrust/Vectra-UI-KIT). This repo is v2, built from scratch.
 
 ## 1. What "best" means here
 
@@ -76,7 +78,8 @@ src/
   fonts/                    Inter variable, latin + latin-ext subsets
 build/                      small Node scripts: sprite, bundle, size report, manifest
 site/                       docs site source (uses the kit itself)
-examples/                   ported v1 pages and new templates
+prototype/                  the direction prototype (retired once the docs site covers it)
+examples/                   v1 pages rebuilt on v2, plus new templates
 tests/
   a11y/  interaction/  visual/  contrast/
 dist/                       built output (committed on release tags only)
@@ -197,7 +200,7 @@ Built with the kit itself, so the site is the biggest demo.
 
 - npm: `@creativeigniter/vectra` (same scope as AdminVora), `dist/` + `src/` published.
 - GitHub release zip with `dist/`, examples and fonts, for people who don't use npm.
-- Semver. v1 stays on a `v1` branch with security and bug fixes only. Changelog per release.
+- Semver, starting at 2.0.0 to follow on from v1. v1 stays in its own repo with bug fixes only. Changelog per release.
 - MIT licence unchanged.
 
 ## 13. Relationship to AdminVora
@@ -217,7 +220,7 @@ One branch and one PR per milestone, each merged only with green checks. Sizes a
 | M4 | P0 interactive components + JS core | L | keyboard tests pass in three engines |
 | M5 | Icon sprite pipeline + font subsetting | S | no external URLs, font ≤ 45 KB |
 | M6 | Docs site + theme builder | L | site builds from the kit, deploys |
-| M7 | Port v1 pages: 14 sections, 4 auth pages, components, forms, utilities, docs, index; add dashboard, pricing, settings, 404 examples | L | all pages pass the full CI matrix |
+| M7 | Rebuild the v1 pages on v2: 14 sections, 4 auth pages, components, forms, utilities, docs, index; add dashboard, pricing, settings, 404 examples | L | all pages pass the full CI matrix |
 | M8 | Hardening: screen readers, real devices, forced colours, zoom, performance | M | release checklist clean |
 | M9 | Release v2.0: npm, zip, README, migration guide, announcement | S | published |
 | v2.1 | P1 components | L | per component, same gates |
@@ -235,5 +238,5 @@ One branch and one PR per milestone, each merged only with green checks. Sizes a
 - **Scope creep** is the main one. P1 and P2 stay out of v2.0, whatever happens.
 - **Newer CSS features** shift between browser versions; the fallbacks in section 3 must stay tested, not assumed.
 - **Glass blur** costs GPU on low-end phones (many blurred layers; in CI's software-rendered WebKit it is slow enough to stall tests). Mitigation: limit blur to surfaces in view, and the `prefers-reduced-transparency` fallback to solid surfaces, already in the prototype.
-- **Breaking change for v1 users.** Mitigation: v1 branch, migration guide, class map.
+- **Breaking change for v1 users.** Mitigation: v1 stays available in its own repo, plus a migration guide and class map.
 - **Visual regression noise** from font rendering across machines. Mitigation: run visual tests in one pinned container image.

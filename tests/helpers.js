@@ -3,7 +3,7 @@ export const DIRECTIONS = ['tech', 'editorial', 'soft', 'glass'];
 export const THEMES = ['light', 'dark'];
 
 export const PAGES = [
-  { name: 'prototype', path: '/v2/prototype/', storage: 'vectra2' },
+  { name: 'prototype', path: '/prototype/', storage: 'vectra2' },
 ];
 
 export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
