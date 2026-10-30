@@ -1,0 +1,50 @@
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  html {
+    text-size-adjust: none;
+  }
+
+  body {
+    min-height: 100dvh;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  fieldset {
+    min-inline-size: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  ul[class],
+  ol[class] {
+    padding: 0;
+    list-style: none;
+  }
+}

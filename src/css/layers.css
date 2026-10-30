@@ -1,0 +1,2 @@
+/* Layer order for the whole kit. Later layers win, so specificity stays flat. */
+@layer reset, tokens, base, layout, components, directions, utilities;

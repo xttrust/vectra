@@ -1,0 +1,5 @@
+{
+  "_note": "Gzipped byte ceilings from v2/PLAN.md section 1. Split per-part budgets (core, each direction) arrive with M1.",
+  "dist/vectra.min.css": 30720,
+  "dist/vectra.js": 11264
+}
