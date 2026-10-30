@@ -93,3 +93,63 @@ test('token contrast: every direction, theme and accent hue', async ({ page }) =
   console.log(`token contrast: ${result.checks} pairings checked, lowest ${result.lowest}`);
   expect(result.failures).toEqual([]);
 });
+
+// Feature surfaces are gradients (and translucent in Glass), so they are rendered for real and the
+// text colours are checked against the worst pixel of the surface, page field included.
+test('feature surface contrast: every direction, theme and accent hue', async ({ page }) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 800, height: 600 });
+  await page.goto('/examples/tokens/');
+  await page.evaluate(() => {
+    const el = document.body.appendChild(document.createElement('div'));
+    el.id = 'feature-probe';
+    el.style.cssText = 'position: fixed; inset: 40px auto auto 40px; inline-size: 320px; block-size: 180px; background: var(--v-feature-bg); z-index: 10;';
+  });
+  const failures = [];
+  let lowest = { value: Infinity };
+  for (const direction of DIRECTIONS) {
+    for (const theme of THEMES) {
+      for (const hue of HUES) {
+        await page.evaluate(([d, t, h]) => {
+          const root = document.documentElement;
+          root.dataset.direction = d;
+          root.dataset.theme = t;
+          if (h === null) root.style.removeProperty('--v-accent-h'); else root.style.setProperty('--v-accent-h', String(h));
+        }, [direction, theme, hue]);
+        const png = (await page.locator('#feature-probe').screenshot({ animations: 'disabled' })).toString('base64');
+        const ratios = await page.evaluate(async (data) => {
+          const img = await createImageBitmap(await (await fetch(`data:image/png;base64,${data}`)).blob());
+          const canvas = new OffscreenCanvas(img.width, img.height);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          const px = ctx.getImageData(0, 0, img.width, img.height).data;
+          const lin = (v) => { const c = v / 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
+          const lum = (r, g, b) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+          let lo = 1; let hi = 0;
+          for (let i = 0; i < px.length; i += 4) { const l = lum(px[i], px[i + 1], px[i + 2]); lo = Math.min(lo, l); hi = Math.max(hi, l); }
+          const probe = document.body.appendChild(document.createElement('i'));
+          const out = {};
+          for (const name of ['feature-fg', 'feature-fg-2']) {
+            probe.style.color = `var(--v-${name})`;
+            const c2 = new OffscreenCanvas(1, 1).getContext('2d');
+            c2.fillStyle = getComputedStyle(probe).color;
+            c2.fillRect(0, 0, 1, 1);
+            const [r, g, b] = c2.getImageData(0, 0, 1, 1).data;
+            const f = lum(r, g, b);
+            // Worst case is whichever end of the surface's luminance range sits closest to the text.
+            out[name] = Math.min((Math.max(f, lo) + 0.05) / (Math.min(f, lo) + 0.05), (Math.max(f, hi) + 0.05) / (Math.min(f, hi) + 0.05));
+          }
+          probe.remove();
+          return out;
+        }, png);
+        for (const [name, value] of Object.entries(ratios)) {
+          const where = `${direction} · ${theme} · hue ${hue ?? 'default'} · ${name} on feature`;
+          if (value < lowest.value) lowest = { value, where };
+          if (value < 4.5) failures.push(`${where}: ${value.toFixed(2)} < 4.5`);
+        }
+      }
+    }
+  }
+  console.log(`feature contrast: lowest ${lowest.value.toFixed(2)} (${lowest.where})`);
+  expect(failures).toEqual([]);
+});

@@ -47,9 +47,11 @@
     --v-input-bg: light-dark(oklch(100% 0 0deg / 55%), oklch(100% 0 0deg / 6%));
 
     /* Feature surface */
-    --v-feature-bg: linear-gradient(135deg, oklch(46% 0.2 var(--v-accent-h) / 92%), oklch(42% 0.2 calc(var(--v-accent-h) + 50) / 92%));
+
+    /* Each stop is darkened by its own hue's brightness (green-cyan reads lighter at equal lightness). */
+    --v-feature-bg: linear-gradient(135deg, oklch(calc(0.46 - 0.08 * max(0, cos((var(--v-accent-h) - 180) * 1deg))) 0.2 var(--v-accent-h) / 92%), oklch(calc(0.42 - 0.08 * max(0, cos((var(--v-accent-h) + 50 - 180) * 1deg))) 0.2 calc(var(--v-accent-h) + 50) / 92%));
     --v-feature-fg: oklch(100% 0 0deg);
-    --v-feature-fg-2: oklch(95% 0.03 var(--v-accent-h));
+    --v-feature-fg-2: oklch(96% 0.025 var(--v-accent-h));
     --v-feature-border: oklch(100% 0 0deg / 30%);
     --v-page-bg:
       radial-gradient(42% 38% at 12% 18%, light-dark(oklch(78% 0.15 calc(var(--v-accent-h) + 50) / 55%), oklch(50% 0.2 calc(var(--v-accent-h) + 50) / 50%)), transparent 70%),

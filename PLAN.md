@@ -1,6 +1,6 @@
 # Vectra v2: build plan
 
-Status: M0 (tooling, CI, tests) and M1 (tokens, four directions) done 30 Oct 2026; M2 next. The prototype lives in `prototype/`.
+Status: M0 (tooling, CI, tests), M1 (tokens, four directions) and M2 (foundations) done 30 Oct 2026; M3 next. The prototype lives in `prototype/`.
 
 Vectra v1 (Bootstrap 5) stays unchanged in [xttrust/Vectra-UI-KIT](https://github.com/xttrust/Vectra-UI-KIT). This repo is v2, built from scratch.
 
@@ -27,7 +27,7 @@ What we deliberately do not chase: a React-only component library (shadcn/ui own
 1. **Platform first.** Use the native element when one exists: `<dialog>`, `popover`, `<details name>`, `:user-invalid`, `<progress>`, `<input type="range">`. JS only adds what HTML cannot do.
 2. **Tokens drive everything.** Components never hard-code colour, radius, spacing or type. A direction is just a token set plus a few flourishes.
 3. **Progressive enhancement.** Newer features (anchor positioning, view transitions, scroll-driven animation, `@starting-style`) enhance; the fallback is always usable.
-4. **Flat specificity.** Cascade layers, single-class selectors, no `!important` except the reduced-motion override.
+4. **Flat specificity.** Cascade layers, single-class selectors, no `!important` except the reduced-motion override (which switches transitions off rather than shortening them, so style changes never read back stale).
 5. **Small by default.** Every component lives in its own file; the full bundle is a convenience, not a requirement.
 6. **Accessible by construction.** Contrast is built into the token maths (OKLCH lightness per direction, hue correction), not fixed afterwards.
 
@@ -151,7 +151,7 @@ Every v1 component maps to something above; the migration guide lists the exact 
 |---|---|
 | Lightning CSS | bundle `@import`s, minify, set browser targets |
 | esbuild | bundle and minify JS (ESM + IIFE) |
-| Stylelint | CSS rules, including the token-contract check and "no hard-coded colours in components" |
+| Stylelint | CSS rules, including "no hard-coded colours" outside tokens and directions (the token contract is a separate script, `check:tokens`) |
 | ESLint | JS |
 | Playwright + axe-core | a11y, keyboard, contrast sweep, visual regression, Chromium + Firefox + WebKit |
 | Eleventy | docs site (static, no client framework) |

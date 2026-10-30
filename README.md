@@ -14,9 +14,9 @@ A UI kit built on the web platform, with nothing to install at runtime: no Boots
 
 ## Using it today
 
-`dist/vectra.css` is the full bundle. For production, load `dist/vectra.core.css` plus one file from `dist/directions/` and set `data-direction` on `<html>`. Without `data-theme`, light and dark follow the OS. Components arrive from milestone M3, so for now this is the token layer.
+`dist/vectra.css` is the full bundle. For production, load `dist/vectra.core.css` plus one file from `dist/directions/` and set `data-direction` on `<html>`. Without `data-theme`, light and dark follow the OS. It includes base typography, layout primitives (`.v-container`, `.v-stack`, `.v-cluster`, `.v-grid`, `.v-sidebar`, `.v-switcher`, `.v-bento`) and utilities. Components arrive from milestone M3.
 
-The token reference page is at `/examples/tokens/` (run `npm run serve`).
+Reference pages (run `npm run serve`): `/examples/tokens/` and `/examples/layout/`.
 
 ## Try the prototype
 

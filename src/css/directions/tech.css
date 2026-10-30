@@ -44,6 +44,8 @@
     /* Feature surface */
     --v-feature-bg: radial-gradient(90% 70% at 100% 0%, oklch(82% 0.13 var(--v-accent-h) / 20%), transparent 70%), oklch(19% 0.022 240deg);
     --v-feature-border: oklch(82% 0.13 var(--v-accent-h) / 35%);
+    --v-feature-fg: oklch(97% 0.005 250deg);
+    --v-feature-fg-2: oklch(82% 0.015 250deg);
 
     /* Backgrounds */
     --v-hero-bg:

@@ -1,0 +1,88 @@
+/* Layout primitives. Each one does a single job and is tuned with a custom property, not modifiers. */
+@layer layout {
+  /* Centred column with fluid side gutters. */
+  .v-container {
+    inline-size: min(100% - 2 * clamp(1rem, 4vw, 2rem), var(--v-container-max, 76rem));
+    margin-inline: auto;
+  }
+
+  .v-container-narrow { --v-container-max: 48rem; }
+  .v-container-wide { --v-container-max: 90rem; }
+
+  /* Vertical rhythm: children spaced by --v-gap. */
+  .v-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--v-gap, var(--v-space-4));
+  }
+
+  /* Inline group that wraps: buttons, tags, toolbars. */
+  .v-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-gap, var(--v-space-3));
+    align-items: center;
+  }
+
+  /* As many columns as fit, each at least --v-min wide. */
+  .v-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--v-min, 16rem)), 1fr));
+    gap: var(--v-gap, var(--v-space-4));
+  }
+
+  /* Side panel + content. Stacks once the content would get narrower than --v-content-min. */
+  .v-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-gap, var(--v-space-5));
+  }
+
+  .v-sidebar > :first-child { flex: 1 1 var(--v-side, 16rem); }
+
+  .v-sidebar > :last-child {
+    flex: 999 1 0;
+    min-inline-size: var(--v-content-min, 55%);
+  }
+
+  /* Equal columns in a row, all stacking together below --v-switch (no media query). */
+  .v-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-gap, var(--v-space-4));
+  }
+
+  .v-switcher > * { flex: 1 1 calc((var(--v-switch, 36rem) - 100%) * 999); }
+
+  /* 12-column bento. Spans apply from 48rem; everything is full width below. */
+  .v-bento {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--v-gap, clamp(0.875rem, 1.6vw, 1.25rem));
+  }
+
+  .v-bento > * { grid-column: 1 / -1; }
+
+  @media (width >= 48rem) {
+    .v-span-4,
+    .v-span-5,
+    .v-span-6,
+    .v-span-7,
+    .v-span-8 {
+      grid-column: span 6;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .v-span-4 { grid-column: span 4; }
+    .v-span-5 { grid-column: span 5; }
+    .v-span-7 { grid-column: span 7; }
+    .v-span-8 { grid-column: span 8; }
+  }
+
+  /* Page section rhythm. */
+  .v-section { padding-block: var(--v-section-pad, clamp(3rem, 7vw, 6rem)); }
+
+  /* Makes an element a size container so children can use @container queries. */
+  .v-cq { container-type: inline-size; }
+}
