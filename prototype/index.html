@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" data-direction="tech" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Vectra v2 · Direction prototype</title>
+  <meta name="description" content="Vectra v2 direction prototype: one component set, four visual directions, light and dark themes, zero dependencies.">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var directions = ['tech', 'editorial', 'soft', 'bold'];
+      try {
+        var d = localStorage.getItem('vectra2-direction');
+        var t = localStorage.getItem('vectra2-theme');
+        if (directions.indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') { root.dataset.theme = t; return; }
+      } catch (e) {}
+      root.dataset.theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%276%27 fill=%27%2300b4c4%27/%3E%3Cpath d=%27M6 7l6 11 6-11%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%272.6%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="vectra.css">
+  <script src="vectra.js" defer></script>
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="currentColor" stop-opacity=".28"/>
+      <stop offset="1" stop-color="currentColor" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <symbol id="i-logo" viewBox="0 0 24 24"><path d="M5 6l7 13 7-13"/><path d="M9.5 6h5"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3.2"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/><path d="M19 17v4M17 19h4"/></symbol>
+  <symbol id="i-trend-up" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></symbol>
+  <symbol id="i-trend-down" viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 8M15 17h6v-6"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="#main" aria-label="Vectra home">
+      <span class="brand-mark"><svg class="i" aria-hidden="true"><use href="#i-logo"/></svg></span>
+      <span class="brand-name">Vectra</span>
+      <span class="badge badge-outline">v2 prototype</span>
+    </a>
+
+    <fieldset class="segmented" aria-describedby="direction-hint">
+      <legend class="visually-hidden">Design direction</legend>
+      <label><input type="radio" name="direction" value="tech" checked><span>Dark tech</span></label>
+      <label><input type="radio" name="direction" value="editorial"><span>Editorial</span></label>
+      <label><input type="radio" name="direction" value="soft"><span>Soft depth</span></label>
+      <label><input type="radio" name="direction" value="bold"><span>Bold</span></label>
+    </fieldset>
+    <span id="direction-hint" class="visually-hidden">Changes the look of every component on the page.</span>
+
+    <button class="btn btn-icon btn-ghost" type="button" data-theme-toggle aria-label="Switch to light theme">
+      <svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Zero dependencies. Zero CDNs.</p>
+        <h1 class="display">Interfaces with <em>nothing</em> left to install.</h1>
+        <p class="lead">Vectra v2 is built on the platform: native dialogs, popovers, anchor positioning and container queries. Pick a direction above and every component follows.</p>
+        <div class="cluster">
+          <a class="btn btn-primary btn-lg" href="#components">Explore components <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn-secondary btn-lg" href="#theming">How theming works</a>
+        </div>
+        <dl class="hero-stats">
+          <div><dt>Dependencies</dt><dd>0</dd></div>
+          <div><dt>Themes per direction</dt><dd>2</dd></div>
+          <div><dt>Contrast target</dt><dd>WCAG AA</dd></div>
+        </dl>
+        <p class="direction-note">
+          <span data-for="tech"><strong>Dark tech.</strong> Deep surfaces, hairline borders, a cool accent glow. Precise and quiet.</span>
+          <span data-for="editorial"><strong>Editorial.</strong> Warm paper, serif display type, flat surfaces and ink-black actions.</span>
+          <span data-for="soft"><strong>Soft depth.</strong> Layered surfaces, soft shadows, generous radii. Friendly and calm.</span>
+          <span data-for="bold"><strong>Bold.</strong> Heavy type, thick outlines, hard shadows and loud colour.</span>
+        </p>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="mock mock-main">
+          <div class="mock-head">
+            <span class="mock-title">Revenue</span>
+            <span class="badge badge-success"><svg class="i" aria-hidden="true"><use href="#i-trend-up"/></svg>12.4%</span>
+          </div>
+          <div class="mock-value">€48,210</div>
+          <svg class="bars" viewBox="0 0 240 96" preserveAspectRatio="none">
+            <rect x="0" y="52" width="14" height="44" rx="3"/><rect x="20" y="40" width="14" height="56" rx="3"/>
+            <rect x="40" y="58" width="14" height="38" rx="3"/><rect x="60" y="34" width="14" height="62" rx="3"/>
+            <rect x="80" y="44" width="14" height="52" rx="3"/><rect x="100" y="26" width="14" height="70" rx="3"/>
+            <rect x="120" y="38" width="14" height="58" rx="3"/><rect x="140" y="20" width="14" height="76" rx="3"/>
+            <rect x="160" y="30" width="14" height="66" rx="3"/><rect x="180" y="14" width="14" height="82" rx="3"/>
+            <rect x="200" y="22" width="14" height="74" rx="3"/><rect class="is-current" x="220" y="6" width="14" height="90" rx="3"/>
+          </svg>
+          <div class="mock-foot"><span>Last 12 months</span><span>Updated just now</span></div>
+        </div>
+        <div class="mock mock-toast">
+          <span class="mock-icon"><svg class="i"><use href="#i-check-circle"/></svg></span>
+          <div><strong>Invoice #1042 paid</strong><span>€1,499.00 · 2 min ago</span></div>
+        </div>
+        <div class="mock mock-team">
+          <div class="avatars"><span class="avatar" style="--h: 20">AK</span><span class="avatar" style="--h: 160">RM</span><span class="avatar" style="--h: 280">JS</span></div>
+          <span>3 online</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="components" class="section">
+    <div class="container">
+      <header class="section-head">
+        <p class="kicker">Components</p>
+        <h2>One component set, four personalities.</h2>
+        <p>Every element below reads its look from design tokens. The markup is identical in all four directions.</p>
+      </header>
+
+      <div class="bento">
+
+        <article class="panel span-7 reveal">
+          <p class="panel-label">01 · Type &amp; colour</p>
+          <div class="specimen">
+            <div class="specimen-aa">Aa</div>
+            <div class="stack-sm">
+              <p class="specimen-h">Display heading</p>
+              <p class="specimen-body">Body copy is set for long reading: comfortable measure, generous line height and balanced headings.</p>
+              <p class="specimen-mono">--v-accent: oklch(…)</p>
+            </div>
+          </div>
+          <ul class="swatches" aria-label="Colour tokens">
+            <li style="--sw: var(--bg)"><span>bg</span></li>
+            <li style="--sw: var(--surface-2)"><span>surface</span></li>
+            <li style="--sw: var(--text)"><span>text</span></li>
+            <li style="--sw: var(--accent)"><span>accent</span></li>
+            <li style="--sw: var(--success)"><span>success</span></li>
+            <li style="--sw: var(--warning)"><span>warning</span></li>
+            <li style="--sw: var(--danger)"><span>danger</span></li>
+            <li style="--sw: var(--info)"><span>info</span></li>
+          </ul>
+        </article>
+
+        <article class="panel span-5 reveal">
+          <p class="panel-label">02 · Buttons</p>
+          <div class="stack">
+            <div class="cluster">
+              <button class="btn btn-primary" type="button">Primary</button>
+              <button class="btn btn-secondary" type="button">Secondary</button>
+              <button class="btn btn-ghost" type="button">Ghost</button>
+            </div>
+            <div class="cluster">
+              <button class="btn btn-primary btn-sm" type="button"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>New project</button>
+              <button class="btn btn-danger btn-sm" type="button"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+              <button class="btn btn-secondary btn-sm" type="button" aria-busy="true" disabled>Saving</button>
+            </div>
+            <div class="cluster">
+              <button class="btn btn-icon btn-secondary" type="button" aria-label="Search"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></button>
+              <button class="btn btn-icon btn-secondary" type="button" aria-label="Notifications"><svg class="i" aria-hidden="true"><use href="#i-bell"/></svg></button>
+              <span class="has-tooltip">
+                <button class="btn btn-icon btn-secondary" type="button" aria-label="Edit" aria-describedby="tip-edit"><svg class="i" aria-hidden="true"><use href="#i-edit"/></svg></button>
+                <span class="tooltip" role="tooltip" id="tip-edit">Edit (E)</span>
+              </span>
+              <span class="badge">Default</span>
+              <span class="badge badge-accent">New</span>
+              <span class="badge badge-success">Paid</span>
+              <span class="badge badge-danger">Overdue</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel span-12 reveal">
+          <p class="panel-label">03 · Stats <span class="muted">(container queries: resize the window)</span></p>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-head"><span>Monthly revenue</span><span class="badge badge-success"><svg class="i" aria-hidden="true"><use href="#i-trend-up"/></svg>8.2%</span></div>
+              <p class="stat-value">€12,940</p>
+              <svg class="spark" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0 30L10 28L20 31L30 22L40 24L50 18L60 20L70 14L80 16L90 9L100 11L110 6L120 8L120 40L0 40Z"/><path class="spark-line" d="M0 30L10 28L20 31L30 22L40 24L50 18L60 20L70 14L80 16L90 9L100 11L110 6L120 8"/></svg>
+            </div>
+            <div class="stat">
+              <div class="stat-head"><span>Churn</span><span class="badge badge-danger"><svg class="i" aria-hidden="true"><use href="#i-trend-down"/></svg>1.1%</span></div>
+              <p class="stat-value">2.4%</p>
+              <svg class="spark" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0 10L10 14L20 12L30 18L40 16L50 22L60 19L70 25L80 23L90 28L100 26L110 31L120 29L120 40L0 40Z"/><path class="spark-line" d="M0 10L10 14L20 12L30 18L40 16L50 22L60 19L70 25L80 23L90 28L100 26L110 31L120 29"/></svg>
+            </div>
+            <div class="stat">
+              <div class="stat-head"><span>Active clients</span><span class="badge badge-success"><svg class="i" aria-hidden="true"><use href="#i-trend-up"/></svg>14</span></div>
+              <p class="stat-value">186</p>
+              <svg class="spark" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area" d="M0 25L10 20L20 24L30 15L40 19L50 12L60 17L70 10L80 14L90 8L100 13L110 9L120 5L120 40L0 40Z"/><path class="spark-line" d="M0 25L10 20L20 24L30 15L40 19L50 12L60 17L70 10L80 14L90 8L100 13L110 9L120 5"/></svg>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel span-7 reveal">
+          <p class="panel-label">04 · Forms <span class="muted">(validation after you type, no JS)</span></p>
+          <form class="form" id="workspace-form">
+            <div class="form-row">
+              <div class="field">
+                <label for="ws-name">Workspace name</label>
+                <input class="input" id="ws-name" name="name" required minlength="3" placeholder="Acme Studio" autocomplete="organization">
+                <p class="hint">At least 3 characters.</p>
+                <p class="error">Give the workspace a name of 3 or more characters.</p>
+              </div>
+              <div class="field">
+                <label for="ws-email">Work email</label>
+                <input class="input" id="ws-email" name="email" type="email" required placeholder="you@company.com" autocomplete="email">
+                <p class="hint">We'll send the invite here.</p>
+                <p class="error">Enter a valid email address.</p>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="ws-plan">Plan</label>
+                <div class="select">
+                  <select class="input" id="ws-plan" name="plan">
+                    <option>Starter</option>
+                    <option selected>Team</option>
+                    <option>Enterprise</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="ws-seats">Seats <output for="ws-seats" id="ws-seats-out">8</output></label>
+                <input class="range" id="ws-seats" name="seats" type="range" min="1" max="50" value="8">
+              </div>
+            </div>
+            <div class="check-row">
+              <label class="check"><input type="checkbox" name="updates" checked> Product updates</label>
+              <label class="check"><input type="checkbox" role="switch" class="switch" name="2fa" checked> Require 2FA</label>
+            </div>
+            <div class="cluster">
+              <button class="btn btn-primary" type="submit">Create workspace</button>
+              <button class="btn btn-ghost" type="reset">Reset</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="panel span-5 reveal">
+          <p class="panel-label">05 · Overlays <span class="muted">(native dialog + popover)</span></p>
+          <div class="stack">
+            <p class="muted">Dialogs trap focus and close on Escape for free. On phones the dialog becomes a bottom sheet.</p>
+            <div class="cluster">
+              <button class="btn btn-primary" type="button" data-dialog-open="invite-dialog"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Invite team</button>
+              <button class="btn btn-secondary menu-trigger" type="button" popovertarget="options-menu">Options <svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></button>
+              <button class="btn btn-ghost" type="button" data-toast="Changes saved">Show toast</button>
+            </div>
+            <div class="menu" id="options-menu" popover>
+              <button type="button"><svg class="i" aria-hidden="true"><use href="#i-edit"/></svg>Rename</button>
+              <button type="button"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button>
+              <button type="button"><svg class="i" aria-hidden="true"><use href="#i-archive"/></svg>Archive</button>
+              <hr>
+              <button type="button" class="is-danger" data-tone="danger"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+            </div>
+            <div class="callout">
+              <svg class="i" aria-hidden="true"><use href="#i-sparkle"/></svg>
+              <p>The menu is placed with CSS anchor positioning and flips when it runs out of room. Older browsers get a 10-line JS fallback.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel span-6 reveal">
+          <p class="panel-label">06 · Tabs</p>
+          <div class="tabs">
+            <div class="tablist" role="tablist" aria-label="Project views">
+              <button role="tab" type="button" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+              <button role="tab" type="button" id="tab-activity" aria-controls="panel-activity" aria-selected="false">Activity</button>
+              <button role="tab" type="button" id="tab-settings" aria-controls="panel-settings" aria-selected="false">Settings</button>
+              <span class="tabs-indicator" aria-hidden="true"></span>
+            </div>
+            <div class="tabpanel" role="tabpanel" id="panel-overview" aria-labelledby="tab-overview" tabindex="0">
+              <p>Arrow keys move between tabs, Home and End jump to the ends. The indicator slides to the active tab.</p>
+              <div class="progress-row"><span>Launch checklist</span><span>68%</span></div>
+              <progress value="68" max="100" aria-label="Launch checklist">68%</progress>
+            </div>
+            <div class="tabpanel" role="tabpanel" id="panel-activity" aria-labelledby="tab-activity" tabindex="0" hidden>
+              <ul class="timeline">
+                <li><strong>Site deployed</strong><span>Today, 09:12</span></li>
+                <li><strong>New review approved</strong><span>Yesterday, 17:40</span></li>
+                <li><strong>Domain connected</strong><span>Mon, 11:05</span></li>
+              </ul>
+            </div>
+            <div class="tabpanel" role="tabpanel" id="panel-settings" aria-labelledby="tab-settings" tabindex="0" hidden>
+              <div class="stack-sm">
+                <label class="check"><input type="checkbox" role="switch" class="switch" checked> Email notifications</label>
+                <label class="check"><input type="checkbox" role="switch" class="switch"> Weekly report</label>
+                <label class="check"><input type="checkbox" role="switch" class="switch" checked> Public status page</label>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel span-6 reveal">
+          <p class="panel-label">07 · Feedback</p>
+          <div class="stack-sm">
+            <div class="alert" data-tone="info"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><div><strong>Heads up.</strong> Maintenance on Sunday from 02:00.</div></div>
+            <div class="alert" data-tone="success"><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><div><strong>Payment received.</strong> Your invoice is marked as paid.</div></div>
+            <div class="alert" data-tone="warning"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg><div><strong>Storage at 85%.</strong> Upgrade before it fills up.</div></div>
+            <div class="alert" data-tone="danger"><svg class="i" aria-hidden="true"><use href="#i-x-circle"/></svg><div><strong>Card declined.</strong> Update your billing details.</div></div>
+          </div>
+        </article>
+
+        <article class="panel panel-feature span-5 reveal">
+          <p class="panel-label">08 · Feature card</p>
+          <div class="pricing">
+            <div class="pricing-head">
+              <h3>Team</h3>
+              <span class="badge badge-accent">Most popular</span>
+            </div>
+            <p class="price"><span class="price-amount">€24</span><span class="price-unit">per seat / month</span></p>
+            <ul class="checklist">
+              <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Unlimited projects</li>
+              <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Shared design tokens</li>
+              <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Priority support</li>
+            </ul>
+            <button class="btn btn-primary btn-block" type="button" data-toast="Trial started">Start free trial</button>
+          </div>
+        </article>
+
+        <article class="panel span-7 reveal">
+          <p class="panel-label">09 · Accordion <span class="muted">(exclusive &lt;details&gt;, no JS)</span></p>
+          <div class="accordion">
+            <details name="faq" open>
+              <summary>Does it need a build step?<svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+              <div class="details-body"><p>No. Link one CSS file and one JS file. A build step is only there if you want to pick individual modules.</p></div>
+            </details>
+            <details name="faq">
+              <summary>Which browsers are supported?<svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+              <div class="details-body"><p>Current Chrome, Edge, Safari and Firefox. Newer features like anchor positioning enhance progressively.</p></div>
+            </details>
+            <details name="faq">
+              <summary>Can I make my own direction?<svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+              <div class="details-body"><p>Yes. A direction is a block of about 40 tokens. Copy one, change the values, and every component follows.</p></div>
+            </details>
+          </div>
+        </article>
+
+        <article class="panel span-12 reveal" id="theming">
+          <p class="panel-label">10 · Theming</p>
+          <div class="theming">
+            <div class="stack-sm">
+              <h3>Two attributes. That's the whole API.</h3>
+              <p class="muted">Set a direction and a theme on the root element. Colours use <code>light-dark()</code>, so each direction defines both themes in one place.</p>
+            </div>
+            <div class="code">
+              <div class="code-head"><span>HTML</span><button class="btn btn-ghost btn-sm" type="button" data-copy="#code-theming"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button></div>
+              <pre id="code-theming"><code>&lt;html data-direction="soft" data-theme="dark"&gt;
+  &lt;link rel="stylesheet" href="vectra.css"&gt;
+  &lt;script src="vectra.js" defer&gt;&lt;/script&gt;</code></pre>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>Vectra v2 direction prototype. MIT licence.</p>
+    <a href="../../index.html">Back to Vectra v1</a>
+  </div>
+</footer>
+
+<dialog class="modal" id="invite-dialog" aria-labelledby="invite-title">
+  <form method="dialog" class="modal-inner">
+    <header class="modal-head">
+      <div>
+        <h2 id="invite-title">Invite your team</h2>
+        <p class="muted">They'll get an email with a link to join.</p>
+      </div>
+      <button class="btn btn-icon btn-ghost" type="button" data-dialog-close aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </header>
+    <div class="field">
+      <label for="invite-email">Email address</label>
+      <input class="input" id="invite-email" name="email" type="email" required placeholder="colleague@company.com" autocomplete="off">
+      <p class="error">Enter a valid email address.</p>
+    </div>
+    <div class="field">
+      <label for="invite-role">Role</label>
+      <div class="select">
+        <select class="input" id="invite-role" name="role">
+          <option>Viewer</option>
+          <option selected>Editor</option>
+          <option>Admin</option>
+        </select>
+      </div>
+    </div>
+    <footer class="modal-foot">
+      <button class="btn btn-ghost" type="submit" value="cancel" formnovalidate>Cancel</button>
+      <button class="btn btn-primary" type="submit" value="send">Send invite</button>
+    </footer>
+  </form>
+</dialog>
+
+<div class="toast-region" id="toasts" popover="manual" role="status" aria-live="polite"></div>
+
+</body>
+</html>
