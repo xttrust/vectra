@@ -1,6 +1,6 @@
 # Vectra v2: build plan
 
-Status: M0 (tooling, CI, tests), M1 (tokens, four directions) and M2 (foundations) done 30 Oct 2026; M3.1 done 31 Oct 2026; M3.2 next. The prototype lives in `prototype/`. Everything Vectra will contain, by tier and milestone, is in [CATALOGUE.md](CATALOGUE.md).
+Status: M0 (tooling, CI, tests), M1 (tokens, four directions) and M2 (foundations) done 30 Oct 2026; M3 (all static P0 components, seven gallery pages) and the M4 JS core done 31 Oct 2026; M4 modules next. The prototype lives in `prototype/`. Everything Vectra will contain, by tier and milestone, is in [CATALOGUE.md](CATALOGUE.md).
 
 Vectra v1 (Bootstrap 5) stays unchanged in [xttrust/Vectra-UI-KIT](https://github.com/xttrust/Vectra-UI-KIT). This repo is v2, built from scratch.
 
