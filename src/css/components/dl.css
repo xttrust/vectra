@@ -1,0 +1,59 @@
+/* Description list on <dl>: each term and its details sit in a <div> row (valid HTML).
+   Stacked by default; .v-dl-cols puts term and details side by side once the list is wide enough.
+   An action (edit link, copy button) goes in a last <dd class="v-dl-action">. */
+@layer components {
+  .v-dl {
+    margin: 0;
+    container-type: inline-size;
+  }
+
+  .v-dl > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.15rem var(--v-space-4);
+    align-items: baseline;
+    padding-block: var(--v-space-3);
+  }
+
+  .v-dl > div + div { border-block-start: var(--v-border-w) solid var(--v-border); }
+
+  .v-dl dt {
+    grid-column: 1;
+    color: var(--v-text-3);
+    font-size: 0.8125rem;
+    font-weight: 560;
+  }
+
+  .v-dl dd {
+    grid-column: 1;
+    min-inline-size: 0;
+    margin: 0;
+    color: var(--v-text);
+    overflow-wrap: anywhere;
+  }
+
+  .v-dl .v-dl-action {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+  }
+
+  @container (width >= 32rem) {
+    .v-dl-cols > div { grid-template-columns: minmax(8rem, 32%) minmax(0, 1fr) auto; }
+    .v-dl-cols dt { grid-column: 1; }
+    .v-dl-cols dd { grid-column: 2; }
+
+    .v-dl-cols .v-dl-action {
+      grid-row: 1;
+      grid-column: 3;
+    }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-dl dt {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+}

@@ -1,0 +1,61 @@
+/* Figure: an image (or video, map, embed) with an optional caption.
+   .v-frame crops its media to a fixed aspect ratio: .v-frame-1x1, -4x3, -16x9 (default), -21x9.
+   Corners follow the direction's radius-lg. */
+@layer components {
+  .v-figure {
+    display: grid;
+    gap: var(--v-space-2);
+    align-content: start;
+    margin: 0;
+  }
+
+  .v-figure > img,
+  .v-frame {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--v-radius-lg);
+  }
+
+  .v-figure figcaption {
+    color: var(--v-text-3);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .v-frame {
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background-color: var(--v-surface-2);
+  }
+
+  .v-frame > :is(img, video, iframe, svg, picture) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    border: 0;
+    object-fit: cover;
+  }
+
+  .v-frame-1x1 { aspect-ratio: 1; }
+  .v-frame-4x3 { aspect-ratio: 4 / 3; }
+  .v-frame-16x9 { aspect-ratio: 16 / 9; }
+  .v-frame-21x9 { aspect-ratio: 21 / 9; }
+}
+
+@layer directions {
+  /* Editorial: captions read like a print credit, under a hairline. */
+  :root[data-direction="editorial"] .v-figure figcaption {
+    padding-block-start: var(--v-space-2);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    font-family: var(--v-font-display);
+    font-style: italic;
+  }
+
+  :root[data-direction="glass"] :is(.v-figure > img, .v-frame) {
+    border: var(--v-border-w) solid var(--v-card-border);
+    box-shadow: var(--v-shadow-1);
+  }
+
+  :root[data-direction="soft"] :is(.v-figure > img, .v-frame) { box-shadow: var(--v-shadow-1); }
+}

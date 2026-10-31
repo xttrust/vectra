@@ -1,0 +1,100 @@
+/* List group: rows of related items in one bordered box. Works on <ul>, <ol> or <div>.
+   A row is .v-list-item: the <li> itself, or an <a>/<button> inside the <li> when the whole row is a
+   link. Parts: .v-list-body (.v-list-title + .v-list-meta) and .v-list-end for actions or meta.
+   Mark the current row with aria-current; it gets a start bar as well as the tint. */
+@layer components {
+  .v-list {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-surface);
+    list-style: none;
+  }
+
+  .v-list > * + * { border-block-start: var(--v-border-w) solid var(--v-border); }
+
+  .v-list-item {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    min-block-size: 3rem;
+    padding: var(--v-space-3) var(--v-space-4);
+    color: var(--v-text);
+    font-size: 0.9375rem;
+  }
+
+  .v-list-body {
+    display: grid;
+    flex: 1;
+    gap: 0.1rem;
+    min-inline-size: 0;
+  }
+
+  .v-list-title {
+    font-weight: 560;
+    overflow-wrap: anywhere;
+  }
+
+  .v-list-meta {
+    color: var(--v-text-3);
+    font-size: 0.8125rem;
+    overflow-wrap: anywhere;
+  }
+
+  .v-list-end {
+    display: flex;
+    flex: none;
+    gap: var(--v-space-2);
+    align-items: center;
+    margin-inline-start: auto;
+    color: var(--v-text-3);
+    font-size: 0.8125rem;
+  }
+
+  /* Linked or clickable rows. */
+  :is(a, button).v-list-item {
+    inline-size: 100%;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 0.9375rem;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--v-dur-1);
+  }
+
+  /* Plain: no box, rows separated by rules only. */
+  .v-list-plain {
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .v-list-plain .v-list-item { padding-inline: 0; }
+  .v-list-plain :is(a, button).v-list-item { padding-inline: var(--v-space-2); }
+
+  :is(a, button).v-list-item:hover { background-color: var(--v-surface-2); }
+  :is(a, button).v-list-item:focus-visible { outline-offset: calc(var(--v-focus-w) * -1); }
+
+  .v-list-item[aria-current]:not([aria-current="false"]) {
+    background-color: var(--v-accent-soft);
+    box-shadow: inset 3px 0 0 var(--v-accent);
+    color: var(--v-accent-text);
+  }
+
+  .v-list-item[aria-current]:not([aria-current="false"]):dir(rtl) { box-shadow: inset -3px 0 0 var(--v-accent); }
+  .v-list-item[aria-current]:not([aria-current="false"]) .v-list-meta { color: var(--v-accent-text); }
+
+  @media (forced-colors: active) {
+    .v-list-item[aria-current]:not([aria-current="false"]) { border-inline-start: 3px solid Highlight; }
+  }
+}
+
+@layer directions {
+  :root[data-direction="glass"] .v-list:not(.v-list-plain) { backdrop-filter: blur(24px) saturate(1.6); }
+}

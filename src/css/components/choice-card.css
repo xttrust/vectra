@@ -1,0 +1,116 @@
+/* Checkbox and radio cards: rich selectable tiles for plans, options and onboarding choices.
+   <label class="v-choice-card"> wraps a .v-checkbox or .v-radio, a .v-choice-card-body (title and
+   text) and optionally a .v-choice-card-icon and .v-choice-card-price. The whole tile is the click
+   target; the native input keeps keyboard and form behaviour and stays visible as the state mark. */
+@layer components {
+  .v-choice-card {
+    position: relative;
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: flex-start;
+    padding: var(--v-space-4);
+    border: var(--v-border-w) solid var(--v-input-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-card-bg);
+    color: var(--v-text);
+    cursor: pointer;
+    transition: border-color var(--v-dur-1), background-color var(--v-dur-1), box-shadow var(--v-dur-2) var(--v-ease-out);
+  }
+
+  .v-choice-card:hover { border-color: color-mix(in oklch, var(--v-input-border), var(--v-text) 40%); }
+
+  .v-choice-card-body {
+    display: grid;
+    flex: 1;
+    gap: 0.2rem;
+    min-inline-size: 0;
+  }
+
+  .v-choice-card-title {
+    font-weight: 620;
+    line-height: 1.35;
+  }
+
+  .v-choice-card-text {
+    color: var(--v-text-2);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .v-choice-card-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border-radius: var(--v-radius-md);
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+    font-size: 1.15rem;
+  }
+
+  .v-choice-card-price {
+    flex: none;
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--v-heading-weight);
+    line-height: 1.2;
+    text-align: end;
+  }
+
+  .v-choice-card-price small {
+    display: block;
+    color: var(--v-text-2);
+    font-family: var(--v-font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+
+  /* Checked: accent border, doubled, plus a tint. */
+  .v-choice-card:has(:checked) {
+    border-color: var(--v-accent);
+    background-color: var(--v-accent-soft);
+    box-shadow: inset 0 0 0 var(--v-border-w) var(--v-accent);
+  }
+
+  .v-choice-card:has(:checked) .v-choice-card-icon {
+    background-color: var(--v-accent);
+    color: var(--v-on-accent);
+  }
+
+  /* The ring goes round the whole tile, not the small box inside it. */
+  .v-choice-card:has(:focus-visible) {
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 2px;
+  }
+
+  .v-choice-card :is(.v-checkbox, .v-radio):focus-visible { outline: none; }
+
+  .v-choice-card:has(:disabled) {
+    border-style: dashed;
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .v-choice-card:has(:disabled):hover { border-color: var(--v-input-border); }
+
+  @media (forced-colors: active) {
+    .v-choice-card:has(:checked) {
+      border-color: Highlight;
+      outline: 2px solid Highlight;
+      outline-offset: -3px;
+    }
+
+    .v-choice-card:has(:focus-visible) {
+      outline: var(--v-focus-w) solid CanvasText;
+      outline-offset: 2px;
+    }
+  }
+}
+
+@layer directions {
+  :root[data-direction="glass"] .v-choice-card { backdrop-filter: blur(24px) saturate(1.6); }
+  :root[data-direction="glass"] .v-choice-card:has(:checked) { background-color: var(--v-surface); }
+  :root[data-direction="soft"] .v-choice-card:has(:checked) { box-shadow: inset 0 0 0 var(--v-border-w) var(--v-accent), var(--v-shadow-2); }
+}

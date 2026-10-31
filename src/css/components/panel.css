@@ -1,0 +1,64 @@
+/* Panel: a plain bordered surface split into header, body sections and footer. Lighter than a card:
+   no shadow, no sheen, no padding of its own, so sections can run edge to edge. */
+@layer components {
+  .v-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-surface);
+    color: var(--v-text);
+  }
+
+  .v-panel-header,
+  .v-panel-body,
+  .v-panel-footer {
+    padding: var(--v-space-4) var(--v-space-5);
+  }
+
+  .v-panel > * + * { border-block-start: var(--v-border-w) solid var(--v-border); }
+
+  .v-panel-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2) var(--v-space-3);
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--v-space-3);
+  }
+
+  .v-panel-title {
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-0);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    line-height: 1.3;
+  }
+
+  .v-panel-body { color: var(--v-text-2); }
+
+  .v-panel-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3);
+    align-items: center;
+    justify-content: flex-end;
+    margin-block-start: auto;
+    padding-block: var(--v-space-3);
+    background-color: var(--v-bg-subtle);
+  }
+}
+
+@layer directions {
+  /* Editorial: the header title is a small-caps rubric, like a column head. */
+  :root[data-direction="editorial"] .v-panel-header .v-panel-title {
+    font-family: var(--v-font-body);
+    font-size: 0.75rem;
+    font-weight: 650;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  :root[data-direction="glass"] .v-panel { backdrop-filter: blur(24px) saturate(1.6); }
+}
