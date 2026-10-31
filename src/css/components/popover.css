@@ -1,7 +1,7 @@
 /* Popover: a floating panel on the native popover attribute (<div popover class="v-popover">).
    Where CSS anchor positioning exists it opens next to its invoker (the implicit anchor, or set
    position-anchor yourself) and flips when it runs out of room. Elsewhere it opens centred in the
-   viewport, which stays usable; the small JS fallback that places it comes with the JS modules. */
+   viewport, which stays usable; src/js/components/anchor.js places it beside its invoker there. */
 @layer components {
   .v-popover {
     --v-popover-gap: 0.5rem;

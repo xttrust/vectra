@@ -35,6 +35,7 @@
     .ex-live { margin-block-start: var(--v-space-4); }
   </style>
   <script src="../shared/switcher.js" defer></script>
+  <script type="module" src="../../src/js/index.js"></script>
 </head>
 <body>
   <svg class="v-sr-only" aria-hidden="true" focusable="false">
@@ -111,11 +112,11 @@
         </div>
       </div>
       <div class="v-cluster ex-live">
-        <button class="v-btn v-btn-primary" type="button" id="open-dialog" data-ex-open="dlg-invite">Open dialog</button>
-        <button class="v-btn v-btn-secondary" type="button" data-ex-open="dlg-sm">Small</button>
-        <button class="v-btn v-btn-secondary" type="button" data-ex-open="dlg-lg">Large, scrolling</button>
-        <button class="v-btn v-btn-secondary" type="button" data-ex-open="dlg-full">Full on phones</button>
-        <button class="v-btn v-btn-danger" type="button" data-ex-open="dlg-alert">Delete project</button>
+        <button class="v-btn v-btn-primary" type="button" id="open-dialog" data-v-dialog-open="dlg-invite">Open dialog</button>
+        <button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="dlg-sm">Small</button>
+        <button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="dlg-lg">Large, scrolling</button>
+        <button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="dlg-full">Full on phones</button>
+        <button class="v-btn v-btn-danger" type="button" data-v-dialog-open="dlg-alert">Delete project</button>
       </div>
     </section>
 
@@ -139,10 +140,10 @@
         </div>
       </div>
       <div class="v-cluster ex-live">
-        <button class="v-btn v-btn-primary" type="button" id="open-drawer" data-ex-open="drw-end">End (sheet on phones)</button>
-        <button class="v-btn v-btn-secondary" type="button" data-ex-open="drw-start">Start</button>
-        <button class="v-btn v-btn-secondary" type="button" data-ex-open="drw-top">Top</button>
-        <button class="v-btn v-btn-secondary" type="button" data-ex-open="drw-bottom">Bottom</button>
+        <button class="v-btn v-btn-primary" type="button" id="open-drawer" data-v-dialog-open="drw-end">End (sheet on phones)</button>
+        <button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="drw-start">Start</button>
+        <button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="drw-top">Top</button>
+        <button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="drw-bottom">Bottom</button>
       </div>
     </section>
 
@@ -200,16 +201,16 @@
       </div>
       <div class="v-cluster ex-live">
         <span class="v-tooltip-wrap">
-          <button class="v-btn v-btn-secondary" type="button" aria-describedby="tip-help"><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>Help</button>
+          <button class="v-btn v-btn-secondary" type="button" aria-describedby="tip-help" data-v-tooltip><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>Help</button>
           <span class="v-tooltip" role="tooltip" id="tip-help">No popover needed</span>
         </span>
-        <button class="v-btn v-btn-secondary" type="button" id="open-tooltip" popovertarget="tip-copy" aria-describedby="tip-copy">Click for a popover tooltip</button>
+        <button class="v-btn v-btn-secondary" type="button" id="open-tooltip" popovertarget="tip-copy" aria-describedby="tip-copy" data-v-tooltip>Click for a popover tooltip</button>
       </div>
     </section>
   </main>
 
   <!-- The real overlays. Hidden until opened. -->
-  <dialog class="v-dialog" id="dlg-invite" aria-labelledby="dlg-invite-title">
+  <dialog class="v-dialog" id="dlg-invite" data-v-dismissable aria-labelledby="dlg-invite-title">
     <header class="v-dialog-header">
       <h2 class="v-dialog-title" id="dlg-invite-title">Invite a teammate</h2>
       <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
@@ -223,7 +224,7 @@
     </form>
   </dialog>
 
-  <dialog class="v-dialog v-dialog-sm" id="dlg-sm" aria-labelledby="dlg-sm-title">
+  <dialog class="v-dialog v-dialog-sm" id="dlg-sm" data-v-dismissable aria-labelledby="dlg-sm-title">
     <header class="v-dialog-header">
       <h2 class="v-dialog-title" id="dlg-sm-title">Saved</h2>
     </header>
@@ -231,7 +232,7 @@
     <form class="v-dialog-footer" method="dialog"><button class="v-btn v-btn-primary">OK</button></form>
   </dialog>
 
-  <dialog class="v-dialog v-dialog-lg" id="dlg-lg" aria-labelledby="dlg-lg-title">
+  <dialog class="v-dialog v-dialog-lg" id="dlg-lg" data-v-dismissable aria-labelledby="dlg-lg-title">
     <header class="v-dialog-header">
       <h2 class="v-dialog-title" id="dlg-lg-title">Terms of service</h2>
       <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
@@ -255,7 +256,7 @@
     </form>
   </dialog>
 
-  <dialog class="v-dialog v-dialog-full" id="dlg-full" aria-labelledby="dlg-full-title">
+  <dialog class="v-dialog v-dialog-full" id="dlg-full" data-v-dismissable aria-labelledby="dlg-full-title">
     <header class="v-dialog-header">
       <h2 class="v-dialog-title" id="dlg-full-title">Edit profile</h2>
       <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
@@ -279,7 +280,7 @@
     </form>
   </dialog>
 
-  <dialog class="v-drawer" id="drw-end" aria-labelledby="drw-end-title">
+  <dialog class="v-drawer" id="drw-end" data-v-dismissable aria-labelledby="drw-end-title">
     <header class="v-drawer-header">
       <h2 class="v-drawer-title" id="drw-end-title">Filters</h2>
       <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
@@ -291,7 +292,7 @@
     </form>
   </dialog>
 
-  <dialog class="v-drawer v-drawer-start" id="drw-start" aria-labelledby="drw-start-title">
+  <dialog class="v-drawer v-drawer-start" id="drw-start" data-v-dismissable aria-labelledby="drw-start-title">
     <header class="v-drawer-header">
       <h2 class="v-drawer-title" id="drw-start-title">Navigation</h2>
       <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
@@ -299,7 +300,7 @@
     <div class="v-drawer-body"><p>The start drawer stays at the side on phones, which suits navigation.</p></div>
   </dialog>
 
-  <dialog class="v-drawer v-drawer-top" id="drw-top" aria-labelledby="drw-top-title">
+  <dialog class="v-drawer v-drawer-top" id="drw-top" data-v-dismissable aria-labelledby="drw-top-title">
     <header class="v-drawer-header">
       <h2 class="v-drawer-title" id="drw-top-title">Announcement</h2>
       <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
@@ -307,7 +308,7 @@
     <div class="v-drawer-body"><p>A top sheet slides down from the edge of the screen.</p></div>
   </dialog>
 
-  <dialog class="v-drawer v-drawer-bottom" id="drw-bottom" aria-labelledby="drw-bottom-title">
+  <dialog class="v-drawer v-drawer-bottom" id="drw-bottom" data-v-dismissable aria-labelledby="drw-bottom-title">
     <header class="v-drawer-header">
       <h2 class="v-drawer-title" id="drw-bottom-title">Share</h2>
       <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
@@ -325,7 +326,7 @@
   </div>
 
   <!-- popovertargetaction="hide" closes the menu when an item is chosen, without JS. -->
-  <div class="v-menu" id="menu-project" popover role="menu" aria-label="Project actions">
+  <div class="v-menu" id="menu-project" popover role="menu" data-v-menu aria-label="Project actions">
     <div role="group" aria-labelledby="menu-g1">
       <div class="v-menu-label" id="menu-g1" role="presentation">Project</div>
       <button class="v-menu-item" type="button" role="menuitem" popovertarget="menu-project" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg>Rename<kbd>F2</kbd></button>
@@ -345,11 +346,5 @@
 
   <span class="v-tooltip" id="tip-copy" popover="hint" role="tooltip">Placed above its trigger</span>
 
-  <script>
-    /* Gallery only: modal dialogs need showModal(). The dialog helpers arrive with the JS modules. */
-    document.querySelectorAll('[data-ex-open]').forEach(function (btn) {
-      btn.addEventListener('click', function () { document.getElementById(btn.dataset.exOpen).showModal(); });
-    });
-  </script>
 </body>
 </html>

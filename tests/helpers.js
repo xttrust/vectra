@@ -1,8 +1,11 @@
 /* Shared test setup. Pages are added here as they are built or ported. */
+import { readdirSync } from 'node:fs';
+
 export const DIRECTIONS = ['tech', 'editorial', 'soft', 'glass'];
 export const THEMES = ['light', 'dark'];
 
-// visual: 'full' = 4 directions × 2 themes × 2 widths; 'basic' = default direction × 2 themes × 2 widths
+// visual: 'full' = 4 directions × 2 themes × 2 widths; 'basic' = default direction × 2 themes × 2 widths;
+// 'none' = no screenshots
 // (screenshot budget in PLAN.md section 9). rendered: true adds the page to tests/rendered.spec.js.
 export const PAGES = [
   { name: 'prototype', path: '/prototype/', storage: 'vectra2', visual: 'full' },
@@ -16,12 +19,23 @@ export const PAGES = [
   { name: 'elements', path: '/examples/elements/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'icons', path: '/examples/icons/', storage: 'vectra', visual: 'basic' },
   { name: 'theming', path: '/examples/theming/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'auth', path: '/examples/auth/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'sections-chrome', path: '/examples/sections/chrome.html', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'sections-marketing', path: '/examples/sections/marketing.html', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'sections-app', path: '/examples/sections/app.html', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'page-saas-home', path: '/examples/pages/saas-home.html', storage: 'vectra', visual: 'basic' },
   { name: 'page-app-shell', path: '/examples/pages/app-shell.html', storage: 'vectra', visual: 'basic' },
 ];
+
+// Every generated auth page (examples/auth/<group>/<flow>.html), found on disk so new flows are tested
+// without editing this list. visual: 'basic' for a representative few, 'none' for the rest.
+const AUTH_VISUAL = ['sign-in/password', 'sign-in/error', 'sign-up/plans', 'recovery/reset', 'two-factor/setup', 'accounts/delete', 'first-run/empty-dashboard', 'layouts/dialog'];
+const AUTH_DIR = new URL('../examples/auth/', import.meta.url);
+export const AUTH_PAGES = readdirSync(AUTH_DIR, { withFileTypes: true })
+  .filter((d) => d.isDirectory())
+  .flatMap((d) => readdirSync(new URL(`${d.name}/`, AUTH_DIR)).filter((f) => f.endsWith('.html')).map((f) => `${d.name}/${f.slice(0, -5)}`))
+  .sort()
+  .map((slug) => ({ name: `auth-${slug.replace('/', '-')}`, slug, path: `/examples/auth/${slug}.html`, storage: 'vectra', visual: AUTH_VISUAL.includes(slug) ? 'basic' : 'none' }));
 
 export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
 

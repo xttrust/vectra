@@ -1,0 +1,281 @@
+/* Auth layouts: sign in, sign up, recovery and the rest. The wrapper picks the layout; the markup inside
+   is the same in every one, so any flow drops into any layout by changing one class.
+   <main class="v-auth">                     centred card (default)
+     <div class="v-auth-main">
+       <a class="v-auth-logo" href="/">..</a>
+       <div class="v-auth-box">              .v-auth-header (.v-auth-title, .v-auth-text), a .v-form, .v-auth-alt
+       <footer class="v-auth-footer">..</footer>
+     </div>
+     <aside class="v-auth-aside v-auth-art">  split layouts only: drawn art, or .v-auth-panel for a quote
+   </main>
+   Layouts: .v-auth-split (form beside an aside; stacks on phones), .v-auth-minimal (no card),
+   .v-auth-bleed (card over a colour field; Glass shows its own), and .v-auth-dialog on a .v-dialog.
+   .v-auth-wide widens the column for plan pickers, 2FA set-up and onboarding. */
+@layer components {
+  .v-auth {
+    --v-auth-w: 25rem;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-block-size: 100dvh;
+  }
+
+  .v-auth-wide { --v-auth-w: 36rem; }
+
+  .v-auth-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--v-space-6);
+    align-items: center;
+    justify-content: center;
+    padding: var(--v-space-7) var(--v-space-4);
+  }
+
+  .v-auth-main > * { inline-size: min(100%, var(--v-auth-w)); }
+
+  .v-auth-logo {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    color: var(--v-text);
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    text-decoration: none;
+  }
+
+  .v-auth-logo .v-icon {
+    inline-size: 1.6em;
+    block-size: 1.6em;
+    color: var(--v-accent);
+  }
+
+  .v-auth-box {
+    display: grid;
+    gap: var(--v-space-5);
+    padding: calc(clamp(1.25rem, 4vw, 2rem) * var(--v-density));
+    border: var(--v-border-w) solid var(--v-card-border);
+    border-radius: var(--v-radius-xl);
+    background-color: var(--v-card-bg);
+    background-image: var(--v-card-sheen);
+    box-shadow: var(--v-card-shadow);
+  }
+
+  .v-auth-header {
+    display: grid;
+    gap: var(--v-space-2);
+  }
+
+  .v-auth-title { font-size: var(--v-step-2); }
+  .v-auth-text { color: var(--v-text-2); }
+
+  .v-auth-alt,
+  .v-auth-footer {
+    color: var(--v-text-2);
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .v-auth-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2) var(--v-space-4);
+    justify-content: center;
+    font-size: 0.8125rem;
+  }
+
+  .v-auth-footer a { color: inherit; }
+
+  /* A round tone mark above status pages: check your email, verified, locked. */
+  .v-auth-icon {
+    --v-tone: var(--v-accent-text);
+    --v-tone-soft: var(--v-accent-soft);
+
+    display: grid;
+    place-items: center;
+    inline-size: 3rem;
+    block-size: 3rem;
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-tone-soft);
+    color: var(--v-tone);
+    font-size: 1.35rem;
+  }
+
+  .v-auth-icon-success {
+    --v-tone: var(--v-success);
+    --v-tone-soft: var(--v-success-soft);
+  }
+
+  .v-auth-icon-warning {
+    --v-tone: var(--v-warning);
+    --v-tone-soft: var(--v-warning-soft);
+  }
+
+  .v-auth-icon-danger {
+    --v-tone: var(--v-danger);
+    --v-tone-soft: var(--v-danger-soft);
+  }
+
+  /* One-time code: one plain input, spaced digits, so paste and autofill just work. */
+  .v-auth-code {
+    font-family: var(--v-font-mono);
+    font-size: var(--v-step-1);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.35em;
+    text-align: center;
+  }
+
+  /* 2FA set-up: the QR code always sits on a light tile, so every camera can read it. */
+  .v-auth-qr {
+    justify-self: center;
+    inline-size: 11rem;
+    padding: var(--v-space-3);
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-md);
+    background-color: var(--v-surface);
+    color: var(--v-text);
+    color-scheme: light;
+  }
+
+  /* Recovery codes: two columns of monospaced codes on a quiet tile. */
+  .v-auth-codes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--v-space-2) var(--v-space-4);
+    margin: 0;
+    padding: var(--v-space-4);
+    border-radius: var(--v-radius-md);
+    background-color: var(--v-surface-2);
+    font-family: var(--v-font-mono);
+    font-size: 0.875rem;
+    list-style: none;
+    text-align: center;
+  }
+
+  /* Split: form on one side, an aside on the other. On phones the art is a short band on top. */
+  .v-auth-aside {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--v-space-5);
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: var(--v-space-6) var(--v-space-5);
+  }
+
+  .v-auth-art {
+    order: -1;
+    min-block-size: 8rem;
+    background: var(--v-feature-bg);
+    color: var(--v-feature-fg);
+  }
+
+  .v-auth-art > svg {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .v-auth-art > :not(svg) { position: relative; }
+  .v-auth-art > p { max-inline-size: 26rem; }
+
+  .v-auth-art > p:first-of-type {
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-2);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    line-height: 1.2;
+  }
+
+  .v-auth-art > p:last-of-type {
+    margin-block-start: calc(var(--v-space-3) - var(--v-space-5));
+    color: var(--v-feature-fg-2);
+  }
+
+  .v-auth-panel {
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-bg-subtle);
+  }
+
+  :is(.v-auth-split, .v-auth-minimal) .v-auth-box,
+  .v-auth-dialog .v-auth-box {
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  @media (width < 40rem) {
+    .v-auth-art > :not(svg) { display: none; }
+  }
+
+  /* Under the form on phones and tablets, the quote steps down a size. */
+  @media (width < 60rem) {
+    .v-auth-panel .v-testimonial-quote { font-size: var(--v-step-1); }
+  }
+
+  @media (width >= 60rem) {
+    .v-auth-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+
+    .v-auth-aside {
+      order: 0;
+      justify-content: center;
+      padding: var(--v-space-8);
+    }
+
+    .v-auth-art { justify-content: flex-end; }
+
+    .v-auth-panel {
+      border-block-start: 0;
+      border-inline-start: var(--v-border-w) solid var(--v-border);
+    }
+  }
+
+  .v-auth-minimal .v-auth-main {
+    justify-content: flex-start;
+    padding-block-start: clamp(3rem, 14vh, 8rem);
+  }
+
+  /* Full bleed: a soft field drawn from the accent; under Glass the page's own field shows through. */
+  .v-auth-bleed {
+    background:
+      radial-gradient(45% 50% at 0% 0%, color-mix(in oklch, var(--v-accent) 30%, transparent), transparent),
+      radial-gradient(40% 45% at 100% 100%, color-mix(in oklch, var(--v-accent-2) 30%, transparent), transparent),
+      radial-gradient(30% 35% at 100% 0%, color-mix(in oklch, var(--v-accent-2) 18%, transparent), transparent);
+  }
+
+  .v-auth-dialog { --v-dialog-w: 26rem; }
+
+  .v-auth-dialog > .v-auth-box { padding: var(--v-dialog-pad); }
+
+  .v-auth-dialog .v-dialog-close {
+    position: absolute;
+    inset-block-start: var(--v-space-3);
+    inset-inline-end: var(--v-space-3);
+  }
+}
+
+@layer directions {
+  /* Editorial: a page in a book. Square box, a heavy rule on top, a display title. */
+  :root[data-direction="editorial"] .v-auth-box:not(:is(.v-auth-split, .v-auth-minimal, .v-auth-dialog) *) {
+    border-block-start: 3px solid var(--v-text);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  :root[data-direction="editorial"] .v-auth-title { font-size: var(--v-step-3); }
+
+  /* Tech: a faint blueprint grid over the art. */
+  :root[data-direction="tech"] .v-auth-art {
+    background:
+      linear-gradient(color-mix(in oklch, var(--v-feature-fg) 7%, transparent) 1px, transparent 1px) 0 0 / 2rem 2rem,
+      linear-gradient(90deg, color-mix(in oklch, var(--v-feature-fg) 7%, transparent) 1px, transparent 1px) 0 0 / 2rem 2rem,
+      var(--v-feature-bg);
+  }
+
+  :root[data-direction="glass"] .v-auth-bleed { background: none; }
+  :root[data-direction="glass"] .v-auth-box:not(:is(.v-auth-split, .v-auth-minimal, .v-auth-dialog) *) { backdrop-filter: blur(24px) saturate(1.6); }
+  :root[data-direction="glass"] .v-auth-panel { backdrop-filter: blur(24px); }
+}
