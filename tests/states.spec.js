@@ -10,6 +10,8 @@ test.describe('state modules (fake clock)', () => {
   test.beforeEach(async ({ page }) => {
     await page.clock.install();
     await open(page, target, { direction: 'tech', theme: 'dark' });
+    // An installed clock still follows real time; pause it so a slow machine can't add time between steps.
+    await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
   });
 
   test('slow loading: the note appears after the delay, is announced once, and clears when content arrives', async ({ page }) => {
