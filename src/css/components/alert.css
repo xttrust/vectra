@@ -1,0 +1,57 @@
+/* Alerts: inline messages with a tone. Use role="alert" only for urgent, interrupting messages. */
+@layer components {
+  .v-alert {
+    --v-tone: var(--v-info);
+    --v-tone-soft: var(--v-info-soft);
+
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: flex-start;
+    padding: 0.85rem 1rem;
+    border: var(--v-border-w) solid color-mix(in oklch, var(--v-tone) 28%, transparent);
+    border-radius: var(--v-radius-md);
+    background-color: var(--v-tone-soft);
+    color: var(--v-text-2);
+    font-size: 0.9375rem;
+  }
+
+  .v-alert > .v-icon {
+    margin-block-start: 0.2em;
+    color: var(--v-tone);
+
+  }
+  .v-alert-body { flex: 1; }
+
+  .v-alert-title {
+    color: var(--v-text);
+    font-weight: 620;
+  }
+
+  .v-alert-success {
+    --v-tone: var(--v-success);
+    --v-tone-soft: var(--v-success-soft);
+  }
+
+  .v-alert-warning {
+    --v-tone: var(--v-warning);
+    --v-tone-soft: var(--v-warning-soft);
+  }
+
+  .v-alert-danger {
+    --v-tone: var(--v-danger);
+    --v-tone-soft: var(--v-danger-soft);
+  }
+
+  .v-alert-info {
+    --v-tone: var(--v-info);
+    --v-tone-soft: var(--v-info-soft);
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-alert {
+    border-width: 0 0 0 3px;
+    border-color: var(--v-tone);
+    border-radius: 0;
+  }
+}

@@ -1,0 +1,115 @@
+/* Progress bar, meter, spinner and skeleton. */
+@layer components {
+  .v-progress,
+  .v-meter {
+    appearance: none;
+    overflow: hidden;
+    inline-size: 100%;
+    block-size: 0.5rem;
+    border: 0;
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-surface-2);
+  }
+
+  .v-progress::-webkit-progress-bar { background-color: var(--v-surface-2); }
+
+  .v-progress::-webkit-progress-value {
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-accent);
+  }
+
+  .v-progress::-moz-progress-bar {
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-accent);
+  }
+
+  /* No value: an indeterminate sweep. */
+  .v-progress:indeterminate {
+    background-image: linear-gradient(90deg, transparent 0%, var(--v-accent) 50%, transparent 100%);
+    background-repeat: no-repeat;
+    background-size: 40% 100%;
+    animation: v-sweep 1.2s var(--v-ease-out) infinite;
+  }
+
+  .v-progress:indeterminate::-webkit-progress-bar { background-color: transparent; }
+  .v-progress:indeterminate::-moz-progress-bar { background-color: transparent; }
+
+  .v-meter::-webkit-meter-bar {
+    border: 0;
+    border-radius: var(--v-radius-pill);
+    background: var(--v-surface-2);
+
+  }
+
+  .v-meter::-webkit-meter-optimum-value {
+    border-radius: var(--v-radius-pill);
+    background: var(--v-success);
+  }
+
+  .v-meter::-webkit-meter-suboptimum-value {
+    border-radius: var(--v-radius-pill);
+    background: var(--v-warning);
+  }
+
+  .v-meter::-webkit-meter-even-less-good-value {
+    border-radius: var(--v-radius-pill);
+    background: var(--v-danger);
+  }
+
+  .v-meter:-moz-meter-optimum::-moz-meter-bar {
+    border-radius: var(--v-radius-pill);
+    background: var(--v-success);
+  }
+
+  .v-meter:-moz-meter-sub-optimum::-moz-meter-bar {
+    border-radius: var(--v-radius-pill);
+    background: var(--v-warning);
+  }
+
+  .v-meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    border-radius: var(--v-radius-pill);
+    background: var(--v-danger);
+  }
+
+  /* Spinner: put it inside an element with role="status" and a text label. */
+  .v-spinner {
+    display: inline-block;
+    flex-shrink: 0;
+    inline-size: var(--v-spinner-size, 1.25rem);
+    block-size: var(--v-spinner-size, 1.25rem);
+    border: calc(var(--v-spinner-size, 1.25rem) * 0.14) solid color-mix(in oklch, currentcolor 22%, transparent);
+    border-block-start-color: currentcolor;
+    border-radius: 50%;
+    color: var(--v-accent);
+    animation: v-spin 0.7s linear infinite;
+  }
+
+  .v-spinner-lg { --v-spinner-size: 2.25rem; }
+
+  /* Skeleton: placeholder while content loads. Mark it aria-hidden; announce loading separately. */
+  .v-skeleton {
+    display: block;
+    block-size: 1em;
+    border-radius: var(--v-radius-sm);
+    background: linear-gradient(90deg, var(--v-surface-2) 0%, color-mix(in oklch, var(--v-surface-2) 85%, var(--v-text)) 50%, var(--v-surface-2) 100%) 0 0 / 200% 100%;
+    animation: v-shimmer 1.4s linear infinite;
+  }
+
+  .v-skeleton-text {
+    block-size: 0.85em;
+    margin-block: 0.35em;
+
+  }
+
+  .v-skeleton-circle {
+    inline-size: var(--v-skeleton-size, 2.5rem);
+    block-size: var(--v-skeleton-size, 2.5rem);
+    border-radius: 50%;
+  }
+
+  @keyframes v-sweep { from { background-position: -40% 0; } to { background-position: 140% 0; } }
+
+  @keyframes v-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+  @keyframes v-spin { to { rotate: 1turn; } }
+}

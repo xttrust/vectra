@@ -1,0 +1,45 @@
+/* Divider with a label, and the empty state. */
+@layer components {
+  .v-divider {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    color: var(--v-text-3);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-divider::before,
+  .v-divider::after {
+    content: "";
+    flex: 1;
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  .v-empty {
+    display: grid;
+    gap: var(--v-space-3);
+    justify-items: center;
+    padding: var(--v-space-7) var(--v-space-4);
+    color: var(--v-text-2);
+    text-align: center;
+  }
+
+  .v-empty-icon {
+    display: grid;
+    place-items: center;
+    inline-size: 3.25rem;
+    block-size: 3.25rem;
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-surface-2);
+    color: var(--v-text-3);
+    font-size: 1.4rem;
+  }
+
+  .v-empty-title {
+    color: var(--v-text);
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+
+  }
+}

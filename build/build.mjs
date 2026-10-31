@@ -1,18 +1,22 @@
 /* Builds dist/ from src/ with Lightning CSS (bundled + minified CSS) and esbuild (JS as IIFE + ESM).
-   CSS outputs: vectra.css (core + all directions), vectra.core.css, directions/<name>.css. */
+   CSS outputs: vectra.css (everything), vectra.core.css, vectra.components.css,
+   directions/<name>.css and components/<name>.css. */
 import { mkdir, readdir, writeFile } from 'node:fs/promises';
 import { bundle } from 'lightningcss';
 import { build } from 'esbuild';
 import { lightningTargets, esbuildTargets } from './browsers.mjs';
 
-const directions = (await readdir('src/css/directions')).filter((f) => f.endsWith('.css')).map((f) => f.slice(0, -4));
+const names = async (dir) => (await readdir(dir)).filter((f) => f.endsWith('.css')).map((f) => f.slice(0, -4)).sort();
 const entries = [
   ['src/css/vectra.css', 'dist/vectra'],
   ['src/css/vectra.core.css', 'dist/vectra.core'],
-  ...directions.map((d) => [`src/css/directions/${d}.css`, `dist/directions/${d}`]),
+  ['src/css/vectra.components.css', 'dist/vectra.components'],
+  ...(await names('src/css/directions')).map((d) => [`src/css/directions/${d}.css`, `dist/directions/${d}`]),
+  ...(await names('src/css/components')).map((c) => [`src/css/components/${c}.css`, `dist/components/${c}`]),
 ];
 
 await mkdir('dist/directions', { recursive: true });
+await mkdir('dist/components', { recursive: true });
 for (const [filename, out] of entries) {
   for (const minify of [false, true]) {
     const { code } = bundle({ filename, minify, targets: lightningTargets });

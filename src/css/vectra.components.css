@@ -1,0 +1,8 @@
+/* Vectra v2 components. Load after vectra.core.css (and a direction), or use the full vectra.css. */
+@import url("./components/button.css");
+@import url("./components/badge.css");
+@import url("./components/avatar.css");
+@import url("./components/card.css");
+@import url("./components/alert.css");
+@import url("./components/feedback.css");
+@import url("./components/misc.css");

@@ -1,0 +1,126 @@
+/* Cards: the main surface for grouped content. Also the feature card and stat block. */
+@layer components {
+  .v-card {
+    --v-card-pad: calc(clamp(1.15rem, 2.4vw, 1.75rem) * var(--v-density));
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--v-space-4);
+    padding: var(--v-card-pad);
+    border: var(--v-border-w) solid var(--v-card-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-card-bg);
+    background-image: var(--v-card-sheen);
+    box-shadow: var(--v-card-shadow);
+    color: var(--v-text);
+    container-type: inline-size;
+  }
+
+  .v-card-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3);
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  .v-card-title {
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    line-height: 1.2;
+  }
+  .v-card-text { color: var(--v-text-2); }
+
+  .v-card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3);
+    align-items: center;
+    padding-block-start: var(--v-space-4);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  /* Media that bleeds to the card's edges. */
+  .v-card-media {
+    overflow: hidden;
+    margin: calc(var(--v-card-pad) * -1) calc(var(--v-card-pad) * -1) 0;
+    border-radius: var(--v-radius-lg) var(--v-radius-lg) 0 0;
+  }
+
+  .v-card-media img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+
+  }
+
+  /* Whole card is a link. */
+  a.v-card {
+    color: inherit;
+    text-decoration: none;
+    transition: translate var(--v-dur-2) var(--v-ease-out), box-shadow var(--v-dur-2) var(--v-ease-out), border-color var(--v-dur-1);
+  }
+
+  a.v-card:hover {
+    border-color: var(--v-border-strong);
+    box-shadow: var(--v-shadow-2);
+    translate: 0 -2px;
+
+  }
+
+  /* Feature card: the direction's emphasis surface. Text tokens are remapped inside it. */
+  .v-card-feature {
+    --v-text: var(--v-feature-fg);
+    --v-text-2: var(--v-feature-fg-2);
+    --v-text-3: var(--v-feature-fg-2);
+    --v-border: var(--v-feature-border);
+
+    border-color: var(--v-feature-border);
+    background: var(--v-feature-bg);
+    color: var(--v-feature-fg);
+  }
+
+  /* Stat: a labelled number. */
+  .v-stat {
+    display: grid;
+    gap: var(--v-space-1);
+    justify-items: start;
+  }
+
+  .v-stat-label {
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-stat-value {
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-3);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--v-display-weight);
+    letter-spacing: var(--v-display-tracking);
+    line-height: 1.1;
+  }
+}
+
+@layer directions {
+  /* Primary buttons inside feature cards need to stand out from the feature surface itself. */
+  :root[data-direction="editorial"] .v-card-feature {
+    --v-primary-bg: var(--v-feature-fg);
+    --v-primary-fg: var(--v-feature-bg);
+    --v-primary-hover-bg: var(--v-accent);
+    --v-primary-hover-fg: var(--v-on-accent);
+  }
+
+  :root:is([data-direction="soft"], [data-direction="glass"]) .v-card-feature {
+    --v-primary-bg: var(--v-feature-fg);
+    --v-primary-fg: var(--v-feature-on-fg);
+    --v-primary-hover-bg: var(--v-feature-fg-2);
+    --v-primary-hover-fg: var(--v-feature-on-fg);
+  }
+
+  :root[data-direction="glass"] .v-card { backdrop-filter: blur(24px) saturate(1.6); }
+  :root[data-direction="glass"] .v-card-feature .v-btn-primary { background-image: none; }
+}

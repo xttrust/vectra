@@ -55,7 +55,12 @@
     "feature-fg",
     "feature-fg-2",
     "feature-border",
+    "feature-on-fg",
     "page-bg",
-    "hero-bg"
+    "hero-bg",
+    "success-soft",
+    "warning-soft",
+    "danger-soft",
+    "info-soft"
   ]
 }

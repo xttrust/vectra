@@ -1,0 +1,67 @@
+/* Badges: short status or count labels. */
+@layer components {
+  .v-badge {
+    display: inline-flex;
+    gap: 0.3em;
+    align-items: center;
+    padding: 0.2em 0.6em;
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-surface-2);
+    color: var(--v-text-2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .v-badge .v-icon {
+    inline-size: 1em;
+    block-size: 1em;
+    stroke-width: 2.2;
+
+  }
+
+  .v-badge-accent {
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+  }
+
+  .v-badge-solid {
+    background-color: var(--v-accent);
+    color: var(--v-on-accent);
+  }
+
+  .v-badge-success {
+    background-color: var(--v-success-soft);
+    color: var(--v-success);
+  }
+
+  .v-badge-warning {
+    background-color: var(--v-warning-soft);
+    color: var(--v-warning);
+  }
+
+  .v-badge-danger {
+    background-color: var(--v-danger-soft);
+    color: var(--v-danger);
+  }
+
+  .v-badge-info {
+    background-color: var(--v-info-soft);
+    color: var(--v-info);
+  }
+
+  .v-badge-outline {
+    border: var(--v-border-w) solid var(--v-border-strong);
+    background-color: transparent;
+  }
+
+  /* Leading status dot in the badge's colour. */
+  .v-badge-dot::before {
+    content: "";
+    inline-size: 0.45em;
+    block-size: 0.45em;
+    border-radius: 50%;
+    background-color: currentcolor;
+  }
+}

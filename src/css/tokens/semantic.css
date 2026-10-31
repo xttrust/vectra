@@ -39,6 +39,7 @@
     --v-feature-bg: var(--v-surface);
     --v-feature-fg: var(--v-text);
     --v-feature-fg-2: var(--v-text-2);
+    --v-feature-on-fg: var(--v-feature-bg);
     --v-feature-border: var(--v-border);
 
     /* Backgrounds */
