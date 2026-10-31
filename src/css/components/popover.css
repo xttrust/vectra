@@ -1,0 +1,85 @@
+/* Popover: a floating panel on the native popover attribute (<div popover class="v-popover">).
+   Where CSS anchor positioning exists it opens next to its invoker (the implicit anchor, or set
+   position-anchor yourself) and flips when it runs out of room. Elsewhere it opens centred in the
+   viewport, which stays usable; the small JS fallback that places it comes with the JS modules. */
+@layer components {
+  .v-popover {
+    --v-popover-gap: 0.5rem;
+
+    inline-size: max-content;
+    max-inline-size: min(22rem, 100%, 100vw - 2rem);
+    padding: var(--v-space-4);
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-overlay-bg);
+    box-shadow: var(--v-shadow-3);
+    color: var(--v-text);
+    font-size: 0.9375rem;
+  }
+
+  .v-popover[popover] {
+    max-block-size: min(70dvh, 32rem);
+    margin: auto;
+    overflow: auto;
+    opacity: 0;
+    scale: 0.98;
+    transition:
+      opacity var(--v-dur-2),
+      scale var(--v-dur-2) var(--v-ease-out),
+      overlay var(--v-dur-2) allow-discrete,
+      display var(--v-dur-2) allow-discrete;
+  }
+
+  .v-popover:popover-open {
+    opacity: 1;
+    scale: 1;
+  }
+
+  @starting-style {
+    .v-popover:popover-open {
+      opacity: 0;
+      scale: 0.98;
+    }
+  }
+
+  .v-popover-title {
+    margin-block-end: var(--v-space-1);
+    font-weight: var(--v-heading-weight);
+  }
+
+  .v-popover-text { color: var(--v-text-2); }
+
+  /* Below the anchor, aligned to its start edge (default); .v-popover-top, -start and -end move it. */
+  @supports (position-area: block-end) {
+    .v-popover[popover] {
+      inset: auto;
+      margin: var(--v-popover-gap) 0;
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline;
+    }
+
+    .v-popover-top[popover] { position-area: block-start span-inline-end; }
+
+    .v-popover-start[popover],
+    .v-popover-end[popover] {
+      margin: 0 var(--v-popover-gap);
+      position-try-fallbacks: flip-inline, flip-block;
+    }
+
+    .v-popover-start[popover] { position-area: inline-start span-block-end; }
+    .v-popover-end[popover] { position-area: inline-end span-block-end; }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-popover {
+    border-color: var(--v-border-strong);
+    box-shadow: none;
+  }
+
+  :root[data-direction="glass"] .v-popover { backdrop-filter: blur(24px) saturate(1.6); }
+
+  @media (prefers-reduced-transparency: reduce) {
+    :root[data-direction="glass"] .v-popover { backdrop-filter: none; }
+  }
+}

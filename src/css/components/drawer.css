@@ -1,0 +1,161 @@
+/* Drawer and sheet on the native <dialog> (open with showModal()). Slides in from the end by default;
+   .v-drawer-start, -top and -bottom pick another edge. On phones the end drawer becomes a bottom sheet.
+   Start and end follow the writing direction, so they swap sides in RTL. */
+@layer components {
+  .v-drawer {
+    --v-drawer-size: 24rem;
+    --v-drawer-dir: 1;
+    --v-drawer-hide: calc(100% * var(--v-drawer-dir)) 0;
+    --v-drawer-pad: calc(clamp(1.15rem, 4vw, 1.5rem) * var(--v-density));
+
+    position: fixed;
+    inset-block: 0;
+    inset-inline: auto 0;
+    inline-size: min(100% - 3rem, var(--v-drawer-size));
+    max-inline-size: none;
+    block-size: 100dvh;
+    max-block-size: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-inline-start: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-overlay-bg);
+    box-shadow: var(--v-shadow-3);
+    color: var(--v-text);
+    translate: var(--v-drawer-hide);
+    transition:
+      translate var(--v-dur-3) var(--v-ease-out),
+      overlay var(--v-dur-3) allow-discrete,
+      display var(--v-dur-3) allow-discrete;
+  }
+
+  .v-drawer:dir(rtl) { --v-drawer-dir: -1; }
+
+  .v-drawer[open] {
+    display: flex;
+    flex-direction: column;
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .v-drawer[open] { translate: var(--v-drawer-hide); }
+  }
+
+  .v-drawer::backdrop {
+    background-color: var(--v-backdrop);
+    opacity: 0;
+    transition: opacity var(--v-dur-3), overlay var(--v-dur-3) allow-discrete, display var(--v-dur-3) allow-discrete;
+  }
+
+  .v-drawer[open]::backdrop { opacity: 1; }
+
+  @starting-style {
+    .v-drawer[open]::backdrop { opacity: 0; }
+  }
+
+  .v-drawer-start {
+    --v-drawer-hide: calc(-100% * var(--v-drawer-dir)) 0;
+
+    inset-inline: 0 auto;
+    border-inline: 0 var(--v-border-w) solid var(--v-border);
+  }
+
+  .v-drawer-top,
+  .v-drawer-bottom {
+    inset-inline: 0;
+    inline-size: 100%;
+    block-size: auto;
+    max-block-size: 85dvh;
+    border-inline: 0;
+  }
+
+  .v-drawer-top {
+    --v-drawer-hide: 0 -100%;
+
+    inset-block: 0 auto;
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    border-end-start-radius: var(--v-radius-xl);
+    border-end-end-radius: var(--v-radius-xl);
+  }
+
+  .v-drawer-bottom {
+    --v-drawer-hide: 0 100%;
+
+    inset-block: auto 0;
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    border-start-start-radius: var(--v-radius-xl);
+    border-start-end-radius: var(--v-radius-xl);
+  }
+
+  .v-drawer-header {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    padding: var(--v-drawer-pad) var(--v-drawer-pad) var(--v-space-3);
+  }
+
+  .v-drawer-title {
+    margin-inline-end: auto;
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    line-height: 1.25;
+  }
+
+  .v-drawer-close {
+    flex: none;
+    margin-inline-end: -0.5rem;
+  }
+
+  .v-drawer-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: var(--v-space-3) var(--v-drawer-pad);
+    color: var(--v-text-2);
+    overscroll-behavior: contain;
+  }
+
+  .v-drawer-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3);
+    justify-content: flex-end;
+    padding: var(--v-space-4) var(--v-drawer-pad) var(--v-drawer-pad);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  /* Phones: the end drawer becomes a bottom sheet (thumb reach). Start stays a side drawer for navigation. */
+  @media (width < 40rem) {
+    .v-drawer:not(.v-drawer-start, .v-drawer-top) {
+      --v-drawer-hide: 0 100%;
+
+      inset-block: auto 0;
+      inset-inline: 0;
+      inline-size: 100%;
+      block-size: auto;
+      max-block-size: 85dvh;
+      border: 0;
+      border-block-start: var(--v-border-w) solid var(--v-border);
+      border-start-start-radius: var(--v-radius-xl);
+      border-start-end-radius: var(--v-radius-xl);
+    }
+
+    .v-drawer-footer > :is(.v-btn, button) { flex: 1 1 auto; }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-drawer {
+    border-color: var(--v-border-strong);
+    box-shadow: none;
+  }
+
+  :root[data-direction="glass"] .v-drawer { backdrop-filter: blur(24px) saturate(1.6); }
+  :root[data-direction="glass"] .v-drawer::backdrop { backdrop-filter: blur(6px); }
+
+  @media (prefers-reduced-transparency: reduce) {
+    :root[data-direction="glass"] .v-drawer,
+    :root[data-direction="glass"] .v-drawer::backdrop { backdrop-filter: none; }
+  }
+}

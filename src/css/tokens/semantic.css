@@ -45,6 +45,10 @@
     --v-feature-on-fg: var(--v-feature-bg);
     --v-feature-border: var(--v-border);
 
+    /* Overlays: dialogs, drawers, popovers, menus. The backdrop is the scrim behind modal ones. */
+    --v-overlay-bg: var(--v-surface);
+    --v-backdrop: oklch(18% 0.02 260deg / 50%);
+
     /* Backgrounds */
     --v-page-bg: none;
     --v-hero-bg: none;
