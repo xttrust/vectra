@@ -140,11 +140,13 @@
   }
 
   let hashTimer;
+  let quiet = true; // the first render only fills the share box; the URL changes once the visitor does something
   function writeHash() {
     const link = `${location.href.split('#')[0]}#${toHash()}`;
     $('#tb-link').value = link;
     $('#tb-copy-link').dataset.vCopy = link;
     clearTimeout(hashTimer);
+    if (quiet) return;
     hashTimer = setTimeout(() => history.replaceState(null, '', `#${toHash()}`), 150);
   }
 
@@ -515,14 +517,18 @@ ${body}
   }
 
   function start() {
-    if (ready || !pdoc()?.querySelector('.tbp')) return;
+    // Deferred scripts (vectra.js applies the saved theme) have all run by DOMContentLoaded; starting
+    // earlier would read the defaults instead of the visitor's theme.
+    if (ready || document.readyState === 'loading' || !pdoc()?.querySelector('.tbp')) return;
     ready = true;
     state = initialState();
     pdoc().querySelector('main').dataset.view = $('input[name="view"]:checked', tb)?.value ?? 'app';
     render();
+    quiet = false;
     tb.dataset.ready = '';
   }
   frame.addEventListener('load', start);
+  document.addEventListener('DOMContentLoaded', start);
   start();
   addEventListener('hashchange', () => {
     const linked = fromHash(location.hash);
