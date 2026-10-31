@@ -5,6 +5,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { GROUPS, PAGES, signIn, dashboard } from './auth/flows.mjs';
+import { format, THEME_SCRIPT } from './html-format.mjs';
 
 const OUT = 'examples/auth';
 const CHECK = process.argv.includes('--check');
@@ -117,45 +118,6 @@ const prefixIds = (html, p) => html
   .replace(/\b(id|for|aria-controls|aria-labelledby|aria-describedby)="([^"]+)"/g, (_, a, v) => `${a}="${v.split(' ').map((x) => p + x).join(' ')}"`)
   .replace(/\b(href|data-v-strength|data-v-copy-target)="#([^"#]+)"/g, (_, a, v) => `${a}="#${p}${v}"`);
 const demote = (html, level) => html.replace(/<h1 class="v-auth-title"([^>]*)>([\s\S]*?)<\/h1>/, `<h${level} class="v-auth-title"$1>$2</h${level}>`);
-
-const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
-// Indents by tag depth, two spaces a level. <pre> blocks are kept exactly as written.
-function format(html, base = 0) {
-  let depth = base;
-  let pre = false;
-  const out = [];
-  for (const raw of html.split('\n')) {
-    if (pre) {
-      out.push(raw);
-      if (raw.includes('</pre>')) pre = false;
-      continue;
-    }
-    const line = raw.trim();
-    if (!line) continue;
-    const opens = [...line.matchAll(/<([a-z][a-z0-9-]*)\b[^>]*?(\/?)>/gi)].filter((m) => !m[2] && !VOID.has(m[1].toLowerCase())).length;
-    const closes = (line.match(/<\/[a-z][^>]*>/gi) ?? []).length;
-    // A line that opens a <pre> closes it (and whatever opened with it) on the pre's last line.
-    pre = line.includes('<pre') && !line.includes('</pre>');
-    const delta = line.startsWith('<!--') || pre ? 0 : opens - closes;
-    if (delta < 0) depth += delta;
-    out.push('  '.repeat(Math.max(0, depth)) + line);
-    if (delta > 0) depth += delta;
-  }
-  return out.join('\n');
-}
-
-const THEME_SCRIPT = `<script>
-    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
-    (function () {
-      var root = document.documentElement;
-      try {
-        var d = localStorage.getItem('vectra-direction');
-        var t = localStorage.getItem('vectra-theme');
-        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
-        if (t === 'light' || t === 'dark') root.dataset.theme = t;
-      } catch (e) {}
-    })();
-  </script>`;
 
 const OPENER = `/* Gallery only: modal dialogs need showModal(). */
 document.querySelectorAll('[data-ex-open]').forEach((btn) => {

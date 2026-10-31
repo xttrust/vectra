@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>About us · Northwind</title>
+  <meta name="description" content="The story, values and team behind Northwind. An example page built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7a4.3 4.3 0 017.5 2.8C19.5 15.4 12 20 12 20z"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14M5 19l7-7"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: about</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <header class="v-navbar v-navbar-contained" data-v-nav>
+    <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li><a href="saas-home.html">Product</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="v-navbar-actions">
+        <a class="v-btn v-btn-ghost" href="../../examples/auth/sign-in/password.html">Sign in</a>
+        <a class="v-btn v-btn-primary" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="v-skip-target" tabindex="-1">
+    <section class="v-hero v-hero-center">
+      <div class="v-container">
+        <div class="v-hero-copy">
+          <p class="v-kicker">About Northwind</p>
+          <h1 class="v-display">We build the back office our families never had.</h1>
+          <p class="v-lead">Northwind started at a kitchen table in Tuam, with a shoebox of receipts and a roofer who would rather be on a roof. Today it runs the admin for more than 1,200 small businesses.</p>
+        </div>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-sidebar" style="--v-side: 18rem; --v-gap: var(--v-space-7)">
+          <div class="v-section-head v-mb-0">
+            <p class="v-kicker">Our story</p>
+            <h2>Built by people who did the paperwork</h2>
+          </div>
+          <div class="v-prose">
+            <p>Aoife Kelly spent ten years running the office of her father's roofing business: answering the phone between jobs, chasing invoices on Sunday evenings and keeping the diary in a notebook that lived in the van.</p>
+            <p>Every tool she tried was built for an accountant or a call centre, not for a crew of four in a county with patchy signal. So in 2019 she sat down with Se&aacute;n, a friend from school who wrote software, and started again from the job itself: a customer rings, someone goes out, the work gets done, the money comes in.</p>
+            <p>That is still the whole idea. Northwind does the boring parts quietly, works on the phone in your pocket, and stays out of the way of the actual work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="v-section" aria-label="Northwind in numbers">
+      <div class="v-container">
+        <dl class="v-stats">
+          <div class="v-stat"><dt class="v-stat-label">businesses run on Northwind</dt><dd class="v-stat-value">1,200+</dd></div>
+          <div class="v-stat"><dt class="v-stat-label">people on the team</dt><dd class="v-stat-value">9</dd></div>
+          <div class="v-stat"><dt class="v-stat-label">counties and shires</dt><dd class="v-stat-value">41</dd></div>
+          <div class="v-stat"><dt class="v-stat-label">investors to keep happy</dt><dd class="v-stat-value">0</dd></div>
+        </dl>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-section-head v-section-head-center">
+          <p class="v-kicker">What we believe</p>
+          <h2>Three rules we will not break</h2>
+        </div>
+        <div class="v-grid v-grid-fit" style="--v-min: 16rem; --v-gap: var(--v-space-6) var(--v-space-5)">
+          <div class="v-stack" style="--v-gap: var(--v-space-3)">
+            <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-heart"/></svg></span>
+            <h3>Plain and kind</h3>
+            <p class="v-text-secondary">No jargon, no dark patterns, no small print that bites. If a screen needs a manual, we redo the screen.</p>
+          </div>
+          <div class="v-stack" style="--v-gap: var(--v-space-3)">
+            <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
+            <h3>Your data is yours</h3>
+            <p class="v-text-secondary">Hosted in the EU, never sold, and exportable in one click. Leaving should be as easy as joining.</p>
+          </div>
+          <div class="v-stack" style="--v-gap: var(--v-space-3)">
+            <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+            <h3>Built to last</h3>
+            <p class="v-text-secondary">We are profitable and independent, so we answer to customers, not investors. No surprise shutdowns.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-sidebar" style="--v-side: 18rem; --v-gap: var(--v-space-7)">
+          <div class="v-section-head v-mb-0">
+            <p class="v-kicker">Milestones</p>
+            <h2>How we got here</h2>
+            <p class="v-text-secondary">Slowly, on purpose, and with our customers in the room.</p>
+          </div>
+          <ol class="v-timeline">
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><h3 class="v-timeline-title">A notebook becomes an app</h3><span class="v-timeline-time">2019</span></div>
+                <p class="v-timeline-body">The first version runs one roofing business in Tuam. It does bookings and nothing else.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><h3 class="v-timeline-title">Invoices and card payments</h3><span class="v-timeline-time">2021</span></div>
+                <p class="v-timeline-body">Fifty businesses sign up by word of mouth. Pay-now links cut the average wait for payment from 31 days to 9.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><h3 class="v-timeline-title">The team grows to nine</h3><span class="v-timeline-time">2023</span></div>
+                <p class="v-timeline-body">We open an office on the Dublin Road and start answering the phone ourselves.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><h3 class="v-timeline-title">1,000 businesses</h3><span class="v-timeline-time">2025</span></div>
+                <p class="v-timeline-body">Northwind reaches Scotland and Wales, still with no sales team and no adverts.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"><svg class="v-icon" aria-hidden="true"><use href="#i-sparkle"/></svg></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><h3 class="v-timeline-title">Online booking for everyone</h3><span class="v-timeline-time">2026</span></div>
+                <p class="v-timeline-body">Customers can book a slot from any website, on every plan, including the free one.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-section-head v-section-head-center">
+          <p class="v-kicker">The team</p>
+          <h2>Small team, west of Ireland</h2>
+          <p class="v-lead">Nine of us, mostly from families that ran a trade.</p>
+        </div>
+        <ul class="v-grid" style="--v-min: 14rem; --v-gap: var(--v-space-6) var(--v-space-5)">
+          <li class="v-person">
+            <span class="v-avatar" aria-hidden="true">AK</span>
+            <h3 class="v-person-name">Aoife Kelly</h3>
+            <span class="v-person-role">Founder</span>
+            <p>Ran the office for her dad's roofing firm for ten years. Built Northwind to fix it.</p>
+          </li>
+          <li class="v-person">
+            <span class="v-avatar" aria-hidden="true">SM</span>
+            <h3 class="v-person-name">Se&aacute;n Murphy</h3>
+            <span class="v-person-role">Engineering</span>
+            <p>Keeps the app fast on a weak signal in the middle of Connemara.</p>
+          </li>
+          <li class="v-person">
+            <span class="v-avatar" aria-hidden="true">CR</span>
+            <h3 class="v-person-name">Ciara Ryan</h3>
+            <span class="v-person-role">Customer success</span>
+            <p>Has moved over 400 businesses off paper. Answers the phone herself.</p>
+          </li>
+          <li class="v-person">
+            <span class="v-avatar" aria-hidden="true">TB</span>
+            <h3 class="v-person-name">Tom&aacute;s Byrne</h3>
+            <span class="v-person-role">Design</span>
+            <p>Tests every screen with gloves on. Seriously.</p>
+          </li>
+          <li class="v-person">
+            <span class="v-avatar" aria-hidden="true">NF</span>
+            <h3 class="v-person-name">Nuala Fahy</h3>
+            <span class="v-person-role">Engineering</span>
+            <p>Looks after payments, so your money lands where it should.</p>
+          </li>
+          <li class="v-person">
+            <span class="v-avatar" aria-hidden="true">DK</span>
+            <h3 class="v-person-name">Declan Keane</h3>
+            <span class="v-person-role">Sales</span>
+            <p>Former electrician. Will tell you if Northwind is not right for you.</p>
+          </li>
+          <li class="v-person">
+            <span class="v-avatar" aria-hidden="true">RM</span>
+            <h3 class="v-person-name">R&oacute;is&iacute;n Moran</h3>
+            <span class="v-person-role">Support</span>
+            <p>Writes the help centre, one plain sentence at a time.</p>
+          </li>
+          <li class="v-person">
+            <span class="v-avatar" aria-hidden="true">LT</span>
+            <h3 class="v-person-name">Liam Tierney</h3>
+            <span class="v-person-role">Operations</span>
+            <p>Keeps the lights on, the books straight and the coffee strong.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-card v-cta">
+          <div class="v-cta-split">
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <h2>Want to work with us?</h2>
+              <p class="v-text-secondary">We hire slowly and keep people. Remote within Ireland, with a desk in Tuam if you want one.</p>
+            </div>
+            <div class="v-cluster">
+              <a class="v-btn v-btn-secondary" href="contact.html">Say hello</a>
+              <a class="v-btn v-btn-primary" href="system/coming-soon.html">See open roles</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid">
+        <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+          <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+          <p class="v-max-prose">Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+          <span class="v-status">All systems running</span>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Product</h2>
+          <ul class="v-footer-links">
+            <li><a href="saas-home.html#features">Features</a></li>
+            <li><a href="landing.html">Online booking</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="system/coming-soon.html">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Company</h2>
+          <ul class="v-footer-links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="system/coming-soon.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Help</h2>
+          <ul class="v-footer-links">
+            <li><a href="system/coming-soon.html">Help centre</a></li>
+            <li><a href="system/coming-soon.html">Guides</a></li>
+            <li><a href="system/coming-soon.html">Status</a></li>
+            <li><a href="privacy.html#security">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-footer-bottom">
+        <p>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+        <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>

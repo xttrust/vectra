@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>500 Server error · Northwind</title>
+  <meta name="description" content="Server error: a Northwind system page (minimal layout) built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../pages.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 00-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0014.5 4.5L20 16M20 20v-4h-4"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../index.html">Vectra <span>example: server error</span></a>
+      <nav class="ex-variants" aria-label="Layout">
+        <span class="ex-variants-label" aria-hidden="true">Layout</span>
+        <ul>
+          <li><a href="500.html" aria-current="page">Minimal</a></li>
+          <li><a href="500-illustrated.html">Illustrated</a></li>
+        </ul>
+      </nav>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <div class="v-system">
+    <header class="v-system-header">
+      <a class="v-navbar-brand" href="../saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    </header>
+    <main class="v-system-main v-skip-target" id="main" tabindex="-1">
+      <div class="v-system-copy">
+        <p class="v-system-code"><span class="v-sr-only">Error </span>500</p>
+        <h1 class="v-system-title">Something went wrong on our side</h1>
+        <p class="v-system-text">It is not something you did. Our team has been told and is looking into it. Please try again in a minute or two.</p>
+        <div class="v-system-actions">
+          <a class="v-btn v-btn-primary" href="500.html"><svg class="v-icon" aria-hidden="true"><use href="#i-refresh"/></svg>Try again</a>
+          <a class="v-btn v-btn-secondary" href="../saas-home.html">Go to the home page</a>
+        </div>
+        <p class="v-system-note">Reference <code>NW-7F3A-91C2</code> <button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="NW-7F3A-91C2"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button></p>
+        <p class="v-system-note">Still not working? Check the <a href="coming-soon.html">status page</a> or <a href="../contact.html">contact support</a> and quote the reference above.</p>
+      </div>
+    </main>
+    <footer class="v-system-footer">
+      <a href="../saas-home.html">Home</a>
+      <a href="../contact.html">Help</a>
+      <a href="coming-soon.html">Status</a>
+      <span>&copy; 2026 Northwind</span>
+    </footer>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

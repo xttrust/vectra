@@ -1,0 +1,149 @@
+/* System pages: errors (401 to 503), maintenance, offline and coming soon. .v-system fills the screen:
+   a .v-system-header (the logo), the .v-system-main and a .v-system-footer (a few links).
+   Inside the main, .v-system-copy stacks a .v-system-code (the status number), the title (.v-system-title),
+   the explanation (.v-system-text), the .v-system-actions and an optional .v-system-note. A form, progress
+   bar or list under the text takes .v-system-extra; .v-system-list is a list of ticks (what still works).
+   - Minimal (default): one centred column, the code drawn large.
+   - .v-system-illustrated: add a .v-system-art (an SVG drawn with tokens) before the copy. It sits above
+     the copy on phones and beside it, at the inline end, once the page is 56rem wide. */
+@layer components {
+  .v-system {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--v-space-6);
+    min-block-size: 100dvh;
+    padding: clamp(1rem, 4vw, 2rem);
+    container: v-system / inline-size;
+  }
+
+  .v-system-header,
+  .v-system-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2) var(--v-space-5);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .v-system-footer {
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-system-main {
+    display: grid;
+    gap: var(--v-space-6);
+    align-content: center;
+    justify-items: center;
+    inline-size: min(100%, 38rem);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .v-system-copy {
+    display: grid;
+    gap: var(--v-space-4);
+    justify-items: center;
+  }
+
+  .v-system-code {
+    color: var(--v-accent-text);
+    font-family: var(--v-font-display);
+    font-size: clamp(4.5rem, 18cqi, 8rem);
+    font-weight: var(--v-display-weight);
+    font-variant-numeric: tabular-nums;
+    line-height: 0.9;
+    letter-spacing: var(--v-display-tracking);
+  }
+
+  .v-system-title {
+    font-size: var(--v-step-3);
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  .v-system-text {
+    max-inline-size: 46ch;
+    color: var(--v-text-2);
+    font-size: var(--v-step-1);
+    line-height: 1.55;
+  }
+
+  .v-system-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3);
+    justify-content: center;
+    margin-block-start: var(--v-space-2);
+  }
+
+  .v-system-note {
+    max-inline-size: 52ch;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+  }
+
+  /* A search form, progress bar or list under the text. */
+  .v-system-extra {
+    inline-size: min(100%, 28rem);
+    text-align: start;
+  }
+
+  .v-system-list {
+    display: grid;
+    gap: var(--v-space-2);
+  }
+
+  .v-system-list li {
+    display: flex;
+    gap: var(--v-space-2);
+    align-items: flex-start;
+  }
+
+  .v-system-list .v-icon {
+    flex-shrink: 0;
+    margin-block-start: 0.2em;
+    color: var(--v-success);
+  }
+
+  .v-system-art {
+    inline-size: min(100%, 15rem);
+    color: var(--v-accent-text);
+  }
+
+  .v-system-art svg {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  @container v-system (width >= 56rem) {
+    .v-system-illustrated .v-system-main {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--v-space-8);
+      align-items: center;
+      inline-size: min(100%, 68rem);
+      text-align: start;
+    }
+
+    .v-system-illustrated .v-system-copy { justify-items: start; }
+    .v-system-illustrated .v-system-actions { justify-content: flex-start; }
+
+    .v-system-illustrated .v-system-art {
+      order: 1;
+      inline-size: 100%;
+    }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-system-code {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  :root:is(:not([data-direction]), [data-direction="tech"]) .v-system-code {
+    font-family: var(--v-font-mono);
+    letter-spacing: -0.06em;
+  }
+}

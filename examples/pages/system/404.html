@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>404 Page not found · Northwind</title>
+  <meta name="description" content="Page not found: a Northwind system page (minimal layout) built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../pages.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../index.html">Vectra <span>example: page not found</span></a>
+      <nav class="ex-variants" aria-label="Layout">
+        <span class="ex-variants-label" aria-hidden="true">Layout</span>
+        <ul>
+          <li><a href="404.html" aria-current="page">Minimal</a></li>
+          <li><a href="404-illustrated.html">Illustrated</a></li>
+        </ul>
+      </nav>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <div class="v-system">
+    <header class="v-system-header">
+      <a class="v-navbar-brand" href="../saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    </header>
+    <main class="v-system-main v-skip-target" id="main" tabindex="-1">
+      <div class="v-system-copy">
+        <p class="v-system-code"><span class="v-sr-only">Error </span>404</p>
+        <h1 class="v-system-title">We cannot find that page</h1>
+        <p class="v-system-text">The link may be old, or the page may have moved. If you typed the address, check it for typos.</p>
+        <div class="v-system-actions">
+          <a class="v-btn v-btn-primary" href="../saas-home.html">Go to the home page</a>
+          <a class="v-btn v-btn-secondary" href="../contact.html">Contact us</a>
+        </div>
+        <form class="v-system-extra" action="../blog.html" role="search" aria-label="Search the site">
+          <label class="v-sr-only" for="search-404">Search the site</label>
+          <div class="v-input-group v-search">
+            <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
+            <input class="v-input" id="search-404" name="q" type="search" placeholder="Search guides and help">
+            <button class="v-btn v-btn-secondary" type="submit">Search</button>
+          </div>
+        </form>
+        <p class="v-system-note">Popular pages: <a href="../pricing.html">Pricing</a>, <a href="../blog.html">Blog</a>, <a href="../landing.html">Online booking</a>.</p>
+      </div>
+    </main>
+    <footer class="v-system-footer">
+      <a href="../saas-home.html">Home</a>
+      <a href="../contact.html">Help</a>
+      <a href="coming-soon.html">Status</a>
+      <span>&copy; 2026 Northwind</span>
+    </footer>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

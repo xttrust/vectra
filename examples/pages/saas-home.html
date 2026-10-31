@@ -72,7 +72,7 @@
 
   <aside class="ex-bar" aria-label="Direction and theme">
     <div class="v-container ex-bar-inner">
-      <a class="ex-title" href="../sections/">Vectra <span>example: SaaS home</span></a>
+      <a class="ex-title" href="index.html">Vectra <span>example: SaaS home</span></a>
       <label>Direction
         <select id="direction">
           <option value="tech">Dark tech</option>
@@ -93,23 +93,24 @@
 
     <div class="v-banner v-banner-accent v-announce" role="status" data-v-dismissable>
       <svg class="v-icon v-hide-mobile" aria-hidden="true"><use href="#i-sparkle"/></svg>
-      <p class="v-banner-body" data-contrast><strong>New:</strong> customers can now book a slot straight from your website. <a href="#pricing">See how it works</a></p>
+      <p class="v-banner-body" data-contrast><strong>New:</strong> customers can now book a slot straight from your website. <a href="landing.html">See how it works</a></p>
       <button class="v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss" type="button" data-v-dismiss aria-label="Dismiss announcement"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
     </div>
-    <header class="v-navbar v-navbar-contained">
+    <header class="v-navbar v-navbar-contained" data-v-nav>
       <a class="v-navbar-brand" href="#top" data-contrast><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
       <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
       <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
         <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
         <ul class="v-navbar-links">
-          <li><a href="#top" aria-current="page" data-contrast>Product</a></li>
-          <li><a href="#top" data-contrast>Pricing</a></li>
-          <li><a href="#top" data-contrast>Customers</a></li>
-          <li><a href="#top" data-contrast>Help</a></li>
+          <li><a href="saas-home.html" aria-current="page" data-contrast>Product</a></li>
+          <li><a href="pricing.html" data-contrast>Pricing</a></li>
+          <li><a href="about.html" data-contrast>About</a></li>
+          <li><a href="blog.html" data-contrast>Blog</a></li>
+          <li><a href="contact.html" data-contrast>Contact</a></li>
         </ul>
         <div class="v-navbar-actions">
-          <a class="v-btn v-btn-ghost" href="#top" data-contrast>Sign in</a>
-          <a class="v-btn v-btn-primary" href="#top" data-contrast>Start free trial</a>
+          <a class="v-btn v-btn-ghost" href="../auth/sign-in/password.html" data-contrast>Sign in</a>
+          <a class="v-btn v-btn-primary" href="../auth/sign-up/single.html" data-contrast>Start free trial</a>
         </div>
       </nav>
     </header>
@@ -430,7 +431,7 @@
           <div class="v-section-head v-mb-0">
             <p class="v-kicker" data-contrast>Questions</p>
             <h2 data-contrast>Asked before you start</h2>
-            <p class="v-text-secondary" data-contrast>Something else? <a href="#top">Ask us</a>, a real person replies within a working day.</p>
+            <p class="v-text-secondary" data-contrast>Something else? <a href="contact.html">Ask us</a>, a real person replies within a working day.</p>
           </div>
           <div class="v-accordion">
             <details name="faq" open>
@@ -483,37 +484,37 @@
           <div>
             <h2 class="v-footer-title" data-contrast>Product</h2>
             <ul class="v-footer-links">
-              <li><a href="#top" data-contrast>Features</a></li>
-              <li><a href="#top" data-contrast>Pricing</a></li>
-              <li><a href="#top" data-contrast>Online booking</a></li>
-              <li><a href="#top" data-contrast>Changelog</a></li>
+              <li><a href="#features" data-contrast>Features</a></li>
+              <li><a href="landing.html" data-contrast>Online booking</a></li>
+              <li><a href="pricing.html" data-contrast>Pricing</a></li>
+              <li><a href="system/coming-soon.html" data-contrast>Changelog</a></li>
             </ul>
           </div>
           <div>
             <h2 class="v-footer-title" data-contrast>Company</h2>
             <ul class="v-footer-links">
-              <li><a href="#top" data-contrast>About us</a></li>
-              <li><a href="#top" data-contrast>Customers</a></li>
-              <li><a href="#top" data-contrast>Careers</a></li>
-              <li><a href="#top" data-contrast>Contact</a></li>
+              <li><a href="about.html" data-contrast>About us</a></li>
+              <li><a href="blog.html" data-contrast>Blog</a></li>
+              <li><a href="system/coming-soon.html" data-contrast>Careers</a></li>
+              <li><a href="contact.html" data-contrast>Contact</a></li>
             </ul>
           </div>
           <div>
             <h2 class="v-footer-title" data-contrast>Help</h2>
             <ul class="v-footer-links">
-              <li><a href="#top" data-contrast>Help centre</a></li>
-              <li><a href="#top" data-contrast>Guides</a></li>
-              <li><a href="#top" data-contrast>Status</a></li>
-              <li><a href="#top" data-contrast>Security</a></li>
+              <li><a href="system/coming-soon.html" data-contrast>Help centre</a></li>
+              <li><a href="system/coming-soon.html" data-contrast>Guides</a></li>
+              <li><a href="system/coming-soon.html" data-contrast>Status</a></li>
+              <li><a href="privacy.html#security" data-contrast>Security</a></li>
             </ul>
           </div>
         </div>
         <div class="v-footer-bottom">
           <p data-contrast>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
           <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
-            <li><a href="#top" data-contrast>Privacy</a></li>
-            <li><a href="#top" data-contrast>Terms</a></li>
-            <li><a href="#top" data-contrast>Cookies</a></li>
+            <li><a href="privacy.html" data-contrast>Privacy</a></li>
+            <li><a href="terms.html" data-contrast>Terms</a></li>
+            <li><a href="cookies.html" data-contrast>Cookies</a></li>
           </ul>
         </div>
       </div>

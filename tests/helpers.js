@@ -27,6 +27,7 @@ export const PAGES = [
   { name: 'sections-app', path: '/examples/sections/app.html', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'page-saas-home', path: '/examples/pages/saas-home.html', storage: 'vectra', visual: 'basic' },
   { name: 'page-app-shell', path: '/examples/pages/app-shell.html', storage: 'vectra', visual: 'basic' },
+  { name: 'pages-index', path: '/examples/pages/', storage: 'vectra', visual: 'basic' },
 ];
 
 // Every generated auth page (examples/auth/<group>/<flow>.html), found on disk so new flows are tested
@@ -38,6 +39,18 @@ export const AUTH_PAGES = readdirSync(AUTH_DIR, { withFileTypes: true })
   .flatMap((d) => readdirSync(new URL(`${d.name}/`, AUTH_DIR)).filter((f) => f.endsWith('.html')).map((f) => `${d.name}/${f.slice(0, -5)}`))
   .sort()
   .map((slug) => ({ name: `auth-${slug.replace('/', '-')}`, slug, path: `/examples/auth/${slug}.html`, storage: 'vectra', visual: AUTH_VISUAL.includes(slug) ? 'basic' : 'none' }));
+
+// Every generated full page (examples/pages/, system/ and app/; M7.3), found on disk like the auth pages.
+// saas-home, app-shell and the index are hand-listed in PAGES above. visual: 'basic' for a representative ten.
+const PAGES_VISUAL = ['landing', 'pricing', 'blog-post', 'system/404', 'system/503-illustrated', 'app/stacked', 'app/list', 'app/list-empty', 'app/detail', 'app/settings-security'];
+const PAGES_DIR = new URL('../examples/pages/', import.meta.url);
+const HAND_WRITTEN = ['index', 'saas-home', 'app-shell'];
+export const EXAMPLE_PAGES = readdirSync(PAGES_DIR, { recursive: true })
+  .filter((f) => f.endsWith('.html'))
+  .map((f) => f.slice(0, -5).replaceAll('\\', '/'))
+  .filter((slug) => !HAND_WRITTEN.includes(slug))
+  .sort()
+  .map((slug) => ({ name: `page-${slug.replace('/', '-')}`, slug, path: `/examples/pages/${slug}.html`, storage: 'vectra', visual: PAGES_VISUAL.includes(slug) ? 'basic' : 'none' }));
 
 export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
 
