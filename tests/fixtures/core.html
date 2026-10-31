@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Core fixture</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+</head>
+<body>
+  <main>
+    <h1>Core fixture</h1>
+    <div id="first" data-v-probe></div>
+    <div id="host"></div>
+  </main>
+  <script type="module">
+    import * as Vectra from '../../src/js/index.js';
+    // A probe module that records its lifecycle on the element and in a global log.
+    window.log = [];
+    Vectra.register('probe', (el) => {
+      window.log.push(`init:${el.id}`);
+      el.dataset.ready = 'true';
+      return { destroy: () => window.log.push(`destroy:${el.id}`) };
+    });
+    window.Vectra = Vectra;
+  </script>
+</body>
+</html>
