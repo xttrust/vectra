@@ -31,6 +31,9 @@
     gap: var(--v-gap, var(--v-space-4));
   }
 
+  /* .v-grid-fit: with fewer items than would fit, they stretch to share the row instead of leaving empty columns. */
+  .v-grid-fit { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--v-min, 16rem)), 1fr)); }
+
   /* Side panel + content. Stacks once the content would get narrower than --v-content-min. */
   .v-sidebar {
     display: flex;

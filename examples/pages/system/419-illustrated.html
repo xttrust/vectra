@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>419 Page expired · Northwind</title>
+  <meta name="description" content="Page expired: a Northwind system page (illustrated layout) built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../pages.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 00-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0014.5 4.5L20 16M20 20v-4h-4"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../index.html">Vectra <span>example: page expired</span></a>
+      <nav class="ex-variants" aria-label="Layout">
+        <span class="ex-variants-label" aria-hidden="true">Layout</span>
+        <ul>
+          <li><a href="419.html">Minimal</a></li>
+          <li><a href="419-illustrated.html" aria-current="page">Illustrated</a></li>
+        </ul>
+      </nav>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <div class="v-system v-system-illustrated">
+    <header class="v-system-header">
+      <a class="v-navbar-brand" href="../saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    </header>
+    <main class="v-system-main v-skip-target" id="main" tabindex="-1">
+      <div class="v-system-art">
+        <svg viewBox="0 0 320 260" aria-hidden="true" focusable="false">
+          <circle cx="160" cy="126" r="108" style="fill: var(--v-accent-soft)"/>
+          <circle cx="160" cy="126" r="108" fill="none" style="stroke: var(--v-border)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 10"/>
+          <path d="M36 222h248" fill="none" style="stroke: var(--v-border-strong)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="58" cy="70" r="6" style="fill: var(--v-accent-2)"/>
+          <circle cx="276" cy="176" r="5" style="fill: var(--v-accent-2)"/>
+          <circle cx="262" cy="52" r="3.5" style="fill: var(--v-accent)"/>
+          <path d="M116 54h88M116 210h88" fill="none" style="stroke: var(--v-accent-text)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M128 56c0 40 28 50 28 76s-28 36-28 76M192 56c0 40-28 50-28 76s28 36 28 76" fill="none" style="stroke: var(--v-accent-text)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M142 88h36c-4 14-12 22-18 28-6-6-14-14-18-28z" style="fill: var(--v-accent)"/>
+          <path d="M136 206c4-22 14-30 24-34 10 4 20 12 24 34z" style="fill: var(--v-accent)"/>
+          <path d="M160 120v44" fill="none" style="stroke: var(--v-accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 6"/>
+        </svg>
+      </div>
+      <div class="v-system-copy">
+        <p class="v-kicker">Error 419</p>
+        <h1 class="v-system-title">This page has expired</h1>
+        <p class="v-system-text">For your security, forms stop working when they sit open for a long time. Refresh the page, then send the form again.</p>
+        <div class="v-system-actions">
+          <a class="v-btn v-btn-primary" href="419.html"><svg class="v-icon" aria-hidden="true"><use href="#i-refresh"/></svg>Refresh the page</a>
+          <a class="v-btn v-btn-secondary" href="../saas-home.html">Go to the home page</a>
+        </div>
+        <p class="v-system-note">Wrote something long? Copy it before you refresh, as it may not have been saved.</p>
+      </div>
+    </main>
+    <footer class="v-system-footer">
+      <a href="../saas-home.html">Home</a>
+      <a href="../contact.html">Help</a>
+      <a href="coming-soon.html">Status</a>
+      <span>&copy; 2026 Northwind</span>
+    </footer>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

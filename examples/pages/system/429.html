@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>429 Too many requests · Northwind</title>
+  <meta name="description" content="Too many requests: a Northwind system page (minimal layout) built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../pages.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 00-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0014.5 4.5L20 16M20 20v-4h-4"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../index.html">Vectra <span>example: too many requests</span></a>
+      <nav class="ex-variants" aria-label="Layout">
+        <span class="ex-variants-label" aria-hidden="true">Layout</span>
+        <ul>
+          <li><a href="429.html" aria-current="page">Minimal</a></li>
+          <li><a href="429-illustrated.html">Illustrated</a></li>
+        </ul>
+      </nav>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <div class="v-system">
+    <header class="v-system-header">
+      <a class="v-navbar-brand" href="../saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    </header>
+    <main class="v-system-main v-skip-target" id="main" tabindex="-1">
+      <div class="v-system-copy">
+        <p class="v-system-code"><span class="v-sr-only">Error </span>429</p>
+        <h1 class="v-system-title">Too many requests, please wait a moment</h1>
+        <p class="v-system-text">To keep Northwind quick for everyone, we limit how often a page can be loaded or a form sent. Nothing is wrong with your account.</p>
+        <div class="v-alert v-alert-info v-system-extra" data-countdown="60"><svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg><p class="v-alert-body" role="timer">You can try again in <strong data-countdown-value>60 seconds</strong>.</p></div>
+        <div class="v-system-actions">
+          <a class="v-btn v-btn-primary" href="429.html"><svg class="v-icon" aria-hidden="true"><use href="#i-refresh"/></svg>Try again</a>
+          <a class="v-btn v-btn-secondary" href="../saas-home.html">Go to the home page</a>
+        </div>
+        <p class="v-system-note">Using our API? Wait for the time in the Retry-After header before sending more requests.</p>
+      </div>
+    </main>
+    <footer class="v-system-footer">
+      <a href="../saas-home.html">Home</a>
+      <a href="../contact.html">Help</a>
+      <a href="coming-soon.html">Status</a>
+      <span>&copy; 2026 Northwind</span>
+    </footer>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+  <script type="module">
+    /* Example only: counts the wait down once a second. Without JS the starting number stays. */
+    const box = document.querySelector('[data-countdown]');
+    const text = box.querySelector('.v-alert-body');
+    let left = Number(box.dataset.countdown);
+    const timer = setInterval(() => {
+      left -= 1;
+      if (left > 0) text.querySelector('strong').textContent = left === 1 ? '1 second' : `${left} seconds`;
+      else {
+        clearInterval(timer);
+        text.textContent = 'You can try again now.';
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pricing · Northwind</title>
+  <meta name="description" content="Northwind pricing with a plan comparison and FAQ. An example page built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: pricing</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <header class="v-navbar v-navbar-contained" data-v-nav>
+    <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li><a href="saas-home.html">Product</a></li>
+        <li><a href="pricing.html" aria-current="page">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="v-navbar-actions">
+        <a class="v-btn v-btn-ghost" href="../../examples/auth/sign-in/password.html">Sign in</a>
+        <a class="v-btn v-btn-primary" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="v-skip-target" tabindex="-1">
+    <section class="v-hero">
+      <div class="v-container">
+        <div class="v-section-head v-section-head-center">
+          <p class="v-kicker">Pricing</p>
+          <h1 class="v-display">Simple prices. No surprises.</h1>
+          <p class="v-lead">Start free and move up when you take on help. Every plan includes online booking, card payments and EU hosting.</p>
+        </div>
+        <div class="v-billing">
+          <div class="v-cluster v-justify-center">
+            <fieldset class="v-segmented">
+              <legend class="v-sr-only">Billing period</legend>
+              <label><input type="radio" name="billing" value="monthly" checked><span>Monthly</span></label>
+              <label><input type="radio" name="billing" value="yearly"><span>Yearly</span></label>
+            </fieldset>
+            <span class="v-badge v-badge-success">Yearly saves two months</span>
+          </div>
+          <div class="v-switcher" style="--v-switch: 52rem">
+            <article class="v-card v-pricing">
+              <header class="v-pricing-header"><h2 class="v-pricing-name">Solo</h2></header>
+              <p class="v-pricing-price"><span class="v-pricing-amount">&euro;0</span><span class="v-pricing-period">forever</span></p>
+              <p class="v-pricing-desc">For one person doing the work and the admin.</p>
+              <ul class="v-pricing-features">
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Online booking page</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Up to 20 invoices a month</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Card payments</li>
+              </ul>
+              <a class="v-btn v-btn-secondary v-btn-block" href="../../examples/auth/sign-up/single.html">Start free</a>
+            </article>
+            <article class="v-card v-pricing v-pricing-featured">
+              <header class="v-pricing-header"><h2 class="v-pricing-name">Crew</h2><span class="v-badge v-badge-solid">Most popular</span></header>
+              <p class="v-pricing-price" data-period="monthly"><span class="v-pricing-amount">&euro;29</span><span class="v-pricing-period">per month</span></p>
+              <p class="v-pricing-price" data-period="yearly"><span class="v-pricing-amount">&euro;24</span><span class="v-pricing-period">per month, billed &euro;288 yearly</span></p>
+              <p class="v-pricing-desc">For a small team with a full calendar.</p>
+              <ul class="v-pricing-features">
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Everything in Solo</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited quotes and invoices</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Automatic review requests</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Up to 5 team logins</li>
+              </ul>
+              <a class="v-btn v-btn-primary v-btn-block" href="../../examples/auth/sign-up/single.html">Start 14-day trial</a>
+            </article>
+            <article class="v-card v-pricing">
+              <header class="v-pricing-header"><h2 class="v-pricing-name">Business</h2></header>
+              <p class="v-pricing-price" data-period="monthly"><span class="v-pricing-amount">&euro;79</span><span class="v-pricing-period">per month</span></p>
+              <p class="v-pricing-price" data-period="yearly"><span class="v-pricing-amount">&euro;66</span><span class="v-pricing-period">per month, billed &euro;792 yearly</span></p>
+              <p class="v-pricing-desc">For several crews, vans and locations.</p>
+              <ul class="v-pricing-features">
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Everything in Crew</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited team logins</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Route planning</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Priority phone support</li>
+              </ul>
+              <a class="v-btn v-btn-primary v-btn-block" href="contact.html">Talk to us</a>
+            </article>
+          </div>
+        </div>
+        <ul class="v-cluster v-justify-center v-text-sm v-text-secondary v-mt-6" style="--v-gap: var(--v-space-2) var(--v-space-5)">
+          <li class="v-flex v-gap-2 v-items-center"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>14-day free trial on paid plans</span></li>
+          <li class="v-flex v-gap-2 v-items-center"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>No card needed to start</span></li>
+          <li class="v-flex v-gap-2 v-items-center"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Cancel any time</span></li>
+          <li class="v-flex v-gap-2 v-items-center"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Prices include VAT</span></li>
+        </ul>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-section-head v-section-head-center">
+          <p class="v-kicker">Compare plans</p>
+          <h2>Every feature, side by side</h2>
+          <p class="v-lead">All plans are month to month. Change or cancel whenever you like.</p>
+        </div>
+        <div class="v-table-wrap" role="region" aria-labelledby="compare-title" tabindex="0" style="--v-table-min: 40rem">
+          <table class="v-table">
+            <caption class="v-sr-only" id="compare-title">Features in each Northwind plan</caption>
+            <thead>
+              <tr><th scope="col">Feature</th><th class="v-text-center" scope="col">Solo</th><th class="v-text-center" scope="col">Crew</th><th class="v-text-center" scope="col">Business</th></tr>
+            </thead>
+            <tbody>
+              <tr><th class="v-bg-subtle" colspan="4" scope="colgroup">Bookings and jobs</th></tr>
+              <tr><th class="v-fw-regular" scope="row">Online booking page</th><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+              <tr><th class="v-fw-regular" scope="row">Text reminders</th><td class="v-text-center">100 a month</td><td class="v-text-center">Unlimited</td><td class="v-text-center">Unlimited</td></tr>
+              <tr><th class="v-fw-regular" scope="row">Custom booking questions</th><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+              <tr><th class="v-fw-regular" scope="row">Route planning</th><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+            </tbody>
+            <tbody>
+              <tr><th class="v-bg-subtle" colspan="4" scope="colgroup">Quotes and invoices</th></tr>
+              <tr><th class="v-fw-regular" scope="row">Invoices</th><td class="v-text-center">20 a month</td><td class="v-text-center">Unlimited</td><td class="v-text-center">Unlimited</td></tr>
+              <tr><th class="v-fw-regular" scope="row">Card payments and pay-now links</th><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+              <tr><th class="v-fw-regular" scope="row">Automatic payment reminders</th><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+              <tr><th class="v-fw-regular" scope="row">Deposits and part payments</th><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+              <tr><th class="v-fw-regular" scope="row">VAT-ready exports</th><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+            </tbody>
+            <tbody>
+              <tr><th class="v-bg-subtle" colspan="4" scope="colgroup">Team</th></tr>
+              <tr><th class="v-fw-regular" scope="row">Team logins</th><td class="v-text-center">1</td><td class="v-text-center">Up to 5</td><td class="v-text-center">Unlimited</td></tr>
+              <tr><th class="v-fw-regular" scope="row">Roles and permissions</th><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+              <tr><th class="v-fw-regular" scope="row">Several locations</th><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+            </tbody>
+            <tbody>
+              <tr><th class="v-bg-subtle" colspan="4" scope="colgroup">Support</th></tr>
+              <tr><th class="v-fw-regular" scope="row">Help centre and email</th><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+              <tr><th class="v-fw-regular" scope="row">Free data import</th><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+              <tr><th class="v-fw-regular" scope="row">Priority phone support</th><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex v-text-muted"><svg class="v-icon" aria-hidden="true"><use href="#i-minus"/></svg></span><span class="v-sr-only">Not included</span></td><td class="v-text-center"><span class="v-inline-flex"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span><span class="v-sr-only">Included</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-sidebar" style="--v-side: 18rem; --v-gap: var(--v-space-7)">
+          <div class="v-section-head v-mb-0">
+            <p class="v-kicker">Questions</p>
+            <h2>Pricing, answered</h2>
+            <p class="v-text-secondary">Still unsure which plan fits? <a href="contact.html">Tell us about your business</a> and we will suggest one, honestly.</p>
+          </div>
+          <div class="v-accordion">
+            <details name="pricing-faq" open>
+              <summary>Is Solo really free?</summary>
+              <p>Yes, for as long as you like. It covers one login, online booking and up to 20 invoices a month. Card payments cost the usual processing fee and nothing more.</p>
+            </details>
+            <details name="pricing-faq">
+              <summary>What happens when my trial ends?</summary>
+              <p>Nothing, unless you choose a plan. Your account drops to Solo and keeps all your data. We never charge a card you have not added.</p>
+            </details>
+            <details name="pricing-faq">
+              <summary>Can I switch plans later?</summary>
+              <p>Any time, from Settings. Moving up takes effect at once and we charge the difference for the rest of the month. Moving down applies from your next bill.</p>
+            </details>
+            <details name="pricing-faq">
+              <summary>Do you charge per invoice or per booking?</summary>
+              <p>No. Paid plans have no limits on invoices, quotes or bookings. Card payments are 1.4% plus 25 cent for European cards, paid straight to your bank.</p>
+            </details>
+            <details name="pricing-faq">
+              <summary>Do you offer discounts?</summary>
+              <p>Yearly billing saves two months. Charities and new businesses in their first year get 50% off Crew for twelve months: just ask.</p>
+            </details>
+            <details name="pricing-faq">
+              <summary>How do I cancel?</summary>
+              <p>From Settings, in two clicks. You keep access until the end of the period you paid for, and you can export everything first.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-card v-card-feature v-cta">
+          <h2 class="v-display" style="font-size: var(--v-step-3)">Try every feature free for 14 days.</h2>
+          <p class="v-lead">No card needed. If it is not for you, your account simply moves to the free plan.</p>
+          <div class="v-cluster v-justify-center">
+            <a class="v-btn v-btn-primary v-btn-lg" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+            <a class="v-btn v-btn-ghost v-btn-lg" href="contact.html">Book a 15-minute demo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid">
+        <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+          <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+          <p class="v-max-prose">Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+          <span class="v-status">All systems running</span>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Product</h2>
+          <ul class="v-footer-links">
+            <li><a href="saas-home.html#features">Features</a></li>
+            <li><a href="landing.html">Online booking</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="system/coming-soon.html">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Company</h2>
+          <ul class="v-footer-links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="system/coming-soon.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Help</h2>
+          <ul class="v-footer-links">
+            <li><a href="system/coming-soon.html">Help centre</a></li>
+            <li><a href="system/coming-soon.html">Guides</a></li>
+            <li><a href="system/coming-soon.html">Status</a></li>
+            <li><a href="privacy.html#security">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-footer-bottom">
+        <p>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+        <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>

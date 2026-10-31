@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Vectra · Full pages</title>
+  <meta name="description" content="Vectra example pages: a marketing site, app screens with their states, and system pages.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.8c1.6.8 2.6 2.5 3 5.2"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.4 4-6.5 8-6.5s7 2.1 8 6.5"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5v-3a4 4 0 018 0v3"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16.5 6.5l3 3M14 9l2 2"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 9a15 15 0 0120 0M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0M12 19.5h.01"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16M15 9h4a1 1 0 011 1v11M3 21h18M8 8h3M8 12h3M8 16h3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2zM4 20a2 2 0 002 2h13v-4"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: all pages</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <main class="v-container ex-main v-skip-target" id="main" tabindex="-1">
+    <section class="v-stack">
+      <p class="v-kicker">Examples · pages</p>
+      <h1 class="v-display">Full pages.</h1>
+      <p class="v-lead v-max-prose">Complete pages for a pretend product called Northwind, built only from Vectra components and sections. Copy a whole page, or lift the part you need.</p>
+      <p><a href="../sections/">Section galleries</a> · <a href="../auth/">Auth pages</a></p>
+    </section>
+    <section class="v-stack" aria-labelledby="marketing" style="--v-gap: var(--v-space-5)">
+      <div class="v-stack" style="--v-gap: var(--v-space-2)">
+        <h2 id="marketing">Marketing site</h2>
+        <p class="v-text-secondary v-max-prose">One site with a shared header and footer. Every link in the header and footer goes somewhere real.</p>
+      </div>
+      <div class="v-grid" style="--v-min: 16rem">
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-home"/></svg></span><h3 class="v-card-title">SaaS home</h3></div>
+          <p class="v-card-text">The full home page: hero, features, customers, pricing, FAQ.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="saas-home.html">Open</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-zap"/></svg></span><h3 class="v-card-title">Product landing</h3></div>
+          <p class="v-card-text">One product, told in steps, features, a quote and numbers.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="landing.html">Open</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-card"/></svg></span><h3 class="v-card-title">Pricing</h3></div>
+          <p class="v-card-text">Plans with a monthly and yearly switch, a comparison table and FAQ.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="pricing.html">Open</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg></span><h3 class="v-card-title">About</h3></div>
+          <p class="v-card-text">Story, values, a milestone timeline and the team.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="about.html">Open</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-mail"/></svg></span><h3 class="v-card-title">Contact</h3></div>
+          <p class="v-card-text">Ways to get in touch and a validated form.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="contact.html">Open</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-book"/></svg></span><h3 class="v-card-title">Blog</h3></div>
+          <p class="v-card-text">Index with a featured post, and a post with a table of contents.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="blog.html">Index</a></li>
+            <li><a href="blog-post.html">Post</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg></span><h3 class="v-card-title">Legal</h3></div>
+          <p class="v-card-text">Terms, privacy and cookies, with contents and marked example text.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="terms.html">Terms</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="cookies.html">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="v-stack" aria-labelledby="app" style="--v-gap: var(--v-space-5)">
+      <div class="v-stack" style="--v-gap: var(--v-space-2)">
+        <h2 id="app">App</h2>
+        <p class="v-text-secondary v-max-prose">General app screens. Each page also ships its loading, empty (first run) and error states as separate files, so every state shows without JS.</p>
+      </div>
+      <div class="v-grid" style="--v-min: 16rem">
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-layers"/></svg></span><h3 class="v-card-title">Sidebar shell</h3></div>
+          <p class="v-card-text">Sidebar, top bar and phone tab bar, with the overview dashboard.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="app-shell.html">Open</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></span><h3 class="v-card-title">Stacked shell</h3></div>
+          <p class="v-card-text">Top navigation only, with an account menu.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="app/stacked.html">Open</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg></span><h3 class="v-card-title">List page</h3></div>
+          <p class="v-card-text">Table with search, filters, bulk actions and pagination.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="app/list.html">Loaded</a></li>
+            <li><a href="app/list-loading.html">Loading</a></li>
+            <li><a href="app/list-empty.html">Empty</a></li>
+            <li><a href="app/list-error.html">Error</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-user"/></svg></span><h3 class="v-card-title">Detail page</h3></div>
+          <p class="v-card-text">Header with actions, details, activity and related items.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="app/detail.html">Loaded</a></li>
+            <li><a href="app/detail-loading.html">Loading</a></li>
+            <li><a href="app/detail-empty.html">Empty</a></li>
+            <li><a href="app/detail-error.html">Error</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-user"/></svg></span><h3 class="v-card-title">Settings: profile</h3></div>
+          <p class="v-card-text">Photo, personal details, language and time.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="app/settings-profile.html">Loaded</a></li>
+            <li><a href="app/settings-profile-loading.html">Loading</a></li>
+            <li><a href="app/settings-profile-empty.html">Empty</a></li>
+            <li><a href="app/settings-profile-error.html">Error</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-building"/></svg></span><h3 class="v-card-title">Settings: account</h3></div>
+          <p class="v-card-text">Business details, sign-in email, plan and danger zone.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="app/settings-account.html">Loaded</a></li>
+            <li><a href="app/settings-account-loading.html">Loading</a></li>
+            <li><a href="app/settings-account-empty.html">Empty</a></li>
+            <li><a href="app/settings-account-error.html">Error</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-shield"/></svg></span><h3 class="v-card-title">Settings: security</h3></div>
+          <p class="v-card-text">Password with strength meter, two-step sign-in, devices.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="app/settings-security.html">Loaded</a></li>
+            <li><a href="app/settings-security-loading.html">Loading</a></li>
+            <li><a href="app/settings-security-empty.html">Empty</a></li>
+            <li><a href="app/settings-security-error.html">Error</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-bell"/></svg></span><h3 class="v-card-title">Settings: notifications</h3></div>
+          <p class="v-card-text">Switches per channel, quiet hours and save status.</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="app/settings-notifications.html">Loaded</a></li>
+            <li><a href="app/settings-notifications-loading.html">Loading</a></li>
+            <li><a href="app/settings-notifications-empty.html">Empty</a></li>
+            <li><a href="app/settings-notifications-error.html">Error</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="v-stack" aria-labelledby="system" style="--v-gap: var(--v-space-5)">
+      <div class="v-stack" style="--v-gap: var(--v-space-2)">
+        <h2 id="system">System pages</h2>
+        <p class="v-text-secondary v-max-prose">Errors, maintenance, offline and coming soon. Each has a minimal layout and an illustrated one, drawn in SVG with the direction's colours.</p>
+      </div>
+      <div class="v-grid" style="--v-min: 16rem">
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-key"/></svg></span><h3 class="v-card-title">401 Sign in needed</h3></div>
+          <p class="v-card-text">Sign in to see this page</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/401.html">Minimal</a></li>
+            <li><a href="system/401-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-lock"/></svg></span><h3 class="v-card-title">403 No access</h3></div>
+          <p class="v-card-text">You do not have access to this page</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/403.html">Minimal</a></li>
+            <li><a href="system/403-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span><h3 class="v-card-title">404 Page not found</h3></div>
+          <p class="v-card-text">We cannot find that page</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/404.html">Minimal</a></li>
+            <li><a href="system/404-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg></span><h3 class="v-card-title">419 Page expired</h3></div>
+          <p class="v-card-text">This page has expired</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/419.html">Minimal</a></li>
+            <li><a href="system/419-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-zap"/></svg></span><h3 class="v-card-title">429 Too many requests</h3></div>
+          <p class="v-card-text">Too many requests, please wait a moment</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/429.html">Minimal</a></li>
+            <li><a href="system/429-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-alert"/></svg></span><h3 class="v-card-title">500 Server error</h3></div>
+          <p class="v-card-text">Something went wrong on our side</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/500.html">Minimal</a></li>
+            <li><a href="system/500-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-gear"/></svg></span><h3 class="v-card-title">503 Maintenance</h3></div>
+          <p class="v-card-text">Down for planned maintenance</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/503.html">Minimal</a></li>
+            <li><a href="system/503-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-wifi"/></svg></span><h3 class="v-card-title">Offline</h3></div>
+          <p class="v-card-text">You are offline</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/offline.html">Minimal</a></li>
+            <li><a href="system/offline-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+        <div class="v-card">
+          <div class="v-flex v-items-center v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-sparkle"/></svg></span><h3 class="v-card-title">Coming soon</h3></div>
+          <p class="v-card-text">Team scheduling is almost here</p>
+          <ul class="v-cluster v-text-sm" style="--v-gap: var(--v-space-2) var(--v-space-4)">
+            <li><a href="system/coming-soon.html">Minimal</a></li>
+            <li><a href="system/coming-soon-illustrated.html">Illustrated</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>

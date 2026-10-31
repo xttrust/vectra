@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Coming soon · Northwind</title>
+  <meta name="description" content="Coming soon: a Northwind system page (illustrated layout) built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../pages.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../index.html">Vectra <span>example: coming soon</span></a>
+      <nav class="ex-variants" aria-label="Layout">
+        <span class="ex-variants-label" aria-hidden="true">Layout</span>
+        <ul>
+          <li><a href="coming-soon.html">Minimal</a></li>
+          <li><a href="coming-soon-illustrated.html" aria-current="page">Illustrated</a></li>
+        </ul>
+      </nav>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <div class="v-system v-system-illustrated">
+    <header class="v-system-header">
+      <a class="v-navbar-brand" href="../saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    </header>
+    <main class="v-system-main v-skip-target" id="main" tabindex="-1">
+      <div class="v-system-art">
+        <svg viewBox="0 0 320 260" aria-hidden="true" focusable="false">
+          <circle cx="160" cy="126" r="108" style="fill: var(--v-accent-soft)"/>
+          <circle cx="160" cy="126" r="108" fill="none" style="stroke: var(--v-border)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 10"/>
+          <path d="M36 222h248" fill="none" style="stroke: var(--v-border-strong)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="58" cy="70" r="6" style="fill: var(--v-accent-2)"/>
+          <circle cx="276" cy="176" r="5" style="fill: var(--v-accent-2)"/>
+          <circle cx="262" cy="52" r="3.5" style="fill: var(--v-accent)"/>
+          <path d="M160 44c30 20 40 60 30 110h-60c-10-50 0-90 30-110z" style="fill: var(--v-surface)"/>
+          <path d="M160 44c30 20 40 60 30 110h-60c-10-50 0-90 30-110z" fill="none" style="stroke: var(--v-accent-text)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="160" cy="96" r="14" style="fill: var(--v-accent)"/>
+          <path d="M130 132l-20 30h24M190 132l20 30h-24" fill="none" style="stroke: var(--v-accent-text)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M146 166c0 16 6 26 14 38 8-12 14-22 14-38z" style="fill: var(--v-accent-2)"/>
+          <path d="M92 84h20M100 76v16M226 112h16M234 104v16" fill="none" style="stroke: var(--v-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="v-system-copy">
+        <p class="v-kicker">Coming soon</p>
+        <h1 class="v-system-title">Team scheduling is almost here</h1>
+        <p class="v-system-text">Plan every crew's week on one board, drag jobs between vans and text each person their day. We are testing it with 40 businesses now, and it opens to everyone in January.</p>
+        <form class="v-form-inline v-system-extra" action="coming-soon.html" method="post">
+          <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+          <div class="v-field v-grow">
+            <label class="v-label" for="notify-email">Email address</label>
+            <input class="v-input" id="notify-email" name="email" type="email" autocomplete="email" placeholder="you@business.ie" required>
+          </div>
+          <button class="v-btn v-btn-primary" type="submit">Tell me when it is ready</button>
+        </form>
+        <div class="v-system-actions">
+          <a class="v-btn v-btn-ghost" href="../saas-home.html"><svg class="v-icon" aria-hidden="true"><use href="#i-arrow"/></svg>See what Northwind does today</a>
+        </div>
+        <p class="v-system-note">One email when it launches. Nothing else, and you can unsubscribe in one click.</p>
+      </div>
+    </main>
+    <footer class="v-system-footer">
+      <a href="../saas-home.html">Home</a>
+      <a href="../contact.html">Help</a>
+      <a href="coming-soon.html">Status</a>
+      <span>&copy; 2026 Northwind</span>
+    </footer>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

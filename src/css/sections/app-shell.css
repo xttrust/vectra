@@ -111,10 +111,32 @@
     .v-app-topbar .v-app-toggle { display: none; }
   }
 
+  /* One column that may shrink below its content, so wide tables scroll inside their wrap. */
   .v-app-page {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--v-space-6);
     padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  /* Stacked shell (top navigation only): .v-app-stacked holds a .v-navbar.v-navbar-contained, which sticks
+     to the top, then the .v-app-page, kept to the same column as the navbar's content. */
+  .v-app-stacked {
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100dvh;
+  }
+
+  .v-app-stacked > .v-navbar {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 10;
+  }
+
+  .v-app-stacked > .v-app-page {
+    inline-size: min(100% - 2 * clamp(1rem, 4vw, 2rem), var(--v-container-max, 76rem));
+    margin-inline: auto;
+    padding-inline: 0;
   }
 
   /* Room for the fixed phone bottom bar. */

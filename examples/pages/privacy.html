@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Privacy notice · Northwind</title>
+  <meta name="description" content="Example privacy notice. An example page built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: privacy</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <header class="v-navbar v-navbar-contained" data-v-nav>
+    <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li><a href="saas-home.html">Product</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="v-navbar-actions">
+        <a class="v-btn v-btn-ghost" href="../../examples/auth/sign-in/password.html">Sign in</a>
+        <a class="v-btn v-btn-primary" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="v-skip-target" tabindex="-1">
+    <section class="v-section" style="--v-section-pad: clamp(2.5rem, 5vw, 4rem) var(--v-space-6)">
+      <div class="v-container">
+        <div class="v-stack" style="--v-gap: var(--v-space-4)">
+          <p class="v-kicker">Legal</p>
+          <h1 class="v-display" style="font-size: var(--v-step-display)">Privacy notice</h1>
+          <p class="v-lead">What personal data Northwind collects, why, how long we keep it, and the choices you have. Written for people, not lawyers.</p>
+          <p class="v-text-sm v-text-secondary">Last updated <time datetime="2026-10-01">1 October 2026</time> · Questions? <a href="mailto:legal@northwind.ie">legal@northwind.ie</a></p>
+          <nav class="v-tablist" aria-label="Legal pages">
+            <a class="v-tab" href="terms.html">Terms of service</a>
+            <a class="v-tab" href="privacy.html" aria-current="page">Privacy notice</a>
+            <a class="v-tab" href="cookies.html">Cookie policy</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+    <div class="v-container v-section" style="--v-section-pad: 0 clamp(3rem, 7vw, 6rem)">
+      <div class="v-article">
+        <aside class="v-article-aside" aria-label="Contents">
+          <nav class="v-toc" aria-labelledby="toc-title">
+            <p class="v-toc-title" id="toc-title">Contents</p>
+            <ol>
+              <li><a href="#p-summary" aria-current="true">Summary</a></li>
+              <li><a href="#p-collect">What we collect</a></li>
+              <li><a href="#p-why">Why we use it</a></li>
+              <li><a href="#p-share">Who we share it with</a></li>
+              <li><a href="#p-keep">How long we keep it</a></li>
+              <li><a href="#security">How we keep it safe</a></li>
+              <li><a href="#p-rights">Your rights</a></li>
+              <li><a href="#p-contact">Contact</a></li>
+            </ol>
+          </nav>
+        </aside>
+        <div class="v-article-body v-prose">
+          <aside class="v-callout v-callout-warning">
+            <p class="v-callout-title"><svg class="v-icon" aria-hidden="true"><use href="#i-alert"/></svg>Example text</p>
+            <p>This page shows how a legal page can be laid out. The wording is placeholder text for a made-up company and is not legal advice. Ask a solicitor to write yours.</p>
+          </aside>
+          <h2 id="p-summary">Summary</h2>
+          <ul><li>We collect what we need to run Northwind, and no more.</li><li>We never sell your data or your customers' data.</li><li>Your data is stored in the EU (Ireland and Germany).</li><li>You can see, export or delete your data at any time.</li></ul>
+          <h2 id="p-collect">What we collect</h2>
+          <p>When you use Northwind we collect:</p><ul><li><strong>Account details:</strong> your name, email, phone number and business details.</li><li><strong>Your customers' details:</strong> whatever you add, such as names, addresses and job notes. For this data you are the controller and we are your processor.</li><li><strong>Usage data:</strong> pages visited, device type and approximate location, to keep the service secure and working well.</li></ul>
+          <h2 id="p-why">Why we use it</h2>
+          <table><thead><tr><th scope="col">Purpose</th><th scope="col">Legal basis</th></tr></thead><tbody><tr><td>Running your account and the service</td><td>Contract</td></tr><tr><td>Billing and tax records</td><td>Legal obligation</td></tr><tr><td>Keeping the service secure</td><td>Legitimate interest</td></tr><tr><td>Product news by email (optional)</td><td>Consent</td></tr></tbody></table>
+          <h2 id="p-share">Who we share it with</h2>
+          <p>We use a small number of trusted suppliers to host data, take payments and send texts and emails. Each one is bound by a data processing agreement and keeps data in the EU or under approved safeguards. A full list is available on request.</p>
+          <h2 id="p-keep">How long we keep it</h2>
+          <p>We keep your data while your account is open. When you close it, we delete it within 30 days, except billing records, which the law requires us to keep for six years.</p>
+          <h2 id="security">How we keep it safe</h2>
+          <p>Data is encrypted in transit and at rest, backed up every night, and only a few named staff can reach production systems, always with two-step sign-in. We test our security every year with an outside firm.</p>
+          <h2 id="p-rights">Your rights</h2>
+          <p>You can ask to see, correct, export or delete your personal data, or object to how we use it. Email <a href="mailto:privacy@northwind.ie">privacy@northwind.ie</a> and we will reply within a month. You can also complain to the Data Protection Commission in Ireland.</p>
+          <h2 id="p-contact">Contact</h2>
+          <p>Our data protection lead can be reached at <a href="mailto:privacy@northwind.ie">privacy@northwind.ie</a> or by post at Unit 4, Dublin Road, Tuam, Co. Galway.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid">
+        <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+          <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+          <p class="v-max-prose">Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+          <span class="v-status">All systems running</span>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Product</h2>
+          <ul class="v-footer-links">
+            <li><a href="saas-home.html#features">Features</a></li>
+            <li><a href="landing.html">Online booking</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="system/coming-soon.html">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Company</h2>
+          <ul class="v-footer-links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="system/coming-soon.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Help</h2>
+          <ul class="v-footer-links">
+            <li><a href="system/coming-soon.html">Help centre</a></li>
+            <li><a href="system/coming-soon.html">Guides</a></li>
+            <li><a href="system/coming-soon.html">Status</a></li>
+            <li><a href="privacy.html#security">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-footer-bottom">
+        <p>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+        <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>

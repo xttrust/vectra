@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contact · Northwind</title>
+  <meta name="description" content="Ways to reach Northwind and a contact form. An example page built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 014.8 1c0 1.7-2.4 2-2.4 3.5M12 17h.01"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16M15 9h4a1 1 0 011 1v11M3 21h18M8 8h3M8 12h3M8 16h3"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: contact</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <header class="v-navbar v-navbar-contained" data-v-nav>
+    <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li><a href="saas-home.html">Product</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+      <div class="v-navbar-actions">
+        <a class="v-btn v-btn-ghost" href="../../examples/auth/sign-in/password.html">Sign in</a>
+        <a class="v-btn v-btn-primary" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="v-skip-target" tabindex="-1">
+    <section class="v-section" style="--v-section-pad: clamp(3rem, 6vw, 5rem) var(--v-space-6)">
+      <div class="v-container">
+        <div class="v-section-head">
+          <p class="v-kicker">Contact</p>
+          <h1 class="v-display">Talk to a person, not a ticket</h1>
+          <p class="v-lead">Call, email or call in. We are in Tuam, and we pick up the phone.</p>
+        </div>
+        <div class="v-grid v-grid-fit" style="--v-min: 16rem">
+          <div class="v-card">
+            <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-zap"/></svg></span>
+            <h2 class="v-card-title">Sales and demos</h2>
+            <p class="v-card-text">See Northwind with your own price list in a 15-minute call.</p>
+            <a href="#contact-form">Book a demo</a>
+          </div>
+          <div class="v-card">
+            <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-help"/></svg></span>
+            <h2 class="v-card-title">Help with your account</h2>
+            <p class="v-card-text">Something not working, or not sure how? We reply within one working day.</p>
+            <a href="system/coming-soon.html">Visit the help centre</a>
+          </div>
+          <div class="v-card">
+            <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-building"/></svg></span>
+            <h2 class="v-card-title">Partners and press</h2>
+            <p class="v-card-text">Accountants, trade bodies and journalists, this one is for you.</p>
+            <a href="mailto:partners@northwind.ie">Email partners@northwind.ie</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-sidebar" style="--v-side: 20rem; --v-gap: var(--v-space-7)">
+          <div class="v-stack" style="--v-gap: var(--v-space-6)">
+            <div class="v-stack" style="--v-gap: var(--v-space-2)">
+              <h2>Visit or call</h2>
+              <p class="v-text-secondary">Call in for a coffee and a demo. Parking at the door.</p>
+            </div>
+            <ul class="v-stack" style="--v-gap: var(--v-space-4)">
+              <li class="v-flex v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-phone"/></svg></span><span><span class="v-block v-fw-semibold">Phone</span><a href="tel:+353915550142">091 555 0142</a></span></li>
+              <li class="v-flex v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="v-block v-fw-semibold">Email</span><a href="mailto:hello@northwind.ie">hello@northwind.ie</a></span></li>
+              <li class="v-flex v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-pin"/></svg></span><span><span class="v-block v-fw-semibold">Office</span><span class="v-block">Unit 4, Dublin Road, Tuam, Co. Galway, H54 R2X4</span></span></li>
+            </ul>
+            <dl class="v-dl v-dl-cols">
+              <div><dt>Monday to Friday</dt><dd>08:00 to 18:00</dd></div>
+              <div><dt>Saturday</dt><dd>09:00 to 13:00</dd></div>
+              <div><dt>Sunday and bank holidays</dt><dd>Closed</dd></div>
+            </dl>
+            <figure class="v-figure">
+              <div class="v-frame v-frame-4x3">
+                <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Map: our office is on the Dublin Road, just east of Tuam town centre.">
+                  <rect width="400" height="300" style="fill: var(--v-surface-2)"/>
+                  <path d="M0 210C80 190 120 230 200 200s150-60 200-40" fill="none" style="stroke: var(--v-accent-soft)" stroke-width="26"/>
+                  <path d="M-10 120h420M150 -10l40 320M300 -10l-60 320" fill="none" style="stroke: var(--v-surface)" stroke-width="14"/>
+                  <path d="M-10 120h420" fill="none" style="stroke: var(--v-border-strong)" stroke-width="3" stroke-dasharray="10 8"/>
+                  <rect x="40" y="40" width="80" height="54" rx="6" style="fill: var(--v-border)"/>
+                  <rect x="210" y="150" width="70" height="40" rx="6" style="fill: var(--v-border)"/>
+                  <path d="M262 104s-24-20-24-40a24 24 0 0148 0c0 20-24 40-24 40z" style="fill: var(--v-accent)"/>
+                  <circle cx="262" cy="64" r="9" style="fill: var(--v-surface)"/>
+                </svg>
+              </div>
+              <figcaption>Unit 4, Dublin Road, Tuam. Five minutes from the square.</figcaption>
+            </figure>
+          </div>
+          <form class="v-form v-card" id="contact-form" method="post" action="contact.html" data-v-validate>
+            <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+            <div class="v-stack" style="--v-gap: var(--v-space-2)">
+              <h2>Send us a message</h2>
+              <p class="v-text-secondary">All fields are required unless they say optional.</p>
+            </div>
+            <div class="v-form-grid">
+              <div class="v-field">
+                <label class="v-label" for="contact-name">Your name</label>
+                <input class="v-input" id="contact-name" name="name" type="text" autocomplete="name" required>
+                <p class="v-field-error" id="contact-name-error">Enter your name.</p>
+              </div>
+              <div class="v-field">
+                <label class="v-label" for="contact-business">Business <span class="v-optional">Optional</span></label>
+                <input class="v-input" id="contact-business" name="business" type="text" autocomplete="organization">
+              </div>
+              <div class="v-field">
+                <label class="v-label" for="contact-email">Email</label>
+                <input class="v-input" id="contact-email" name="email" type="email" autocomplete="email" required>
+                <p class="v-field-error" id="contact-email-error">Enter your email address, like name@example.com.</p>
+              </div>
+              <div class="v-field">
+                <label class="v-label" for="contact-phone">Phone <span class="v-optional">Optional</span></label>
+                <input class="v-input" id="contact-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="contact-phone-hint">
+                <p class="v-hint" id="contact-phone-hint">If you would rather we call you back.</p>
+              </div>
+              <div class="v-form-full">
+                <div class="v-field">
+                  <label class="v-label" for="contact-topic">What can we help with?</label>
+                  <select class="v-select" id="contact-topic" name="topic" required>
+                    <option value="">Choose a topic</option>
+                    <option>A demo or a question before buying</option>
+                    <option>Moving from another system</option>
+                    <option>Billing</option>
+                    <option>Something else</option>
+                  </select>
+                  <p class="v-field-error" id="contact-topic-error">Choose a topic, so the right person replies.</p>
+                </div>
+              </div>
+              <div class="v-form-full">
+                <div class="v-field" data-v-counter>
+                  <label class="v-label" for="contact-message">Message</label>
+                  <textarea class="v-input" id="contact-message" name="message" rows="5" minlength="20" maxlength="1000" required aria-describedby="contact-message-hint"></textarea>
+                  <p class="v-hint" id="contact-message-hint">A few lines about your business help us give a useful answer.</p>
+                  <p class="v-field-error" id="contact-message-error">Write at least 20 characters.</p>
+                </div>
+              </div>
+              <div class="v-form-full">
+                <div class="v-field">
+                  <label class="v-choice"><input class="v-checkbox" id="contact-consent" name="consent" type="checkbox" value="1" required><span>I agree that Northwind may use these details to reply, as set out in the <a href="privacy.html">privacy notice</a>.</span></label>
+                  <p class="v-field-error" id="contact-consent-error">Tick the box so we can reply to you.</p>
+                </div>
+              </div>
+            </div>
+            <div class="v-form-actions">
+              <p class="v-hint v-form-actions-start">We reply within one working day.</p>
+              <button class="v-btn v-btn-primary" type="submit"><svg class="v-icon" aria-hidden="true"><use href="#i-send"/></svg>Send message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid">
+        <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+          <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+          <p class="v-max-prose">Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+          <span class="v-status">All systems running</span>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Product</h2>
+          <ul class="v-footer-links">
+            <li><a href="saas-home.html#features">Features</a></li>
+            <li><a href="landing.html">Online booking</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="system/coming-soon.html">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Company</h2>
+          <ul class="v-footer-links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="system/coming-soon.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Help</h2>
+          <ul class="v-footer-links">
+            <li><a href="system/coming-soon.html">Help centre</a></li>
+            <li><a href="system/coming-soon.html">Guides</a></li>
+            <li><a href="system/coming-soon.html">Status</a></li>
+            <li><a href="privacy.html#security">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-footer-bottom">
+        <p>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+        <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>
