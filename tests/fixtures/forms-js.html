@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Forms JS fixture</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+</head>
+<body>
+  <main class="v-container v-stack">
+    <h1>Forms JS fixture</h1>
+
+    <div class="v-field">
+      <label class="v-label" for="pw">Password</label>
+      <div class="v-input-group" id="pw-group" data-v-password>
+        <input class="v-input" id="pw" type="password" value="correct-horse">
+        <button class="v-btn v-btn-icon" type="button" aria-label="Show password" aria-pressed="false" aria-controls="pw">o</button>
+      </div>
+    </div>
+
+    <label class="v-dropzone" id="zone" data-v-dropzone>
+      <span class="v-dropzone-title" id="zone-title">Drop files</span>
+      <input type="file" id="zone-input" accept=".pdf,image/*">
+    </label>
+    <label class="v-dropzone" id="zone-many" data-v-dropzone>
+      <span class="v-dropzone-title">Drop many</span>
+      <input type="file" id="zone-many-input" multiple>
+    </label>
+
+    <div class="v-field">
+      <label class="v-label" for="qty">Guests</label>
+      <div class="v-input-group v-stepper" data-v-stepper>
+        <button class="v-btn v-btn-icon" type="button" data-v-step="down" aria-label="Fewer guests" hidden>-</button>
+        <input class="v-input" id="qty" type="number" min="1" max="3" step="1" value="2">
+        <button class="v-btn v-btn-icon" type="button" data-v-step="up" aria-label="More guests" hidden>+</button>
+      </div>
+    </div>
+
+    <div class="v-field" data-v-counter>
+      <label class="v-label" for="bio">Bio</label>
+      <input class="v-input" id="bio" type="text" maxlength="10">
+    </div>
+    <div class="v-field" data-v-counter data-v-max="5">
+      <label class="v-label" for="soft">Headline</label>
+      <input class="v-input" id="soft" type="text">
+    </div>
+
+    <p id="snippet">npm install vectra</p>
+    <button class="v-btn" type="button" id="copy-target" data-v-copy data-v-copy-target="#snippet"><svg class="v-icon" aria-hidden="true"></svg>Copy</button>
+    <button class="v-btn" type="button" id="copy-value" data-v-copy="hello@example.com" aria-label="Copy email">@</button>
+
+    <div class="v-field">
+      <label class="v-label" for="find">Find</label>
+      <div class="v-input-group v-search" id="find-group" data-v-clear>
+        <input class="v-input" id="find" type="search" placeholder="Name">
+        <button class="v-btn v-btn-icon" type="button" aria-label="Clear search">x</button>
+      </div>
+    </div>
+
+    <div class="v-banner" id="banner" data-v-dismissable>
+      <p class="v-banner-body">Maintenance on Sunday.</p>
+      <button class="v-btn v-btn-icon" type="button" id="banner-close" aria-label="Dismiss" data-v-dismiss>x</button>
+    </div>
+    <div class="v-banner" id="banner-kept" data-v-dismissable>
+      <p class="v-banner-body">Remembered banner.</p>
+      <button class="v-btn v-btn-icon" type="button" aria-label="Dismiss" data-v-dismiss data-v-dismiss-key="promo">x</button>
+    </div>
+    <a href="#top" id="after-banners">Next link</a>
+
+    <form id="both" action="#done" data-v-validate data-v-unsaved>
+      <div class="v-field">
+        <label class="v-label" for="b-name">Name</label>
+        <input class="v-input" id="b-name" name="name" required>
+      </div>
+      <fieldset class="v-fieldset">
+        <legend class="v-legend">Plan</legend>
+        <label class="v-choice"><input class="v-radio" type="radio" name="plan" id="plan-a" value="a" required><span>A</span></label>
+        <label class="v-choice"><input class="v-radio" type="radio" name="plan" value="b"><span>B</span></label>
+      </fieldset>
+      <button class="v-btn" type="submit">Send</button>
+      <button class="v-btn" type="reset">Reset</button>
+    </form>
+
+    <div class="v-field">
+      <label class="v-label" for="new-pw">New password</label>
+      <input class="v-input" id="new-pw" type="password" aria-describedby="new-pw-hint" data-v-strength="#new-pw-meter">
+      <meter class="v-meter" id="new-pw-meter" min="0" max="4" low="2" high="3" optimum="4" value="0" aria-label="Password strength"></meter>
+      <p class="v-hint" id="new-pw-hint">At least 8 characters.</p>
+    </div>
+
+    <div class="v-field">
+      <label class="v-label" for="handle">Username</label>
+      <input class="v-input" id="handle" type="text" aria-describedby="handle-hint">
+      <p class="v-hint" id="handle-hint">Letters and numbers.</p>
+    </div>
+  </main>
+  <script type="module">
+    import * as Vectra from '../../src/js/index.js';
+    // Records every v: event and every live-region message, so tests can count them.
+    window.events = [];
+    window.said = [];
+    for (const type of ['change', 'dismiss', 'dirty']) document.addEventListener(`v:${type}`, (e) => window.events.push([type, e.target.id, e.detail]));
+    new MutationObserver(() => {
+      for (const region of document.querySelectorAll('[aria-live]')) {
+        if (region.textContent && region.dataset.last !== region.textContent) window.said.push(region.textContent);
+        region.dataset.last = region.textContent;
+      }
+    }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    window.Vectra = Vectra;
+  </script>
+</body>
+</html>
