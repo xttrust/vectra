@@ -3155,7 +3155,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.0").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-connection data-v-copy data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-menu data-v-nav data-v-password data-v-shortcut data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-confirm-text data-v-connection data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 
@@ -3218,5 +3218,6 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/sections/app.html: Sections: app UI
 - examples/sections/chrome.html: Sections: navigation and chrome
 - examples/sections/marketing.html: Sections: marketing
+- examples/states/: States
 - examples/theming/: Theming and feedback
 - examples/tokens/: Tokens

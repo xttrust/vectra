@@ -20,9 +20,11 @@
 
   .v-banner > .v-icon { color: var(--v-tone); }
 
+  /* Long links and unbroken words wrap instead of widening the page. */
   .v-banner-body {
     flex: 1 1 12rem;
     min-inline-size: 0;
+    overflow-wrap: break-word;
   }
 
   .v-banner-body strong { font-weight: 620; }
