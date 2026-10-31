@@ -38,8 +38,9 @@
 
 /* Section galleries: a labelled frame per variant. */
 .ex-variant { display: grid; gap: var(--v-space-3); }
-.ex-variant-head { display: flex; flex-wrap: wrap; gap: var(--v-space-1) var(--v-space-4); align-items: baseline; }
-.ex-main .ex-variant-head h2 { margin-block-end: 0; font-size: var(--v-step-1); }
+.ex-variant-head { display: grid; gap: var(--v-space-1); justify-items: start; }
+/* Fixed sizes: a fluid (vw) heading here changes by a pixel when a full-page screenshot drops the scrollbar. */
+.ex-main .ex-variant-head h2 { margin-block-end: 0; font-size: 1.25rem; line-height: 1.3; }
 .ex-variant-head code { overflow-wrap: anywhere; }
 .ex-note { flex-basis: 100%; color: var(--v-text-2); font-size: var(--v-step-minus-1); }
 .ex-demo { overflow: clip; border: var(--v-border-w) solid var(--v-border); border-radius: var(--v-radius-lg); }
