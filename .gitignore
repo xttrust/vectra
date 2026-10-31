@@ -5,3 +5,4 @@ playwright-report/
 blob-report/
 .claude/worktrees/
 site/dist/
+release/

@@ -1,6 +1,6 @@
 {
   "name": "@creativeigniter/vectra",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "private": true,
   "description": "Vectra v2: a zero-dependency UI kit built on the web platform.",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "ai:skill": "node build/manifest.mjs --write",
     "auth:pages": "node build/auth-pages.mjs",
     "check": "npm run lint && npm run check:tokens && npm run build && npm run check:size && npm run check:urls && npm run check:baseline && npm run check:auth && npm run check:manifest",
+    "release:zip": "npm run build && node build/release.mjs",
     "serve": "node build/serve.mjs",
     "site": "node build/site.mjs",
     "site:check": "node build/site.mjs --check",

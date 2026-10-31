@@ -1,4 +1,4 @@
-# Vectra 2.0.0-alpha.0 reference
+# Vectra 2.0.0-alpha.1 reference
 
 Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:skill). Do not edit by hand.
 
@@ -3152,7 +3152,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.theme.get()`: The current choices plus resolved, the theme actually showing.
 - `Vectra.theme.set({ direction: 'tech' | 'editorial' | 'soft' | 'glass' })`: Changes the direction from code, inside a view transition where supported. Saved under the direction storage key.
 - `Vectra.theme.set({ mode: 'light' | 'dark' | 'system' })`: Sets the mode from code. System removes data-theme so the OS setting applies live.
-- `Vectra.version`: The kit version as a string ("2.0.0-alpha.0").
+- `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
 data-v-clear data-v-confirm-text data-v-connection data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
