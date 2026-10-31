@@ -438,13 +438,13 @@ Replaces the M3 to M9 rows of PLAN.md section 14. Same gates as before: one bran
 | M3.5 | Overlays, data, content (static) | done: dialog, drawer, popover, menu, tooltip, table, timeline, prose, code block, testimonial, pricing card, logo cloud, scroll area | L |
 | M4 | JS core + interactive P0 | done: toast, tabs, menu, mobile nav, dialog helpers, password reveal, drop zone, stepper, counter, copy, theming components, plus the state helpers in section 11 (connection and slow-network detection, session timeout, error summary focus, unsaved changes, live announcements) | L |
 | M5 | Icons + fonts | done: sprite, subset tool, Inter subset | S |
-| M6 | Docs site + theme builder | docs site done (M6a); theme builder and quality page in M6b | L |
-| M7.1 | Core sections | the about 45 core variants in section 3, `vectra.sections.css` | L |
+| M6 | Docs site + theme builder | done: docs site (87 pages, 72 component pages), theme builder with live contrast report, quality page | L |
+| M7.1 | Core sections | done: 42 core variants in section 3, `vectra.sections.css` | L |
 | M7.2 | Auth set | done: six layouts, all flows in section 4 | L |
-| M7.3 | Pages | system pages, P0 marketing pages, P0 app pages, v1 pages rebuilt | L |
-| M7.4 | States | the states gallery and copy guide in section 11; every P0 app page gets its loading, empty and error variants | M |
-| M8 | Hardening | screen readers, devices, forced colours, zoom, RTL pass, performance | M |
-| M8b | AI manifest | unchanged | S |
+| M7.3 | Pages | done: 53 pages (system pages in two layouts, marketing pages, app pages with loading, empty and error variants) | L |
+| M7.4 | States | done: the states gallery and copy guide in section 11; every P0 app page gets its loading, empty and error variants | M |
+| M8 | Hardening | automated part done (M8a: RTL, forced colours, 400% reflow, text spacing, focus, reduced motion and transparency, target size); manual screen reader and real-device pass still to do | M |
+| M8b | AI manifest | done: manifest, `llms.txt`, `llms-full.txt`, Claude Code skill and `AGENTS.md`, every component example validated from the manifest alone | S |
 | M9 | Release v2.0 | unchanged | S |
 | v2.1 | Reach | P1 components, P1 pages, print, Blade package, `npx vectra add`, starter kits, playground, first Pro blocks | L |
 | v2.2 | Templates and Pro | Pro sections and pages, e-commerce, site templates, email templates, Vue, token exports | L |
