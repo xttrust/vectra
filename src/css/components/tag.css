@@ -1,5 +1,5 @@
 /* Tags (chips): short labels that can be removed or selected.
-   Removable: put a <button class="v-tag-remove" aria-label="Remove Galway"> inside (M4 wires removal).
+   Removable: put a <button class="v-tag-remove" aria-label="Remove Galway"> inside (data-v-dismiss on it and data-v-dismissable on the tag remove it).
    Selectable: <label class="v-tag"> around a checkbox, or <button class="v-tag" aria-pressed>.
    A selected tag fills with the accent and gains a check mark, so the state never rests on colour. */
 @layer components {

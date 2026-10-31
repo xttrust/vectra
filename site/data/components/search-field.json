@@ -15,7 +15,8 @@
     "input.css"
   ],
   "js": [
-    "components/clear.js"
+    "components/clear.js",
+    "components/shortcut.js"
   ],
   "classes": [
     {
@@ -59,6 +60,12 @@
       "value": "",
       "on": ".v-search",
       "description": "Its first button empties the input, returns focus to it and fires input so live filters update."
+    },
+    {
+      "name": "data-v-shortcut",
+      "value": "the key, default \"/\"",
+      "on": "the input",
+      "description": "Pressing the key anywhere on the page focuses the field, unless focus is already in a text field. Pair it with aria-keyshortcuts and a visible .v-search-hint."
     }
   ],
   "keyboard": [
@@ -113,7 +120,7 @@
     {
       "title": "With a shortcut hint",
       "description": "The hint is only visual, so the page binds the key. Press / to focus the field.",
-      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"s-docs\">Search the docs</label>\n  <div class=\"v-input-group v-search\">\n    <span class=\"v-input-addon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></span>\n    <input class=\"v-input\" id=\"s-docs\" type=\"search\" placeholder=\"Components, tokens\" aria-keyshortcuts=\"/\">\n    <span class=\"v-search-hint\" aria-hidden=\"true\"><kbd class=\"v-kbd\">/</kbd></span>\n  </div>\n</div>",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"s-docs\">Search the docs</label>\n  <div class=\"v-input-group v-search\">\n    <span class=\"v-input-addon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></span>\n    <input class=\"v-input\" id=\"s-docs\" data-v-shortcut=\"/\" type=\"search\" placeholder=\"Components, tokens\" aria-keyshortcuts=\"/\">\n    <span class=\"v-search-hint\" aria-hidden=\"true\"><kbd class=\"v-kbd\">/</kbd></span>\n  </div>\n</div>",
       "js": "const search = document.getElementById('s-docs');\ndocument.addEventListener('keydown', (e) => {\n  if (e.key !== '/' || e.target.closest('input, textarea, select, [contenteditable]')) return;\n  e.preventDefault();\n  search.focus();\n});",
       "layout": "stack",
       "height": 100,
