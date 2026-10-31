@@ -170,7 +170,7 @@ Every v1 component maps to something above; the migration guide lists the exact 
 
 `main` is protected: merge only by PR with all checks green.
 
-Locally: `npm run check` (static gates), `npm test` (Chromium), `npm run docker:test` (all engines, pinned image, required for visual tests).
+Locally: `npm run check` (static gates), `npm test` (Chromium), `npm run test:visual` (visual regression, local only since 31 Oct 2026; baselines are made with the local Playwright Chromium, not in CI).
 
 Screenshot budget: full-page baselines cost about 0.6 MB each. The prototype uses the full matrix (16 shots). Ported pages get default direction × light/dark × phone/desktop (4 shots); the full matrix stays on the component gallery only.
 
@@ -241,7 +241,7 @@ One branch and one PR per milestone, each merged only with green checks. Sizes a
 - **Newer CSS features** shift between browser versions; the fallbacks in section 3 must stay tested, not assumed.
 - **Glass blur** costs GPU on low-end phones (many blurred layers; in CI's software-rendered WebKit it is slow enough to stall tests). Mitigation: limit blur to surfaces in view, and the `prefers-reduced-transparency` fallback to solid surfaces, already in the prototype.
 - **Breaking change for v1 users.** Mitigation: v1 stays available in its own repo, plus a migration guide and class map.
-- **Visual regression noise** from font rendering across machines. Mitigation: run visual tests in one pinned container image.
+- **Visual regression noise** from font rendering across machines. Mitigation: baselines are made and checked on one machine (the owner's WSL, local Playwright Chromium) and visual tests do not run in CI.
 
 ## 17. Product roadmap (agreed 31 Oct 2026)
 

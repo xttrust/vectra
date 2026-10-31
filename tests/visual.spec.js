@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { DIRECTIONS, THEMES, PAGES, open } from './helpers.js';
 
-// Baselines are generated in the pinned Playwright container (see .github/workflows), never on a dev machine.
+// Baselines are generated and checked locally with the project's Playwright Chromium (see /check-visual). Not run in CI.
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, phone: { width: 390, height: 844 } };
 
 for (const target of PAGES) {

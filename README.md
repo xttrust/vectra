@@ -33,7 +33,7 @@ Then open http://127.0.0.1:4173/prototype/. Use the switcher or the **Customize*
 |---|---|
 | `npm run check` | Lint, build, size budgets, external-URL check, browser floor check |
 | `npm test` | Accessibility, contrast sweep and keyboard tests in Chromium |
-| `npm run docker:test` | All tests in Chromium, Firefox and WebKit inside the pinned Playwright image (needed for visual tests) |
+| `npm run docker:test` | All tests in Chromium, Firefox and WebKit inside the pinned Playwright image |
 
 Supported browsers: Chrome/Edge 123+, Safari 17.5+, Firefox 125+.
 

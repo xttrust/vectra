@@ -8,7 +8,7 @@ Automated:
 1. Working tree clean, on `main`, up to date with origin.
 2. `npm ci && npm run check` (lint, build, size budgets, no external URLs, browser baseline).
 3. `npm run docker:test -- --grep-invert @visual` (all three engines).
-4. `npm run docker:test -- --project=chromium --grep @visual` (visual regression).
+4. `npm run test:visual` (visual regression, local only).
 5. Report the size table and any budget within 10% of its limit.
 
 Manual (list them for Florin, do not mark them done yourself):
