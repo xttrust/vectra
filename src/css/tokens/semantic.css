@@ -34,6 +34,9 @@
     --v-card-shadow: var(--v-shadow-1);
     --v-card-sheen: none;
     --v-input-bg: var(--v-surface);
+    --v-input-border: var(--v-border-control);
+    --v-input-radius: var(--v-radius-md);
+    --v-input-shadow: none;
 
     /* Feature surface */
     --v-feature-bg: var(--v-surface);

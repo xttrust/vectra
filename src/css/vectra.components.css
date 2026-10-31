@@ -6,6 +6,11 @@
 @import url("./components/alert.css");
 @import url("./components/feedback.css");
 @import url("./components/misc.css");
+@import url("./components/field.css");
+@import url("./components/input.css");
+@import url("./components/choice.css");
+@import url("./components/range.css");
+@import url("./components/dropzone.css");
 @import url("./components/navbar.css");
 @import url("./components/sidenav.css");
 @import url("./components/tabs.css");
