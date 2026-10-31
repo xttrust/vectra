@@ -1,6 +1,6 @@
 /* Inline save status: saveStatus(el, 'saving' | 'saved' | 'failed' | 'offline', { at }) on a
    .v-save-status element. Sets data-state (CSS draws the icon) and the text, in
-   .v-save-status-text if present. Saved shows the time since `at` (default now) and refreshes it
+   the child marked data-v-save-status-text if present. Saved shows the time since `at` (default now) and refreshes it
    every 30 seconds. Only saved and failed are announced, politely; keep the element itself out of
    any live region so the refreshes stay quiet. */
 import { announce } from '../core.js';
@@ -15,7 +15,7 @@ const ago = (at) => {
 };
 
 export function saveStatus(el, state, { at = Date.now() } = {}) {
-  const target = el.querySelector('.v-save-status-text') ?? el;
+  const target = el.querySelector('[data-v-save-status-text]') ?? el;
   const render = () => { target.textContent = TEXT[state] ?? `Saved ${ago(+at)}`; };
   clearInterval(timers.get(el));
   el.dataset.state = state;

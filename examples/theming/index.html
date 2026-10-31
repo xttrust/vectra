@@ -202,14 +202,14 @@
     <section id="save-status">
       <h2>Save status</h2>
       <div class="ex-box ex-preview">
-        <p class="v-save-status" data-state="saving"><span class="v-save-status-text" data-contrast>Saving…</span></p>
-        <p class="v-save-status" data-state="saved"><span class="v-save-status-text" data-contrast>Saved 2 minutes ago</span></p>
-        <p class="v-save-status" data-state="failed"><span class="v-save-status-text" data-contrast>Not saved, try again</span></p>
-        <p class="v-save-status" data-state="offline"><span class="v-save-status-text" data-contrast>Offline, will save when back online</span></p>
+        <p class="v-save-status" data-state="saving"><span data-v-save-status-text data-contrast>Saving…</span></p>
+        <p class="v-save-status" data-state="saved"><span data-v-save-status-text data-contrast>Saved 2 minutes ago</span></p>
+        <p class="v-save-status" data-state="failed"><span data-v-save-status-text data-contrast>Not saved, try again</span></p>
+        <p class="v-save-status" data-state="offline"><span data-v-save-status-text data-contrast>Offline, will save when back online</span></p>
       </div>
       <div class="ex-box ex-preview ex-live">
         <p class="ex-label">saveStatus(el, state)</p>
-        <p class="v-save-status" id="live-status" data-state="saved"><span class="v-save-status-text">Saved just now</span></p>
+        <p class="v-save-status" id="live-status" data-state="saved"><span data-v-save-status-text>Saved just now</span></p>
         <div class="v-cluster">
           <button class="v-btn v-btn-secondary v-btn-sm" type="button" data-status="saving">Saving</button>
           <button class="v-btn v-btn-secondary v-btn-sm" type="button" data-status="saved">Saved</button>

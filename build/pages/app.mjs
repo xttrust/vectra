@@ -584,7 +584,7 @@ ${field('quiet-from', 'From', '<input class="v-input" id="quiet-from" name="quie
 ${field('quiet-to', 'Until', '<input class="v-input" id="quiet-to" name="quiet_to" type="time" value="07:00">')}
 </div>`)}
 </form>`;
-const saveStatusEl = (text = 'Saved 2 minutes ago') => `<p class="v-save-status" data-state="saved" data-notify-status><span class="v-save-status-text">${text}</span></p>`;
+const saveStatusEl = (text = 'Saved 2 minutes ago') => `<p class="v-save-status" data-state="saved" data-notify-status><span data-v-save-status-text>${text}</span></p>`;
 const notifLoaded = state('loaded', `${settingsHeader('notifications', saveStatusEl())}
 <p class="v-text-secondary">Changes save as you go.</p>
 ${prefsForm()}`);
@@ -592,7 +592,7 @@ const notifEmpty = state('empty', `${settingsHeader('notifications', saveStatusE
 <div class="v-alert v-alert-info" role="status">${icon('info')}<div class="v-alert-body"><p class="v-alert-title">These are the settings we recommend to start</p><p>Text alerts need a mobile number: <a href="settings-profile-empty.html">add one to your profile</a> to switch them on. Anything you change saves as you go.</p></div></div>
 ${prefsForm(true)}`);
 const notifLoading = state('loading', `${settingsHeader('notifications')}\n${skForm([3, 3, 1])}`, 'your notification settings');
-const notifError = state('error', `${settingsHeader('notifications', '<p class="v-save-status" data-state="failed"><span class="v-save-status-text">Not saved</span></p>')}
+const notifError = state('error', `${settingsHeader('notifications', '<p class="v-save-status" data-state="failed"><span data-v-save-status-text>Not saved</span></p>')}
 <div class="v-panel">
 ${failed('your notification settings', 'settings-notifications.html', 'Your settings have not changed, but we could not show them just now.')}
 </div>`);
