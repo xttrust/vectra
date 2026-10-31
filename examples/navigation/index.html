@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Vectra · Navigation</title>
+  <meta name="description" content="Vectra navigation and disclosure components in every direction and theme.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M4 18L12 4l8 14z"/><path d="M8.5 13h7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 2h6l1-2h5"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.8c1.6.8 2.6 2.5 3 5.2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.4 4-6.5 8-6.5s7 2.1 8 6.5"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../components/">Vectra <span>navigation</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main id="main" class="v-container ex-main v-skip-target" tabindex="-1">
+    <section class="v-stack">
+      <p class="v-kicker">Components · part 4</p>
+      <h1 class="v-display">Navigation and disclosure.</h1>
+      <p class="v-lead">Every piece works without JavaScript: the mobile menu is a native popover, accordions are native details. Press Tab on this page to see the skip link.</p>
+    </section>
+
+    <section id="navbar">
+      <h2>Navbar</h2>
+      <div class="v-stack">
+        <div class="ex-box" style="padding: 0; overflow: hidden">
+          <header class="v-navbar">
+            <a class="v-navbar-brand" href="#navbar" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-logo"/></svg>Northwind</a>
+            <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="nav-main" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+            <nav class="v-navbar-menu" id="nav-main" popover aria-label="Main">
+              <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="nav-main" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+              <ul class="v-navbar-links">
+                <li><a href="#navbar" aria-current="page" data-contrast>Overview</a></li>
+                <li><a href="#sidenav" data-contrast>Projects</a></li>
+                <li><a href="#tabs" data-contrast>Team</a></li>
+                <li><a href="#steps" data-contrast>Pricing</a></li>
+              </ul>
+              <div class="v-navbar-actions">
+                <a class="v-btn v-btn-ghost" href="#navbar" data-contrast>Sign in</a>
+                <a class="v-btn v-btn-primary" href="#navbar" data-contrast>Get started</a>
+              </div>
+            </nav>
+          </header>
+        </div>
+        <p class="ex-label">A narrow slot: the same navbar collapses by container query, not viewport width.</p>
+        <div class="ex-box" style="padding: 0; overflow: hidden; max-inline-size: 24rem">
+          <header class="v-navbar">
+            <a class="v-navbar-brand" href="#navbar"><svg class="v-icon" aria-hidden="true"><use href="#i-logo"/></svg>Northwind</a>
+            <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="nav-compact" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+            <nav class="v-navbar-menu" id="nav-compact" popover aria-label="Compact">
+              <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="nav-compact" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+              <ul class="v-navbar-links">
+                <li><a href="#navbar" aria-current="page">Overview</a></li>
+                <li><a href="#sidenav">Projects</a></li>
+                <li><a href="#tabs">Team</a></li>
+              </ul>
+              <div class="v-navbar-actions"><a class="v-btn v-btn-primary v-btn-block" href="#navbar">Get started</a></div>
+            </nav>
+          </header>
+        </div>
+      </div>
+    </section>
+
+    <section id="sidenav">
+      <h2>Sidebar nav</h2>
+      <div class="v-cluster v-items-start" style="--v-gap: var(--v-space-5)">
+        <div class="ex-box" style="inline-size: min(100%, 17rem)">
+          <nav class="v-sidenav" aria-label="Workspace">
+            <p class="v-sidenav-heading" data-contrast>Workspace</p>
+            <ul>
+              <li><a href="#sidenav" aria-current="page"><svg class="v-icon" aria-hidden="true"><use href="#i-home"/></svg><span class="v-sidenav-label" data-contrast>Dashboard</span></a></li>
+              <li><a href="#sidenav"><svg class="v-icon" aria-hidden="true"><use href="#i-inbox"/></svg><span class="v-sidenav-label" data-contrast>Inbox</span><span class="v-badge v-badge-accent" data-contrast>12</span></a></li>
+              <li>
+                <details open>
+                  <summary><svg class="v-icon" aria-hidden="true"><use href="#i-folder"/></svg><span class="v-sidenav-label" data-contrast>Projects</span></summary>
+                  <ul>
+                    <li><a href="#sidenav"><span class="v-sidenav-label" data-contrast>Website redesign</span></a></li>
+                    <li><a href="#sidenav"><span class="v-sidenav-label" data-contrast>Mobile app</span><span class="v-badge">3</span></a></li>
+                  </ul>
+                </details>
+              </li>
+              <li><a href="#sidenav"><svg class="v-icon" aria-hidden="true"><use href="#i-chart"/></svg><span class="v-sidenav-label" data-contrast>Reports</span></a></li>
+            </ul>
+            <p class="v-sidenav-heading">Account</p>
+            <ul>
+              <li>
+                <details>
+                  <summary><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg><span class="v-sidenav-label">Team</span></summary>
+                  <ul>
+                    <li><a href="#sidenav"><span class="v-sidenav-label">Members</span></a></li>
+                    <li><a href="#sidenav"><span class="v-sidenav-label">Roles</span></a></li>
+                  </ul>
+                </details>
+              </li>
+              <li><a href="#sidenav"><svg class="v-icon" aria-hidden="true"><use href="#i-gear"/></svg><span class="v-sidenav-label">Settings</span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="ex-box">
+          <nav class="v-sidenav v-sidenav-rail" aria-label="Workspace, icon rail">
+            <ul>
+              <li><a href="#sidenav" aria-current="page"><svg class="v-icon" aria-hidden="true"><use href="#i-home"/></svg><span class="v-sidenav-label">Dashboard</span></a></li>
+              <li><a href="#sidenav"><svg class="v-icon" aria-hidden="true"><use href="#i-inbox"/></svg><span class="v-sidenav-label">Inbox</span><span class="v-badge v-badge-solid">12</span></a></li>
+              <li><a href="#sidenav"><svg class="v-icon" aria-hidden="true"><use href="#i-folder"/></svg><span class="v-sidenav-label">Projects</span></a></li>
+              <li><a href="#sidenav"><svg class="v-icon" aria-hidden="true"><use href="#i-chart"/></svg><span class="v-sidenav-label">Reports</span></a></li>
+              <li><a href="#sidenav"><svg class="v-icon" aria-hidden="true"><use href="#i-gear"/></svg><span class="v-sidenav-label">Settings</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section id="tabs">
+      <h2>Tabs</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-6)">
+        <div class="v-tabs">
+          <div class="v-tablist" role="tablist" aria-label="Project, line tabs">
+            <button class="v-tab" id="tab-a1" role="tab" type="button" aria-selected="true" aria-controls="panel-a1" data-contrast>Overview</button>
+            <button class="v-tab" id="tab-a2" role="tab" type="button" aria-selected="false" aria-controls="panel-a2" tabindex="-1" data-contrast>Activity</button>
+            <button class="v-tab" id="tab-a3" role="tab" type="button" aria-selected="false" aria-controls="panel-a3" tabindex="-1" data-contrast>Settings</button>
+            <button class="v-tab" id="tab-a4" role="tab" type="button" aria-selected="false" aria-controls="panel-a4" tabindex="-1" disabled>Billing</button>
+          </div>
+          <div class="v-tabpanel" id="panel-a1" role="tabpanel" aria-labelledby="tab-a1" tabindex="0"><p data-contrast>Line tabs: the selected tab gets an accent underline. Arrow keys arrive with the JS module.</p></div>
+          <div class="v-tabpanel" id="panel-a2" role="tabpanel" aria-labelledby="tab-a2" tabindex="0" hidden><p>Recent activity.</p></div>
+          <div class="v-tabpanel" id="panel-a3" role="tabpanel" aria-labelledby="tab-a3" tabindex="0" hidden><p>Project settings.</p></div>
+          <div class="v-tabpanel" id="panel-a4" role="tabpanel" aria-labelledby="tab-a4" tabindex="0" hidden><p>Billing.</p></div>
+        </div>
+
+        <div class="v-tabs v-tabs-pill">
+          <div class="v-tablist" role="tablist" aria-label="Report range, pill tabs">
+            <button class="v-tab" id="tab-b1" role="tab" type="button" aria-selected="false" aria-controls="panel-b1" tabindex="-1" data-contrast>Day</button>
+            <button class="v-tab" id="tab-b2" role="tab" type="button" aria-selected="true" aria-controls="panel-b2" data-contrast>Week</button>
+            <button class="v-tab" id="tab-b3" role="tab" type="button" aria-selected="false" aria-controls="panel-b3" tabindex="-1" data-contrast>Month</button>
+          </div>
+          <div class="v-tabpanel" id="panel-b1" role="tabpanel" aria-labelledby="tab-b1" tabindex="0" hidden><p>Today.</p></div>
+          <div class="v-tabpanel" id="panel-b2" role="tabpanel" aria-labelledby="tab-b2" tabindex="0"><p data-contrast>Pill tabs sit in a soft track, like the segmented control.</p></div>
+          <div class="v-tabpanel" id="panel-b3" role="tabpanel" aria-labelledby="tab-b3" tabindex="0" hidden><p>This month.</p></div>
+        </div>
+
+        <div class="v-tabs v-tabs-vertical ex-box">
+          <div class="v-tablist" role="tablist" aria-label="Account, vertical tabs" aria-orientation="vertical">
+            <button class="v-tab" id="tab-c1" role="tab" type="button" aria-selected="true" aria-controls="panel-c1" data-contrast>Profile</button>
+            <button class="v-tab" id="tab-c2" role="tab" type="button" aria-selected="false" aria-controls="panel-c2" tabindex="-1" data-contrast>Security</button>
+            <button class="v-tab" id="tab-c3" role="tab" type="button" aria-selected="false" aria-controls="panel-c3" tabindex="-1" data-contrast>Notifications</button>
+          </div>
+          <div class="v-tabpanel" id="panel-c1" role="tabpanel" aria-labelledby="tab-c1" tabindex="0">
+            <h3 data-contrast>Profile</h3>
+            <p data-contrast>Vertical tabs sit beside the panel when their slot is at least 36rem wide, and fall back to a row on phones.</p>
+          </div>
+          <div class="v-tabpanel" id="panel-c2" role="tabpanel" aria-labelledby="tab-c2" tabindex="0" hidden><p>Security.</p></div>
+          <div class="v-tabpanel" id="panel-c3" role="tabpanel" aria-labelledby="tab-c3" tabindex="0" hidden><p>Notifications.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="paging">
+      <h2>Breadcrumb and pagination</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-5)">
+        <nav class="v-breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="#paging" data-contrast>Home</a></li>
+            <li><a href="#paging" data-contrast>Projects</a></li>
+            <li><a href="#paging" data-contrast>Website redesign</a></li>
+            <li><span aria-current="page" data-contrast>Homepage copy</span></li>
+          </ol>
+        </nav>
+
+        <nav aria-label="Results pages">
+          <ul class="v-pagination">
+            <li><a class="v-page v-page-prev" href="#paging" rel="prev" data-contrast><span class="v-page-label">Previous</span></a></li>
+            <li><a class="v-page" href="#paging" aria-label="Page 1" data-contrast>1</a></li>
+            <li><span class="v-page-gap" aria-hidden="true">…</span></li>
+            <li><a class="v-page" href="#paging" aria-label="Page 4" data-contrast>4</a></li>
+            <li><a class="v-page" href="#paging" aria-label="Page 5" aria-current="page" data-contrast>5</a></li>
+            <li><a class="v-page" href="#paging" aria-label="Page 6" data-contrast>6</a></li>
+            <li><span class="v-page-gap" aria-hidden="true">…</span></li>
+            <li><a class="v-page" href="#paging" aria-label="Page 20" data-contrast>20</a></li>
+            <li><a class="v-page v-page-next" href="#paging" rel="next" data-contrast><span class="v-page-label">Next</span></a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="First results pages">
+          <ul class="v-pagination">
+            <li><span class="v-page v-page-prev" aria-disabled="true"><span class="v-page-label">Previous</span></span></li>
+            <li><a class="v-page" href="#paging" aria-label="Page 1" aria-current="page">1</a></li>
+            <li><a class="v-page" href="#paging" aria-label="Page 2">2</a></li>
+            <li><a class="v-page" href="#paging" aria-label="Page 3">3</a></li>
+            <li><a class="v-page v-page-next" href="#paging" rel="next"><span class="v-page-label">Next</span></a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Article pages">
+          <ul class="v-pagination v-pagination-simple">
+            <li><a class="v-page v-page-prev" href="#paging" rel="prev" data-contrast><span class="v-page-label">Previous</span></a></li>
+            <li class="v-pagination-info" data-contrast>Page 2 of 9</li>
+            <li><a class="v-page v-page-next" href="#paging" rel="next" data-contrast><span class="v-page-label">Next</span></a></li>
+          </ul>
+        </nav>
+
+        <div class="v-load-more">
+          <p data-contrast>Showing 24 of 86 projects</p>
+          <button class="v-btn v-btn-secondary" type="button">Load more</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="steps">
+      <h2>Steps</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-6)">
+        <ol class="v-steps" aria-label="Sign-up progress">
+          <li class="v-step v-step-complete"><span class="v-step-label" data-contrast><span class="v-sr-only">Completed: </span>Account</span></li>
+          <li class="v-step v-step-complete"><span class="v-step-label" data-contrast><span class="v-sr-only">Completed: </span>Workspace</span></li>
+          <li class="v-step" aria-current="step"><span class="v-step-label" data-contrast>Billing</span></li>
+          <li class="v-step"><span class="v-step-label" data-contrast>Launch</span></li>
+        </ol>
+
+        <ol class="v-steps v-steps-vertical" aria-label="Order progress" style="max-inline-size: 28rem">
+          <li class="v-step v-step-complete"><span class="v-step-label" data-contrast><span class="v-sr-only">Completed: </span>Order placed</span><span class="v-step-desc" data-contrast>12 March, 09:14</span></li>
+          <li class="v-step" aria-current="step"><span class="v-step-label" data-contrast>Packing</span><span class="v-step-desc" data-contrast>Your order is being packed.</span></li>
+          <li class="v-step"><span class="v-step-label" data-contrast>Shipped</span><span class="v-step-desc" data-contrast>Usually within two days.</span></li>
+          <li class="v-step"><span class="v-step-label">Delivered</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="bottombar">
+      <h2>Bottom tab bar</h2>
+      <p class="ex-label">Fixed to the bottom of the screen in real use; shown in place here.</p>
+      <div class="ex-box v-mt-2" style="padding: 0; overflow: hidden; max-inline-size: 24rem">
+        <nav class="v-bottombar" aria-label="App sections" style="position: static">
+          <a href="#bottombar" aria-current="page"><svg class="v-icon" aria-hidden="true"><use href="#i-home"/></svg><span data-contrast>Home</span></a>
+          <a href="#bottombar"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg><span data-contrast>Search</span></a>
+          <a href="#bottombar"><svg class="v-icon" aria-hidden="true"><use href="#i-inbox"/></svg><span data-contrast>Inbox</span><span class="v-badge v-badge-solid">3</span></a>
+          <a href="#bottombar"><svg class="v-icon" aria-hidden="true"><use href="#i-user"/></svg><span data-contrast>Profile</span></a>
+        </nav>
+      </div>
+    </section>
+
+    <section id="disclosure">
+      <h2>Accordion and collapsible</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-6)">
+        <div class="v-accordion">
+          <details name="faq" open>
+            <summary data-contrast>Do I need JavaScript for this?</summary>
+            <p data-contrast>No. The accordion is native details elements sharing one name, so opening one closes the others.</p>
+          </details>
+          <details name="faq">
+            <summary data-contrast>Can several items be open at once?</summary>
+            <p>Leave out the name attribute and every item opens on its own.</p>
+          </details>
+          <details name="faq">
+            <summary data-contrast>Does it animate?</summary>
+            <p>Where the browser supports it, the height eases open. With reduced motion it opens at once.</p>
+          </details>
+        </div>
+
+        <div class="v-stack" style="--v-gap: var(--v-space-2)">
+          <details class="v-collapsible">
+            <summary data-contrast>Show advanced options</summary>
+            <p>Retry failed webhooks, custom headers and the request log.</p>
+          </details>
+          <details class="v-collapsible" open>
+            <summary data-contrast>Why we ask for your phone number</summary>
+            <p data-contrast>Only to send a code when you sign in from a new device. We never call or share it.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="rtl" dir="rtl">
+      <h2>Right to left</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-5)">
+        <nav class="v-breadcrumb" aria-label="Breadcrumb, right to left">
+          <ol>
+            <li><a href="#rtl">Home</a></li>
+            <li><a href="#rtl">Projects</a></li>
+            <li><span aria-current="page">Homepage copy</span></li>
+          </ol>
+        </nav>
+        <nav aria-label="Article pages, right to left">
+          <ul class="v-pagination v-pagination-simple">
+            <li><a class="v-page v-page-prev" href="#rtl" rel="prev"><span class="v-page-label">Previous</span></a></li>
+            <li class="v-pagination-info">Page 2 of 9</li>
+            <li><a class="v-page v-page-next" href="#rtl" rel="next"><span class="v-page-label">Next</span></a></li>
+          </ul>
+        </nav>
+        <ol class="v-steps" aria-label="Sign-up progress, right to left">
+          <li class="v-step v-step-complete"><span class="v-step-label"><span class="v-sr-only">Completed: </span>Account</span></li>
+          <li class="v-step" aria-current="step"><span class="v-step-label">Billing</span></li>
+          <li class="v-step"><span class="v-step-label">Launch</span></li>
+        </ol>
+        <details class="v-collapsible">
+          <summary>Show advanced options</summary>
+          <p>Retry failed webhooks and custom headers.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

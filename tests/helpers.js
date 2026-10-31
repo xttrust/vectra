@@ -9,6 +9,8 @@ export const PAGES = [
   { name: 'tokens', path: '/examples/tokens/', storage: 'vectra', visual: 'full' },
   { name: 'layout', path: '/examples/layout/', storage: 'vectra', visual: 'basic' },
   { name: 'components', path: '/examples/components/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'forms', path: '/examples/forms/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'navigation', path: '/examples/navigation/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'content', path: '/examples/content/', storage: 'vectra', visual: 'full', rendered: true },
 ];
 

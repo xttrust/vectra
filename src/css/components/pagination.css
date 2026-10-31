@@ -1,0 +1,115 @@
+/* Pagination: numbered with ellipsis (.v-pagination), prev/next only (.v-pagination-simple) and the
+   load-more row (.v-load-more). Wrap lists in <nav aria-label="Pagination">; the current page carries
+   aria-current="page", unavailable ends are <span aria-disabled="true">. */
+@layer components {
+  .v-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-1);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    container: v-pagination / inline-size;
+  }
+
+  .v-page {
+    display: inline-flex;
+    gap: 0.4em;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: 2.375rem;
+    min-block-size: 2.375rem;
+    padding-inline: 0.6rem;
+    border: var(--v-border-w) solid transparent;
+    border-radius: var(--v-radius-sm);
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    font-weight: 560;
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+    transition: color var(--v-dur-1), background-color var(--v-dur-1), border-color var(--v-dur-1);
+  }
+
+  a.v-page:hover {
+    background-color: var(--v-surface-2);
+    color: var(--v-text);
+  }
+
+  .v-page[aria-current="page"] {
+    border-color: var(--v-accent);
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+    font-weight: 650;
+  }
+
+  .v-page[aria-disabled="true"] { opacity: 0.5; }
+
+  .v-page-gap {
+    min-inline-size: 1.5rem;
+    color: var(--v-text-3);
+    text-align: center;
+  }
+
+  /* Prev and next arrows: rotated corners that flip in right-to-left text. */
+  .v-page-prev::before,
+  .v-page-next::after {
+    content: "";
+    inline-size: 0.4em;
+    block-size: 0.4em;
+    border: solid currentcolor;
+    border-width: 0 1.5px 1.5px 0;
+  }
+
+  .v-page-prev::before { rotate: 135deg; }
+  .v-page-next::after { rotate: -45deg; }
+  .v-page-prev:dir(rtl)::before { rotate: -45deg; }
+  .v-page-next:dir(rtl)::after { rotate: 135deg; }
+
+  /* Narrow slots: prev and next keep only their arrows (the .v-page-label text stays for screen readers). */
+  @container v-pagination (width < 30rem) {
+    .v-pagination:not(.v-pagination-simple) .v-page-label {
+      position: absolute;
+      overflow: hidden;
+      inline-size: 1px;
+      block-size: 1px;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+
+  .v-pagination-simple {
+    justify-content: space-between;
+    gap: var(--v-space-3);
+  }
+
+  .v-pagination-simple .v-page { border-color: var(--v-border-strong); }
+
+  .v-pagination-info {
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-load-more {
+    display: grid;
+    gap: var(--v-space-3);
+    justify-items: center;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    text-align: center;
+  }
+}
+
+@layer directions {
+  :root[data-direction="soft"] .v-page[aria-current="page"] {
+    border-color: transparent;
+    background-color: var(--v-surface);
+    box-shadow: var(--v-shadow-1);
+  }
+
+  :root[data-direction="editorial"] .v-page[aria-current="page"] {
+    border-color: var(--v-border-strong);
+    background-color: transparent;
+    color: var(--v-text);
+  }
+}

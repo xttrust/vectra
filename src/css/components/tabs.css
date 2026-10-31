@@ -1,0 +1,113 @@
+/* Tabs: line (default), pill and vertical. Markup follows the WAI-ARIA tabs pattern (role="tablist",
+   role="tab" with aria-selected, role="tabpanel"); hidden panels carry the hidden attribute.
+   Styling only: arrow keys and switching come with M4 (data-v-tabs). */
+@layer components {
+  .v-tabs {
+    display: grid;
+    gap: var(--v-space-4);
+  }
+
+  .v-tablist {
+    display: flex;
+    gap: var(--v-space-1);
+    overflow-x: auto;
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    scrollbar-width: none;
+  }
+
+  .v-tab {
+    flex-shrink: 0;
+    padding: 0.6rem 0.9rem;
+    border: 0;
+    border-radius: var(--v-radius-sm) var(--v-radius-sm) 0 0;
+    background: none;
+    color: var(--v-text-2);
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 560;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: inset 0 -2px 0 transparent;
+    transition: color var(--v-dur-1), box-shadow var(--v-dur-2), background-color var(--v-dur-1);
+  }
+
+  .v-tab:hover { color: var(--v-text); }
+
+  .v-tab[aria-selected="true"] {
+    color: var(--v-text);
+    box-shadow: inset 0 -2px 0 var(--v-accent);
+  }
+
+  .v-tab:focus-visible { outline-offset: -2px; }
+
+  .v-tab:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .v-tabpanel { color: var(--v-text-2); }
+  .v-tabpanel:focus-visible { outline-offset: 4px; }
+
+  /* Pill: a soft track with the selected tab raised. */
+  .v-tabs-pill .v-tablist {
+    justify-self: start;
+    max-inline-size: 100%;
+    padding: 3px;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: calc(var(--v-btn-radius) + 3px);
+    background-color: var(--v-surface-2);
+  }
+
+  .v-tabs-pill .v-tab {
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--v-btn-radius);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-tabs-pill .v-tab[aria-selected="true"] {
+    background-color: var(--v-surface);
+    box-shadow: var(--v-shadow-1);
+  }
+
+  .v-tabs-pill .v-tab:focus-visible { outline-offset: 1px; }
+
+  /* Vertical: tabs beside the panel once its slot has room (container query), a line row below that. */
+  .v-tabs-vertical {
+    grid-template-columns: auto 1fr;
+    column-gap: var(--v-space-5);
+    container: v-tabs / inline-size;
+  }
+
+  .v-tabs-vertical > * { grid-column: 1 / -1; }
+
+  @container v-tabs (width >= 36rem) {
+    .v-tabs-vertical > * { grid-column: 2; }
+
+    .v-tabs-vertical > .v-tablist {
+      flex-direction: column;
+      grid-area: 1 / 1;
+      align-self: start;
+      border-block-end: 0;
+      border-inline-end: var(--v-border-w) solid var(--v-border);
+    }
+
+    .v-tabs-vertical .v-tab {
+      border-radius: var(--v-radius-sm) 0 0 var(--v-radius-sm);
+      text-align: start;
+      box-shadow: inset -2px 0 0 transparent;
+    }
+
+    .v-tabs-vertical .v-tab[aria-selected="true"] {
+      background-color: var(--v-surface-2);
+      box-shadow: inset -2px 0 0 var(--v-accent);
+    }
+
+    .v-tabs-vertical .v-tab:dir(rtl) { border-radius: 0 var(--v-radius-sm) var(--v-radius-sm) 0; }
+    .v-tabs-vertical .v-tab[aria-selected="true"]:dir(rtl) { box-shadow: inset 2px 0 0 var(--v-accent); }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-tab { letter-spacing: 0.01em; }
+  :root[data-direction="glass"] .v-tabs-pill .v-tab[aria-selected="true"] { background-color: var(--v-card-bg); }
+}

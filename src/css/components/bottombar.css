@@ -1,0 +1,72 @@
+/* Bottom tab bar for phones: up to five icon + label links fixed to the bottom edge, clear of the home
+   indicator and rounded corners (safe-area insets need viewport-fit=cover in the viewport meta).
+   Give the page matching padding at the bottom; hide it at wider sizes with .v-hide-desktop. */
+@layer components {
+  .v-bottombar {
+    position: fixed;
+    inset-block-end: 0;
+    inset-inline: 0;
+    z-index: 50;
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    padding:
+      var(--v-space-1)
+      max(var(--v-space-2), env(safe-area-inset-right))
+      max(var(--v-space-1), env(safe-area-inset-bottom))
+      max(var(--v-space-2), env(safe-area-inset-left));
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-surface);
+    box-shadow: var(--v-shadow-1);
+  }
+
+  .v-bottombar a {
+    position: relative;
+    display: grid;
+    gap: 0.15rem;
+    justify-items: center;
+    min-block-size: 3.25rem;
+    padding: 0.35rem 0.25rem;
+    border-radius: var(--v-radius-sm);
+    color: var(--v-text-2);
+    font-size: 0.75rem;
+    font-weight: 560;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .v-bottombar a:hover { color: var(--v-text); }
+  .v-bottombar a:focus-visible { outline-offset: -2px; }
+
+  .v-bottombar .v-icon {
+    inline-size: 3.25rem;
+    block-size: 1.75rem;
+    padding: 0.25rem 1rem;
+    border-radius: var(--v-radius-pill);
+    transition: background-color var(--v-dur-2);
+  }
+
+  .v-bottombar a[aria-current="page"] {
+    color: var(--v-accent-text);
+    font-weight: 650;
+  }
+
+  .v-bottombar a[aria-current="page"] .v-icon { background-color: var(--v-accent-soft); }
+
+  .v-bottombar .v-badge {
+    position: absolute;
+    inset-block-start: 0.1rem;
+    inset-inline-start: calc(50% + 0.5rem);
+    padding: 0 0.4em;
+    font-size: 0.6875rem;
+  }
+}
+
+@layer directions {
+  :root[data-direction="glass"] .v-bottombar {
+    border-color: var(--v-card-border);
+    backdrop-filter: blur(24px) saturate(1.6);
+  }
+}

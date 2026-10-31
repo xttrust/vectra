@@ -1,0 +1,57 @@
+/* Breadcrumb: <nav aria-label="Breadcrumb"> around an <ol>; the last item carries aria-current="page".
+   Separators are drawn chevrons that point the other way in right-to-left text. */
+@layer components {
+  .v-breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    list-style: none;
+  }
+
+  .v-breadcrumb li {
+    display: inline-flex;
+    gap: var(--v-space-2);
+    align-items: center;
+    min-inline-size: 0;
+  }
+
+  /* Rotated corner (physical borders on purpose: the shape is rotated, the angle is what flips). */
+  .v-breadcrumb li + li::before {
+    content: "";
+    inline-size: 0.38em;
+    block-size: 0.38em;
+    border: solid var(--v-text-3);
+    border-width: 0 1.5px 1.5px 0;
+    rotate: -45deg;
+  }
+
+  .v-breadcrumb:dir(rtl) li + li::before { rotate: 135deg; }
+
+  .v-breadcrumb a {
+    color: var(--v-text-2);
+    text-decoration: none;
+    border-radius: 2px;
+  }
+
+  .v-breadcrumb a:hover {
+    color: var(--v-text);
+    text-decoration: underline;
+  }
+
+  .v-breadcrumb [aria-current="page"] {
+    overflow: hidden;
+    color: var(--v-text);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@layer directions {
+  :root[data-direction="tech"] .v-breadcrumb ol { font-family: var(--v-font-mono); }
+}

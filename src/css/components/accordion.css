@@ -1,0 +1,144 @@
+/* Accordion and collapsible, both native <details>. In .v-accordion, give the items one shared name
+   attribute to make the group exclusive (opening one closes the others; older browsers simply let
+   items open independently). <details class="v-collapsible"> is a single disclosure.
+   Opening animates height where ::details-content and interpolate-size exist, unless reduced motion. */
+@layer components {
+  .v-accordion {
+    display: grid;
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  .v-accordion details { border-block-end: var(--v-border-w) solid var(--v-border); }
+
+  .v-accordion summary,
+  .v-collapsible > summary {
+    display: flex;
+    gap: var(--v-space-4);
+    align-items: center;
+    justify-content: space-between;
+    color: var(--v-text);
+    font-weight: 580;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .v-accordion summary {
+    padding: var(--v-space-4) var(--v-space-1);
+    border-radius: var(--v-radius-sm);
+  }
+
+  .v-accordion summary::-webkit-details-marker,
+  .v-collapsible > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Chevron: a rotated corner. Accordion: down, flipping up when open. */
+  .v-accordion summary::after,
+  .v-collapsible > summary::before {
+    content: "";
+    flex-shrink: 0;
+    inline-size: 0.5em;
+    block-size: 0.5em;
+    border: solid var(--v-text-3);
+    border-width: 0 2px 2px 0;
+    rotate: 45deg;
+    translate: 0 -0.15em;
+    transition: rotate var(--v-dur-3) var(--v-ease-spring), translate var(--v-dur-3) var(--v-ease-spring);
+  }
+
+  .v-accordion details[open] > summary::after {
+    border-color: var(--v-accent-text);
+    rotate: -135deg;
+    translate: 0 0.15em;
+  }
+
+  .v-accordion details > :not(summary) {
+    margin: 0;
+    padding: 0 var(--v-space-1) var(--v-space-4);
+    color: var(--v-text-2);
+  }
+
+  /* Collapsible: chevron before the label, pointing at the inline end (flipped in right-to-left text)
+     and down when open. */
+  .v-collapsible > summary {
+    justify-content: flex-start;
+    gap: var(--v-space-2);
+    padding-block: var(--v-space-2);
+  }
+
+  .v-collapsible > summary::before {
+    inline-size: 0.42em;
+    block-size: 0.42em;
+    border-color: var(--v-accent-text);
+    rotate: -45deg;
+    translate: 0;
+  }
+
+  .v-collapsible > summary:dir(rtl)::before { rotate: 135deg; }
+  .v-collapsible[open] > summary::before { rotate: 45deg; }
+
+  .v-accordion summary:hover { color: var(--v-accent-text); }
+  .v-accordion summary:focus-visible { outline-offset: -2px; }
+
+  .v-collapsible > :not(summary) {
+    margin: 0;
+    padding-block: var(--v-space-1) var(--v-space-3);
+    padding-inline: 1.2em 0;
+    color: var(--v-text-2);
+  }
+
+  /* Height animation, progressive enhancement only. */
+  @supports (interpolate-size: allow-keywords) {
+    @media (prefers-reduced-motion: no-preference) {
+      .v-accordion details,
+      .v-collapsible {
+        interpolate-size: allow-keywords;
+      }
+
+      .v-accordion details::details-content,
+      .v-collapsible::details-content {
+        block-size: 0;
+        overflow: clip;
+        transition: block-size var(--v-dur-3) var(--v-ease-out), content-visibility var(--v-dur-3) allow-discrete;
+      }
+
+      .v-accordion details[open]::details-content,
+      .v-collapsible[open]::details-content {
+        block-size: auto;
+      }
+    }
+  }
+}
+
+@layer directions {
+  /* Soft: each item is its own raised card. */
+  :root[data-direction="soft"] .v-accordion {
+    gap: var(--v-space-2);
+    border: 0;
+  }
+
+  :root[data-direction="soft"] .v-accordion details {
+    padding-inline: var(--v-space-4);
+    border: 0;
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-card-bg);
+    box-shadow: var(--v-card-shadow);
+  }
+
+  :root[data-direction="editorial"] .v-accordion summary {
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+  }
+
+  :root[data-direction="glass"] .v-accordion {
+    padding-inline: var(--v-space-4);
+    border: var(--v-border-w) solid var(--v-card-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-card-bg);
+    box-shadow: var(--v-card-shadow);
+    backdrop-filter: blur(24px) saturate(1.6);
+  }
+
+  :root[data-direction="glass"] .v-accordion details:last-child { border-block-end: 0; }
+}

@@ -1,0 +1,95 @@
+/* File drop zone: <label class="v-dropzone"> around a native <input type="file">. Without JS the
+   whole zone opens the file picker and the native input shows the chosen file name. M4's JS adds
+   drag and drop and sets [data-v-dragover] while files hover over the zone. */
+@layer components {
+  .v-dropzone {
+    display: grid;
+    gap: var(--v-space-2);
+    justify-items: center;
+    padding: var(--v-space-6) var(--v-space-5);
+    border: calc(var(--v-border-w) * 2) dashed var(--v-input-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-input-bg);
+    color: var(--v-text-2);
+    font-size: 0.875rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--v-dur-1), background-color var(--v-dur-1);
+  }
+
+  .v-dropzone-icon {
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    margin-block-end: var(--v-space-1);
+    border-radius: 50%;
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+  }
+
+  .v-dropzone-icon .v-icon {
+    inline-size: 1.35rem;
+    block-size: 1.35rem;
+  }
+
+  .v-dropzone-title {
+    color: var(--v-text);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .v-dropzone-title strong { color: var(--v-accent-text); }
+
+  .v-dropzone input {
+    max-inline-size: 100%;
+    margin-block-start: var(--v-space-2);
+    color: var(--v-text-2);
+    font-size: 0.8125rem;
+    cursor: inherit;
+  }
+
+  .v-dropzone input::file-selector-button {
+    margin-inline-end: 0.75rem;
+    padding: 0.35rem 0.8rem;
+    border: var(--v-border-w) solid var(--v-border-strong);
+    border-radius: var(--v-btn-radius);
+    background-color: var(--v-surface);
+    color: var(--v-text);
+    font: inherit;
+    font-weight: 560;
+    cursor: inherit;
+  }
+
+  .v-dropzone:hover,
+  .v-dropzone[data-v-dragover] { border-color: var(--v-accent); }
+
+  .v-dropzone[data-v-dragover] {
+    border-style: solid;
+    background-color: var(--v-accent-soft);
+  }
+
+  .v-dropzone:has(:user-invalid, [aria-invalid="true"]) { border-color: var(--v-danger); }
+
+  /* The input keeps focus; the ring is drawn on the zone around it. */
+  .v-dropzone input:focus-visible { outline: none; }
+
+  .v-dropzone:has(input:focus-visible) {
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 2px;
+  }
+
+  .v-dropzone:has(input:disabled) {
+    border-color: var(--v-border-strong);
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-dropzone-icon {
+    border-radius: 0;
+    background-color: transparent;
+  }
+  :root[data-direction="glass"] .v-dropzone { backdrop-filter: blur(16px) saturate(1.4); }
+}
