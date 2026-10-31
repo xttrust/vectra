@@ -30,6 +30,7 @@ jobs:
       - run: npm run check:urls
       - run: npm run check:baseline
       - run: npm run check:auth
+      - run: npm run check:manifest
 
   test:
     name: Accessibility, contrast, keyboard (Chromium)
