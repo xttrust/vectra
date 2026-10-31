@@ -238,3 +238,16 @@
   };
   if (live.length) { readTokens(); root.addEventListener('v:theme', function () { requestAnimationFrame(readTokens); }); }
 })();
+
+// Focus inside a demo frame is invisible to CSS in this page, so the card is marked while it lasts.
+(function () {
+  function markFrameFocus() {
+    document.querySelectorAll('.site-example[data-frame-focus]').forEach(function (card) { card.removeAttribute('data-frame-focus'); });
+    var active = document.activeElement;
+    var card = active && active.matches && active.matches('.site-demo-frame') ? active.closest('.site-example') : null;
+    if (card) card.setAttribute('data-frame-focus', '');
+  }
+  window.addEventListener('blur', markFrameFocus);
+  window.addEventListener('focus', markFrameFocus);
+  document.addEventListener('focusin', markFrameFocus);
+})();
