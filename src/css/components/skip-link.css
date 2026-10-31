@@ -13,7 +13,9 @@
     font-weight: var(--v-btn-weight);
     text-decoration: none;
     box-shadow: var(--v-shadow-2);
-    translate: 0 calc(-100% - var(--v-space-4));
+
+    /* Far enough above the viewport that the shadow is hidden too, not only the box. */
+    translate: 0 calc(-100% - var(--v-space-3) - 2.5rem);
     transition: translate var(--v-dur-2) var(--v-ease-out);
   }
 
