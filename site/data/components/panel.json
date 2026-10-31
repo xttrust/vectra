@@ -1,0 +1,79 @@
+{
+  "name": "Panel",
+  "slug": "panel",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A plain bordered box split into header, body sections and footer, lighter than a card.",
+  "description": "Use a panel for settings groups and detail views where sections should run edge to edge with rules between them. It has no padding, shadow or sheen of its own; for a standalone item, use a card.",
+  "native": "<section>, <div>",
+  "catalogue": [
+    "Panel"
+  ],
+  "css": [
+    "panel.css"
+  ],
+  "classes": [
+    {
+      "name": "v-panel",
+      "kind": "base",
+      "description": "The box. Each direct child gets a rule above it."
+    },
+    {
+      "name": "v-panel-header",
+      "kind": "part",
+      "description": "A row with the title at the start and an action or badge at the end."
+    },
+    {
+      "name": "v-panel-title",
+      "kind": "part",
+      "description": "The panel heading."
+    },
+    {
+      "name": "v-panel-body",
+      "kind": "part",
+      "description": "A padded section. Use several for separate blocks."
+    },
+    {
+      "name": "v-panel-footer",
+      "kind": "part",
+      "description": "Actions aligned to the end, on a subtle background, pushed to the bottom."
+    }
+  ],
+  "a11y": [
+    "Use a heading element for .v-panel-title, at the right level for the page.",
+    "If the panel is a page region, use <section aria-labelledby> pointing at the title.",
+    "Put the main action last in the footer so it is also last in tab order."
+  ],
+  "tokens": [
+    "--v-border",
+    "--v-border-w",
+    "--v-radius-lg",
+    "--v-surface",
+    "--v-bg-subtle",
+    "--v-space-4",
+    "--v-space-5"
+  ],
+  "related": [
+    "card",
+    "description-list",
+    "list-group",
+    "form-layouts"
+  ],
+  "examples": [
+    {
+      "title": "Header, sections and footer",
+      "html": "<div class=\"v-panel\">\n  <div class=\"v-panel-header\">\n    <h3 class=\"v-panel-title\">Domains</h3>\n    <span class=\"v-badge v-badge-success\">3 active</span>\n  </div>\n  <div class=\"v-panel-body\">\n    <p>Point your nameservers to us and SSL is issued within the hour.</p>\n  </div>\n  <div class=\"v-panel-body\">\n    <p>Renewals are charged 14 days before expiry.</p>\n  </div>\n  <div class=\"v-panel-footer\">\n    <button class=\"v-btn v-btn-ghost v-btn-sm\" type=\"button\">Cancel</button>\n    <button class=\"v-btn v-btn-primary v-btn-sm\" type=\"button\">Add domain</button>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 300,
+      "source": "examples/elements/#panels"
+    },
+    {
+      "title": "With a description list",
+      "html": "<div class=\"v-panel\">\n  <div class=\"v-panel-header\">\n    <h3 class=\"v-panel-title\">Contact details</h3>\n    <a class=\"v-btn v-btn-ghost v-btn-sm\" href=\"#\">Edit</a>\n  </div>\n  <div class=\"v-panel-body\">\n    <dl class=\"v-dl\">\n      <div><dt>Business</dt><dd>West Coast Roofing</dd></div>\n      <div><dt>Email</dt><dd>office@roofing.example</dd></div>\n      <div><dt>Phone</dt><dd>+353 93 555 0142</dd></div>\n    </dl>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 300,
+      "source": "examples/elements/#panels"
+    }
+  ]
+}

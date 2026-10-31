@@ -1,0 +1,87 @@
+{
+  "name": "Session timeout warning",
+  "slug": "session-timeout",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A modal alert dialog, opened by Vectra.session.warn(), that counts down to sign-out and lets people stay signed in.",
+  "description": "Call it a minute or two before the session ends. When time runs out the same dialog switches to a signed-out state with a Sign in button, so nobody loses their place without warning.",
+  "native": "<dialog>",
+  "catalogue": [
+    "Session timeout warning"
+  ],
+  "css": [
+    "session.css",
+    "dialog.css"
+  ],
+  "js": [
+    "components/session.js"
+  ],
+  "classes": [
+    {
+      "name": "v-session-time",
+      "kind": "part",
+      "description": "The countdown, in tabular figures so its width stays steady."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "role=\"alertdialog\"",
+      "description": "Set by the JS on the modal dialog."
+    }
+  ],
+  "api": [
+    {
+      "signature": "Vectra.session.warn({ expiresAt, onExtend, onExpire, onSignIn }) => { close }",
+      "description": "Opens the warning. expiresAt is a Date or a timestamp. Stay signed in and Escape call onExtend; at expiry onExpire runs and the button becomes Sign in (onSignIn). Only one warning is open at a time."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Presses the focused button: Stay signed in, or Sign in after expiry."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the warning and counts as staying signed in (calls onExtend)."
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Stays inside the dialog while it is open."
+    }
+  ],
+  "a11y": [
+    "Focus lands on Stay signed in when the dialog opens, and on Sign in after expiry.",
+    "The countdown updates every second but is announced only at each minute and at 30 and 10 seconds (WCAG 2.2.1).",
+    "Announcements go to a live region inside the dialog, since the rest of the page is inert while it is open.",
+    "Escape extends the session rather than ignoring the warning, so the quickest key is the safe one."
+  ],
+  "tokens": [
+    "--v-dialog-w",
+    "--v-overlay-bg",
+    "--v-radius-xl",
+    "--v-shadow-3"
+  ],
+  "related": [
+    "dialog",
+    "toast",
+    "button"
+  ],
+  "examples": [
+    {
+      "title": "Live",
+      "description": "The second button expires in a few seconds, to show the signed-out state.",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" id=\"warn-long\">Warn, expires in 70 seconds</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\" id=\"warn-short\">Warn, expires in 5 seconds</button>",
+      "js": "const warn = (seconds) => Vectra.session.warn({\n  expiresAt: Date.now() + seconds * 1000,\n  onExtend: () => Vectra.toast('You are still signed in', { tone: 'success' }),\n  onSignIn: () => Vectra.toast('Signed in again', { tone: 'success' }),\n});\ndocument.getElementById('warn-long').addEventListener('click', () => warn(70));\ndocument.getElementById('warn-short').addEventListener('click', () => warn(5));",
+      "height": 400,
+      "source": "examples/theming/#session"
+    }
+  ]
+}

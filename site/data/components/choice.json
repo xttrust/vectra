@@ -1,0 +1,138 @@
+{
+  "name": "Checkbox, radio and switch",
+  "slug": "choice",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Native checkboxes, radios and switches drawn to match the theme, each wrapped in a label so the whole row is the click target.",
+  "description": "Use checkboxes for independent yes or no choices, radios for one choice from a short list, and a switch for a setting that takes effect at once. For rich tiles with a title, text or price, use choice cards.",
+  "native": "<input type=\"checkbox\">, <input type=\"radio\">, role=\"switch\"",
+  "catalogue": [
+    "Checkbox, radio, switch"
+  ],
+  "css": [
+    "choice.css"
+  ],
+  "classes": [
+    {
+      "name": "v-choice",
+      "kind": "base",
+      "description": "The <label> row that holds the control and its text."
+    },
+    {
+      "name": "v-choice-group",
+      "kind": "part",
+      "description": "Stacks several .v-choice rows with an even gap."
+    },
+    {
+      "name": "v-checkbox",
+      "kind": "base",
+      "description": "A checkbox, with a checkmark when checked and a dash when indeterminate."
+    },
+    {
+      "name": "v-radio",
+      "kind": "base",
+      "description": "A round radio button with a dot when checked."
+    },
+    {
+      "name": "v-switch",
+      "kind": "base",
+      "description": "A checkbox drawn as a sliding switch. Add role=\"switch\"."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "checked",
+      "description": "Filled with the accent and marked."
+    },
+    {
+      "attribute": "indeterminate",
+      "description": "A DOM property only (not an attribute), set from script: shows a dash for a mixed state."
+    },
+    {
+      "attribute": "disabled",
+      "description": "The control and its row are dimmed and cannot be changed."
+    },
+    {
+      "attribute": "aria-invalid=\"true\"",
+      "description": "A danger border on an unchecked control, as does :user-invalid on a required one."
+    },
+    {
+      "attribute": "role=\"switch\"",
+      "description": "Announces a .v-switch as on or off rather than checked."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves to a checkbox or switch, or to the checked radio of a group."
+    },
+    {
+      "keys": [
+        "Space"
+      ],
+      "action": "Toggles a checkbox or switch, or checks the focused radio."
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowLeft"
+      ],
+      "action": "Moves the choice between radios in the same group."
+    }
+  ],
+  "a11y": [
+    "The controls stay native inputs, so keyboard, form and label behaviour are the browser's own.",
+    "Wrap the control and its text in <label class=\"v-choice\"> so the text names the control and the whole row is clickable.",
+    "Put a group of choices in a <fieldset> with a <legend> so the question is read with each option.",
+    "Use role=\"switch\" only for settings that apply at once; in a form that is submitted, a checkbox is clearer."
+  ],
+  "tokens": [
+    "--v-switch-travel",
+    "--v-input-border",
+    "--v-input-bg",
+    "--v-accent",
+    "--v-on-accent",
+    "--v-radius-sm",
+    "--v-dur-1",
+    "--v-ease-spring"
+  ],
+  "related": [
+    "choice-card",
+    "field",
+    "form-layouts",
+    "toggle-button"
+  ],
+  "examples": [
+    {
+      "title": "Checkboxes",
+      "description": "indeterminate is a DOM property, so the mixed state is set from script.",
+      "html": "<fieldset class=\"v-fieldset v-fieldset-plain\">\n  <legend class=\"v-legend\">Notifications</legend>\n  <div class=\"v-choice-group\">\n    <label class=\"v-choice\"><input class=\"v-checkbox\" type=\"checkbox\" name=\"n\" checked><span>Invoices paid</span></label>\n    <label class=\"v-choice\"><input class=\"v-checkbox\" type=\"checkbox\" name=\"n\"><span>New reviews</span></label>\n    <label class=\"v-choice\"><input class=\"v-checkbox\" type=\"checkbox\" name=\"n\" id=\"c-ind\"><span>Some projects (mixed)</span></label>\n    <label class=\"v-choice\"><input class=\"v-checkbox\" type=\"checkbox\" name=\"n\" disabled><span>Weekly digest</span></label>\n    <label class=\"v-choice\"><input class=\"v-checkbox\" type=\"checkbox\" name=\"n\" checked disabled><span>Security alerts</span></label>\n  </div>\n</fieldset>",
+      "js": "document.getElementById('c-ind').indeterminate = true;",
+      "height": 230,
+      "source": "examples/forms/#choices"
+    },
+    {
+      "title": "Radios",
+      "html": "<fieldset class=\"v-fieldset v-fieldset-plain\">\n  <legend class=\"v-legend\">Billing period</legend>\n  <div class=\"v-choice-group\">\n    <label class=\"v-choice\"><input class=\"v-radio\" type=\"radio\" name=\"period\" value=\"monthly\" checked><span>Monthly</span></label>\n    <label class=\"v-choice\"><input class=\"v-radio\" type=\"radio\" name=\"period\" value=\"yearly\"><span><span class=\"v-block\">Yearly</span><span class=\"v-hint v-block\">Two months free</span></span></label>\n    <label class=\"v-choice\"><input class=\"v-radio\" type=\"radio\" name=\"period\" value=\"lifetime\" disabled><span>Lifetime</span></label>\n  </div>\n</fieldset>",
+      "height": 190,
+      "source": "examples/forms/#choices"
+    },
+    {
+      "title": "Switches",
+      "html": "<fieldset class=\"v-fieldset v-fieldset-plain\">\n  <legend class=\"v-legend\">Preferences</legend>\n  <div class=\"v-choice-group\">\n    <label class=\"v-choice\"><input class=\"v-switch\" type=\"checkbox\" role=\"switch\" checked><span>Dark invoices</span></label>\n    <label class=\"v-choice\"><input class=\"v-switch\" type=\"checkbox\" role=\"switch\"><span>Auto-reminders</span></label>\n    <label class=\"v-choice\"><input class=\"v-switch\" type=\"checkbox\" role=\"switch\" disabled><span>Beta features</span></label>\n  </div>\n</fieldset>",
+      "height": 170,
+      "source": "examples/forms/#choices"
+    },
+    {
+      "title": "Required, with an error",
+      "html": "<fieldset class=\"v-fieldset v-fieldset-plain v-field\" aria-describedby=\"c-terms-error\">\n  <legend class=\"v-legend\">Agreement</legend>\n  <label class=\"v-choice\"><input class=\"v-checkbox\" type=\"checkbox\" name=\"terms\" required aria-invalid=\"true\"><span>I accept the terms of service</span></label>\n  <p class=\"v-field-error\" id=\"c-terms-error\">Accept the terms to create your account.</p>\n</fieldset>",
+      "height": 140,
+      "source": "examples/forms/#choices"
+    }
+  ]
+}

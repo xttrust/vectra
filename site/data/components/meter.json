@@ -1,0 +1,60 @@
+{
+  "name": "Meter",
+  "slug": "meter",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A styled native <meter> that shows a measurement in a known range, green, amber or red against the low, high and optimum marks.",
+  "description": "Use a meter for a level: disk usage, quota, a score. It is not for progress through a task; use a progress bar for that.",
+  "native": "<meter>",
+  "catalogue": [
+    "Meter"
+  ],
+  "css": [
+    "feedback.css"
+  ],
+  "classes": [
+    {
+      "name": "v-meter",
+      "kind": "base",
+      "description": "The gauge, on a <meter> element."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "value, min, max",
+      "description": "The measurement and its range."
+    },
+    {
+      "attribute": "low, high, optimum",
+      "description": "Where the good, middling and poor zones sit. The browser picks the colour: success, warning or danger."
+    }
+  ],
+  "a11y": [
+    "Name it with aria-label or aria-labelledby; the native element reports its value to screen readers.",
+    "The colour alone does not say whether a level is good or bad; show the number or a word next to it when that matters.",
+    "Text inside <meter> is a fallback for browsers without support."
+  ],
+  "tokens": [
+    "--v-success",
+    "--v-warning",
+    "--v-danger",
+    "--v-surface-2",
+    "--v-radius-pill"
+  ],
+  "related": [
+    "progress",
+    "stat-card",
+    "password-strength"
+  ],
+  "examples": [
+    {
+      "title": "Three zones",
+      "description": "The same low, high and optimum marks with three values.",
+      "html": "<span class=\"v-text-sm v-text-secondary\" id=\"disk-a\">Disk usage, 32%</span>\n<meter class=\"v-meter\" min=\"0\" max=\"100\" low=\"70\" high=\"90\" optimum=\"20\" value=\"32\" aria-labelledby=\"disk-a\">32%</meter>\n<span class=\"v-text-sm v-text-secondary\" id=\"disk-b\">Disk usage, 82%</span>\n<meter class=\"v-meter\" min=\"0\" max=\"100\" low=\"70\" high=\"90\" optimum=\"20\" value=\"82\" aria-labelledby=\"disk-b\">82%</meter>\n<span class=\"v-text-sm v-text-secondary\" id=\"disk-c\">Disk usage, 96%</span>\n<meter class=\"v-meter\" min=\"0\" max=\"100\" low=\"70\" high=\"90\" optimum=\"20\" value=\"96\" aria-labelledby=\"disk-c\">96%</meter>",
+      "layout": "stack",
+      "height": 180,
+      "source": "examples/components/#feedback"
+    }
+  ]
+}

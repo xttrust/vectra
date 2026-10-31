@@ -1,0 +1,143 @@
+{
+  "name": "Toast",
+  "slug": "toast",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A short message that slides in at the bottom end corner, stacks with others and leaves on its own, built by Vectra.toast().",
+  "description": "Use a toast to confirm something that just happened (saved, copied, archived), with an optional action such as Undo. Do not put anything people must act on in a toast; use an alert or a dialog for that.",
+  "native": "popover=\"manual\"",
+  "catalogue": [
+    "Toast"
+  ],
+  "css": [
+    "toast.css"
+  ],
+  "js": [
+    "components/toast.js"
+  ],
+  "classes": [
+    {
+      "name": "v-toast-region",
+      "kind": "base",
+      "description": "The stack, pinned to the bottom end corner in the top layer. Made by the JS."
+    },
+    {
+      "name": "v-toast",
+      "kind": "base",
+      "description": "One toast: a tone dot, the text, an optional action and a close button."
+    },
+    {
+      "name": "v-toast-text",
+      "kind": "part",
+      "description": "The message."
+    },
+    {
+      "name": "v-toast-action",
+      "kind": "part",
+      "description": "An optional text button, such as Undo or Retry."
+    },
+    {
+      "name": "v-toast-close",
+      "kind": "part",
+      "description": "The close button; the cross is drawn in CSS. Needs aria-label."
+    },
+    {
+      "name": "v-toast-success",
+      "kind": "modifier",
+      "description": "Success dot."
+    },
+    {
+      "name": "v-toast-info",
+      "kind": "modifier",
+      "description": "Info dot."
+    },
+    {
+      "name": "v-toast-warning",
+      "kind": "modifier",
+      "description": "Warning dot."
+    },
+    {
+      "name": "v-toast-danger",
+      "kind": "modifier",
+      "description": "Danger dot; the message is announced assertively."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-leaving",
+      "description": "Set while a toast fades out, just before it is removed."
+    },
+    {
+      "attribute": "hidden",
+      "description": "Set on toasts past the first three; they wait their turn."
+    }
+  ],
+  "api": [
+    {
+      "signature": "Vectra.toast(message, { tone, action: { label, onClick }, undo, duration }) => { dismiss }",
+      "description": "Shows a toast. tone is 'success', 'info', 'warning' or 'danger'. undo is a shortcut for an Undo action. duration is in ms (default 5000, at least 10000 with an action, 0 to stay until closed). Returns dismiss() to close it early."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves into the toast to its action and close buttons. Timers pause while focus is inside."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Runs the action or closes the toast."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the focused toast."
+    }
+  ],
+  "a11y": [
+    "Every message is read out through a polite live region, or an assertive one for tone danger; the action label is added, for example \"Project archived. Undo available.\"",
+    "A toast with an action stays at least 10 seconds, and all timers pause while the stack is hovered or focused (WCAG 2.2.1).",
+    "The tone dot is decoration; the words carry the meaning.",
+    "When a focused toast closes, focus moves to the next toast instead of being lost."
+  ],
+  "tokens": [
+    "--v-overlay-bg",
+    "--v-shadow-3",
+    "--v-radius-lg",
+    "--v-border",
+    "--v-accent-text",
+    "--v-success",
+    "--v-danger"
+  ],
+  "related": [
+    "alert",
+    "banner",
+    "save-status",
+    "connection-banner",
+    "copy-button"
+  ],
+  "examples": [
+    {
+      "title": "Live toasts",
+      "description": "Each button calls Vectra.toast(). Open more than three to see the queue.",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" id=\"toast-saved\">Saved</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\" id=\"toast-undo\">Archive with undo</button>\n<button class=\"v-btn v-btn-danger\" type=\"button\" id=\"toast-retry\">Error with retry</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\" id=\"toast-many\">Five at once</button>",
+      "js": "const on = (id, fn) => document.getElementById(id).addEventListener('click', fn);\non('toast-saved', () => Vectra.toast('Changes saved', { tone: 'success' }));\non('toast-undo', () => Vectra.toast('Project archived', { undo: () => Vectra.toast('Project restored') }));\non('toast-retry', () => Vectra.toast('Could not send the invite', {\n  tone: 'danger',\n  action: { label: 'Retry', onClick: () => Vectra.toast('Invite sent', { tone: 'success' }) },\n}));\non('toast-many', () => [1, 2, 3, 4, 5].forEach((n) => Vectra.toast(`Toast ${n}`)));",
+      "height": 300,
+      "source": "examples/theming/#toast"
+    },
+    {
+      "title": "Tones and actions",
+      "description": "The markup the JS builds, shown in place as a static preview.",
+      "html": "<div class=\"v-toast\"><p class=\"v-toast-text\">Link copied to clipboard</p><button class=\"v-toast-close\" type=\"button\" aria-label=\"Dismiss\"></button></div>\n<div class=\"v-toast v-toast-info\"><p class=\"v-toast-text\">3 new comments on Atlas</p><button class=\"v-toast-close\" type=\"button\" aria-label=\"Dismiss\"></button></div>\n<div class=\"v-toast v-toast-warning\"><p class=\"v-toast-text\">Storage is 90% full</p><button class=\"v-toast-close\" type=\"button\" aria-label=\"Dismiss\"></button></div>\n<div class=\"v-toast v-toast-danger\"><p class=\"v-toast-text\">Could not send the invite</p><button class=\"v-toast-action\" type=\"button\">Retry</button><button class=\"v-toast-close\" type=\"button\" aria-label=\"Dismiss\"></button></div>\n<div class=\"v-toast v-toast-success\"><p class=\"v-toast-text\">Project archived</p><button class=\"v-toast-action\" type=\"button\">Undo</button><button class=\"v-toast-close\" type=\"button\" aria-label=\"Dismiss\"></button></div>",
+      "layout": "stack",
+      "height": 320,
+      "source": "examples/theming/#toast"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "name": "Timeline",
+  "slug": "timeline",
+  "group": "Data",
+  "tier": "P0",
+  "status": "done",
+  "summary": "An ordered list of events joined by a line, with a dot, an icon or an avatar as each marker.",
+  "description": "Use it for activity feeds, order history and changelogs, newest first. The compact modifier suits sidebars and release notes. For steps a person still has to complete, use steps.",
+  "native": "<ol>",
+  "catalogue": [
+    "Timeline / activity feed"
+  ],
+  "css": [
+    "timeline.css"
+  ],
+  "classes": [
+    {
+      "name": "v-timeline",
+      "kind": "base",
+      "description": "The list, usually an <ol>."
+    },
+    {
+      "name": "v-timeline-compact",
+      "kind": "modifier",
+      "description": "Smaller markers, tighter spacing and smaller text."
+    },
+    {
+      "name": "v-timeline-item",
+      "kind": "part",
+      "description": "One event. Draws the joining line to the next item."
+    },
+    {
+      "name": "v-timeline-marker",
+      "kind": "part",
+      "description": "The marker. Leave it empty for a dot, or put an icon or a .v-avatar inside."
+    },
+    {
+      "name": "v-timeline-content",
+      "kind": "part",
+      "description": "Wraps the header and body."
+    },
+    {
+      "name": "v-timeline-header",
+      "kind": "part",
+      "description": "Title and time on one line, wrapping when narrow."
+    },
+    {
+      "name": "v-timeline-title",
+      "kind": "part",
+      "description": "What happened."
+    },
+    {
+      "name": "v-timeline-time",
+      "kind": "part",
+      "description": "When, on a <time datetime>. Tabular figures."
+    },
+    {
+      "name": "v-timeline-body",
+      "kind": "part",
+      "description": "Optional detail under the title."
+    }
+  ],
+  "a11y": [
+    "Use an <ol> so the order is announced and the number of events is known.",
+    "Mark the marker aria-hidden=\"true\": the title says what happened, the icon only decorates it.",
+    "Put a machine-readable datetime on each <time>, so \"Yesterday\" still has an exact date.",
+    "The line stops short of each marker, so no marker needs an opaque background and Glass stays see-through."
+  ],
+  "tokens": [
+    "--v-tl-size",
+    "--v-tl-dot",
+    "--v-tl-space",
+    "--v-border-strong",
+    "--v-accent",
+    "--v-surface-2",
+    "--v-text-3"
+  ],
+  "related": [
+    "avatar",
+    "icon",
+    "card",
+    "steps",
+    "list-group"
+  ],
+  "examples": [
+    {
+      "title": "Activity feed",
+      "description": "Icon and avatar markers inside a card.",
+      "html": "<div class=\"v-card\">\n  <h3 class=\"v-card-title\">Project activity</h3>\n  <ol class=\"v-timeline\">\n    <li class=\"v-timeline-item\">\n      <span class=\"v-timeline-marker\" aria-hidden=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#upload\"/></svg></span>\n      <div class=\"v-timeline-content\">\n        <div class=\"v-timeline-header\"><p class=\"v-timeline-title\">Site deployed to production</p><time class=\"v-timeline-time\" datetime=\"2026-10-31T09:12\">09:12</time></div>\n        <p class=\"v-timeline-body\">Build 214 is live. Page weight dropped by 18 KB after the image pass.</p>\n      </div>\n    </li>\n    <li class=\"v-timeline-item\">\n      <span class=\"v-timeline-marker\" aria-hidden=\"true\"><span class=\"v-avatar\">AK</span></span>\n      <div class=\"v-timeline-content\">\n        <div class=\"v-timeline-header\"><p class=\"v-timeline-title\">Aoife left a comment</p><time class=\"v-timeline-time\" datetime=\"2026-10-30T16:40\">Yesterday</time></div>\n        <p class=\"v-timeline-body\">\"Can we move the quote form above the gallery on mobile?\"</p>\n      </div>\n    </li>\n    <li class=\"v-timeline-item\">\n      <span class=\"v-timeline-marker\" aria-hidden=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#credit-card\"/></svg></span>\n      <div class=\"v-timeline-content\">\n        <div class=\"v-timeline-header\"><p class=\"v-timeline-title\">Invoice INV-1041 paid</p><time class=\"v-timeline-time\" datetime=\"2026-10-28\">28 Oct</time></div>\n        <p class=\"v-timeline-body\">€1,499.00 received by card.</p>\n      </div>\n    </li>\n    <li class=\"v-timeline-item\">\n      <span class=\"v-timeline-marker\" aria-hidden=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#message\"/></svg></span>\n      <div class=\"v-timeline-content\">\n        <div class=\"v-timeline-header\"><p class=\"v-timeline-title\">Kick-off call</p><time class=\"v-timeline-time\" datetime=\"2026-10-20\">20 Oct</time></div>\n      </div>\n    </li>\n  </ol>\n</div>",
+      "layout": "stack",
+      "height": 400,
+      "source": "examples/content/#timeline"
+    },
+    {
+      "title": "Compact changelog",
+      "description": "Empty markers become dots on the title line.",
+      "html": "<ol class=\"v-timeline v-timeline-compact\">\n  <li class=\"v-timeline-item\">\n    <span class=\"v-timeline-marker\"></span>\n    <div class=\"v-timeline-content\">\n      <div class=\"v-timeline-header\"><p class=\"v-timeline-title\">2.0.0-alpha.3</p><time class=\"v-timeline-time\" datetime=\"2026-10-31\">31 Oct</time></div>\n      <p class=\"v-timeline-body\">Tables, timeline, prose and code blocks.</p>\n    </div>\n  </li>\n  <li class=\"v-timeline-item\">\n    <span class=\"v-timeline-marker\"></span>\n    <div class=\"v-timeline-content\">\n      <div class=\"v-timeline-header\"><p class=\"v-timeline-title\">2.0.0-alpha.2</p><time class=\"v-timeline-time\" datetime=\"2026-10-31\">31 Oct</time></div>\n      <p class=\"v-timeline-body\">Buttons, badges, cards and alerts.</p>\n    </div>\n  </li>\n  <li class=\"v-timeline-item\">\n    <span class=\"v-timeline-marker\"></span>\n    <div class=\"v-timeline-content\">\n      <div class=\"v-timeline-header\"><p class=\"v-timeline-title\">2.0.0-alpha.1</p><time class=\"v-timeline-time\" datetime=\"2026-10-30\">30 Oct</time></div>\n      <p class=\"v-timeline-body\">Layout primitives and utilities.</p>\n    </div>\n  </li>\n  <li class=\"v-timeline-item\">\n    <span class=\"v-timeline-marker\"></span>\n    <div class=\"v-timeline-content\">\n      <div class=\"v-timeline-header\"><p class=\"v-timeline-title\">2.0.0-alpha.0</p><time class=\"v-timeline-time\" datetime=\"2026-10-30\">30 Oct</time></div>\n      <p class=\"v-timeline-body\">Tokens and the four directions.</p>\n    </div>\n  </li>\n</ol>",
+      "layout": "stack",
+      "height": 230,
+      "source": "examples/content/#timeline"
+    }
+  ]
+}

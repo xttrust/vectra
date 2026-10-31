@@ -116,6 +116,9 @@
 
   @media (forced-colors: active) {
     .v-toast::before { background-color: CanvasText; }
+
+    /* The close cross is a mask over the background colour, which forced colours would paint as Canvas. */
+    .v-toast-close::before { background-color: ButtonText; }
   }
 }
 

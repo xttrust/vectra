@@ -1,0 +1,85 @@
+{
+  "name": "Inline save status",
+  "slug": "save-status",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A small line of text next to a form or editor that says whether changes are saving, saved, failed or waiting for the network.",
+  "description": "Use it for autosave, where there is no Save button to confirm the action. Vectra.saveStatus() sets the state and the words; the CSS draws the icon.",
+  "catalogue": [
+    "Inline save status"
+  ],
+  "css": [
+    "save-status.css"
+  ],
+  "js": [
+    "components/save-status.js"
+  ],
+  "classes": [
+    {
+      "name": "v-save-status",
+      "kind": "base",
+      "description": "The status line, with an icon drawn for each data-state."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-state=\"saving\"",
+      "description": "A small spinner."
+    },
+    {
+      "attribute": "data-state=\"saved\"",
+      "description": "A green check; the text says how long ago."
+    },
+    {
+      "attribute": "data-state=\"failed\"",
+      "description": "A red alert icon."
+    },
+    {
+      "attribute": "data-state=\"offline\"",
+      "description": "A cloud with a slash."
+    }
+  ],
+  "api": [
+    {
+      "signature": "Vectra.saveStatus(el, 'saving' | 'saved' | 'failed' | 'offline', { at })",
+      "description": "Sets data-state and the text. Saved shows the time since at (default now) and refreshes it every 30 seconds. Writes into a .v-save-status-text child if there is one, otherwise into el itself."
+    }
+  ],
+  "a11y": [
+    "saveStatus() announces Saved and failed messages politely by itself; keep the element out of live regions so the 30-second refreshes stay quiet.",
+    "Saving and offline are not announced, so a busy editor does not chatter.",
+    "The icon is decoration; the words carry the state."
+  ],
+  "tokens": [
+    "--v-save-tone",
+    "--v-save-icon",
+    "--v-success",
+    "--v-danger",
+    "--v-text-3"
+  ],
+  "related": [
+    "toast",
+    "connection-banner",
+    "spinner",
+    "field"
+  ],
+  "examples": [
+    {
+      "title": "Live",
+      "description": "Each button calls Vectra.saveStatus() on the line above.",
+      "html": "<p class=\"v-save-status\" id=\"doc-status\" data-state=\"saved\">Saved just now</p>\n<div class=\"v-cluster\">\n  <button class=\"v-btn v-btn-secondary v-btn-sm\" type=\"button\" data-status=\"saving\">Saving</button>\n  <button class=\"v-btn v-btn-secondary v-btn-sm\" type=\"button\" data-status=\"saved\">Saved</button>\n  <button class=\"v-btn v-btn-secondary v-btn-sm\" type=\"button\" data-status=\"failed\">Failed</button>\n  <button class=\"v-btn v-btn-secondary v-btn-sm\" type=\"button\" data-status=\"offline\">Offline</button>\n</div>",
+      "js": "const status = document.getElementById('doc-status');\nfor (const button of document.querySelectorAll('[data-status]')) {\n  button.addEventListener('click', () => Vectra.saveStatus(status, button.dataset.status));\n}",
+      "layout": "stack",
+      "height": 120,
+      "source": "examples/theming/#save-status"
+    },
+    {
+      "title": "The four states",
+      "html": "<p class=\"v-save-status\" data-state=\"saving\">Saving…</p>\n<p class=\"v-save-status\" data-state=\"saved\">Saved 2 minutes ago</p>\n<p class=\"v-save-status\" data-state=\"failed\">Not saved, try again</p>\n<p class=\"v-save-status\" data-state=\"offline\">Offline, will save when back online</p>",
+      "layout": "stack",
+      "height": 160,
+      "source": "examples/theming/#save-status"
+    }
+  ]
+}

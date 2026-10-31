@@ -112,4 +112,25 @@
   @keyframes v-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
 
   @keyframes v-spin { to { rotate: 1turn; } }
+
+  /* Forced colours paint both the track and the fill as Canvas, so the value vanished. An outline draws
+     the track and the fill takes Highlight (one rule per engine: an unknown pseudo drops the whole list). */
+  @media (forced-colors: active) {
+    .v-progress,
+    .v-meter { border: 1px solid CanvasText; }
+
+    .v-progress:indeterminate {
+      background-image: linear-gradient(90deg, transparent 0%, Highlight 50%, transparent 100%);
+      forced-color-adjust: none;
+    }
+
+    .v-progress::-webkit-progress-value { background-color: Highlight; }
+    .v-progress::-moz-progress-bar { background-color: Highlight; }
+    .v-meter::-webkit-meter-optimum-value { background: Highlight; }
+    .v-meter::-webkit-meter-suboptimum-value { background: Highlight; }
+    .v-meter::-webkit-meter-even-less-good-value { background: Highlight; }
+    .v-meter:-moz-meter-optimum::-moz-meter-bar { background: Highlight; }
+    .v-meter:-moz-meter-sub-optimum::-moz-meter-bar { background: Highlight; }
+    .v-meter:-moz-meter-sub-sub-optimum::-moz-meter-bar { background: Highlight; }
+  }
 }

@@ -1,0 +1,163 @@
+{
+  "name": "Dropdown menu",
+  "slug": "dropdown-menu",
+  "group": "Overlays",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A list of actions in a popover with role=\"menu\", with groups, icons, shortcuts, checkable items and a danger item.",
+  "description": "Use a dropdown menu for a set of actions on one thing, such as a row or a project, opened from a button. For navigation between pages use links, not a menu.\n\nIt opens and closes natively with popovertarget. Add data-v-menu to the menu for focus on open, arrow keys, typeahead and checkable items.",
+  "native": "popover, popovertarget, popovertargetaction=\"hide\"",
+  "catalogue": [
+    "Dropdown menu"
+  ],
+  "css": [
+    "menu.css"
+  ],
+  "js": [
+    "components/menu.js",
+    "components/anchor.js"
+  ],
+  "classes": [
+    {
+      "name": "v-menu",
+      "kind": "base",
+      "description": "The menu panel, on a popover element with role=\"menu\". Opens below its trigger like .v-popover."
+    },
+    {
+      "name": "v-menu-end",
+      "kind": "modifier",
+      "description": "Aligns the menu to the end edge of its trigger, for buttons at the end of a toolbar."
+    },
+    {
+      "name": "v-menu-item",
+      "kind": "part",
+      "description": "One item: a button or link with role=\"menuitem\", \"menuitemcheckbox\" or \"menuitemradio\". Icons and a <kbd> shortcut sit inside."
+    },
+    {
+      "name": "v-menu-item-danger",
+      "kind": "modifier",
+      "description": "A destructive item, in the danger colour."
+    },
+    {
+      "name": "v-menu-label",
+      "kind": "part",
+      "description": "A small uppercase group label, with role=\"presentation\"."
+    },
+    {
+      "name": "v-menu-sep",
+      "kind": "part",
+      "description": "A separator, on an <hr>."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "popover",
+      "description": "On .v-menu: hidden until opened; Escape and a click outside close it."
+    },
+    {
+      "attribute": "popovertarget",
+      "description": "On the trigger: the id of the menu. Add aria-haspopup=\"menu\"."
+    },
+    {
+      "attribute": "popovertargetaction=\"hide\"",
+      "description": "On an item: closes the menu when the item is chosen, without JS."
+    },
+    {
+      "attribute": "aria-checked",
+      "description": "On menuitemcheckbox and menuitemradio items: \"true\" shows a tick or a dot. The JS toggles it on click, one radio per group."
+    },
+    {
+      "attribute": "aria-disabled=\"true\"",
+      "description": "Dimmed and not clickable, but still announced. Skipped by the arrow keys. disabled works too."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-menu",
+      "value": "",
+      "on": "The .v-menu popover (role=\"menu\")",
+      "description": "Moves focus into the menu on open, adds arrow keys, Home, End, typeahead and Tab to close, toggles checkable items and returns focus to the trigger."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:select",
+      "on": "The menu",
+      "detail": "{ item }",
+      "cancelable": true,
+      "description": "Fires when an enabled item is chosen. Call preventDefault() to keep the menu open after a menuitem."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On the trigger, opens the menu with focus on the first item. On an item, chooses it: a menuitem closes the menu, checkbox and radio items stay open."
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "ArrowUp"
+      ],
+      "action": "On the trigger, opens the menu on the first or last item. In the menu, moves to the next or previous item and wraps."
+    },
+    {
+      "keys": [
+        "Home",
+        "End"
+      ],
+      "action": "Moves to the first or last item."
+    },
+    {
+      "keys": [
+        "A-Z"
+      ],
+      "action": "Typeahead: moves to the next item whose text starts with that letter."
+    },
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Closes the menu and moves on from the trigger."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the menu and returns focus to the trigger."
+    }
+  ],
+  "a11y": [
+    "Items get tabindex=\"-1\" and are reached with the arrow keys, so the open menu is one Tab stop.",
+    "Wrap each labelled group in role=\"group\" with aria-labelledby on its .v-menu-label, and give the menu an aria-label.",
+    "Checked state is in aria-checked, not only in the drawn tick, so screen readers hear it.",
+    "Shortcut hints in <kbd> are only hints: the page has to handle those keys itself."
+  ],
+  "tokens": [
+    "--v-menu-pad",
+    "--v-overlay-bg",
+    "--v-radius-lg",
+    "--v-shadow-3",
+    "--v-surface-2",
+    "--v-danger",
+    "--v-danger-soft",
+    "--v-accent-text"
+  ],
+  "related": [
+    "popover",
+    "button",
+    "icon-button"
+  ],
+  "examples": [
+    {
+      "title": "Actions menu",
+      "description": "Groups, shortcuts, a disabled item, checkable items and a danger item. Open it and use the arrow keys or type a letter.",
+      "html": "<button class=\"v-btn v-btn-secondary\" type=\"button\" popovertarget=\"menu-project\" aria-haspopup=\"menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#more\"/></svg>Actions</button>\n<div class=\"v-menu\" id=\"menu-project\" popover role=\"menu\" data-v-menu aria-label=\"Project actions\">\n  <div role=\"group\" aria-labelledby=\"menu-g1\">\n    <div class=\"v-menu-label\" id=\"menu-g1\" role=\"presentation\">Project</div>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" popovertarget=\"menu-project\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg>Rename<kbd>F2</kbd></button>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" popovertarget=\"menu-project\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Duplicate<kbd>Ctrl D</kbd></button>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" aria-disabled=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#share\"/></svg>Share (no access)</button>\n  </div>\n  <hr class=\"v-menu-sep\">\n  <div role=\"group\" aria-labelledby=\"menu-g2\">\n    <div class=\"v-menu-label\" id=\"menu-g2\" role=\"presentation\">View</div>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitemcheckbox\" aria-checked=\"true\">Show archived</button>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitemradio\" aria-checked=\"true\">Sort by name</button>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitemradio\" aria-checked=\"false\">Sort by date</button>\n  </div>\n  <hr class=\"v-menu-sep\">\n  <button class=\"v-menu-item v-menu-item-danger\" type=\"button\" role=\"menuitem\" popovertarget=\"menu-project\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#trash\"/></svg>Delete</button>\n</div>",
+      "height": 440,
+      "source": "examples/overlays/#menu"
+    }
+  ]
+}

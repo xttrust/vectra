@@ -1,0 +1,7 @@
+/* Live demo frames on the docs site: a padded canvas and the arrangement the example asks for. */
+body { min-height: 0; }
+.site-demo-main { padding: clamp(1rem, 4vw, 1.75rem); }
+.site-demo-row { display: flex; flex-wrap: wrap; gap: var(--v-space-3); align-items: center; }
+.site-demo-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-4); }
+.site-demo-center { display: grid; place-items: center; gap: var(--v-space-4); }
+.site-demo-fill > * + * { margin-block-start: var(--v-space-4); }

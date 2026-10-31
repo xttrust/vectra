@@ -1,0 +1,104 @@
+{
+  "name": "Range",
+  "slug": "range",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A native range slider with a drawn track and thumb, for picking a value where the exact number matters less than the position.",
+  "description": "Show the current value next to the label in an <output>, and the ends of the scale underneath when they help. If people need an exact number, use a number input or a stepper instead.",
+  "native": "<input type=\"range\">",
+  "catalogue": [
+    "Range"
+  ],
+  "css": [
+    "range.css"
+  ],
+  "classes": [
+    {
+      "name": "v-range",
+      "kind": "base",
+      "description": "The slider. Firefox also fills the track before the thumb."
+    },
+    {
+      "name": "v-range-label",
+      "kind": "part",
+      "description": "A row above the slider: the label at the start, the current value (<output>) at the end."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "disabled",
+      "description": "Dimmed and cannot be moved."
+    },
+    {
+      "attribute": "min, max, step",
+      "description": "The native scale; the browser does the maths and the keyboard steps."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "ArrowLeft",
+        "ArrowDown"
+      ],
+      "action": "Lowers the value by one step."
+    },
+    {
+      "keys": [
+        "ArrowRight",
+        "ArrowUp"
+      ],
+      "action": "Raises the value by one step."
+    },
+    {
+      "keys": [
+        "PageDown",
+        "PageUp"
+      ],
+      "action": "Moves by a larger step."
+    },
+    {
+      "keys": [
+        "Home",
+        "End"
+      ],
+      "action": "Jumps to the minimum or maximum."
+    }
+  ],
+  "a11y": [
+    "Give the slider a <label for>; the <output for> shows the value but does not label it.",
+    "When the raw number means little (a price, a level), set aria-valuetext so screen readers hear \"€600\" rather than \"600\".",
+    "The track uses the control border colour so it holds 3:1 against the page, and the focus ring goes round the whole slider."
+  ],
+  "tokens": [
+    "--v-range-track",
+    "--v-range-thumb",
+    "--v-accent",
+    "--v-input-border",
+    "--v-radius-pill",
+    "--v-focus-w"
+  ],
+  "related": [
+    "field",
+    "number-stepper",
+    "input"
+  ],
+  "examples": [
+    {
+      "title": "With value and scale",
+      "description": "The value in the <output> is kept in step by a few lines of script.",
+      "html": "<div class=\"v-field\">\n  <div class=\"v-range-label\">\n    <label class=\"v-label\" for=\"r-budget\">Monthly budget</label>\n    <output for=\"r-budget\" id=\"r-budget-out\">€600</output>\n  </div>\n  <input class=\"v-range\" id=\"r-budget\" type=\"range\" min=\"100\" max=\"2000\" step=\"100\" value=\"600\" aria-valuetext=\"€600\">\n  <div class=\"v-flex v-justify-between\"><span class=\"v-hint\">€100</span><span class=\"v-hint\">€2,000</span></div>\n</div>",
+      "js": "const range = document.getElementById('r-budget');\nconst out = document.getElementById('r-budget-out');\nrange.addEventListener('input', () => {\n  out.textContent = range.ariaValueText = '€' + Number(range.value).toLocaleString('en-IE');\n});",
+      "layout": "stack",
+      "height": 120,
+      "source": "examples/forms/#range"
+    },
+    {
+      "title": "Disabled",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"r-disabled\">Locked</label>\n  <input class=\"v-range\" id=\"r-disabled\" type=\"range\" value=\"30\" disabled>\n</div>",
+      "layout": "stack",
+      "height": 90,
+      "source": "examples/forms/#range"
+    }
+  ]
+}

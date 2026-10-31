@@ -1,0 +1,98 @@
+{
+  "name": "Badge",
+  "slug": "badge",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A small pill for a status, a count or a short label.",
+  "description": "Use badges for read-only information such as Paid, Draft or a count. For labels people can remove or select, use a tag.",
+  "native": "<span>",
+  "catalogue": [
+    "Badge"
+  ],
+  "css": [
+    "badge.css"
+  ],
+  "classes": [
+    {
+      "name": "v-badge",
+      "kind": "base",
+      "description": "The badge. On its own it is neutral grey."
+    },
+    {
+      "name": "v-badge-accent",
+      "kind": "modifier",
+      "description": "Accent tint."
+    },
+    {
+      "name": "v-badge-solid",
+      "kind": "modifier",
+      "description": "Filled with the accent, for the one badge that should stand out."
+    },
+    {
+      "name": "v-badge-success",
+      "kind": "modifier",
+      "description": "Success tone: paid, live, done."
+    },
+    {
+      "name": "v-badge-warning",
+      "kind": "modifier",
+      "description": "Warning tone: pending, due soon."
+    },
+    {
+      "name": "v-badge-danger",
+      "kind": "modifier",
+      "description": "Danger tone: overdue, failed."
+    },
+    {
+      "name": "v-badge-info",
+      "kind": "modifier",
+      "description": "Info tone."
+    },
+    {
+      "name": "v-badge-outline",
+      "kind": "modifier",
+      "description": "Transparent with a border."
+    },
+    {
+      "name": "v-badge-dot",
+      "kind": "modifier",
+      "description": "Adds a leading dot in the badge's colour."
+    }
+  ],
+  "a11y": [
+    "The text carries the meaning; tone colour only supports it, so \"Overdue\" still reads in greyscale.",
+    "A count badge next to an icon needs context for screen readers, e.g. a .v-sr-only \"unread messages\" after the number.",
+    "Every tone holds 4.5:1 text contrast in all directions and both themes."
+  ],
+  "tokens": [
+    "--v-radius-pill",
+    "--v-surface-2",
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-success-soft",
+    "--v-warning-soft",
+    "--v-danger-soft",
+    "--v-info-soft"
+  ],
+  "related": [
+    "tag",
+    "status-indicator",
+    "card",
+    "list-group"
+  ],
+  "examples": [
+    {
+      "title": "Tones",
+      "html": "<span class=\"v-badge\">Default</span>\n<span class=\"v-badge v-badge-accent\">Accent</span>\n<span class=\"v-badge v-badge-solid\">Solid</span>\n<span class=\"v-badge v-badge-success\">Live</span>\n<span class=\"v-badge v-badge-warning\">Pending</span>\n<span class=\"v-badge v-badge-danger\">Overdue</span>\n<span class=\"v-badge v-badge-info\">Info</span>\n<span class=\"v-badge v-badge-outline\">Outline</span>",
+      "height": 100,
+      "source": "examples/components/#badges"
+    },
+    {
+      "title": "Dot and icon",
+      "html": "<span class=\"v-badge v-badge-success v-badge-dot\">Paid</span>\n<span class=\"v-badge v-badge-warning v-badge-dot\">Pending</span>\n<span class=\"v-badge v-badge-danger v-badge-dot\">Overdue</span>\n<span class=\"v-badge v-badge-accent\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg>Featured</span>",
+      "height": 100,
+      "source": "examples/components/#badges"
+    }
+  ]
+}

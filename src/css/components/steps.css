@@ -119,6 +119,16 @@
     inline-size: 2px;
     block-size: auto;
   }
+
+  @media (forced-colors: active) {
+    /* The current marker differs only by colour, which forced colours flatten. */
+    .v-step[aria-current="step"]::before {
+      border-color: Highlight;
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
+    }
+  }
 }
 
 @layer directions {

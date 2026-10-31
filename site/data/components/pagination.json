@@ -1,0 +1,138 @@
+{
+  "name": "Pagination",
+  "slug": "pagination",
+  "group": "Navigation",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Links to move through pages of results: numbered with gaps, previous and next only, or a load more row.",
+  "description": "Use numbered pagination when people may jump to a page, the simple form for reading in order, and load more for feeds. In narrow slots the numbered form keeps only the arrows on Previous and Next.",
+  "native": "<nav>, aria-current, rel=\"prev\" and rel=\"next\"",
+  "catalogue": [
+    "Pagination"
+  ],
+  "css": [
+    "pagination.css"
+  ],
+  "classes": [
+    {
+      "name": "v-pagination",
+      "kind": "base",
+      "description": "The list of pages, on a <ul> inside <nav>. A size container, so it adapts to its slot."
+    },
+    {
+      "name": "v-page",
+      "kind": "part",
+      "description": "One page link, or a <span> for an end that is not available."
+    },
+    {
+      "name": "v-page-prev",
+      "kind": "modifier",
+      "description": "Previous page, with a drawn arrow that flips in right-to-left text."
+    },
+    {
+      "name": "v-page-next",
+      "kind": "modifier",
+      "description": "Next page, with a drawn arrow that flips in right-to-left text."
+    },
+    {
+      "name": "v-page-label",
+      "kind": "part",
+      "description": "The Previous or Next text. Visually hidden in narrow slots, still read by screen readers."
+    },
+    {
+      "name": "v-page-gap",
+      "kind": "part",
+      "description": "The ellipsis between page ranges. Mark it aria-hidden."
+    },
+    {
+      "name": "v-pagination-simple",
+      "kind": "modifier",
+      "description": "Previous and next at the ends with a page count between."
+    },
+    {
+      "name": "v-pagination-info",
+      "kind": "part",
+      "description": "The page count text, such as Page 2 of 9."
+    },
+    {
+      "name": "v-load-more",
+      "kind": "base",
+      "description": "A centred row with a count and a Load more button."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-current=\"page\"",
+      "description": "On the current page: accent border and tint."
+    },
+    {
+      "attribute": "aria-disabled=\"true\"",
+      "description": "On a <span class=\"v-page\"> for an end that is not available, such as Previous on page 1: dimmed."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Moves between the page links."
+    },
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "Follows the focused link."
+    }
+  ],
+  "a11y": [
+    "Wrap the list in a <nav> with an aria-label, such as Results pages.",
+    "Give number links an aria-label like Page 4, and mark the current one with aria-current=\"page\".",
+    "An unavailable Previous or Next is a <span>, not a link, so it is not in the focus order.",
+    "After Load more, move focus to the first new item or announce how many were added."
+  ],
+  "tokens": [
+    "--v-accent",
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-radius-sm",
+    "--v-border-strong",
+    "--v-surface-2"
+  ],
+  "related": [
+    "breadcrumb",
+    "table",
+    "button"
+  ],
+  "examples": [
+    {
+      "title": "Numbered",
+      "html": "<nav aria-label=\"Results pages\">\n  <ul class=\"v-pagination\">\n    <li><a class=\"v-page v-page-prev\" href=\"#\" rel=\"prev\"><span class=\"v-page-label\">Previous</span></a></li>\n    <li><a class=\"v-page\" href=\"#\" aria-label=\"Page 1\">1</a></li>\n    <li><span class=\"v-page-gap\" aria-hidden=\"true\">…</span></li>\n    <li><a class=\"v-page\" href=\"#\" aria-label=\"Page 4\">4</a></li>\n    <li><a class=\"v-page\" href=\"#\" aria-label=\"Page 5\" aria-current=\"page\">5</a></li>\n    <li><a class=\"v-page\" href=\"#\" aria-label=\"Page 6\">6</a></li>\n    <li><span class=\"v-page-gap\" aria-hidden=\"true\">…</span></li>\n    <li><a class=\"v-page\" href=\"#\" aria-label=\"Page 20\">20</a></li>\n    <li><a class=\"v-page v-page-next\" href=\"#\" rel=\"next\"><span class=\"v-page-label\">Next</span></a></li>\n  </ul>\n</nav>",
+      "height": 90,
+      "layout": "stack",
+      "source": "examples/navigation/#paging"
+    },
+    {
+      "title": "First page",
+      "description": "Previous is a <span aria-disabled=\"true\">, so it cannot be focused.",
+      "html": "<nav aria-label=\"Results pages, first page\">\n  <ul class=\"v-pagination\">\n    <li><span class=\"v-page v-page-prev\" aria-disabled=\"true\"><span class=\"v-page-label\">Previous</span></span></li>\n    <li><a class=\"v-page\" href=\"#\" aria-label=\"Page 1\" aria-current=\"page\">1</a></li>\n    <li><a class=\"v-page\" href=\"#\" aria-label=\"Page 2\">2</a></li>\n    <li><a class=\"v-page\" href=\"#\" aria-label=\"Page 3\">3</a></li>\n    <li><a class=\"v-page v-page-next\" href=\"#\" rel=\"next\"><span class=\"v-page-label\">Next</span></a></li>\n  </ul>\n</nav>",
+      "height": 90,
+      "layout": "stack",
+      "source": "examples/navigation/#paging"
+    },
+    {
+      "title": "Simple",
+      "html": "<nav aria-label=\"Article pages\">\n  <ul class=\"v-pagination v-pagination-simple\">\n    <li><a class=\"v-page v-page-prev\" href=\"#\" rel=\"prev\"><span class=\"v-page-label\">Previous</span></a></li>\n    <li class=\"v-pagination-info\">Page 2 of 9</li>\n    <li><a class=\"v-page v-page-next\" href=\"#\" rel=\"next\"><span class=\"v-page-label\">Next</span></a></li>\n  </ul>\n</nav>",
+      "height": 90,
+      "layout": "stack",
+      "source": "examples/navigation/#paging"
+    },
+    {
+      "title": "Load more",
+      "html": "<div class=\"v-load-more\">\n  <p>Showing 24 of 86 projects</p>\n  <button class=\"v-btn v-btn-secondary\" type=\"button\">Load more</button>\n</div>",
+      "height": 130,
+      "layout": "stack",
+      "source": "examples/navigation/#paging"
+    }
+  ]
+}

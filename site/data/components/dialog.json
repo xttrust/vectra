@@ -1,0 +1,178 @@
+{
+  "name": "Dialog",
+  "slug": "dialog",
+  "group": "Overlays",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A modal window on the native <dialog>, with a header, a scrolling body, a footer, three sizes and an alert dialog for confirms.",
+  "description": "Use a dialog when people must answer or finish something before they go back to the page, such as a confirm, a short form or a decision. For extra detail that does not block the page, use a drawer or a popover instead.\n\nOpen it from a button with data-v-dialog-open, which calls showModal() so the browser adds the backdrop, the focus trap, Escape and focus return. Buttons inside <form method=\"dialog\"> close it without any script.",
+  "native": "<dialog>, showModal(), <form method=\"dialog\">",
+  "catalogue": [
+    "Dialog"
+  ],
+  "css": [
+    "dialog.css"
+  ],
+  "js": [
+    "components/dialog.js"
+  ],
+  "classes": [
+    {
+      "name": "v-dialog",
+      "kind": "base",
+      "description": "The dialog panel, on a <dialog> element. Animates in and out where the browser supports it."
+    },
+    {
+      "name": "v-dialog-header",
+      "kind": "part",
+      "description": "Top row with the title and the close button."
+    },
+    {
+      "name": "v-dialog-title",
+      "kind": "part",
+      "description": "The heading. Point aria-labelledby at its id."
+    },
+    {
+      "name": "v-dialog-close",
+      "kind": "part",
+      "description": "The corner close button, usually a ghost icon button inside <form method=\"dialog\">."
+    },
+    {
+      "name": "v-dialog-body",
+      "kind": "part",
+      "description": "The content. Only this part scrolls, so the title and actions stay in view."
+    },
+    {
+      "name": "v-dialog-footer",
+      "kind": "part",
+      "description": "The actions, aligned to the end. On phones the buttons share the width."
+    },
+    {
+      "name": "v-dialog-icon",
+      "kind": "part",
+      "description": "A round tone icon beside the title, for alert dialogs."
+    },
+    {
+      "name": "v-dialog-sm",
+      "kind": "modifier",
+      "description": "Narrow, 24rem."
+    },
+    {
+      "name": "v-dialog-lg",
+      "kind": "modifier",
+      "description": "Wide, 48rem, for longer content."
+    },
+    {
+      "name": "v-dialog-full",
+      "kind": "modifier",
+      "description": "As wide as lg, and the whole screen on phones. Suits longer forms."
+    },
+    {
+      "name": "v-dialog-danger",
+      "kind": "modifier",
+      "description": "Danger tone for the icon, for destructive confirms."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "open",
+      "description": "Set by showModal(), which data-v-dialog-open calls. The dialog is shown; without it the dialog is hidden."
+    },
+    {
+      "attribute": "role=\"alertdialog\"",
+      "description": "An alert or confirm dialog: narrower (26rem) and announced as urgent. Add aria-describedby on the message."
+    },
+    {
+      "attribute": "autofocus",
+      "description": "On a button inside, picks which control gets focus on open. Use it on the safe choice in a destructive confirm."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-dialog-open",
+      "value": "The id of the dialog",
+      "on": "A button outside the dialog",
+      "description": "Opens that dialog with showModal() and returns focus to the button when it closes."
+    },
+    {
+      "name": "data-v-dialog-close",
+      "value": "Optional return value",
+      "on": "A button inside the dialog",
+      "description": "Closes the enclosing dialog and sets its returnValue. Not needed for buttons in <form method=\"dialog\">."
+    },
+    {
+      "name": "data-v-dismissable",
+      "value": "",
+      "on": "The <dialog>",
+      "description": "Closes the dialog on a click on the backdrop. A drag that starts inside the dialog does not close it."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:open",
+      "on": "The dialog",
+      "detail": "{ opener }",
+      "description": "Fires after a data-v-dialog-open button opens it."
+    },
+    {
+      "name": "v:close",
+      "on": "The dialog",
+      "detail": "{ returnValue, opener }",
+      "description": "Fires when a dialog opened that way closes, however it was closed."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Moves focus between the controls inside. Focus stays in the dialog while it is open."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the dialog and fires its cancel event."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Presses the focused button. A button in <form method=\"dialog\"> closes the dialog and sets its returnValue."
+    }
+  ],
+  "a11y": [
+    "Open it with data-v-dialog-open or showModal(), not the open attribute: only a modal dialog makes the page behind it inert and traps focus.",
+    "Name it with aria-labelledby pointing at the .v-dialog-title, and give the icon-only close button an aria-label.",
+    "When the dialog closes, focus returns to the button that opened it, also in Safari, which does not focus clicked buttons.",
+    "In a destructive confirm, name the action on the button (Delete, not OK), put autofocus on the safe choice and leave out data-v-dismissable."
+  ],
+  "tokens": [
+    "--v-dialog-w",
+    "--v-dialog-pad",
+    "--v-overlay-bg",
+    "--v-backdrop",
+    "--v-radius-xl",
+    "--v-shadow-3",
+    "--v-dur-3",
+    "--v-ease-spring"
+  ],
+  "related": [
+    "drawer",
+    "popover",
+    "session-timeout",
+    "button"
+  ],
+  "examples": [
+    {
+      "title": "Modal dialog",
+      "description": "The dialog sits closed in the markup; the button opens it with data-v-dialog-open. Cancel, Send invite, the close button, Escape and a click on the backdrop all close it.",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" data-v-dialog-open=\"invite\">Invite a teammate</button>\n<dialog class=\"v-dialog\" id=\"invite\" data-v-dismissable aria-labelledby=\"invite-title\">\n  <header class=\"v-dialog-header\">\n    <h2 class=\"v-dialog-title\" id=\"invite-title\">Invite a teammate</h2>\n    <form method=\"dialog\"><button class=\"v-btn v-btn-ghost v-btn-icon v-dialog-close\" aria-label=\"Close\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></form>\n  </header>\n  <div class=\"v-dialog-body\">\n    <p>They get an email with a link to join this workspace. You can change their role later.</p>\n  </div>\n  <form class=\"v-dialog-footer\" method=\"dialog\">\n    <button class=\"v-btn v-btn-secondary\" value=\"cancel\">Cancel</button>\n    <button class=\"v-btn v-btn-primary\" value=\"send\">Send invite</button>\n  </form>\n</dialog>",
+      "height": 420,
+      "layout": "center",
+      "source": "examples/overlays/#dialog"
+    }
+  ]
+}

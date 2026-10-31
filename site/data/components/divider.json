@@ -1,0 +1,53 @@
+{
+  "name": "Divider",
+  "slug": "divider",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A horizontal rule with a short label in the middle, such as \"or continue with\".",
+  "description": "Use it to split two ways of doing the same thing, like a sign-in form and social sign-in buttons. For a plain rule with no label, use <hr>.",
+  "native": "<p>, <hr>",
+  "catalogue": [
+    "Divider"
+  ],
+  "css": [
+    "misc.css"
+  ],
+  "classes": [
+    {
+      "name": "v-divider",
+      "kind": "base",
+      "description": "Draws a line either side of its text, which sits in the middle in small muted type."
+    }
+  ],
+  "a11y": [
+    "The label is ordinary text, so screen readers read it in place. Keep it meaningful (\"or\"), not decorative.",
+    "A plain <hr> is announced as a separator; use it when there is no label."
+  ],
+  "tokens": [
+    "--v-border",
+    "--v-border-w",
+    "--v-text-3",
+    "--v-space-3"
+  ],
+  "related": [
+    "card",
+    "form-layouts",
+    "panel"
+  ],
+  "examples": [
+    {
+      "title": "Labelled",
+      "html": "<p class=\"v-divider\"><span>or continue with</span></p>",
+      "layout": "stack",
+      "height": 80,
+      "source": "examples/components/#feedback"
+    },
+    {
+      "title": "Between two sign-in methods",
+      "html": "<button class=\"v-btn v-btn-primary v-btn-block\" type=\"button\">Sign in with email</button>\n<p class=\"v-divider\"><span>or</span></p>\n<button class=\"v-btn v-btn-secondary v-btn-block\" type=\"button\">Sign in with a passkey</button>",
+      "layout": "stack",
+      "height": 180
+    }
+  ]
+}

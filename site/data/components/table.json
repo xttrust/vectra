@@ -1,0 +1,160 @@
+{
+  "name": "Table",
+  "slug": "table",
+  "group": "Data",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Native table markup with zebra, hover, dense, bordered and sticky-header variants, selectable rows and a scrolling wrapper.",
+  "description": "Use it for data people compare across rows and columns. Wrap it in .v-table-wrap so wide tables scroll inside their box on small screens instead of widening the page. For a short list of label and value pairs, use a description list.",
+  "native": "<table>",
+  "catalogue": [
+    "Table"
+  ],
+  "css": [
+    "table.css"
+  ],
+  "classes": [
+    {
+      "name": "v-table-wrap",
+      "kind": "part",
+      "description": "Scrolling container and card surface. Give it role=\"region\", a label and tabindex=\"0\"."
+    },
+    {
+      "name": "v-table",
+      "kind": "base",
+      "description": "The table: spacing, rules, header fill and caption."
+    },
+    {
+      "name": "v-table-zebra",
+      "kind": "modifier",
+      "description": "Tints every other body row."
+    },
+    {
+      "name": "v-table-hover",
+      "kind": "modifier",
+      "description": "Tints the row under the pointer, on devices that hover."
+    },
+    {
+      "name": "v-table-dense",
+      "kind": "modifier",
+      "description": "Tighter padding and smaller text."
+    },
+    {
+      "name": "v-table-bordered",
+      "kind": "modifier",
+      "description": "Adds rules between columns."
+    },
+    {
+      "name": "v-table-sticky",
+      "kind": "modifier",
+      "description": "Header cells stick to the top while the wrapper scrolls. Set --v-table-max on the wrapper."
+    },
+    {
+      "name": "v-table-num",
+      "kind": "part",
+      "description": "Numeric cell: tabular figures, aligned to the end."
+    },
+    {
+      "name": "v-table-check",
+      "kind": "part",
+      "description": "Narrow cell for a row checkbox. A checked box selects the row."
+    },
+    {
+      "name": "v-table-actions",
+      "kind": "part",
+      "description": "Narrow end cell for row action buttons."
+    },
+    {
+      "name": "v-table-empty",
+      "kind": "part",
+      "description": "A full-width cell (with colspan) for the message when there are no rows."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-selected=\"true\"",
+      "description": "On a <tr>: tinted with an accent bar on the leading edge."
+    },
+    {
+      "attribute": "checked",
+      "description": "A checked checkbox in the row's .v-table-check cell selects the row the same way."
+    },
+    {
+      "attribute": "role=\"region\" tabindex=\"0\"",
+      "description": "On .v-table-wrap: makes the scrolling box reachable and named for keyboard and screen reader users."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the scroll region, then through any checkboxes and buttons in the rows."
+    },
+    {
+      "keys": [
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown"
+      ],
+      "action": "Scrolls the focused wrapper."
+    },
+    {
+      "keys": [
+        "Space"
+      ],
+      "action": "Toggles the focused row checkbox."
+    }
+  ],
+  "a11y": [
+    "Use <th scope=\"col\"> for column headers and <th scope=\"row\"> for the cell that names each row.",
+    "Give the table a <caption>, visible or with .v-sr-only, and point the wrapper's aria-labelledby at it.",
+    "Each row checkbox and icon button needs its own label, such as \"Select invoice INV-1041\".",
+    "Selected rows are marked by the bar as well as the tint, so the state does not rely on colour alone."
+  ],
+  "tokens": [
+    "--v-table-pad-x",
+    "--v-table-pad-y",
+    "--v-table-head-bg",
+    "--v-table-max",
+    "--v-table-min",
+    "--v-card-bg",
+    "--v-card-border",
+    "--v-border",
+    "--v-accent-soft"
+  ],
+  "related": [
+    "pagination",
+    "badge",
+    "empty-state",
+    "choice",
+    "description-list",
+    "scroll-area"
+  ],
+  "examples": [
+    {
+      "title": "Selectable rows with actions",
+      "description": "Zebra and hover, a checkbox column, numeric and action cells, and a footer total. --v-table-min keeps the columns readable and the wrapper scrolls.",
+      "html": "<div class=\"v-table-wrap\" role=\"region\" aria-labelledby=\"invoices-caption\" tabindex=\"0\" style=\"--v-table-min: 46rem\">\n  <table class=\"v-table v-table-zebra v-table-hover\">\n    <caption id=\"invoices-caption\">Invoices, October 2026</caption>\n    <thead>\n      <tr>\n        <th class=\"v-table-check\" scope=\"col\"><input type=\"checkbox\" aria-label=\"Select all invoices\"></th>\n        <th scope=\"col\">Invoice</th>\n        <th scope=\"col\">Client</th>\n        <th scope=\"col\">Status</th>\n        <th scope=\"col\">Due</th>\n        <th class=\"v-table-num\" scope=\"col\">Amount</th>\n        <th class=\"v-table-actions\" scope=\"col\"><span class=\"v-sr-only\">Actions</span></th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"v-table-check\"><input type=\"checkbox\" aria-label=\"Select invoice INV-1041\"></td>\n        <th class=\"v-nowrap\" scope=\"row\">INV-1041</th>\n        <td>Harbour Roofing Ltd</td>\n        <td><span class=\"v-badge v-badge-success v-badge-dot\">Paid</span></td>\n        <td>3 Oct</td>\n        <td class=\"v-table-num\">€1,499.00</td>\n        <td class=\"v-table-actions\"><button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" aria-label=\"Edit INV-1041\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg></button><button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" aria-label=\"More for INV-1041\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#more\"/></svg></button></td>\n      </tr>\n      <tr>\n        <td class=\"v-table-check\"><input type=\"checkbox\" aria-label=\"Select invoice INV-1042\" checked></td>\n        <th class=\"v-nowrap\" scope=\"row\">INV-1042</th>\n        <td>Moss &amp; Fern Gardens</td>\n        <td><span class=\"v-badge v-badge-warning v-badge-dot\">Pending</span></td>\n        <td>14 Oct</td>\n        <td class=\"v-table-num\">€799.00</td>\n        <td class=\"v-table-actions\"><button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" aria-label=\"Edit INV-1042\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg></button><button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" aria-label=\"More for INV-1042\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#more\"/></svg></button></td>\n      </tr>\n      <tr>\n        <td class=\"v-table-check\"><input type=\"checkbox\" aria-label=\"Select invoice INV-1043\"></td>\n        <th class=\"v-nowrap\" scope=\"row\">INV-1043</th>\n        <td>The Quay Bar</td>\n        <td><span class=\"v-badge v-badge-danger v-badge-dot\">Overdue</span></td>\n        <td>20 Oct</td>\n        <td class=\"v-table-num\">€50.00</td>\n        <td class=\"v-table-actions\"><button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" aria-label=\"Edit INV-1043\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg></button><button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" aria-label=\"More for INV-1043\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#more\"/></svg></button></td>\n      </tr>\n      <tr>\n        <td class=\"v-table-check\"><input type=\"checkbox\" aria-label=\"Select invoice INV-1044\"></td>\n        <th class=\"v-nowrap\" scope=\"row\">INV-1044</th>\n        <td>Westshore Cleaning</td>\n        <td><span class=\"v-badge v-badge-info\">Draft</span></td>\n        <td>31 Oct</td>\n        <td class=\"v-table-num\">€2,350.00</td>\n        <td class=\"v-table-actions\"><button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" aria-label=\"Edit INV-1044\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg></button><button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" aria-label=\"More for INV-1044\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#more\"/></svg></button></td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td></td>\n        <th scope=\"row\" colspan=\"4\">Total, 4 invoices</th>\n        <td class=\"v-table-num\">€4,698.00</td>\n        <td></td>\n      </tr>\n    </tfoot>\n  </table>\n</div>",
+      "layout": "fill",
+      "height": 360,
+      "source": "examples/content/#tables"
+    },
+    {
+      "title": "Dense, bordered, sticky header",
+      "description": "The header stays put while the wrapper scrolls inside --v-table-max.",
+      "html": "<div class=\"v-table-wrap\" role=\"region\" aria-labelledby=\"releases-caption\" tabindex=\"0\" style=\"--v-table-max: 17rem\">\n  <table class=\"v-table v-table-sticky v-table-dense v-table-bordered\">\n    <caption id=\"releases-caption\" class=\"v-sr-only\">Release schedule</caption>\n    <thead>\n      <tr>\n        <th scope=\"col\">Release</th>\n        <th scope=\"col\">Date</th>\n        <th class=\"v-table-num\" scope=\"col\">Tracks</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr><th scope=\"row\">Low Tide EP</th><td>7 Nov</td><td class=\"v-table-num\">4</td></tr>\n      <tr><th scope=\"row\">Northern Lines</th><td>14 Nov</td><td class=\"v-table-num\">2</td></tr>\n      <tr><th scope=\"row\">Glass Harbour</th><td>21 Nov</td><td class=\"v-table-num\">5</td></tr>\n      <tr><th scope=\"row\">Slow Burn (Remixes)</th><td>28 Nov</td><td class=\"v-table-num\">3</td></tr>\n      <tr><th scope=\"row\">Atlantic Drift</th><td>5 Dec</td><td class=\"v-table-num\">1</td></tr>\n      <tr><th scope=\"row\">After Hours Vol. 3</th><td>12 Dec</td><td class=\"v-table-num\">12</td></tr>\n      <tr><th scope=\"row\">Midwinter</th><td>19 Dec</td><td class=\"v-table-num\">2</td></tr>\n      <tr><th scope=\"row\">Year in Review</th><td>27 Dec</td><td class=\"v-table-num\">20</td></tr>\n      <tr><th scope=\"row\">First Light</th><td>9 Jan</td><td class=\"v-table-num\">4</td></tr>\n      <tr><th scope=\"row\">Coastal Roads</th><td>16 Jan</td><td class=\"v-table-num\">3</td></tr>\n    </tbody>\n  </table>\n</div>",
+      "layout": "fill",
+      "height": 290,
+      "source": "examples/content/#tables"
+    },
+    {
+      "title": "Empty table",
+      "html": "<div class=\"v-table-wrap\" role=\"region\" aria-labelledby=\"payouts-caption\" tabindex=\"0\">\n  <table class=\"v-table\">\n    <caption id=\"payouts-caption\">Payouts</caption>\n    <thead>\n      <tr>\n        <th scope=\"col\">Date</th>\n        <th scope=\"col\">Reference</th>\n        <th class=\"v-table-num\" scope=\"col\">Amount</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr><td class=\"v-table-empty\" colspan=\"3\">No payouts yet. They appear here after your first sale.</td></tr>\n    </tbody>\n  </table>\n</div>",
+      "layout": "fill",
+      "height": 230,
+      "source": "examples/content/#tables"
+    }
+  ]
+}

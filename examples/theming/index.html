@@ -37,7 +37,7 @@
     .ex-preview { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-3); align-content: start; justify-items: start; }
     .ex-toasts { display: grid; gap: var(--v-space-2); max-inline-size: 24rem; }
     .ex-live { margin-block-start: var(--v-space-4); }
-    .ex-preview .v-segmented { max-inline-size: 100%; }
+    .ex-preview .v-segmented, .ex-preview > * { max-inline-size: 100%; }
     .ex-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--v-space-4); align-items: start; }
   </style>
   <script type="module" src="../../src/js/index.js"></script>

@@ -1,0 +1,63 @@
+{
+  "name": "Progress",
+  "slug": "progress",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A styled native <progress> bar for a task that moves towards done, with an indeterminate sweep when there is no value.",
+  "description": "Use progress for work in motion: an upload, a checklist, an import. For a measurement within a known range, such as disk usage, use a meter.",
+  "native": "<progress>",
+  "catalogue": [
+    "Progress"
+  ],
+  "css": [
+    "feedback.css"
+  ],
+  "classes": [
+    {
+      "name": "v-progress",
+      "kind": "base",
+      "description": "The bar, on a <progress> element. Leave out value for the indeterminate sweep."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "value",
+      "description": "How far along it is, out of max (default 1). Without it the bar is indeterminate."
+    },
+    {
+      "attribute": "max",
+      "description": "The value that means done."
+    },
+    {
+      "attribute": ":indeterminate",
+      "description": "No value: a band sweeps across the track."
+    }
+  ],
+  "a11y": [
+    "Give every bar a name with aria-label or aria-labelledby, so screen readers say what is progressing.",
+    "The native element already has the progressbar role and reports its value; no ARIA is needed beyond the name.",
+    "Text inside <progress> is a fallback only; show the percentage next to the bar if people need to read it.",
+    "For a long task, also announce the end (for example with a toast), since value changes are not read out."
+  ],
+  "tokens": [
+    "--v-accent",
+    "--v-surface-2",
+    "--v-radius-pill"
+  ],
+  "related": [
+    "meter",
+    "spinner",
+    "skeleton",
+    "steps"
+  ],
+  "examples": [
+    {
+      "title": "With a value and indeterminate",
+      "html": "<div class=\"v-flex v-justify-between\"><span id=\"checklist\">Launch checklist</span><span class=\"v-tabular\">68%</span></div>\n<progress class=\"v-progress\" value=\"68\" max=\"100\" aria-labelledby=\"checklist\">68%</progress>\n<span class=\"v-text-sm v-text-secondary\" id=\"uploading\">Uploading files</span>\n<progress class=\"v-progress\" aria-labelledby=\"uploading\"></progress>",
+      "layout": "stack",
+      "height": 140,
+      "source": "examples/components/#feedback"
+    }
+  ]
+}

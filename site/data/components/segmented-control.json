@@ -1,0 +1,87 @@
+{
+  "name": "Segmented control",
+  "slug": "segmented-control",
+  "group": "Actions",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A radio group styled as a bar of options, for picking one of two to five choices.",
+  "description": "Use it to switch a view or setting, such as monthly or yearly billing. It is a form control: the value submits with the form. For switching between panels of content, use tabs.",
+  "native": "<fieldset> with <input type=\"radio\">",
+  "catalogue": [
+    "Segmented control"
+  ],
+  "css": [
+    "button.css"
+  ],
+  "classes": [
+    {
+      "name": "v-segmented",
+      "kind": "base",
+      "description": "On a <fieldset>. Each option is a <label> holding a radio and a <span> for the text. Scrolls sideways if the options do not fit."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "checked",
+      "description": "The selected radio: its span gets the raised surface and a shadow."
+    },
+    {
+      "attribute": "name",
+      "description": "All radios share one name, which makes them a single group with one value."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus into the group, onto the selected option, and out again."
+    },
+    {
+      "keys": [
+        "ArrowRight",
+        "ArrowDown"
+      ],
+      "action": "Selects the next option (native radio behaviour)."
+    },
+    {
+      "keys": [
+        "ArrowLeft",
+        "ArrowUp"
+      ],
+      "action": "Selects the previous option."
+    }
+  ],
+  "a11y": [
+    "Give the fieldset a <legend>; hide it with .v-sr-only if the bar is labelled visually some other way.",
+    "Real radio inputs sit over each option, so screen readers announce \"radio button, 1 of 3\" with no ARIA needed.",
+    "The selected option differs by surface and shadow as well as text colour, and the focus ring shows on the option span."
+  ],
+  "tokens": [
+    "--v-btn-radius",
+    "--v-surface",
+    "--v-surface-2",
+    "--v-shadow-1",
+    "--v-step-minus-1",
+    "--v-focus-w"
+  ],
+  "related": [
+    "button-group",
+    "toggle-button",
+    "tabs",
+    "choice"
+  ],
+  "examples": [
+    {
+      "title": "Billing period",
+      "html": "<fieldset class=\"v-segmented\">\n  <legend class=\"v-sr-only\">Billing period</legend>\n  <label><input type=\"radio\" name=\"period\" value=\"monthly\" checked><span>Monthly</span></label>\n  <label><input type=\"radio\" name=\"period\" value=\"yearly\"><span>Yearly</span></label>\n  <label><input type=\"radio\" name=\"period\" value=\"lifetime\"><span>Lifetime</span></label>\n</fieldset>",
+      "height": 100,
+      "source": "examples/components/#buttons"
+    },
+    {
+      "title": "Two options",
+      "html": "<fieldset class=\"v-segmented\">\n  <legend class=\"v-sr-only\">View</legend>\n  <label><input type=\"radio\" name=\"view\" value=\"list\" checked><span>List</span></label>\n  <label><input type=\"radio\" name=\"view\" value=\"board\"><span>Board</span></label>\n</fieldset>",
+      "height": 100
+    }
+  ]
+}

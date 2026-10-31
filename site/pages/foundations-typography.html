@@ -1,0 +1,26 @@
+<!--meta {"description": "Vectra's fluid type scale, the display, lead and kicker classes, and the font tokens."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Foundations</p>
+  <h1>{{title}}</h1>
+  <p class="v-lead">A fluid scale of six steps written with <code>clamp()</code>, so type grows with the viewport without breakpoints. Directions choose the fonts and the weight and tracking of headings.</p>
+</header>
+<h2>The scale</h2>
+<div class="site-scale">
+  <div><code>--v-step-display</code><span style="font-size: var(--v-step-display); font-family: var(--v-font-display); line-height: 1">Aa</span></div>
+  <div><code>--v-step-3</code><span style="font-size: var(--v-step-3)">Heading one</span></div>
+  <div><code>--v-step-2</code><span style="font-size: var(--v-step-2)">Heading two</span></div>
+  <div><code>--v-step-1</code><span style="font-size: var(--v-step-1)">Heading three</span></div>
+  <div><code>--v-step-0</code><span style="font-size: var(--v-step-0)">Body text</span></div>
+  <div><code>--v-step-minus-1</code><span style="font-size: var(--v-step-minus-1)">Small text and captions</span></div>
+</div>
+<h2>Type classes</h2>
+<p><code>.v-display</code> for the biggest title on a page, <code>.v-lead</code> for the paragraph under it, <code>.v-kicker</code> for the small label above.</p>
+<template data-demo="Display, lead and kicker" data-layout="stack" data-height="260">
+  <p class="v-kicker">Case study</p>
+  <p class="v-display">Roofs that last.</p>
+  <p class="v-lead">A lead paragraph sits under a page title and reads a step larger than body text.</p>
+</template>
+<h2>Fonts</h2>
+<p><code>--v-font-sans</code> is Inter, self-hosted. <code>--v-font-serif</code> and <code>--v-font-mono</code> are system stacks. Directions point <code>--v-font-display</code> and <code>--v-font-body</code> at one of them: Editorial uses the serif for display type. The customizer's typeface preset (<code>data-font</code>) overrides the direction.</p>
+<h2>Prose</h2>
+<p>For CMS or markdown output with no classes, wrap it in <a href="{{root}}components/prose/"><code>.v-prose</code></a>.</p>

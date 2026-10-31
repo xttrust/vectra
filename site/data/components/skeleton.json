@@ -1,0 +1,75 @@
+{
+  "name": "Skeleton",
+  "slug": "skeleton",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Shimmering grey shapes that hold the layout while content loads.",
+  "description": "Use skeletons when you know the shape of what is coming (a list, a profile) and it takes more than a moment. For a short wait or an unknown shape, use a spinner.",
+  "native": "<span>",
+  "catalogue": [
+    "Skeleton"
+  ],
+  "css": [
+    "feedback.css"
+  ],
+  "classes": [
+    {
+      "name": "v-skeleton",
+      "kind": "base",
+      "description": "A block placeholder, 1em tall, with a slow shimmer. Set its size with inline-size and block-size."
+    },
+    {
+      "name": "v-skeleton-text",
+      "kind": "modifier",
+      "description": "A line of text: slightly shorter, with line spacing."
+    },
+    {
+      "name": "v-skeleton-circle",
+      "kind": "modifier",
+      "description": "A circle for an avatar, sized by --v-skeleton-size (2.5rem)."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-hidden=\"true\"",
+      "description": "On the skeleton wrapper: the shapes mean nothing to screen readers."
+    },
+    {
+      "attribute": "aria-busy=\"true\"",
+      "description": "On the region being loaded, removed when the content arrives."
+    }
+  ],
+  "a11y": [
+    "Hide skeletons with aria-hidden=\"true\" and announce loading separately, e.g. a .v-sr-only \"Loading clients\" in a role=\"status\" region.",
+    "The shimmer stops under prefers-reduced-motion.",
+    "Swap the skeleton for the real content in one go, so focus and reading order do not jump twice."
+  ],
+  "tokens": [
+    "--v-skeleton-size",
+    "--v-surface-2",
+    "--v-radius-sm",
+    "--v-text"
+  ],
+  "related": [
+    "spinner",
+    "progress",
+    "avatar",
+    "empty-state"
+  ],
+  "examples": [
+    {
+      "title": "List row",
+      "html": "<div class=\"v-cluster\" aria-hidden=\"true\">\n  <span class=\"v-skeleton v-skeleton-circle\"></span>\n  <span class=\"v-grow\">\n    <span class=\"v-skeleton v-skeleton-text\" style=\"inline-size: 70%\"></span>\n    <span class=\"v-skeleton v-skeleton-text\" style=\"inline-size: 45%\"></span>\n  </span>\n</div>\n<span class=\"v-sr-only\" role=\"status\">Loading clients</span>",
+      "layout": "stack",
+      "height": 100,
+      "source": "examples/components/#feedback"
+    },
+    {
+      "title": "Card",
+      "html": "<div class=\"v-card\" aria-hidden=\"true\">\n  <span class=\"v-skeleton\" style=\"block-size: 8rem\"></span>\n  <span class=\"v-skeleton v-skeleton-text\" style=\"inline-size: 60%\"></span>\n  <span class=\"v-skeleton v-skeleton-text\"></span>\n  <span class=\"v-skeleton v-skeleton-text\" style=\"inline-size: 80%\"></span>\n</div>",
+      "layout": "stack",
+      "height": 260
+    }
+  ]
+}

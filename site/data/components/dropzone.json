@@ -1,0 +1,128 @@
+{
+  "name": "File drop zone",
+  "slug": "dropzone",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A large target around a native file input that takes dropped files as well as picked ones.",
+  "description": "Without JS the whole zone opens the file picker and the native input shows the chosen file name. With JS, dropped files go into the same input, so the form submits them as if they were picked. It does not upload on its own.",
+  "native": "<label>, <input type=\"file\">",
+  "catalogue": [
+    "File drop zone"
+  ],
+  "css": [
+    "dropzone.css"
+  ],
+  "js": [
+    "components/dropzone.js"
+  ],
+  "classes": [
+    {
+      "name": "v-dropzone",
+      "kind": "base",
+      "description": "The dashed <label> that wraps the file input and its text."
+    },
+    {
+      "name": "v-dropzone-icon",
+      "kind": "part",
+      "description": "The round icon at the top."
+    },
+    {
+      "name": "v-dropzone-title",
+      "kind": "part",
+      "description": "The main line; a <strong> inside is drawn in the accent, like a link."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-v-dragover",
+      "description": "Set by the JS while files hover over the zone: accent border and tint."
+    },
+    {
+      "attribute": "accept, multiple",
+      "description": "Honoured on drop: refused files are announced and left out."
+    },
+    {
+      "attribute": "disabled",
+      "description": "On the input: the zone is dimmed and drops are ignored."
+    },
+    {
+      "attribute": "aria-invalid=\"true\"",
+      "description": "On the input, or :user-invalid on a required one: danger border on the zone."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-dropzone",
+      "value": "",
+      "on": ".v-dropzone",
+      "description": "Adds drag and drop to the zone and lists the chosen file names."
+    },
+    {
+      "name": "data-v-dropzone-files",
+      "value": "",
+      "on": "an element inside the zone",
+      "description": "Where the chosen file names are written. Added at the end of the zone when missing."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:change",
+      "on": ".v-dropzone",
+      "detail": "{ files }",
+      "description": "Fires after files are picked or dropped, with the input's FileList."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Focuses the file input; the ring is drawn round the whole zone."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Opens the file picker."
+    }
+  ],
+  "a11y": [
+    "The native input keeps focus and keyboard behaviour, so the zone works without a mouse.",
+    "Say which types and sizes are accepted in the visible text, not only in accept.",
+    "Refused files (wrong type, more than one when multiple is off) are announced politely.",
+    "The upload icon is aria-hidden; the title and the input name the control."
+  ],
+  "tokens": [
+    "--v-accent",
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-input-border",
+    "--v-input-bg",
+    "--v-radius-lg",
+    "--v-focus-w"
+  ],
+  "related": [
+    "field",
+    "progress",
+    "button"
+  ],
+  "examples": [
+    {
+      "title": "Drop or browse",
+      "description": "Drag a PDF or image onto the zone, or click to pick one.",
+      "html": "<label class=\"v-dropzone\" data-v-dropzone>\n  <span class=\"v-dropzone-icon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#upload\"/></svg></span>\n  <span class=\"v-dropzone-title\">Drop files or <strong>browse</strong></span>\n  <span>PDF, PNG or JPG, up to 10 MB</span>\n  <input type=\"file\" name=\"files\" accept=\".pdf,.png,.jpg,.jpeg\" multiple>\n</label>",
+      "layout": "stack",
+      "height": 230,
+      "source": "examples/forms/#dropzone"
+    },
+    {
+      "title": "Drag over and disabled",
+      "description": "data-v-dragover is set by the JS; it is written by hand here to show the look.",
+      "html": "<label class=\"v-dropzone\" data-v-dragover>\n  <span class=\"v-dropzone-icon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#upload\"/></svg></span>\n  <span class=\"v-dropzone-title\">Release to upload</span>\n  <span>Shown while files are dragged over</span>\n  <input type=\"file\" name=\"files-2\">\n</label>\n<label class=\"v-dropzone\" data-v-dropzone>\n  <span class=\"v-dropzone-icon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#upload\"/></svg></span>\n  <span class=\"v-dropzone-title\">Uploads paused</span>\n  <span>Disabled</span>\n  <input type=\"file\" name=\"files-3\" disabled>\n</label>",
+      "height": 240,
+      "source": "examples/forms/#dropzone"
+    }
+  ]
+}

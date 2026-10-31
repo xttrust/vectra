@@ -105,9 +105,24 @@
     .v-tabs-vertical .v-tab:dir(rtl) { border-radius: 0 var(--v-radius-sm) var(--v-radius-sm) 0; }
     .v-tabs-vertical .v-tab[aria-selected="true"]:dir(rtl) { box-shadow: inset 2px 0 0 var(--v-accent); }
   }
+
+  @media (forced-colors: active) {
+    /* The selected line is a box-shadow, which forced colours remove: mark the tab the system way. */
+    .v-tab[aria-selected="true"],
+    .v-tabs-pill .v-tab[aria-selected="true"],
+    .v-tabs-vertical .v-tab[aria-selected="true"] {
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
+    }
+  }
 }
 
 @layer directions {
   :root[data-direction="editorial"] .v-tab { letter-spacing: 0.01em; }
   :root[data-direction="glass"] .v-tabs-pill .v-tab[aria-selected="true"] { background-color: var(--v-card-bg); }
+
+  @media (forced-colors: active) {
+    :root[data-direction] .v-tabs-pill .v-tab[aria-selected="true"] { background-color: Highlight; }
+  }
 }

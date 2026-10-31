@@ -1,0 +1,61 @@
+{
+  "name": "Stat card",
+  "slug": "stat-card",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A labelled number with an optional change badge, for dashboards and summaries.",
+  "description": "Put .v-stat on a .v-card for a stat tile, or use it on its own inside another surface. Keep the label short and the value formatted for people (€12,940, not 12940).",
+  "native": "<div>",
+  "catalogue": [
+    "Stat card"
+  ],
+  "css": [
+    "card.css"
+  ],
+  "classes": [
+    {
+      "name": "v-stat",
+      "kind": "base",
+      "description": "A tight stack of label, value and any extra line, aligned to the start."
+    },
+    {
+      "name": "v-stat-label",
+      "kind": "part",
+      "description": "What the number is, in small secondary text."
+    },
+    {
+      "name": "v-stat-value",
+      "kind": "part",
+      "description": "The number: display font, large, with tabular figures so tiles line up."
+    }
+  ],
+  "a11y": [
+    "The label comes first in the markup, so screen readers hear \"Monthly revenue, €12,940\" in a sensible order.",
+    "Say what a change means in words (+8.2% this month), not only with a green or red badge.",
+    "For values that update live, wrap the value in a region with aria-live=\"polite\" only if people need to hear each change."
+  ],
+  "tokens": [
+    "--v-step-3",
+    "--v-font-display",
+    "--v-display-weight",
+    "--v-display-tracking",
+    "--v-step-minus-1",
+    "--v-card-pad"
+  ],
+  "related": [
+    "card",
+    "badge",
+    "meter",
+    "progress"
+  ],
+  "examples": [
+    {
+      "title": "Stat tiles",
+      "html": "<div class=\"v-grid\" style=\"--v-min: 11rem\">\n  <div class=\"v-card v-stat\"><span class=\"v-stat-label\">Monthly revenue</span><span class=\"v-stat-value\">€12,940</span><span class=\"v-badge v-badge-success\">+8.2%</span></div>\n  <div class=\"v-card v-stat\"><span class=\"v-stat-label\">Active clients</span><span class=\"v-stat-value\">186</span><span class=\"v-badge v-badge-danger\">-3</span></div>\n  <div class=\"v-card v-stat\"><span class=\"v-stat-label\">Avg. response</span><span class=\"v-stat-value\">1.4h</span><span class=\"v-badge\">No change</span></div>\n</div>",
+      "layout": "fill",
+      "height": 170,
+      "source": "examples/components/#cards"
+    }
+  ]
+}

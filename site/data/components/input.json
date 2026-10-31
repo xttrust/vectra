@@ -1,0 +1,125 @@
+{
+  "name": "Input, textarea and select",
+  "slug": "input",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Text inputs, textareas and native selects, in three sizes, with disabled, read-only and invalid states.",
+  "description": "Use .v-input on any text-like <input> (text, email, number, search, date) and on <textarea>, and .v-select on a native <select>. Always place them in a .v-field with a label.",
+  "native": "<input>, <textarea>, <select>",
+  "catalogue": [
+    "Input, textarea, select"
+  ],
+  "css": [
+    "input.css"
+  ],
+  "classes": [
+    {
+      "name": "v-input",
+      "kind": "base",
+      "description": "A text input or textarea. Textareas grow with their content where the browser supports it."
+    },
+    {
+      "name": "v-input-sm",
+      "kind": "modifier",
+      "description": "Small, for dense tables and toolbars."
+    },
+    {
+      "name": "v-input-lg",
+      "kind": "modifier",
+      "description": "Large, for short forms that want room."
+    },
+    {
+      "name": "v-select",
+      "kind": "base",
+      "description": "A native select with a chevron drawn in the text colour. Also works with multiple and size."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "disabled",
+      "description": "Dimmed, not focusable and not sent with the form."
+    },
+    {
+      "attribute": "readonly",
+      "description": "A tinted fill: the value can be focused and copied but not edited."
+    },
+    {
+      "attribute": "aria-invalid=\"true\"",
+      "description": "Danger border, doubled in width so it reads without colour. :user-invalid does the same after the person has interacted."
+    },
+    {
+      "attribute": "placeholder",
+      "description": "Example text in a quieter colour. It is not a label and disappears on typing."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the control."
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "ArrowDown"
+      ],
+      "action": "Changes the option in a closed select, or the value of a number input."
+    },
+    {
+      "keys": [
+        "Alt+ArrowDown",
+        "Space"
+      ],
+      "action": "Opens a select's option list."
+    }
+  ],
+  "a11y": [
+    "Pair every control with a visible <label for>; placeholder text is not announced reliably and vanishes on typing.",
+    "Set type, inputmode and autocomplete (email, tel, postal-code) so phones show the right keyboard and browsers can fill the field.",
+    "The input border holds 3:1 against what sits behind it, and the focus ring is drawn outside the box.",
+    "Disabled controls are skipped by Tab and not submitted; use readonly when the value should still be reachable."
+  ],
+  "tokens": [
+    "--v-input-h",
+    "--v-input-bg",
+    "--v-input-border",
+    "--v-input-radius",
+    "--v-input-shadow",
+    "--v-control-h",
+    "--v-focus-w",
+    "--v-accent",
+    "--v-danger"
+  ],
+  "related": [
+    "field",
+    "input-group",
+    "search-field",
+    "number-stepper",
+    "character-counter"
+  ],
+  "examples": [
+    {
+      "title": "Text inputs",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"f-email\">Email</label>\n  <input class=\"v-input\" id=\"f-email\" name=\"email\" type=\"email\" autocomplete=\"email\" placeholder=\"you@example.com\">\n</div>\n<div class=\"v-field\">\n  <label class=\"v-label\" for=\"f-date\">Start date</label>\n  <input class=\"v-input\" id=\"f-date\" name=\"start\" type=\"date\" value=\"2026-11-02\">\n</div>",
+      "layout": "stack",
+      "height": 190,
+      "source": "examples/forms/#inputs"
+    },
+    {
+      "title": "Sizes and states",
+      "html": "<div class=\"v-grid\" style=\"--v-min: 12rem\">\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"s-sm\">Small</label>\n    <input class=\"v-input v-input-sm\" id=\"s-sm\" type=\"text\" value=\"Compact\">\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"s-md\">Default</label>\n    <input class=\"v-input\" id=\"s-md\" type=\"text\" value=\"Regular\">\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"s-lg\">Large</label>\n    <input class=\"v-input v-input-lg\" id=\"s-lg\" type=\"text\" value=\"Roomy\">\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"s-disabled\">Disabled</label>\n    <input class=\"v-input\" id=\"s-disabled\" type=\"text\" value=\"Not editable\" disabled>\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"s-readonly\">Read-only</label>\n    <input class=\"v-input\" id=\"s-readonly\" type=\"text\" value=\"INV-2026-0142\" readonly>\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"s-invalid\">VAT number</label>\n    <input class=\"v-input\" id=\"s-invalid\" type=\"text\" value=\"IE12\" aria-invalid=\"true\" aria-describedby=\"s-invalid-error\">\n    <p class=\"v-field-error\" id=\"s-invalid-error\">That VAT number is too short.</p>\n  </div>\n</div>",
+      "layout": "fill",
+      "height": 300,
+      "source": "examples/forms/#inputs"
+    },
+    {
+      "title": "Textarea and select",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"t-msg\">Message</label>\n  <textarea class=\"v-input\" id=\"t-msg\" name=\"message\" rows=\"3\" placeholder=\"Tell us about the job\"></textarea>\n</div>\n<div class=\"v-field\">\n  <label class=\"v-label\" for=\"t-county\">County</label>\n  <select class=\"v-select\" id=\"t-county\" name=\"county\">\n    <option>Galway</option>\n    <option>Mayo</option>\n    <option>Clare</option>\n    <option>Roscommon</option>\n  </select>\n</div>\n<div class=\"v-field\">\n  <label class=\"v-label\" for=\"t-plan\">Plan</label>\n  <select class=\"v-select\" id=\"t-plan\" name=\"plan\" aria-invalid=\"true\" aria-describedby=\"t-plan-error\">\n    <option value=\"\">Choose a plan</option>\n    <option>Starter</option>\n    <option>Team</option>\n  </select>\n  <p class=\"v-field-error\" id=\"t-plan-error\">Choose a plan to continue.</p>\n</div>",
+      "layout": "stack",
+      "height": 360,
+      "source": "examples/forms/#textarea-select"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+<!--meta {"title": "JavaScript API", "description": "window.Vectra: init, register, emit, storage, announce, theme, toast, connection, session, saveStatus and fieldState."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Reference</p>
+  <h1>JavaScript API</h1>
+  <p class="v-lead">With <code>dist/vectra.js</code> everything below is on <code>window.Vectra</code>. With a bundler, import the same names from <code>dist/vectra.esm.js</code>. Nothing else is added to the global scope.</p>
+</header>
+
+<h2>How modules start</h2>
+<p>Components declare behaviour with <code>data-v-*</code> attributes. When the script loads, the core finds every hook and starts its module; a <code>MutationObserver</code> starts hooks added later and tears down those removed. Every module exports <code>init(el, options)</code> and returns <code>{ destroy }</code>.</p>
+
+<h3 id="init"><code>Vectra.init(root = document)</code></h3>
+<p>Starts every registered module inside <code>root</code>. Safe to call repeatedly: an element that is already running is left alone. You rarely need it, since added content starts on its own.</p>
+<pre data-code="js">const panel = document.querySelector('#settings');
+panel.innerHTML = await (await fetch('/settings/partial')).text();
+Vectra.init(panel); // optional: the observer would start it a moment later anyway</pre>
+
+<h3 id="register"><code>Vectra.register(name, setup)</code></h3>
+<p>Adds a module for <code>data-v-&lt;name&gt;</code>. <code>setup(el, options)</code> runs once per element and may return <code>{ destroy }</code>, called when the element leaves the page. Elements already on the page start straight away.</p>
+<pre data-code="js">Vectra.register('autosize', (el) =&gt; {
+  const fit = () =&gt; { el.style.height = 'auto'; el.style.height = `${el.scrollHeight}px`; };
+  el.addEventListener('input', fit);
+  fit();
+  return { destroy: () =&gt; el.removeEventListener('input', fit) };
+});
+// &lt;textarea class="v-input" data-v-autosize&gt;&lt;/textarea&gt;</pre>
+
+<h3 id="emit"><code>Vectra.emit(el, type, detail)</code></h3>
+<p>Fires a bubbling, cancelable <code>v:&lt;type&gt;</code> event and returns <code>false</code> if a listener called <code>preventDefault()</code>. The kit's own events: <code>v:theme</code>, <code>v:dismiss</code>, <code>v:change</code>, <code>v:dirty</code>.</p>
+<pre data-code="js">document.addEventListener('v:dismiss', (e) =&gt; {
+  if (e.detail.key === 'trial-banner' &amp;&amp; !confirm('Hide this for good?')) e.preventDefault();
+});</pre>
+
+<h3 id="storage"><code>Vectra.storage.get(key, fallback)</code>, <code>.set(key, value)</code></h3>
+<p><code>localStorage</code> under a <code>vectra-</code> prefix that never throws, so private mode or blocked storage only means the setting lasts for this page. Setting <code>null</code> removes the key.</p>
+
+<h3 id="announce"><code>Vectra.announce(message, politeness = 'polite')</code></h3>
+<p>Reads a message to screen readers through a shared live region. Use <code>'assertive'</code> only for urgent news. Repeating the same message announces it again.</p>
+
+<h2>Theme</h2>
+<h3 id="theme"><code>Vectra.theme.get()</code>, <code>Vectra.theme.set(changes)</code></h3>
+<p><code>get()</code> returns <code>{ direction, mode, accent, corners, density, font, resolved }</code>, where <code>resolved</code> is the theme showing (<code>light</code> or <code>dark</code>). <code>set()</code> takes any of those keys, ignores unknown values, saves them and emits <code>v:theme</code> on <code>&lt;html&gt;</code>. Direction and mode changes run in a view transition where supported, and instantly under reduced motion.</p>
+<table class="v-table site-table">
+  <caption class="v-sr-only">Theme keys</caption>
+  <thead><tr><th scope="col">Key</th><th scope="col">Values</th><th scope="col">Written as</th></tr></thead>
+  <tbody>
+    <tr><td><code>direction</code></td><td><code>tech</code>, <code>editorial</code>, <code>soft</code>, <code>glass</code></td><td><code>data-direction</code></td></tr>
+    <tr><td><code>mode</code></td><td><code>light</code>, <code>dark</code>, <code>system</code></td><td><code>data-theme</code> (removed for system)</td></tr>
+    <tr><td><code>accent</code></td><td>a hue from 0 to 359, or <code>default</code></td><td><code>--v-accent-h</code></td></tr>
+    <tr><td><code>corners</code></td><td><code>default</code>, <code>sharp</code>, <code>rounded</code>, <code>round</code></td><td><code>data-corners</code></td></tr>
+    <tr><td><code>density</code></td><td><code>compact</code>, <code>default</code>, <code>spacious</code></td><td><code>data-density</code></td></tr>
+    <tr><td><code>font</code></td><td><code>default</code>, <code>inter</code>, <code>system</code>, <code>serif</code></td><td><code>data-font</code></td></tr>
+  </tbody>
+</table>
+<pre data-code="js">Vectra.theme.set({ direction: 'editorial', mode: 'dark', accent: 150 });
+document.documentElement.addEventListener('v:theme', (e) =&gt; console.log(e.detail.resolved));</pre>
+
+<h2>Feedback</h2>
+<h3 id="toast"><code>Vectra.toast(message, options)</code></h3>
+<p>Shows a toast and returns <code>{ dismiss }</code>. Options: <code>tone</code> (<code>success</code>, <code>info</code>, <code>warning</code>, <code>danger</code>), <code>action: { label, onClick }</code>, <code>undo</code> (a function, shorthand for an Undo action) and <code>duration</code> in ms (<code>0</code> keeps it until dismissed). A toast with an action stays at least 10 seconds, timers pause on hover and focus, and up to three show at once. <a href="{{root}}components/toast/">Toast</a>.</p>
+<pre data-code="js">Vectra.toast('Project archived', { undo: () =&gt; restore(id) });
+Vectra.toast('Payment failed', { tone: 'danger', duration: 0 });</pre>
+
+<h3 id="connection"><code>Vectra.connection.slow(on = true)</code></h3>
+<p>Shows or clears the slow-network notice in every <code>data-v-connection</code> banner. Offline and back online are detected by the browser events. <a href="{{root}}components/connection-banner/">Connection banner</a>.</p>
+
+<h3 id="session"><code>Vectra.session.warn({ expiresAt, onExtend, onExpire, onSignIn })</code></h3>
+<p>Opens a modal alert dialog with a countdown, announced at minute marks and at 30 and 10 seconds (WCAG 2.2.1). Returns <code>{ close }</code>. <a href="{{root}}components/session-timeout/">Session timeout</a>.</p>
+<pre data-code="js">Vectra.session.warn({
+  expiresAt: Date.now() + 2 * 60 * 1000,
+  onExtend: () =&gt; fetch('/session/refresh', { method: 'POST' }),
+  onSignIn: () =&gt; { location.href = '/login'; },
+});</pre>
+
+<h3 id="save-status"><code>Vectra.saveStatus(el, state, { at })</code></h3>
+<p>Sets an inline <code>.v-save-status</code> to <code>saving</code>, <code>saved</code>, <code>failed</code> or <code>offline</code>. Saved shows the time since <code>at</code> and keeps it fresh. <a href="{{root}}components/save-status/">Save status</a>.</p>
+
+<h3 id="field-state"><code>Vectra.fieldState(input, state, message)</code></h3>
+<p>For async checks: <code>checking</code>, <code>valid</code>, <code>invalid</code> or <code>clear</code>. Writes the message under the field, links it with <code>aria-describedby</code> and announces it. <code>invalid</code> also blocks the form from submitting until the check passes. <a href="{{root}}components/async-field-check/">Async field check</a>.</p>
+
+<h2>Data attributes</h2>
+<p>Every hook the script reads, with the component it belongs to.</p>
+<table class="v-table site-table">
+  <caption class="v-sr-only">Data attribute hooks</caption>
+  <thead><tr><th scope="col">Attribute</th><th scope="col">Component</th></tr></thead>
+  <tbody>
+    <tr><td><code>data-v-copy</code>, <code>data-v-copy-target</code></td><td><a href="{{root}}components/copy-button/">Copy button</a></td></tr>
+    <tr><td><code>data-v-dismiss</code>, <code>data-v-dismissable</code>, <code>data-v-dismiss-key</code></td><td><a href="{{root}}components/banner/">Banner</a>, <a href="{{root}}components/tag/">Tag</a></td></tr>
+    <tr><td><code>data-v-password</code></td><td><a href="{{root}}components/password-reveal/">Password reveal</a></td></tr>
+    <tr><td><code>data-v-dropzone</code></td><td><a href="{{root}}components/dropzone/">File drop zone</a></td></tr>
+    <tr><td><code>data-v-stepper</code>, <code>data-v-step</code></td><td><a href="{{root}}components/number-stepper/">Number stepper</a></td></tr>
+    <tr><td><code>data-v-counter</code>, <code>data-v-max</code></td><td><a href="{{root}}components/character-counter/">Character counter</a></td></tr>
+    <tr><td><code>data-v-clear</code></td><td><a href="{{root}}components/search-field/">Search field</a></td></tr>
+    <tr><td><code>data-v-validate</code></td><td><a href="{{root}}components/error-summary/">Error summary</a></td></tr>
+    <tr><td><code>data-v-unsaved</code></td><td><a href="{{root}}components/form-layouts/">Form layouts</a></td></tr>
+    <tr><td><code>data-v-strength</code></td><td><a href="{{root}}components/password-strength/">Password strength</a></td></tr>
+    <tr><td><code>data-v-theme-switch</code>, <code>data-v-theme-toggle</code>, <code>data-v-customizer</code>, <code>data-v-reset</code></td><td><a href="{{root}}components/direction-switcher/">Direction switcher</a>, <a href="{{root}}components/theme-toggle/">Theme toggle</a>, <a href="{{root}}components/customizer/">Customizer</a></td></tr>
+    <tr><td><code>data-v-tabs</code></td><td><a href="{{root}}components/tabs/">Tabs</a></td></tr>
+    <tr><td><code>data-v-menu</code></td><td><a href="{{root}}components/dropdown-menu/">Dropdown menu</a></td></tr>
+    <tr><td><code>data-v-nav</code></td><td><a href="{{root}}components/navbar/">Navbar</a></td></tr>
+    <tr><td><code>data-v-tooltip</code></td><td><a href="{{root}}components/tooltip/">Tooltip</a></td></tr>
+    <tr><td><code>data-v-dialog-open</code>, <code>data-v-dialog-close</code></td><td><a href="{{root}}components/dialog/">Dialog</a>, <a href="{{root}}components/drawer/">Drawer</a></td></tr>
+    <tr><td><code>data-v-connection</code>, <code>data-v-when</code></td><td><a href="{{root}}components/connection-banner/">Connection banner</a></td></tr>
+  </tbody>
+</table>

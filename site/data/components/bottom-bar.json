@@ -1,0 +1,73 @@
+{
+  "name": "Bottom tab bar",
+  "slug": "bottom-bar",
+  "group": "Navigation",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Up to five icon and label links fixed to the bottom of the screen, for the main sections of a phone app.",
+  "description": "Use it on phones for the few top-level sections people switch between often. It stays clear of the home indicator through safe-area insets, which need viewport-fit=cover in the viewport meta. Give the page matching bottom padding, and hide it on wider screens with .v-hide-desktop.",
+  "native": "<nav>, aria-current, env(safe-area-inset-*)",
+  "catalogue": [
+    "Bottom tab bar"
+  ],
+  "css": [
+    "bottombar.css"
+  ],
+  "classes": [
+    {
+      "name": "v-bottombar",
+      "kind": "base",
+      "description": "The bar, on a <nav> of links. Fixed to the bottom edge, one equal column per link."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-current=\"page\"",
+      "description": "On the current section: accent text and a tinted pill behind the icon."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Moves between the links."
+    },
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "Follows the focused link."
+    }
+  ],
+  "a11y": [
+    "Give the <nav> an aria-label such as App sections.",
+    "Keep a visible text label under every icon; icons alone are hard to tell apart.",
+    "A badge is read as part of the link name, so add .v-sr-only context where a bare number is unclear.",
+    "Each link is at least 3.25rem tall, a comfortable touch target."
+  ],
+  "tokens": [
+    "--v-surface",
+    "--v-border",
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-radius-pill",
+    "--v-shadow-1"
+  ],
+  "related": [
+    "navbar",
+    "badge",
+    "sidenav"
+  ],
+  "examples": [
+    {
+      "title": "Bottom tab bar",
+      "description": "The bar is fixed to the bottom of the frame, as it would be on a phone screen.",
+      "html": "<nav class=\"v-bottombar\" aria-label=\"App sections\">\n  <a href=\"#\" aria-current=\"page\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#home\"/></svg><span>Home</span></a>\n  <a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg><span>Search</span></a>\n  <a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#inbox\"/></svg><span>Inbox</span><span class=\"v-badge v-badge-solid\">3</span></a>\n  <a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#user\"/></svg><span>Profile</span></a>\n</nav>",
+      "height": 140,
+      "layout": "fill",
+      "source": "examples/navigation/#bottombar"
+    }
+  ]
+}

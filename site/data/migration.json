@@ -1,0 +1,126 @@
+[
+  {
+    "group": "Page setup",
+    "rows": [
+      ["bootstrap.min.css + vectra.css", "vectra.css", "One file. Bootstrap is gone; nothing else to load."],
+      ["Font Awesome (fa-*)", "v-icon + sprite.svg", "`<svg class=\"v-icon\"><use href=\"/icons/sprite.svg#check\"/></svg>`, self-hosted."],
+      ["[data-theme=\"light\"]", "data-theme=\"light\" | \"dark\"", "Still on `<html>`. Leave it out to follow the OS."],
+      ["", "data-direction", "New: tech (the v1 dark/cyan look), editorial, soft, glass."],
+      ["container", "v-container", "Fluid gutters; `v-container-narrow` and `v-container-wide`."]
+    ]
+  },
+  {
+    "group": "Buttons",
+    "rows": [
+      ["v-btn, btn", "v-btn", ""],
+      ["v-btn-primary", "v-btn-primary", ""],
+      ["v-btn-outline", "v-btn-secondary", "Bordered secondary action."],
+      ["v-btn-ghost", "v-btn-ghost", ""],
+      ["v-btn-soft", "v-btn-soft", ""],
+      ["v-btn-danger", "v-btn-danger", ""],
+      ["v-btn-danger-soft", "v-btn-danger", "One danger style; use soft tones in alerts instead."],
+      ["v-btn-neutral", "v-btn", "The bare class is the neutral button."],
+      ["v-btn-gradient", "", "Directions own decoration now; use v-btn-primary."],
+      ["v-btn-xl", "v-btn-lg", "Three sizes: v-btn-sm, default, v-btn-lg."],
+      ["v-btn-icon-only", "v-btn-icon", "Give it an aria-label."],
+      ["v-copy-btn", "v-btn + data-v-copy", "Copy is a behaviour, not a style."],
+      ["v-fab, v-fab-mini", "", "Planned (P2)."]
+    ]
+  },
+  {
+    "group": "Cards and display",
+    "rows": [
+      ["v-card", "v-card", ""],
+      ["v-card-header, v-card-body, v-card-footer", "v-card-header, v-card-footer", "Content sits directly in the card; no body wrapper."],
+      ["v-card-glass", "data-direction=\"glass\"", "Glass is a whole direction now."],
+      ["v-card-accent, v-card-outline", "v-card-feature", "One emphasised card style per direction."],
+      ["v-stat-card, v-stat-value, v-stat-label", "v-card v-stat, v-stat-value, v-stat-label", ""],
+      ["v-badge-neutral", "v-badge", ""],
+      ["v-badge-success, -warning, -danger, -info", "v-badge-success, -warning, -danger, -info", ""],
+      ["v-avatar-xl", "v-avatar-lg", ""],
+      ["v-divider, v-divider-label", "v-divider", "The label is a child span."],
+      ["v-spinner-sm, v-spinner-lg", "v-spinner", "Sized with font-size."],
+      ["v-dots-spinner", "v-spinner", ""]
+    ]
+  },
+  {
+    "group": "Feedback",
+    "rows": [
+      ["alert alert-*, v-alert-*", "v-alert v-alert-info | -success | -warning | -danger", ""],
+      ["v-alert-icon", "v-icon inside v-alert", ""],
+      ["progress, v-progress-bar", "<progress class=\"v-progress\">", "Native element; leave out value for indeterminate."],
+      ["v-progress-bar-success, -warning, -danger", "<meter class=\"v-meter\">", "A meter colours itself from low, high and optimum."],
+      ["v-cookie-banner", "v-banner", "Cookie consent is planned (P1)."]
+    ]
+  },
+  {
+    "group": "Forms",
+    "rows": [
+      ["form-control", "v-input", "Inputs and textareas."],
+      ["form-select", "v-select", ""],
+      ["form-label, v-label", "v-label", ""],
+      ["mb-3 wrapper", "v-field", "Label, control, hint and error in one stack."],
+      ["form-check, form-check-input", "v-choice, v-checkbox | v-radio", "Wrap control and text in a label.v-choice."],
+      ["form-switch", "v-switch with role=\"switch\"", ""],
+      ["invalid-feedback", "v-field-error", "Shows on :user-invalid, after the field is left."],
+      ["valid-feedback", "v-field-status", "Set by Vectra.fieldState()."],
+      ["input-group, input-group-text", "v-input-group, v-input-addon", ""],
+      ["v-input-icon-wrap, v-input-icon-btn", "v-input-group with v-input-addon or a v-btn-icon", ""],
+      ["form-floating", "", "Not carried over: floating labels hurt readability."],
+      ["v-drop-zone", "v-dropzone + data-v-dropzone", ""]
+    ]
+  },
+  {
+    "group": "Navigation and overlays",
+    "rows": [
+      ["v-navbar, navbar-toggler, collapse", "v-navbar, v-navbar-toggle, v-navbar-menu[popover]", "The mobile menu is a native popover: no JS."],
+      ["v-side-nav, v-nav-group-label", "v-sidenav, v-sidenav-heading", "Collapsible groups are <details>."],
+      ["nav-tabs, tab-pane, data-bs-toggle=\"tab\"", "v-tabs, v-tab, v-tabpanel", "ARIA tabs pattern."],
+      ["v-breadcrumb", "v-breadcrumb", ""],
+      ["v-pagination", "v-pagination", "Plus v-pagination-simple and v-load-more."],
+      ["v-steps, v-step-number", "v-steps, v-step", "Markers number themselves."],
+      ["modal, modal-dialog, modal-content", "<dialog class=\"v-dialog\">", "showModal() gives focus trap, Escape and backdrop."],
+      ["modal-header, modal-body, modal-footer", "v-dialog-header, v-dialog-body, v-dialog-footer", ""],
+      ["data-bs-dismiss=\"modal\"", "<form method=\"dialog\">", "Or dialog.close()."],
+      ["offcanvas, offcanvas-end", "<dialog class=\"v-drawer\">", "v-drawer-start, -top, -bottom for other edges."],
+      ["dropdown-menu, dropdown-item", "v-menu[popover] with role=\"menu\"", "Opened with popovertarget."],
+      ["data-bs-toggle=\"popover\"", "v-popover[popover]", ""],
+      ["data-bs-toggle=\"tooltip\"", "v-tooltip", "popover=\"hint\" or .v-tooltip-wrap."],
+      ["accordion, accordion-item, accordion-button", "v-accordion with <details name>", "Exclusive without JS."],
+      ["v-scrollspy-nav", "", "Table of contents is planned (P1)."]
+    ]
+  },
+  {
+    "group": "Content and data",
+    "rows": [
+      ["v-table, v-table-wrap", "v-table, v-table-wrap", ""],
+      ["v-timeline, v-timeline-item, v-timeline-dot", "v-timeline, v-timeline-item, v-timeline-marker", ""],
+      ["v-code-block, v-code-header, v-code-lang", "v-code, v-code-header, v-code-lang", "v-code-body on the pre."],
+      ["v-pricing-card, v-price, v-price-period", "v-card v-pricing, v-pricing-amount, v-pricing-period", ""],
+      ["v-testimonial-card, v-testimonial-quote", "v-testimonial", "Use with v-card for a surface."],
+      ["v-testimonial-slider", "", "Carousel is planned (P1)."],
+      ["v-hero, v-section, v-section-header", "v-section", "Hero and other sections arrive with the sections milestone."]
+    ]
+  },
+  {
+    "group": "Utilities",
+    "rows": [
+      ["d-flex, v-flex", "v-flex", ""],
+      ["v-flex-between", "v-flex v-justify-between", ""],
+      ["v-flex-center", "v-flex v-items-center v-justify-center", ""],
+      ["gap-2, gap-3", "v-gap-2, v-gap-3", "Or v-cluster and v-stack, which space their children."],
+      ["mt-3, mb-3", "v-mt-4, v-mb-4", "Logical block margins on the space scale."],
+      ["v-grid-2, v-grid-3, v-grid-4", "v-grid with --v-min", "As many columns as fit."],
+      ["v-text-muted", "v-text-muted", ""],
+      ["v-text-subtle", "v-text-secondary", ""],
+      ["v-small", "v-text-sm", ""],
+      ["v-lead, v-display", "v-lead, v-display", ""],
+      ["v-truncate", "v-truncate", ""],
+      ["v-rounded, v-rounded-lg, v-rounded-pill", "v-rounded, v-rounded-lg, v-rounded-pill", ""],
+      ["v-shadow-sm, v-shadow, v-shadow-lg", "v-shadow-1, v-shadow-2, v-shadow-3", ""],
+      ["v-bg-surface", "v-bg-surface", ""],
+      ["v-bg-surface2", "v-bg-subtle", ""],
+      ["v-text-gradient, v-glow, v-float-orb", "", "Decoration belongs to the direction, not to utilities."]
+    ]
+  }
+]

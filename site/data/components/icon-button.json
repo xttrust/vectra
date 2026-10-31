@@ -1,0 +1,85 @@
+{
+  "name": "Icon button",
+  "slug": "icon-button",
+  "group": "Actions",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A square button that holds only an icon, for compact toolbars and row actions.",
+  "description": "Use it where space is tight and the icon is well known (search, close, settings). If people might not recognise the icon, use a button with a text label instead.",
+  "native": "<button>",
+  "catalogue": [
+    "Icon button"
+  ],
+  "css": [
+    "button.css"
+  ],
+  "classes": [
+    {
+      "name": "v-btn-icon",
+      "kind": "modifier",
+      "description": "Add to any .v-btn: makes it square, as wide as it is tall, with no padding. Works with every variant and size."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-label",
+      "description": "The accessible name. Required, because the icon itself is hidden from screen readers."
+    },
+    {
+      "attribute": "disabled",
+      "description": "Native disabled: dimmed, not focusable, no click."
+    },
+    {
+      "attribute": "aria-pressed",
+      "description": "Makes it a toggle; see the toggle button entry."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the button."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Presses the button."
+    }
+  ],
+  "a11y": [
+    "Give every icon button an aria-label that names the action (Delete invoice), and mark the svg aria-hidden=\"true\".",
+    "At the default size the target is the control height (--v-control-h), well above the 24px minimum. Small stays above it too.",
+    "Add a tooltip for icons that are less familiar, but keep the aria-label: a tooltip is not the accessible name."
+  ],
+  "tokens": [
+    "--v-btn-radius",
+    "--v-btn-border",
+    "--v-control-h",
+    "--v-primary-bg",
+    "--v-danger"
+  ],
+  "related": [
+    "button",
+    "toggle-button",
+    "tooltip",
+    "icon",
+    "button-group"
+  ],
+  "examples": [
+    {
+      "title": "Variants",
+      "html": "<button class=\"v-btn v-btn-primary v-btn-icon\" type=\"button\" aria-label=\"Add\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#plus\"/></svg></button>\n<button class=\"v-btn v-btn-secondary v-btn-icon\" type=\"button\" aria-label=\"Search\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></button>\n<button class=\"v-btn v-btn-ghost v-btn-icon\" type=\"button\" aria-label=\"Settings\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#settings\"/></svg></button>\n<button class=\"v-btn v-btn-danger v-btn-icon\" type=\"button\" aria-label=\"Delete\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#trash\"/></svg></button>",
+      "height": 100,
+      "source": "examples/components/#buttons"
+    },
+    {
+      "title": "Sizes",
+      "html": "<button class=\"v-btn v-btn-secondary v-btn-icon v-btn-sm\" type=\"button\" aria-label=\"Edit\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg></button>\n<button class=\"v-btn v-btn-secondary v-btn-icon\" type=\"button\" aria-label=\"Edit\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg></button>\n<button class=\"v-btn v-btn-secondary v-btn-icon v-btn-lg\" type=\"button\" aria-label=\"Edit\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg></button>",
+      "height": 100,
+      "source": "examples/components/#buttons"
+    }
+  ]
+}
