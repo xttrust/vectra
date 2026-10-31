@@ -1,0 +1,132 @@
+/* App shell. .v-app holds a sidebar (.v-app-sidebar), the main column (.v-app-main: a .v-app-topbar and
+   the .v-app-page) and, for phones, an optional .v-bottombar.
+   - From 64rem of shell width the sidebar sits beside the main column and stays put while the page
+     scrolls. Below that, a sidebar with the popover attribute and an id hides, and the top bar's
+     .v-app-toggle (popovertarget) opens it as a sheet from the start edge; a .v-app-close button inside
+     shows only while it is open. No JS needed.
+   - The top bar is its own size container: the toggle hides once the bar is 48rem wide, which is when
+     a 16rem sidebar is showing beside it.
+   - A sidebar holding a .v-sidenav-rail stays an icon rail at every width. */
+@layer components {
+  .v-app {
+    display: flex;
+    min-block-size: 100dvh;
+    container: v-app / inline-size;
+  }
+
+  .v-app-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--v-space-5);
+    padding: var(--v-space-4) var(--v-space-3);
+    border-inline-end: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-surface);
+    color: var(--v-text);
+  }
+
+  .v-app-sidebar:has(.v-sidenav-rail) { align-items: center; }
+  .v-app-sidebar > .v-navbar-brand { padding: var(--v-space-1) 0.75rem; }
+  .v-app-sidebar > :last-child:not(:first-child) { margin-block-start: auto; }
+
+  .v-app > .v-app-sidebar {
+    position: sticky;
+    inset-block-start: 0;
+    flex-shrink: 0;
+    block-size: 100dvh;
+    overflow-y: auto;
+  }
+
+  /* Narrow: the sidebar is a popover sheet. */
+  .v-app-sidebar[popover] {
+    position: fixed;
+    inset-block: 0;
+    inset-inline: 0 auto;
+    inline-size: min(18rem, 100% - 3rem);
+    block-size: 100%;
+    max-block-size: none;
+    margin: 0;
+    overflow-y: auto;
+    border-block: 0;
+    border-inline-start: 0;
+    box-shadow: var(--v-shadow-3);
+  }
+
+  .v-app-sidebar[popover]:not(:popover-open) { display: none; }
+
+  .v-app-close {
+    position: absolute;
+    inset-block-start: var(--v-space-3);
+    inset-inline-end: var(--v-space-3);
+  }
+
+  .v-app-sidebar:not(:popover-open) .v-app-close { display: none; }
+
+  .v-app-sidebar[popover]::backdrop { background-color: var(--v-backdrop); }
+
+  @container v-app (width >= 64rem) {
+    .v-app > .v-app-sidebar[popover] {
+      position: sticky;
+      inset: 0 auto auto;
+      display: flex;
+      inline-size: 16rem;
+      block-size: 100dvh;
+      box-shadow: none;
+    }
+  }
+
+  .v-app-main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-inline-size: 0;
+  }
+
+  .v-app-topbar {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 10;
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    min-block-size: calc(var(--v-control-h) + 2 * var(--v-space-3));
+    padding-inline: clamp(1rem, 3vw, 2rem);
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-surface);
+    color: var(--v-text);
+    container: v-topbar / inline-size;
+  }
+
+  .v-app-topbar > .v-search {
+    flex: 1 1 8rem;
+    min-inline-size: 0;
+    max-inline-size: 28rem;
+  }
+
+  .v-app-topbar > :last-child {
+    flex-wrap: nowrap;
+    margin-inline-start: auto;
+  }
+
+  @container v-topbar (width >= 48rem) {
+    .v-app-topbar .v-app-toggle { display: none; }
+  }
+
+  .v-app-page {
+    display: grid;
+    gap: var(--v-space-6);
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  /* Room for the fixed phone bottom bar. */
+  @media (width < 48rem) {
+    .v-app:has(> .v-bottombar) .v-app-page { padding-block-end: calc(5.5rem + env(safe-area-inset-bottom)); }
+  }
+}
+
+@layer directions {
+  :root[data-direction="glass"] .v-app-sidebar,
+  :root[data-direction="glass"] .v-app-topbar {
+    border-color: var(--v-card-border);
+    backdrop-filter: blur(24px) saturate(1.6);
+  }
+}

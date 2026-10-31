@@ -1,0 +1,30 @@
+/* Site header pieces on top of the navbar and banner components.
+   - .v-navbar-contained: keeps the navbar's content in line with a .v-container below it.
+   - .v-navbar-center: links at the start, the brand in the middle, actions at the end, once the navbar
+     is 48rem wide (below that it is the usual brand + menu button).
+   - .v-announce: a slim, centred .v-banner strip above the navbar. */
+@layer components {
+  .v-navbar-contained { padding-inline: max(clamp(1rem, 4vw, 2rem), (100% - var(--v-container-max, 76rem)) / 2); }
+
+  .v-navbar-center { position: relative; }
+
+  @container v-navbar (width >= 48rem) {
+    .v-navbar-center .v-navbar-brand {
+      position: absolute;
+      inset-block: 0;
+      inset-inline: 0;
+      z-index: 1;
+      inline-size: fit-content;
+      margin-inline: auto;
+    }
+  }
+
+  .v-announce {
+    justify-content: center;
+    padding-block: var(--v-space-2);
+    font-size: var(--v-step-minus-1);
+    text-align: center;
+  }
+
+  .v-announce .v-banner-body { flex: 0 1 auto; }
+}
