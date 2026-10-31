@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Data and content</title>
+  <meta name="description" content="Vectra tables, timelines, prose, code blocks, testimonials, pricing, logo clouds and scroll areas in every direction and theme.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></symbol>
+    <symbol id="i-commit" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M3 12h5.5M15.5 12H21"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../components/">Vectra <span>data and content</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">Components · data and content</p>
+      <h1 class="v-display">Tables, timelines and long-form text.</h1>
+      <p class="v-lead">Static CSS for the parts of a page that carry the most words and numbers. Every marked text element is contrast-checked against what is rendered behind it.</p>
+    </section>
+
+    <section id="tables">
+      <h2>Tables</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-6)">
+        <div class="v-table-wrap" id="table-invoices" role="region" aria-labelledby="invoices-caption" tabindex="0" style="--v-table-min: 46rem">
+          <table class="v-table v-table-zebra v-table-hover">
+            <caption id="invoices-caption" data-contrast>Invoices, October 2026</caption>
+            <thead>
+              <tr>
+                <th class="v-table-check" scope="col"><input type="checkbox" aria-label="Select all invoices"></th>
+                <th scope="col" data-contrast>Invoice</th>
+                <th scope="col" data-contrast>Client</th>
+                <th scope="col" data-contrast>Status</th>
+                <th scope="col">Due</th>
+                <th class="v-table-num" scope="col" data-contrast>Amount</th>
+                <th class="v-table-actions" scope="col"><span class="v-sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="v-table-check"><input type="checkbox" aria-label="Select invoice INV-1041"></td>
+                <th class="v-nowrap" scope="row" data-contrast>INV-1041</th>
+                <td data-contrast>Harbour Roofing Ltd</td>
+                <td><span class="v-badge v-badge-success v-badge-dot" data-contrast>Paid</span></td>
+                <td data-contrast>3 Oct</td>
+                <td class="v-table-num" data-contrast>€1,499.00</td>
+                <td class="v-table-actions"><button class="v-btn v-btn-ghost v-btn-sm v-btn-icon" type="button" aria-label="Edit INV-1041"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg></button><button class="v-btn v-btn-ghost v-btn-sm v-btn-icon" type="button" aria-label="More for INV-1041"><svg class="v-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+              </tr>
+              <tr id="row-selected">
+                <td class="v-table-check"><input type="checkbox" aria-label="Select invoice INV-1042" checked></td>
+                <th class="v-nowrap" scope="row" data-contrast>INV-1042</th>
+                <td data-contrast>Moss &amp; Fern Gardens</td>
+                <td><span class="v-badge v-badge-warning v-badge-dot" data-contrast>Pending</span></td>
+                <td data-contrast>14 Oct</td>
+                <td class="v-table-num" data-contrast>€799.00</td>
+                <td class="v-table-actions"><button class="v-btn v-btn-ghost v-btn-sm v-btn-icon" type="button" aria-label="Edit INV-1042"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg></button><button class="v-btn v-btn-ghost v-btn-sm v-btn-icon" type="button" aria-label="More for INV-1042"><svg class="v-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+              </tr>
+              <tr id="row-plain">
+                <td class="v-table-check"><input type="checkbox" aria-label="Select invoice INV-1043"></td>
+                <th class="v-nowrap" scope="row" data-contrast>INV-1043</th>
+                <td data-contrast>The Quay Bar</td>
+                <td><span class="v-badge v-badge-danger v-badge-dot" data-contrast>Overdue</span></td>
+                <td data-contrast>20 Oct</td>
+                <td class="v-table-num" data-contrast>€50.00</td>
+                <td class="v-table-actions"><button class="v-btn v-btn-ghost v-btn-sm v-btn-icon" type="button" aria-label="Edit INV-1043"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg></button><button class="v-btn v-btn-ghost v-btn-sm v-btn-icon" type="button" aria-label="More for INV-1043"><svg class="v-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+              </tr>
+              <tr>
+                <td class="v-table-check"><input type="checkbox" aria-label="Select invoice INV-1044"></td>
+                <th class="v-nowrap" scope="row" data-contrast>INV-1044</th>
+                <td data-contrast>Westshore Cleaning</td>
+                <td><span class="v-badge v-badge-info" data-contrast>Draft</span></td>
+                <td data-contrast>31 Oct</td>
+                <td class="v-table-num" data-contrast>€2,350.00</td>
+                <td class="v-table-actions"><button class="v-btn v-btn-ghost v-btn-sm v-btn-icon" type="button" aria-label="Edit INV-1044"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg></button><button class="v-btn v-btn-ghost v-btn-sm v-btn-icon" type="button" aria-label="More for INV-1044"><svg class="v-icon" aria-hidden="true"><use href="#i-more"/></svg></button></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td></td>
+                <th scope="row" colspan="4" data-contrast>Total, 4 invoices</th>
+                <td class="v-table-num" data-contrast>€4,698.00</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="v-grid" style="--v-min: 26rem">
+          <div class="v-table-wrap" id="table-sticky" role="region" aria-labelledby="releases-caption" tabindex="0" style="--v-table-max: 17rem">
+            <table class="v-table v-table-sticky v-table-dense v-table-bordered">
+              <caption id="releases-caption" class="v-sr-only">Release schedule, dense with a sticky header</caption>
+              <thead>
+                <tr>
+                  <th scope="col" data-contrast>Release</th>
+                  <th scope="col" data-contrast>Date</th>
+                  <th class="v-table-num" scope="col" data-contrast>Tracks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row" data-contrast>Low Tide EP</th><td data-contrast>7 Nov</td><td class="v-table-num" data-contrast>4</td></tr>
+                <tr><th scope="row" data-contrast>Northern Lines</th><td data-contrast>14 Nov</td><td class="v-table-num" data-contrast>2</td></tr>
+                <tr><th scope="row">Glass Harbour</th><td>21 Nov</td><td class="v-table-num">5</td></tr>
+                <tr><th scope="row">Slow Burn (Remixes)</th><td>28 Nov</td><td class="v-table-num">3</td></tr>
+                <tr><th scope="row">Atlantic Drift</th><td>5 Dec</td><td class="v-table-num">1</td></tr>
+                <tr><th scope="row">After Hours Vol. 3</th><td>12 Dec</td><td class="v-table-num">12</td></tr>
+                <tr><th scope="row">Midwinter</th><td>19 Dec</td><td class="v-table-num">2</td></tr>
+                <tr><th scope="row">Year in Review</th><td>27 Dec</td><td class="v-table-num">20</td></tr>
+                <tr><th scope="row">First Light</th><td>9 Jan</td><td class="v-table-num">4</td></tr>
+                <tr><th scope="row">Coastal Roads</th><td>16 Jan</td><td class="v-table-num">3</td></tr>
+                <tr><th scope="row">Weatherglass</th><td>23 Jan</td><td class="v-table-num">6</td></tr>
+                <tr><th scope="row">Long Way Home</th><td>30 Jan</td><td class="v-table-num">2</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="v-table-wrap" role="region" aria-labelledby="payouts-caption" tabindex="0">
+            <table class="v-table">
+              <caption id="payouts-caption" data-contrast>Payouts</caption>
+              <thead>
+                <tr>
+                  <th scope="col" data-contrast>Date</th>
+                  <th scope="col" data-contrast>Reference</th>
+                  <th class="v-table-num" scope="col" data-contrast>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="v-table-empty" colspan="3" data-contrast>No payouts yet. They appear here after your first sale.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <h2>Timeline and activity feed</h2>
+      <div class="v-grid" style="--v-min: 26rem">
+        <div class="v-card">
+          <h3 class="v-card-title" data-contrast>Project activity</h3>
+          <ol class="v-timeline">
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"><svg class="v-icon"><use href="#i-upload"/></svg></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><p class="v-timeline-title" data-contrast>Site deployed to production</p><time class="v-timeline-time" datetime="2026-10-31T09:12" data-contrast>09:12</time></div>
+                <p class="v-timeline-body" data-contrast>Build 214 is live. Page weight dropped by 18 KB after the image pass.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"><span class="v-avatar">AK</span></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><p class="v-timeline-title" data-contrast>Aoife left a comment</p><time class="v-timeline-time" datetime="2026-10-30T16:40" data-contrast>Yesterday</time></div>
+                <p class="v-timeline-body" data-contrast>"Can we move the quote form above the gallery on mobile?"</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"><svg class="v-icon"><use href="#i-card"/></svg></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><p class="v-timeline-title" data-contrast>Invoice INV-1041 paid</p><time class="v-timeline-time" datetime="2026-10-28" data-contrast>28 Oct</time></div>
+                <p class="v-timeline-body" data-contrast>€1,499.00 received by card.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker" aria-hidden="true"><svg class="v-icon"><use href="#i-msg"/></svg></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><p class="v-timeline-title" data-contrast>Kick-off call</p><time class="v-timeline-time" datetime="2026-10-20" data-contrast>20 Oct</time></div>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="v-card">
+          <h3 class="v-card-title" data-contrast>Changelog</h3>
+          <ol class="v-timeline v-timeline-compact">
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker"></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><p class="v-timeline-title" data-contrast>2.0.0-alpha.3</p><time class="v-timeline-time" datetime="2026-10-31" data-contrast>31 Oct</time></div>
+                <p class="v-timeline-body" data-contrast>Tables, timeline, prose and code blocks.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker"></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><p class="v-timeline-title" data-contrast>2.0.0-alpha.2</p><time class="v-timeline-time" datetime="2026-10-31" data-contrast>31 Oct</time></div>
+                <p class="v-timeline-body" data-contrast>Buttons, badges, cards and alerts.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker"></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><p class="v-timeline-title">2.0.0-alpha.1</p><time class="v-timeline-time" datetime="2026-10-30">30 Oct</time></div>
+                <p class="v-timeline-body">Layout primitives and utilities.</p>
+              </div>
+            </li>
+            <li class="v-timeline-item">
+              <span class="v-timeline-marker"></span>
+              <div class="v-timeline-content">
+                <div class="v-timeline-header"><p class="v-timeline-title">2.0.0-alpha.0</p><time class="v-timeline-time" datetime="2026-10-30">30 Oct</time></div>
+                <p class="v-timeline-body">Tokens and the four directions.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="prose">
+      <h2>Prose</h2>
+      <article class="v-prose" id="prose-sample">
+        <p data-contrast>Most small business websites fail in the same quiet way. Nobody updates them. The opening hours drift, the gallery shows a van that was sold two years ago, and the contact form forwards to an inbox nobody reads.</p>
+        <p data-contrast>A site that stays useful is built around the few things that change, and makes those things easy to change. Everything else can stay still. Read the <a href="#prose">full checklist</a> before your next build.</p>
+        <h2 data-contrast>What changes, and how often</h2>
+        <p data-contrast>Start by listing what a customer actually needs to know before they call. For a roofer, that is usually short:</p>
+        <ul>
+          <li data-contrast>Which towns you cover, and how quickly you can come out.</li>
+          <li data-contrast>Recent jobs, with real photos and a line about each one.</li>
+          <li data-contrast>A phone number that works on a phone, as a link.</li>
+        </ul>
+        <blockquote>
+          <p data-contrast>The best website I ever had was the one I could update from the van between jobs.</p>
+        </blockquote>
+        <h3 data-contrast>A three-step update routine</h3>
+        <ol>
+          <li data-contrast>Take two photos at the end of every job.</li>
+          <li data-contrast>Upload the better one on Friday, with the town name.</li>
+          <li data-contrast>Check the <code>opening-hours</code> line once a month.</li>
+        </ol>
+        <p data-contrast>If the site has a feed for recent work, the markup can be as plain as this:</p>
+        <pre tabindex="0"><code>&lt;li class="job"&gt;
+  &lt;img src="slate-roof-tuam.jpg" alt="Slate roof, Tuam"&gt;
+  &lt;p&gt;Full re-slate, finished in four days.&lt;/p&gt;
+&lt;/li&gt;</code></pre>
+        <table>
+          <thead>
+            <tr><th scope="col" data-contrast>Task</th><th scope="col" data-contrast>How often</th><th scope="col">Time</th></tr>
+          </thead>
+          <tbody>
+            <tr><td data-contrast>New job photo</td><td data-contrast>Weekly</td><td>5 min</td></tr>
+            <tr><td>Hours and holidays</td><td>Monthly</td><td>2 min</td></tr>
+            <tr><td>Prices and services</td><td>Twice a year</td><td>20 min</td></tr>
+          </tbody>
+        </table>
+        <figure>
+          <svg viewBox="0 0 640 220" role="img" aria-label="Bar chart: enquiries rose each month after weekly updates began" style="inline-size: 100%; block-size: auto; color: var(--v-accent)">
+            <rect width="640" height="220" rx="6" fill="currentColor" opacity="0.08"/>
+            <g fill="currentColor">
+              <rect x="60" y="150" width="60" height="50" rx="3" opacity="0.45"/>
+              <rect x="160" y="130" width="60" height="70" rx="3" opacity="0.55"/>
+              <rect x="260" y="105" width="60" height="95" rx="3" opacity="0.65"/>
+              <rect x="360" y="85" width="60" height="115" rx="3" opacity="0.75"/>
+              <rect x="460" y="50" width="60" height="150" rx="3" opacity="0.9"/>
+            </g>
+          </svg>
+          <figcaption data-contrast>Enquiries per month after weekly photo updates began.</figcaption>
+        </figure>
+        <hr>
+        <p data-contrast>None of this needs a redesign. It needs a site that was built to be <strong>looked after</strong>, and ten minutes a week.</p>
+      </article>
+    </section>
+
+    <section id="code">
+      <h2>Code blocks</h2>
+      <div class="v-grid" style="--v-min: 22rem">
+        <div class="v-code v-code-numbered">
+          <div class="v-code-header">
+            <span class="v-code-lang" data-contrast>CSS</span>
+            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
+          </div>
+          <pre class="v-code-body" tabindex="0" data-contrast><code><span class="v-code-line"><span class="v-tok-comment">/* Theme one card without touching the rest */</span></span>
+<span class="v-code-line"><span class="v-tok-tag">.pricing</span> <span class="v-tok-punct">{</span></span>
+<span class="v-code-line">  <span class="v-tok-property">--v-card-bg</span><span class="v-tok-punct">:</span> <span class="v-tok-function">var</span><span class="v-tok-punct">(</span>--v-surface-2<span class="v-tok-punct">);</span></span>
+<span class="v-code-line">  <span class="v-tok-property">--v-density</span><span class="v-tok-punct">:</span> <span class="v-tok-number">0.85</span><span class="v-tok-punct">;</span></span>
+<span class="v-code-line">  <span class="v-tok-property">font-family</span><span class="v-tok-punct">:</span> <span class="v-tok-string">"Inter Var"</span><span class="v-tok-punct">;</span></span>
+<span class="v-code-line"><span class="v-tok-punct">}</span></span></code></pre>
+        </div>
+
+        <div class="v-code">
+          <div class="v-code-header">
+            <span class="v-code-title" data-contrast>src/js/menu.js</span>
+            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
+          </div>
+          <pre class="v-code-body" tabindex="0"><code><span class="v-tok-keyword">export function</span> <span class="v-tok-function">open</span><span class="v-tok-punct">(</span>menu<span class="v-tok-punct">) {</span>
+  menu<span class="v-tok-punct">.</span><span class="v-tok-function">showPopover</span><span class="v-tok-punct">();</span>
+  menu<span class="v-tok-punct">.</span><span class="v-tok-function">querySelector</span><span class="v-tok-punct">(</span><span class="v-tok-string">'[role="menuitem"]'</span><span class="v-tok-punct">)?.</span><span class="v-tok-function">focus</span><span class="v-tok-punct">();</span>
+  <span class="v-tok-keyword">return</span> <span class="v-tok-number">true</span><span class="v-tok-punct">;</span>
+<span class="v-tok-punct">}</span></code></pre>
+        </div>
+
+        <div class="v-code v-code-wrap">
+          <div class="v-code-header">
+            <span class="v-code-lang" data-contrast>Shell, wrapped</span>
+            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
+          </div>
+          <pre class="v-code-body" data-contrast><code>npx playwright test --project=chromium tests/rendered.spec.js --grep content --reporter=list</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <h2>Testimonials</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-6)">
+        <div class="v-grid" style="--v-min: 18rem">
+          <figure class="v-card v-testimonial">
+            <span class="v-rating" role="img" aria-label="Rated 5 out of 5"></span>
+            <blockquote class="v-testimonial-quote"><p data-contrast>The new site paid for itself in the first month. Half our calls now say they found us on Google.</p></blockquote>
+            <figcaption class="v-testimonial-author">
+              <span class="v-avatar" aria-hidden="true">SM</span>
+              <span><span class="v-testimonial-name" data-contrast>Seán Murphy</span><span class="v-testimonial-role" data-contrast>Owner, Harbour Roofing</span></span>
+            </figcaption>
+          </figure>
+          <figure class="v-card v-testimonial">
+            <span class="v-rating" role="img" aria-label="Rated 4.5 out of 5" style="--v-rating: 4.5"></span>
+            <blockquote class="v-testimonial-quote"><p data-contrast>Clear prices, no surprises, and I can change the opening hours myself.</p></blockquote>
+            <figcaption class="v-testimonial-author">
+              <span class="v-avatar" aria-hidden="true">NB</span>
+              <span><span class="v-testimonial-name" data-contrast>Niamh Brennan</span><span class="v-testimonial-role" data-contrast>Manager, The Quay Bar</span></span>
+            </figcaption>
+          </figure>
+          <figure class="v-card v-testimonial">
+            <span class="v-rating" role="img" aria-label="Rated 4 out of 5" style="--v-rating: 4"></span>
+            <blockquote class="v-testimonial-quote"><p data-contrast>Promos go out to the right DJs and the splits are paid the same day.</p></blockquote>
+            <figcaption class="v-testimonial-author">
+              <span class="v-avatar" aria-hidden="true">LV</span>
+              <span><span class="v-testimonial-name" data-contrast>Luca Valenti</span><span class="v-testimonial-role" data-contrast>A&amp;R, independent label</span></span>
+            </figcaption>
+          </figure>
+        </div>
+        <figure class="v-testimonial v-testimonial-lg">
+          <blockquote class="v-testimonial-quote"><p data-contrast>We stopped apologising for our website. Now we send people to it.</p></blockquote>
+          <figcaption class="v-testimonial-author">
+            <span class="v-avatar v-avatar-lg" aria-hidden="true">RM</span>
+            <span><span class="v-testimonial-name" data-contrast>Róisín Moran</span><span class="v-testimonial-role" data-contrast>Director, Westshore Cleaning</span></span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <h2>Pricing</h2>
+      <div class="v-grid" style="--v-min: 19rem">
+        <article class="v-card v-pricing">
+          <header class="v-pricing-header"><h3 class="v-pricing-name" data-contrast>Starter</h3></header>
+          <p class="v-pricing-price"><span class="v-pricing-amount" data-contrast>€0</span><span class="v-pricing-period" data-contrast>forever</span></p>
+          <p class="v-pricing-desc" data-contrast>For a first site and a single person running it.</p>
+          <ul class="v-pricing-features">
+            <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>One site, five pages</li>
+            <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>All four directions</li>
+            <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Community support</li>
+          </ul>
+          <a class="v-btn v-btn-secondary v-btn-block" href="#pricing" data-contrast>Start free</a>
+        </article>
+        <article class="v-card v-pricing v-pricing-featured">
+          <header class="v-pricing-header"><h3 class="v-pricing-name" data-contrast>Pro</h3><span class="v-badge v-badge-solid" data-contrast>Recommended</span></header>
+          <p class="v-pricing-price"><span class="v-pricing-amount" data-contrast>€24</span><span class="v-pricing-period" data-contrast>per month</span></p>
+          <p class="v-pricing-desc" data-contrast>For a business that updates its site every week.</p>
+          <ul class="v-pricing-features">
+            <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited pages</li>
+            <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Client admin and forms</li>
+            <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Priority email support</li>
+            <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Monthly SEO report</li>
+          </ul>
+          <a class="v-btn v-btn-primary v-btn-block" href="#pricing" data-contrast>Choose Pro</a>
+        </article>
+        <article class="v-card v-card-feature v-pricing">
+          <header class="v-pricing-header"><h3 class="v-pricing-name" data-contrast>Team</h3></header>
+          <p class="v-pricing-price"><span class="v-pricing-amount" data-contrast>€79</span><span class="v-pricing-period" data-contrast>per month</span></p>
+          <p class="v-pricing-desc" data-contrast>For agencies and labels with several people and sites.</p>
+          <ul class="v-pricing-features">
+            <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Ten sites, shared tokens</li>
+            <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Roles and audit log</li>
+            <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Onboarding call</li>
+          </ul>
+          <a class="v-btn v-btn-primary v-btn-block" href="#pricing" data-contrast>Talk to us</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="logos">
+      <h2>Logo cloud</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-6)">
+        <p class="v-text-secondary" data-contrast>Trusted by small teams across the west of Ireland.</p>
+        <ul class="v-logos" aria-label="Clients">
+          <li><svg viewBox="0 0 136 32" role="img" aria-label="Halvex"><path d="M4 26L16 4l12 22z" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Halvex</text></svg></li>
+          <li><svg viewBox="0 0 136 32" role="img" aria-label="Morrow"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="4"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Morrow</text></svg></li>
+          <li><svg viewBox="0 0 136 32" role="img" aria-label="Quillon"><rect x="4" y="4" width="24" height="24" rx="6" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Quillon</text></svg></li>
+          <li><svg viewBox="0 0 136 32" role="img" aria-label="Ostra"><path d="M4 16h8l4-10 4 20 4-10h8" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><text x="40" y="23" font-size="19" font-weight="650" fill="currentColor">Ostra</text></svg></li>
+          <li><svg viewBox="0 0 136 32" role="img" aria-label="Vantis"><path d="M16 3l11 6.5v13L16 29 5 22.5v-13z" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Vantis</text></svg></li>
+          <li><svg viewBox="0 0 136 32" role="img" aria-label="Lumeo"><circle cx="11" cy="16" r="7" fill="currentColor"/><circle cx="22" cy="16" r="7" fill="currentColor" opacity="0.55"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Lumeo</text></svg></li>
+        </ul>
+        <ul class="v-logos v-logos-inline" aria-label="Featured in" style="--v-logos-h: 1.5rem">
+          <li><svg viewBox="0 0 128 32" role="img" aria-label="Brightmoor"><rect x="2" y="9" width="14" height="14" fill="currentColor" transform="rotate(45 9 16)"/><text x="24" y="22" font-size="17" font-weight="600" fill="currentColor">Brightmoor</text></svg></li>
+          <li><svg viewBox="0 0 112 32" role="img" aria-label="Fernwave"><path d="M3 22c6-12 12-12 18 0" fill="none" stroke="currentColor" stroke-width="3.5"/><text x="26" y="22" font-size="17" font-weight="600" fill="currentColor">Fernwave</text></svg></li>
+          <li><svg viewBox="0 0 100 32" role="img" aria-label="Orbitas"><circle cx="12" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="12" cy="16" r="3" fill="currentColor"/><text x="26" y="22" font-size="17" font-weight="600" fill="currentColor">Orbitas</text></svg></li>
+          <li><svg viewBox="0 0 90 32" role="img" aria-label="Kelpie"><path d="M4 26V6l16 20V6" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><text x="26" y="22" font-size="17" font-weight="600" fill="currentColor">Kelpie</text></svg></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="scroll">
+      <h2>Scroll area</h2>
+      <div class="v-grid" style="--v-min: 26rem">
+        <div class="v-card">
+          <h3 class="v-card-title" id="notes-title" data-contrast>Release notes</h3>
+          <div class="v-scroll" id="scroll-notes" role="region" aria-labelledby="notes-title" tabindex="0" style="--v-scroll-max: 13rem">
+            <ul class="v-stack" style="--v-gap: var(--v-space-3)">
+              <li data-contrast>Tables gain a sticky header and a dense variant.</li>
+              <li data-contrast>Timeline markers take an icon, an avatar or a dot.</li>
+              <li data-contrast>Prose styles CMS output with no classes at all.</li>
+              <li>Code blocks number their lines with CSS counters.</li>
+              <li>Testimonials show a rating that screen readers announce.</li>
+              <li>Pricing cards line their buttons up across a row.</li>
+              <li>Logo clouds stay monochrome until you hover them.</li>
+              <li>Scroll areas fade their edges where more content waits.</li>
+              <li>Every component reads its colours from tokens.</li>
+              <li>Right-to-left layouts work through logical properties.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="v-card">
+          <h3 class="v-card-title" id="genres-title" data-contrast>Browse by genre</h3>
+          <div class="v-scroll v-scroll-x" role="region" aria-labelledby="genres-title" tabindex="0">
+            <div class="v-flex v-gap-2" style="inline-size: max-content; padding-block-end: var(--v-space-2)">
+              <span class="v-badge v-badge-outline" data-contrast>Melodic house</span>
+              <span class="v-badge v-badge-outline" data-contrast>Progressive</span>
+              <span class="v-badge v-badge-outline">Deep house</span>
+              <span class="v-badge v-badge-outline">Organic</span>
+              <span class="v-badge v-badge-outline">Indie dance</span>
+              <span class="v-badge v-badge-outline">Downtempo</span>
+              <span class="v-badge v-badge-outline">Breaks</span>
+              <span class="v-badge v-badge-outline">Ambient</span>
+              <span class="v-badge v-badge-outline">Techno</span>
+            </div>
+          </div>
+          <p class="v-card-text" data-contrast>Scroll sideways; the edges fade while there is more to see.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

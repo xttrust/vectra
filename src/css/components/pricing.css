@@ -1,0 +1,85 @@
+/* Pricing card: plan, price, description, feature list and a call to action. Use with .v-card.
+   .v-pricing-featured marks the recommended plan; put a badge in its header. */
+@layer components {
+  .v-pricing { gap: var(--v-space-5); }
+
+  .v-pricing-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2) var(--v-space-3);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .v-pricing-name {
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+  }
+
+  .v-pricing-price {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--v-space-2);
+    align-items: baseline;
+  }
+
+  .v-pricing-amount {
+    font-family: var(--v-font-display);
+    font-size: clamp(2.25rem, 1.9rem + 1.4vw, 3rem);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--v-display-weight);
+    letter-spacing: var(--v-display-tracking);
+    line-height: 1;
+  }
+
+  .v-pricing-period {
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-pricing-desc { color: var(--v-text-2); }
+
+  /* The list grows, so buttons line up across a row of cards. */
+  .v-pricing-features {
+    display: grid;
+    flex-grow: 1;
+    align-content: start;
+    gap: var(--v-space-2);
+    padding-block-start: var(--v-space-5);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  .v-pricing-features li {
+    display: flex;
+    gap: var(--v-space-2);
+    align-items: flex-start;
+  }
+
+  .v-pricing-features .v-icon {
+    margin-block-start: 0.2em;
+    color: var(--v-accent-text);
+  }
+
+  .v-card-feature .v-pricing-features .v-icon { color: inherit; }
+
+  .v-pricing-featured {
+    border-color: var(--v-accent);
+    box-shadow: 0 0 0 var(--v-border-w) var(--v-accent), var(--v-shadow-2);
+  }
+}
+
+@layer directions {
+  :root:is(:not([data-direction]), [data-direction="tech"]) .v-pricing-featured {
+    box-shadow: 0 0 0 var(--v-border-w) var(--v-accent), 0 24px 60px -24px color-mix(in oklch, var(--v-accent) 55%, transparent);
+  }
+
+  /* Editorial: an ink frame, no glow. */
+  :root[data-direction="editorial"] .v-pricing-featured {
+    border-color: var(--v-border-strong);
+    box-shadow: 0 0 0 var(--v-border-w) var(--v-border-strong);
+  }
+
+  :root[data-direction="editorial"] .v-pricing-amount { font-weight: 400; }
+}

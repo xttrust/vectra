@@ -1,0 +1,127 @@
+/* Steps: progress through a flow, horizontal (default) or .v-steps-vertical. An <ol> of .v-step items:
+   .v-step-complete for finished steps, aria-current="step" on the current one, the rest are upcoming.
+   Markers number themselves; complete markers show a drawn check. Put the state in text for screen
+   readers too (e.g. a .v-sr-only "Completed:"). */
+@layer components {
+  .v-steps {
+    --v-step-size: 1.875rem;
+
+    display: flex;
+    gap: var(--v-space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: v-step;
+  }
+
+  .v-step {
+    position: relative;
+    display: grid;
+    flex: 1;
+    gap: 0.15rem var(--v-space-3);
+    align-content: start;
+    min-inline-size: 0;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    counter-increment: v-step;
+  }
+
+  .v-step::before {
+    content: counter(v-step);
+    display: grid;
+    place-items: center;
+    inline-size: var(--v-step-size);
+    block-size: var(--v-step-size);
+    margin-block-end: var(--v-space-2);
+    border: 2px solid var(--v-border-strong);
+    border-radius: 50%;
+    background-color: var(--v-surface);
+    color: var(--v-text-2);
+    font-size: 0.8125rem;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Connector to the next step. */
+  .v-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    inset-block-start: calc(var(--v-step-size) / 2 - 1px);
+    inset-inline: calc(var(--v-step-size) + var(--v-space-2)) calc(var(--v-space-2) * -0.5);
+    block-size: 2px;
+    border-radius: 1px;
+    background-color: var(--v-border);
+  }
+
+  .v-step-label {
+    color: var(--v-text-2);
+    font-size: 0.875rem;
+    font-weight: 560;
+  }
+
+  .v-step-desc { color: var(--v-text-3); }
+
+  .v-step-complete::before {
+    content: "";
+    border-color: var(--v-accent);
+    background-color: var(--v-accent);
+  }
+
+  /* The check: a rotated corner drawn on the marker. */
+  .v-step-complete > .v-step-label::before {
+    content: "";
+    position: absolute;
+    inset-block-start: calc(var(--v-step-size) * 0.3);
+    inset-inline-start: calc(var(--v-step-size) * 0.38);
+    inline-size: calc(var(--v-step-size) * 0.24);
+    block-size: calc(var(--v-step-size) * 0.38);
+    border: solid var(--v-on-accent);
+    border-width: 0 2px 2px 0;
+    rotate: 45deg;
+  }
+
+  .v-step-complete .v-step-label { color: var(--v-text); }
+  .v-step-complete:not(:last-child)::after { background-color: var(--v-accent); }
+
+  .v-step[aria-current="step"]::before {
+    border-color: var(--v-accent);
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+  }
+
+  .v-step[aria-current="step"] .v-step-label {
+    color: var(--v-text);
+    font-weight: 650;
+  }
+
+  /* Vertical: marker column on the inline-start side, connector running down. */
+  .v-steps-vertical {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .v-steps-vertical .v-step {
+    grid-template-columns: var(--v-step-size) 1fr;
+    padding-block-end: var(--v-space-5);
+  }
+
+  .v-steps-vertical .v-step::before {
+    grid-row: 1 / span 2;
+    margin: 0;
+  }
+
+  .v-steps-vertical .v-step .v-step-label { padding-block-start: 0.3rem; }
+  .v-steps-vertical .v-step > * { grid-column: 2; }
+
+  .v-steps-vertical .v-step:not(:last-child)::after {
+    inset-block: calc(var(--v-step-size) + var(--v-space-1)) var(--v-space-1);
+    inset-inline: calc(var(--v-step-size) / 2 - 1px) auto;
+    inline-size: 2px;
+    block-size: auto;
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-step::before { font-family: var(--v-font-display); }
+  :root[data-direction="soft"] .v-step[aria-current="step"]::before { box-shadow: 0 0 0 4px var(--v-accent-soft); }
+}
