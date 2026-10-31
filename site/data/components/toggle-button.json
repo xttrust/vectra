@@ -71,17 +71,35 @@
   "examples": [
     {
       "title": "Single toggles",
-      "html": "<button class=\"v-btn\" type=\"button\" aria-pressed=\"true\">Pinned</button>\n<button class=\"v-btn\" type=\"button\" aria-pressed=\"false\">Pin</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\" aria-pressed=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg>Starred</button>\n<button class=\"v-btn v-btn-ghost v-btn-icon\" type=\"button\" aria-pressed=\"false\" aria-label=\"Favourite\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#heart\"/></svg></button>",
-      "js": "document.querySelectorAll('[aria-pressed]').forEach((btn) => {\n  btn.addEventListener('click', () => {\n    btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') !== 'true');\n  });\n});",
+      "html": "<div class=\"v-cluster\" data-v-toggle>\n  <button class=\"v-btn\" type=\"button\" aria-pressed=\"true\">Pinned</button>\n  <button class=\"v-btn\" type=\"button\" aria-pressed=\"false\">Pin</button>\n  <button class=\"v-btn v-btn-secondary\" type=\"button\" aria-pressed=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg>Starred</button>\n  <button class=\"v-btn v-btn-ghost v-btn-icon\" type=\"button\" aria-pressed=\"false\" aria-label=\"Favourite\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#heart\"/></svg></button>\n</div>",
       "height": 100,
       "source": "examples/elements/#toggles"
     },
     {
       "title": "Toggle group",
-      "html": "<div class=\"v-toggle-group\" role=\"group\" aria-label=\"Text style\">\n  <button class=\"v-btn v-btn-sm v-btn-icon\" type=\"button\" aria-pressed=\"true\" aria-label=\"Bold\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#bold\"/></svg></button>\n  <button class=\"v-btn v-btn-sm v-btn-icon\" type=\"button\" aria-pressed=\"false\" aria-label=\"Italic\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#italic\"/></svg></button>\n</div>\n<div class=\"v-toggle-group\" role=\"group\" aria-label=\"Show columns\">\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"true\">Client</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"true\">Amount</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"false\">Due</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"false\" disabled>Notes</button>\n</div>",
-      "js": "document.querySelectorAll('[aria-pressed]').forEach((btn) => {\n  btn.addEventListener('click', () => {\n    btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') !== 'true');\n  });\n});",
+      "html": "<div class=\"v-toggle-group\" role=\"group\" aria-label=\"Text style\" data-v-toggle=\"single\">\n  <button class=\"v-btn v-btn-sm v-btn-icon\" type=\"button\" aria-pressed=\"true\" aria-label=\"Bold\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#bold\"/></svg></button>\n  <button class=\"v-btn v-btn-sm v-btn-icon\" type=\"button\" aria-pressed=\"false\" aria-label=\"Italic\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#italic\"/></svg></button>\n</div>\n<div class=\"v-toggle-group\" role=\"group\" aria-label=\"Show columns\" data-v-toggle>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"true\">Client</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"true\">Amount</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"false\">Due</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"false\" disabled>Notes</button>\n</div>",
       "height": 100,
       "source": "examples/elements/#toggles"
+    }
+  ],
+  "js": [
+    "components/toggle.js"
+  ],
+  "hooks": [
+    {
+      "name": "data-v-toggle",
+      "value": "empty, or \"single\"",
+      "on": "a button with aria-pressed, or any container of them",
+      "description": "Flips aria-pressed on click (Enter and Space work natively). With \"single\", at most one button in the container stays pressed."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:change",
+      "on": "the button that changed",
+      "detail": "{ pressed }",
+      "cancelable": false,
+      "description": "Fires after the pressed state flips."
     }
   ]
 }

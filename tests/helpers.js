@@ -24,6 +24,11 @@ export const PAGES = [
   { name: 'site-button', path: '/site/dist/components/button/', storage: 'vectra', visual: 'basic' },
   { name: 'site-theme-builder', path: '/site/dist/theme-builder/', storage: 'vectra', visual: 'basic' },
   { name: 'site-quality', path: '/site/dist/quality/', storage: 'vectra', visual: 'basic' },
+  { name: 'sections-chrome', path: '/examples/sections/chrome.html', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'sections-marketing', path: '/examples/sections/marketing.html', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'sections-app', path: '/examples/sections/app.html', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'page-saas-home', path: '/examples/pages/saas-home.html', storage: 'vectra', visual: 'basic' },
+  { name: 'page-app-shell', path: '/examples/pages/app-shell.html', storage: 'vectra', visual: 'basic' },
 ];
 
 // Every generated auth page (examples/auth/<group>/<flow>.html), found on disk so new flows are tested

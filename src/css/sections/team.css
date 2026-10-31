@@ -1,0 +1,31 @@
+/* Team: a grid of people. Each .v-person is a <figure> or <li> with a large avatar, the name
+   (.v-person-name), the role (.v-person-role) and an optional line of bio. Centred in its cell. */
+@layer components {
+  .v-person {
+    display: grid;
+    gap: var(--v-space-1);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .v-person .v-avatar {
+    --v-avatar-size: 4.5rem;
+
+    margin-block-end: var(--v-space-3);
+  }
+
+  .v-person-name {
+    font-weight: 620;
+    color: var(--v-text);
+  }
+
+  .v-person-role {
+    color: var(--v-accent-text);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-person p {
+    color: var(--v-text-2);
+    font-size: 0.9375rem;
+  }
+}

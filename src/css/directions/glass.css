@@ -81,6 +81,7 @@
       --v-surface-2: light-dark(oklch(95% 0.02 var(--v-accent-h)), oklch(30% 0.045 var(--v-accent-h)));
       --v-bg-subtle: light-dark(oklch(96% 0.02 var(--v-accent-h)), oklch(22% 0.04 var(--v-accent-h)));
       --v-overlay-bg: light-dark(oklch(99% 0.01 var(--v-accent-h)), oklch(26% 0.045 var(--v-accent-h)));
+      --v-feature-bg: linear-gradient(135deg, oklch(calc(0.46 - 0.08 * max(0, cos((var(--v-accent-h) - 180) * 1deg))) 0.2 var(--v-accent-h)), oklch(calc(0.42 - 0.08 * max(0, cos((var(--v-accent-h) + 50 - 180) * 1deg))) 0.2 calc(var(--v-accent-h) + 50)));
     }
   }
 }

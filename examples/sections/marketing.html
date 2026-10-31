@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Vectra · Sections: marketing</title>
+  <meta name="description" content="Vectra marketing sections: heroes, logo cloud, features, how it works, stats, testimonials, pricing, FAQ, calls to action, newsletter, contact, team and blog list.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 2h6l1-2h5"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.8c1.6.8 2.6 2.5 3 5.2"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.4 4-6.5 8-6.5s7 2.1 8 6.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5v-3a4 4 0 018 0v3"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5z"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 014.8 1c0 1.7-2.4 2-2.4 3.5M12 17h.01"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 000-6H9a3 3 0 010-6h6.5"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 20V9M7 13.5l5-5 5 5M5 4h14"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M12 15l-3-3c1.5-4.5 4.5-8 10-9-1 5.5-4.5 8.5-9 10z"/><path d="M9 12l-4 .5L3 15l4 1M12 15l-.5 4L9 21l-1-4"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../sections/">Vectra <span>marketing</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main id="main" class="v-container ex-main v-skip-target" tabindex="-1">
+    <section class="v-stack">
+      <p class="v-kicker">Sections · marketing</p>
+      <h1 class="v-display">Marketing sections.</h1>
+      <p class="v-lead">Heroes, features, proof, pricing and the closing call to action, for a product site or a local business. All art is drawn with CSS, SVG and real components, so it follows the direction and theme.</p>
+      <p><a href="./">All section galleries</a></p>
+    </section>
+
+    <section class="ex-variant" id="hero-center" data-variant="hero-center">
+      <div class="ex-variant-head">
+        <h2>Hero, centred</h2>
+        <p class="ex-label"><code>.v-hero .v-hero-center .v-hero-copy</code></p>
+      </div>
+      <div class="ex-demo">
+      <section class="v-hero v-hero-center">
+        <div class="v-container">
+          <div class="v-hero-copy">
+            <a class="v-badge v-badge-accent" href="#hero-center" style="text-decoration: none" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-sparkle"/></svg>New: online booking for every plan</a>
+            <h3 class="v-display" data-contrast>Less paperwork. More of the work you are good at.</h3>
+            <p class="v-lead" data-contrast>Northwind takes care of bookings, quotes, invoices and reviews for trades and local services, so the evenings are yours again.</p>
+              <div class="v-cluster v-justify-center">
+                <a class="v-btn v-btn-primary v-btn-lg" href="#hero-center" data-contrast>Start free trial <svg class="v-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                <a class="v-btn v-btn-secondary v-btn-lg" href="#hero-center" data-contrast>See it in action</a>
+              </div>
+              <div class="v-cluster v-justify-center" style="--v-gap: var(--v-space-3)">
+                <div class="v-avatar-group" role="img" aria-label="Some of our customers"><span class="v-avatar v-avatar-sm">S</span><span class="v-avatar v-avatar-sm">N</span><span class="v-avatar v-avatar-sm">R</span><span class="v-avatar v-avatar-sm">D</span></div>
+                <span class="v-rating" role="img" aria-label="Rated 4.9 out of 5" style="--v-rating: 5"></span>
+                <span class="v-text-sm v-text-secondary" data-contrast>4.9 from 1,200 businesses</span>
+              </div>
+          </div>
+        </div>
+      </section>
+      </div>
+    </section>
+    <section class="ex-variant" id="hero-split" data-variant="hero-split">
+      <div class="ex-variant-head">
+        <h2>Hero, split with image</h2>
+        <p class="ex-label"><code>.v-hero .v-hero-split .v-hero-art .v-hero-float .v-frame</code></p>
+        <p class="ex-note">The picture is an SVG drawn with the direction’s tokens; swap in a photo inside the same .v-frame.</p>
+      </div>
+      <div class="ex-demo">
+      <section class="v-hero">
+        <div class="v-container v-hero-split">
+          <div class="v-hero-copy">
+            <p class="v-kicker" data-contrast>For roofers, gardeners, cleaners and every trade in between</p>
+            <h3 class="v-display" data-contrast>Your business, running smoothly from the van.</h3>
+            <p class="v-lead" data-contrast>Book jobs, send quotes and get paid from your phone. Northwind sends the reminders and chases the invoices, politely.</p>
+              <div class="v-cluster">
+                <a class="v-btn v-btn-primary v-btn-lg" href="#hero-split" data-contrast>Start free trial <svg class="v-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                <a class="v-btn v-btn-secondary v-btn-lg" href="#hero-split" data-contrast>See it in action</a>
+              </div>
+            <p class="v-text-sm v-text-secondary" data-contrast>Free for 14 days. No card needed.</p>
+          </div>
+          <div class="v-hero-art">
+            <figure class="v-figure">
+              <div class="v-frame v-frame-4x3">
+                <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A house with a new roof, a ladder against the wall and a van in the drive at dusk">
+                  <rect width="400" height="300" style="fill: var(--v-accent-soft)"/>
+                  <circle cx="315" cy="78" r="34" style="fill: var(--v-accent)" opacity="0.55"/>
+                  <path d="M0 230q100-40 200-10t200-20V300H0z" style="fill: var(--v-accent-text)" opacity="0.22"/>
+                  <rect x="90" y="140" width="150" height="110" style="fill: var(--v-surface)"/>
+                  <path d="M75 148L165 82l90 66z" style="fill: var(--v-accent-text)"/>
+                  <rect x="150" y="190" width="30" height="60" rx="3" style="fill: var(--v-accent)" opacity="0.8"/>
+                  <rect x="105" y="165" width="30" height="26" rx="3" style="fill: var(--v-accent-soft)"/>
+                  <rect x="195" y="165" width="30" height="26" rx="3" style="fill: var(--v-accent-soft)"/>
+                  <path d="M248 252l22-130M270 252l22-130M252 230h22M256 205h22M261 180h22M265 155h22" style="stroke: var(--v-text-2)" stroke-width="4" stroke-linecap="round" fill="none"/>
+                  <rect x="290" y="210" width="90" height="40" rx="8" style="fill: var(--v-surface)"/>
+                  <path d="M290 222h55v-12h18l17 18v22h-90z" style="fill: var(--v-surface-2)"/>
+                  <circle cx="310" cy="252" r="9" style="fill: var(--v-text)"/>
+                  <circle cx="362" cy="252" r="9" style="fill: var(--v-text)"/>
+                </svg>
+              </div>
+            </figure>
+              <div class="v-card v-hero-float" style="--v-card-pad: var(--v-space-4)">
+                <div class="v-flex v-gap-3 v-items-center">
+                  <span class="v-feature-icon" aria-hidden="true"><svg class="v-icon" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+                  <span class="v-text-sm"><span class="v-block v-fw-semibold" data-contrast>New booking</span><span class="v-block v-text-secondary" data-contrast>Mary Walsh, Thursday 09:00</span></span>
+                </div>
+              </div>
+          </div>
+        </div>
+      </section>
+      </div>
+    </section>
+    <section class="ex-variant" id="hero-shot" data-variant="hero-shot">
+      <div class="ex-variant-head">
+        <h2>Hero with product screenshot</h2>
+        <p class="ex-label"><code>.v-hero .v-hero-shot .v-shot</code></p>
+        <p class="ex-note">The screenshot is built from real Vectra components inside .v-shot, marked role="img".</p>
+      </div>
+      <div class="ex-demo">
+      <section class="v-hero v-hero-center">
+        <div class="v-container">
+          <div class="v-hero-copy">
+            <a class="v-badge v-badge-accent" href="#hero-shot" style="text-decoration: none" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-sparkle"/></svg>New: online booking for every plan</a>
+            <h3 class="v-display" data-contrast>The calm back office for busy trades.</h3>
+            <p class="v-lead" data-contrast>Bookings, quotes, invoices and reviews in one place. Set up in an afternoon, and it works on the phone in your pocket.</p>
+              <div class="v-cluster v-justify-center">
+                <a class="v-btn v-btn-primary v-btn-lg" href="#hero-shot" data-contrast>Start free trial <svg class="v-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                <a class="v-btn v-btn-secondary v-btn-lg" href="#hero-shot" data-contrast>See it in action</a>
+              </div>
+          </div>
+          <div class="v-hero-shot">
+            <div class="v-shot">
+              <div class="v-shot-bar">app.northwind.ie</div>
+              <div class="v-shot-body" role="img" aria-label="The Northwind dashboard: this week's revenue, jobs booked and reviews, and the latest invoices.">
+                <div class="v-flex v-gap-4">
+                  <div class="v-hide-mobile" style="inline-size: 12rem; flex-shrink: 0">
+                    <div class="v-sidenav">
+                      <ul>
+                        <li><a aria-current="page"><svg class="v-icon" aria-hidden="true"><use href="#i-home"/></svg><span class="v-sidenav-label">Dashboard</span></a></li>
+                        <li><a><svg class="v-icon" aria-hidden="true"><use href="#i-folder"/></svg><span class="v-sidenav-label">Jobs</span><span class="v-badge v-badge-accent">4</span></a></li>
+                        <li><a><svg class="v-icon" aria-hidden="true"><use href="#i-calendar"/></svg><span class="v-sidenav-label">Calendar</span></a></li>
+                        <li><a><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="v-sidenav-label">Invoices</span></a></li>
+                        <li><a><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sidenav-label">Reviews</span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="v-stack v-grow" style="min-inline-size: 0">
+                    <div class="v-switcher" style="--v-switch: 17rem; --v-gap: var(--v-space-3)">
+                      <div class="v-card v-stat"><span class="v-stat-label">Revenue this week</span><span class="v-stat-value">&euro;8,420</span><span class="v-badge v-badge-success">+12%</span></div>
+                      <div class="v-card v-stat"><span class="v-stat-label">Jobs booked</span><span class="v-stat-value">23</span><span class="v-badge v-badge-success">+5</span></div>
+                      <div class="v-card v-stat v-hide-mobile"><span class="v-stat-label">Average review</span><span class="v-stat-value">4.9</span><span class="v-rating" style="--v-rating: 5; --v-rating-size: 0.875rem"></span></div>
+                    </div>
+                    <div class="v-table-wrap">
+                      <table class="v-table v-table-dense">
+                        <thead><tr><th scope="col">Invoice</th><th scope="col">Customer</th><th scope="col">Status</th><th class="v-table-num" scope="col">Amount</th></tr></thead>
+                        <tbody>
+                    <tr><th class="v-nowrap" scope="row">INV-2041</th><td>Mary Walsh</td><td><span class="v-badge v-badge-success v-badge-dot">Paid</span></td><td class="v-table-num">&euro;1,850</td></tr>
+                    <tr><th class="v-nowrap" scope="row">INV-2042</th><td>The Quay Bar</td><td><span class="v-badge v-badge-warning v-badge-dot">Due Friday</span></td><td class="v-table-num">&euro;640</td></tr>
+                    <tr><th class="v-nowrap" scope="row">INV-2043</th><td>Moss &amp; Fern</td><td><span class="v-badge v-badge-success v-badge-dot">Paid</span></td><td class="v-table-num">&euro;320</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+    </section>
+    <section class="ex-variant" id="hero-form" data-variant="hero-form">
+      <div class="ex-variant-head">
+        <h2>Hero with signup form</h2>
+        <p class="ex-label"><code>.v-hero .v-hero-split .v-form</code></p>
+      </div>
+      <div class="ex-demo">
+      <section class="v-hero">
+        <div class="v-container v-hero-split">
+          <div class="v-hero-copy">
+            <p class="v-kicker" data-contrast>Free trial</p>
+            <h3 class="v-display" data-contrast>Get your evenings back this week.</h3>
+            <p class="v-lead" data-contrast>Join 1,200 small businesses that let Northwind handle the admin. Most are sending their first invoice within the hour.</p>
+            <ul class="v-stack" style="--v-gap: var(--v-space-2)">
+              <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>14 days free, no card needed</span></li>
+              <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>We import your customers for you</span></li>
+              <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Cancel any time, keep your data</span></li>
+            </ul>
+          </div>
+          <div class="v-hero-art">
+            <form class="v-card v-form" action="#hero-form" novalidate data-v-validate>
+              <h4 class="v-card-title" data-contrast>Start your free trial</h4>
+              <div class="v-field">
+                <label class="v-label" for="ex-hero-name" data-contrast>Your name</label>
+                <input class="v-input" id="ex-hero-name" type="text" autocomplete="name" required>
+              </div>
+              <div class="v-field">
+                <label class="v-label" for="ex-hero-email">Work email</label>
+                <input class="v-input" id="ex-hero-email" type="email" autocomplete="email" placeholder="you@business.ie" required>
+              </div>
+              <div class="v-field">
+                <label class="v-label" for="ex-hero-trade">What kind of business?</label>
+                <select class="v-select" id="ex-hero-trade" data-contrast><option>Roofing</option><option>Gardening and landscaping</option><option>Cleaning</option><option>Plumbing and heating</option><option>Electrical</option><option>Something else</option></select>
+              </div>
+              <button class="v-btn v-btn-primary v-btn-block v-btn-lg" type="submit" data-contrast>Create my account</button>
+              <p class="v-hint v-text-center" data-contrast>By signing up you agree to our <a href="#hero-form">terms</a>.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+      </div>
+    </section>
+    <section class="ex-variant" id="logo-cloud" data-variant="logo-cloud">
+      <div class="ex-variant-head">
+        <h2>Logo cloud</h2>
+        <p class="ex-label"><code>.v-logos</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+            <p class="v-text-center v-text-secondary v-mb-6" data-contrast>Trusted by more than 1,200 trades and local businesses</p>
+          <ul class="v-logos" aria-label="Northwind customers">
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Halvex"><path d="M4 26L16 4l12 22z" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Halvex</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Morrow"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="4"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Morrow</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Quillon"><rect x="4" y="4" width="24" height="24" rx="6" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Quillon</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Ostra"><path d="M4 16h8l4-10 4 20 4-10h8" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><text x="40" y="23" font-size="19" font-weight="650" fill="currentColor">Ostra</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Vantis"><path d="M16 3l11 6.5v13L16 29 5 22.5v-13z" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Vantis</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Lumeo"><circle cx="11" cy="16" r="7" fill="currentColor"/><circle cx="22" cy="16" r="7" fill="currentColor" opacity="0.55"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Lumeo</text></svg></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="features-grid" data-variant="features-grid">
+      <div class="ex-variant-head">
+        <h2>Features, icon grid</h2>
+        <p class="ex-label"><code>.v-section-head .v-grid .v-feature-icon</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>Everything in one place</p>
+            <h3 data-contrast>The whole job, from first call to five stars</h3>
+            <p class="v-lead" data-contrast>Six tools that talk to each other, so nothing gets typed twice and nothing slips.</p>
+          </div>
+          <div class="v-grid" style="--v-min: max(15rem, 30%); --v-gap: var(--v-space-6) var(--v-space-5)">
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+              <h4 data-contrast>Online booking</h4>
+              <p class="v-text-secondary" data-contrast>Customers pick a free slot on your site. It lands in your calendar with their address and notes.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+              <h4>Quotes in minutes</h4>
+              <p class="v-text-secondary">Start from a saved price list, add photos from the job, and send it before you leave the driveway.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-card"/></svg></span>
+              <h4>Get paid faster</h4>
+              <p class="v-text-secondary">Every invoice carries a pay-now link. Reminders go out on their own, politely.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg></span>
+              <h4>More good reviews</h4>
+              <p class="v-text-secondary">When a job is marked done, Northwind asks for a review at the moment people are happiest.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-route"/></svg></span>
+              <h4>Day planner</h4>
+              <p class="v-text-secondary">See today’s jobs in order, with travel time between them and one tap to get directions.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
+              <h4>Your data stays yours</h4>
+              <p class="v-text-secondary">Hosted in the EU, backed up every night, and exportable to a spreadsheet whenever you like.</p>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="features-alternate" data-variant="features-alternate">
+      <div class="ex-variant-head">
+        <h2>Features, alternating image and text</h2>
+        <p class="ex-label"><code>.v-alternate</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-alternate">
+          <div>
+            <div class="v-stack">
+              <p class="v-kicker" data-contrast>Booking</p>
+              <h3 data-contrast>Let people book while you are up a ladder</h3>
+              <p class="v-text-secondary" data-contrast>Share one link or add the booking button to your site. Customers see real free slots, pick one, and get a confirmation by text. You get the job, the address and the notes.</p>
+              <ul class="v-stack" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Set working hours and travel buffers</span></li>
+                <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Ask for photos before you visit</span></li>
+                <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Reminders the day before, by text</span></li>
+              </ul>
+            </div>
+            <div class="v-hero-art">
+              <div class="v-card" role="img" aria-label="A calendar with three bookings made online this week.">
+                <div class="v-card-header"><span class="v-card-title">This week</span><span class="v-badge v-badge-success v-badge-dot">3 booked online</span></div>
+                <ul class="v-list">
+                  <li class="v-list-item"><span class="v-badge v-badge-accent">Mon</span><span class="v-list-body"><span class="v-list-title">Mary Walsh</span><span class="v-list-meta">09:00, gutter clean</span></span></li>
+                  <li class="v-list-item"><span class="v-badge v-badge-accent">Wed</span><span class="v-list-body"><span class="v-list-title">Pádraig Ó Sé</span><span class="v-list-meta">13:30, roof survey</span></span></li>
+                  <li class="v-list-item"><span class="v-badge v-badge-info">Fri</span><span class="v-list-body"><span class="v-list-title">The Quay Bar</span><span class="v-list-meta">10:00, chimney repair</span></span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="v-stack">
+              <p class="v-kicker">Invoicing</p>
+              <h3>Invoices that pay themselves</h3>
+              <p class="v-text-secondary">Turn a finished job into an invoice in two taps. Card and bank transfer are built in, and polite reminders go out on day 7 and day 14 so you never have to chase.</p>
+              <ul class="v-stack" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Pay-now link on every invoice</span></li>
+                <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Deposits and part payments</span></li>
+                <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>VAT-ready exports for your accountant</span></li>
+              </ul>
+            </div>
+            <div class="v-hero-art">
+              <div class="v-card" role="img" aria-label="An invoice for 1,850 euro, paid two days after it was sent.">
+                <div class="v-card-header"><span class="v-card-title">INV-2041</span><span class="v-badge v-badge-success v-badge-dot">Paid</span></div>
+                <dl class="v-dl v-dl-cols">
+                  <div><dt>Customer</dt><dd>Mary Walsh</dd></div>
+                  <div><dt>Slate re-roof</dt><dd>&euro;1,650.00</dd></div>
+                  <div><dt>Skip hire</dt><dd>&euro;200.00</dd></div>
+                  <div><dt>Total</dt><dd><strong>&euro;1,850.00</strong></dd></div>
+                </dl>
+                <div class="v-cluster"><span class="v-text-sm v-text-secondary">Sent Monday, paid Wednesday</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="v-stack">
+              <p class="v-kicker">Reviews</p>
+              <h3>Ask for the review at the right moment</h3>
+              <p class="v-text-secondary">The evening a job is marked done, Northwind sends a short thank-you with a link to leave a review. Happy customers say yes; the rest come to you first.</p>
+              <ul class="v-stack" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Sent at a time you choose</span></li>
+                <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Private feedback before public reviews</span></li>
+                <li class="v-flex v-gap-2"><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Your best reviews on your website</span></li>
+              </ul>
+            </div>
+            <div class="v-hero-art">
+              <div class="v-card v-testimonial" role="img" aria-label="A five-star review that arrived the evening the job was finished.">
+                <span class="v-rating" style="--v-rating: 5"></span>
+                <div class="v-testimonial-quote"><p>Tidy, on time and the price was the price. Would have them back tomorrow.</p></div>
+                <div class="v-testimonial-author"><span class="v-avatar">MW</span><span><span class="v-testimonial-name">Mary Walsh</span><span class="v-testimonial-role">Left a review at 19:42</span></span></div>
+              </div>
+            </div>
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="features-bento" data-variant="features-bento">
+      <div class="ex-variant-head">
+        <h2>Features, bento</h2>
+        <p class="ex-label"><code>.v-bento .v-span-7 .v-span-5 .v-span-4 .v-card</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>Why Northwind</p>
+            <h3 data-contrast>Built for the way small crews actually work</h3>
+            <p class="v-lead" data-contrast>Fewer screens, bigger buttons, and the things you need on a Tuesday morning.</p>
+          </div>
+          <div class="v-bento">
+            <article class="v-card v-card-feature v-span-7">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-zap"/></svg></span>
+              <h4 class="v-card-title" data-contrast>From enquiry to paid in one place</h4>
+              <p class="v-card-text" data-contrast>A booking becomes a job, the job becomes a quote, the quote becomes an invoice. Nothing typed twice.</p>
+              <ol class="v-steps" aria-label="A job from start to finish">
+                <li class="v-step v-step-complete"><span class="v-step-label" data-contrast><span class="v-sr-only">Completed: </span>Booked</span></li>
+                <li class="v-step v-step-complete"><span class="v-step-label"><span class="v-sr-only">Completed: </span>Quoted</span></li>
+                <li class="v-step" aria-current="step"><span class="v-step-label">Invoiced</span></li>
+                <li class="v-step"><span class="v-step-label">Paid</span></li>
+              </ol>
+            </article>
+            <article class="v-card v-span-5">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg></span>
+              <h4 class="v-card-title">Five hours back a week</h4>
+              <p class="v-card-text">That is what our customers tell us they save on admin, on average.</p>
+              <p class="v-stat-value" data-contrast>5.2 h</p>
+            </article>
+            <article class="v-card v-span-4">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+              <h4 class="v-card-title">Room for the crew</h4>
+              <p class="v-card-text">Give each person their own login and only the jobs they need to see.</p>
+              <div class="v-avatar-group" role="img" aria-label="Four team members"><span class="v-avatar">A</span><span class="v-avatar">S</span><span class="v-avatar">C</span><span class="v-avatar">+2</span></div>
+            </article>
+            <article class="v-card v-span-4">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-phone"/></svg></span>
+              <h4 class="v-card-title">Works on the van seat</h4>
+              <p class="v-card-text">Every screen is built for a phone first, with big buttons and no tiny menus.</p>
+              <div class="v-cluster"><span class="v-badge v-badge-success v-badge-dot" data-contrast>Works offline</span><span class="v-badge" data-contrast>iPhone and Android</span></div>
+            </article>
+            <article class="v-card v-span-4">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-lock"/></svg></span>
+              <h4 class="v-card-title">Safe by default</h4>
+              <p class="v-card-text">Two-step sign-in, EU hosting and nightly backups on every plan.</p>
+              <meter class="v-meter" min="0" max="100" value="100" aria-label="Backups completed this month">100%</meter>
+            </article>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="how-it-works" data-variant="how-it-works">
+      <div class="ex-variant-head">
+        <h2>How it works</h2>
+        <p class="ex-label"><code>.v-howto</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>How it works</p>
+            <h3 data-contrast>Up and running before the kettle boils</h3>
+            <p class="v-lead" data-contrast>Three steps. Most people finish them on their first evening.</p>
+          </div>
+          <ol class="v-howto">
+            <li class="v-card">
+              <h4 data-contrast>Add your services</h4>
+              <p class="v-card-text" data-contrast>Type in what you offer and what you charge. Or send us your price list and we will set it up for you.</p>
+            </li>
+            <li class="v-card">
+              <h4>Share your booking link</h4>
+              <p class="v-card-text">Put it on your website, your Google profile and your van. Customers pick a time that suits you both.</p>
+            </li>
+            <li class="v-card">
+              <h4>Do the job, tap done</h4>
+              <p class="v-card-text">The invoice goes out with a pay-now link, and the review request follows that evening.</p>
+            </li>
+          </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="stats" data-variant="stats">
+      <div class="ex-variant-head">
+        <h2>Stats</h2>
+        <p class="ex-label"><code>.v-stats .v-stat</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <dl class="v-stats">
+            <div class="v-stat"><dt class="v-stat-label" data-contrast>businesses run on Northwind</dt><dd class="v-stat-value" data-contrast>1,200+</dd></div>
+            <div class="v-stat"><dt class="v-stat-label">invoiced last year</dt><dd class="v-stat-value">&euro;38m</dd></div>
+            <div class="v-stat"><dt class="v-stat-label">average customer review</dt><dd class="v-stat-value">4.9 / 5</dd></div>
+            <div class="v-stat"><dt class="v-stat-label">sooner paid, on average</dt><dd class="v-stat-value">9 days</dd></div>
+          </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="testimonial-single" data-variant="testimonial-single">
+      <div class="ex-variant-head">
+        <h2>Testimonial, single quote</h2>
+        <p class="ex-label"><code>.v-testimonial .v-testimonial-lg</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container v-container-narrow">
+          <figure class="v-testimonial v-testimonial-lg">
+            <blockquote class="v-testimonial-quote"><p data-contrast>I used to do the invoices on a Sunday night. Now they go out from the van, and most are paid before I am home.</p></blockquote>
+            <figcaption class="v-testimonial-author">
+              <span class="v-avatar v-avatar-lg" aria-hidden="true">SM</span>
+              <span><span class="v-testimonial-name" data-contrast>Se&aacute;n Murphy</span><span class="v-testimonial-role" data-contrast>Owner, Harbour Roofing, Tuam</span></span>
+            </figcaption>
+          </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="testimonial-grid" data-variant="testimonial-grid">
+      <div class="ex-variant-head">
+        <h2>Testimonials, grid</h2>
+        <p class="ex-label"><code>.v-grid .v-card .v-testimonial .v-rating</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>Customers</p>
+            <h3 data-contrast>Loved from Clifden to Castlebar</h3>
+            <p class="v-lead" data-contrast>Real words from businesses that switched last year.</p>
+          </div>
+          <div class="v-grid" style="--v-min: 18rem">
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5" style="--v-rating: 5"></span>
+              <blockquote class="v-testimonial-quote"><p data-contrast>Bookings come in while we are on a job. The calendar just fills up.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">NB</span>
+                <span><span class="v-testimonial-name" data-contrast>Niamh Brennan</span><span class="v-testimonial-role" data-contrast>Moss &amp; Fern Gardens, Clifden</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5" style="--v-rating: 5"></span>
+              <blockquote class="v-testimonial-quote"><p>Our reviews went from 11 to 140 in a year, without asking anyone face to face.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">RM</span>
+                <span><span class="v-testimonial-name">R&oacute;is&iacute;n Moran</span><span class="v-testimonial-role">Westshore Cleaning, Galway</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 4.5 out of 5" style="--v-rating: 4.5"></span>
+              <blockquote class="v-testimonial-quote"><p>The pay-now link alone was worth it. Late payers are a thing of the past.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">DK</span>
+                <span><span class="v-testimonial-name">Declan Keane</span><span class="v-testimonial-role">Keane Electrical, Castlebar</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5" style="--v-rating: 5"></span>
+              <blockquote class="v-testimonial-quote"><p>Setup took an afternoon. Their team moved our old price list over for us.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">AF</span>
+                <span><span class="v-testimonial-name">Aisling Flynn</span><span class="v-testimonial-role">Flynn &amp; Daughters Plumbing, Ennis</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5" style="--v-rating: 5"></span>
+              <blockquote class="v-testimonial-quote"><p>I run the bar and the events. Deposits for the function room are finally simple.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">CO</span>
+                <span><span class="v-testimonial-name">Conor O&rsquo;Brien</span><span class="v-testimonial-role">The Quay Bar, Westport</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 4.5 out of 5" style="--v-rating: 4.5"></span>
+              <blockquote class="v-testimonial-quote"><p>It does the boring bits and stays out of the way. That is all I wanted.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">LT</span>
+                <span><span class="v-testimonial-name">Lisa Tierney</span><span class="v-testimonial-role">Tierney Window Cleaning, Athlone</span></span>
+              </figcaption>
+            </figure>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="pricing-tiers" data-variant="pricing-tiers">
+      <div class="ex-variant-head">
+        <h2>Pricing, three tiers</h2>
+        <p class="ex-label"><code>.v-grid .v-pricing .v-pricing-featured</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>Pricing</p>
+            <h3 data-contrast>Simple prices, no surprises</h3>
+            <p class="v-lead" data-contrast>Every plan includes online booking, card payments and EU hosting.</p>
+          </div>
+          <div class="v-switcher" style="--v-switch: 52rem">
+            <article class="v-card v-pricing">
+              <header class="v-pricing-header"><h4 class="v-pricing-name" data-contrast>Solo</h4></header>
+              <p class="v-pricing-price"><span class="v-pricing-amount" data-contrast>&euro;0</span><span class="v-pricing-period" data-contrast>forever</span></p>
+              <p class="v-pricing-desc" data-contrast>For one person doing the work and the admin.</p>
+              <ul class="v-pricing-features">
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Online booking page</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Up to 20 invoices a month</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Card payments</li>
+              </ul>
+              <a class="v-btn v-btn-secondary v-btn-block" href="#pricing-tiers" data-contrast>Start free</a>
+            </article>
+            <article class="v-card v-pricing v-pricing-featured">
+              <header class="v-pricing-header"><h4 class="v-pricing-name">Crew</h4><span class="v-badge v-badge-solid" data-contrast>Most popular</span></header>
+              <p class="v-pricing-price"><span class="v-pricing-amount">&euro;29</span><span class="v-pricing-period">per month</span></p>
+              <p class="v-pricing-desc">For a small team with a full calendar.</p>
+              <ul class="v-pricing-features">
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Everything in Solo</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited quotes and invoices</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Automatic review requests</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Up to 5 team logins</li>
+              </ul>
+              <a class="v-btn v-btn-primary v-btn-block" href="#pricing-tiers" data-contrast>Start 14-day trial</a>
+            </article>
+            <article class="v-card v-pricing v-card-feature">
+              <header class="v-pricing-header"><h4 class="v-pricing-name">Business</h4></header>
+              <p class="v-pricing-price"><span class="v-pricing-amount">&euro;79</span><span class="v-pricing-period">per month</span></p>
+              <p class="v-pricing-desc">For several crews, vans and locations.</p>
+              <ul class="v-pricing-features">
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Everything in Crew</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited team logins</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Route planning</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Priority phone support</li>
+              </ul>
+              <a class="v-btn v-btn-primary v-btn-block" href="#pricing-tiers">Talk to us</a>
+            </article>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="pricing-toggle" data-variant="pricing-toggle">
+      <div class="ex-variant-head">
+        <h2>Pricing with monthly and yearly toggle</h2>
+        <p class="ex-label"><code>.v-billing .v-segmented [data-period]</code></p>
+        <p class="ex-note">Pure CSS: the checked radio shows its prices through :has(). Works with JavaScript off.</p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>Pricing</p>
+            <h3 data-contrast>Pay monthly, or save with yearly</h3>
+            <p class="v-lead" data-contrast>Switch any time. The yearly price is charged once a year.</p>
+          </div>
+          <div class="v-billing">
+            <div class="v-cluster v-justify-center">
+              <fieldset class="v-segmented">
+                <legend class="v-sr-only">Billing period</legend>
+                <label><input type="radio" name="ex-billing" value="monthly" checked><span data-contrast>Monthly</span></label>
+                <label><input type="radio" name="ex-billing" value="yearly"><span>Yearly</span></label>
+              </fieldset>
+              <span class="v-badge v-badge-success" data-contrast>Yearly saves two months</span>
+            </div>
+          <div class="v-switcher" style="--v-switch: 52rem">
+            <article class="v-card v-pricing">
+              <header class="v-pricing-header"><h4 class="v-pricing-name" data-contrast>Solo</h4></header>
+              <p class="v-pricing-price"><span class="v-pricing-amount" data-contrast>&euro;0</span><span class="v-pricing-period" data-contrast>forever</span></p>
+              <p class="v-pricing-desc" data-contrast>For one person doing the work and the admin.</p>
+              <ul class="v-pricing-features">
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Online booking page</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Up to 20 invoices a month</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Card payments</li>
+              </ul>
+              <a class="v-btn v-btn-secondary v-btn-block" href="#pricing-toggle" data-contrast>Start free</a>
+            </article>
+            <article class="v-card v-pricing v-pricing-featured">
+              <header class="v-pricing-header"><h4 class="v-pricing-name">Crew</h4><span class="v-badge v-badge-solid" data-contrast>Most popular</span></header>
+              <p class="v-pricing-price" data-period="monthly"><span class="v-pricing-amount">&euro;29</span><span class="v-pricing-period">per month</span></p>
+              <p class="v-pricing-price" data-period="yearly"><span class="v-pricing-amount">&euro;24</span><span class="v-pricing-period">per month, billed &euro;288 yearly</span></p>
+              <p class="v-pricing-desc">For a small team with a full calendar.</p>
+              <ul class="v-pricing-features">
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Everything in Solo</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited quotes and invoices</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Automatic review requests</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Up to 5 team logins</li>
+              </ul>
+              <a class="v-btn v-btn-primary v-btn-block" href="#pricing-toggle" data-contrast>Start 14-day trial</a>
+            </article>
+            <article class="v-card v-pricing v-card-feature">
+              <header class="v-pricing-header"><h4 class="v-pricing-name">Business</h4></header>
+              <p class="v-pricing-price" data-period="monthly"><span class="v-pricing-amount">&euro;79</span><span class="v-pricing-period">per month</span></p>
+              <p class="v-pricing-price" data-period="yearly"><span class="v-pricing-amount">&euro;66</span><span class="v-pricing-period">per month, billed &euro;792 yearly</span></p>
+              <p class="v-pricing-desc">For several crews, vans and locations.</p>
+              <ul class="v-pricing-features">
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Everything in Crew</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited team logins</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Route planning</li>
+                <li><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Priority phone support</li>
+              </ul>
+              <a class="v-btn v-btn-primary v-btn-block" href="#pricing-toggle">Talk to us</a>
+            </article>
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="faq" data-variant="faq">
+      <div class="ex-variant-head">
+        <h2>FAQ, accordion</h2>
+        <p class="ex-label"><code>.v-sidebar .v-accordion</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-sidebar" style="--v-side: 18rem; --v-gap: var(--v-space-7)">
+            <div class="v-section-head v-mb-0">
+              <p class="v-kicker" data-contrast>Questions</p>
+              <h3 data-contrast>Asked before you start</h3>
+              <p class="v-text-secondary" data-contrast>Something else? <a href="#faq">Ask us</a>, a real person replies within a working day.</p>
+            </div>
+          <div class="v-accordion">
+            <details name="ex-faq" open>
+              <summary data-contrast>Do my customers need an app?</summary>
+              <p data-contrast>No. They book, accept quotes and pay from a link in their browser. Only you and your team sign in.</p>
+            </details>
+            <details name="ex-faq">
+              <summary>Can I move my existing customers over?</summary>
+              <p>Yes. Upload a spreadsheet or send us your old system’s export, and we will import it for free within two working days.</p>
+            </details>
+            <details name="ex-faq">
+              <summary>What does a card payment cost?</summary>
+              <p>Card payments are 1.4% plus 25 cent for European cards, paid straight to your bank account. Bank transfers are free.</p>
+            </details>
+            <details name="ex-faq">
+              <summary>Is there a contract?</summary>
+              <p>No. Plans run month to month, or yearly if you want the discount. Cancel any time and keep an export of everything.</p>
+            </details>
+            <details name="ex-faq">
+              <summary>Where is my data kept?</summary>
+              <p>In data centres in Ireland and Germany, encrypted and backed up every night. We never sell or share it.</p>
+            </details>
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="cta-banner" data-variant="cta-banner">
+      <div class="ex-variant-head">
+        <h2>Call to action, banner</h2>
+        <p class="ex-label"><code>.v-card .v-card-feature .v-cta</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-card v-card-feature v-cta">
+            <h3 class="v-display" style="font-size: var(--v-step-3)" data-contrast>Spend your evenings off the clock.</h3>
+            <p class="v-lead" data-contrast>Try Northwind free for 14 days. No card needed, and we will set up your price list with you.</p>
+            <div class="v-cluster v-justify-center">
+              <a class="v-btn v-btn-primary v-btn-lg" href="#cta-banner" data-contrast>Start free trial</a>
+              <a class="v-btn v-btn-ghost v-btn-lg" href="#cta-banner" data-contrast>Book a 15-minute demo</a>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="cta-split" data-variant="cta-split">
+      <div class="ex-variant-head">
+        <h2>Call to action, split</h2>
+        <p class="ex-label"><code>.v-card .v-cta .v-cta-split</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-card v-cta">
+            <div class="v-cta-split">
+              <div class="v-stack" style="--v-gap: var(--v-space-3)">
+                <h3 data-contrast>Moving from paper or spreadsheets?</h3>
+                <p class="v-text-secondary" data-contrast>Send us what you have. We will move your customers, prices and open jobs across for free.</p>
+              </div>
+              <div class="v-cluster">
+                <a class="v-btn v-btn-secondary" href="#cta-split" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-phone"/></svg>Call 091 555 0142</a>
+                <a class="v-btn v-btn-primary" href="#cta-split" data-contrast>Book a move</a>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="newsletter" data-variant="newsletter">
+      <div class="ex-variant-head">
+        <h2>Newsletter</h2>
+        <p class="ex-label"><code>.v-card .v-cta .v-cta-split .v-form-inline</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-card v-cta">
+            <div class="v-cta-split">
+              <div class="v-stack" style="--v-gap: var(--v-space-3)">
+                <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+                <h3 data-contrast>Tips for busy trades, once a month</h3>
+                <p class="v-text-secondary" data-contrast>Pricing, chasing payments, getting more reviews. Short, practical, and from people who do the work.</p>
+              </div>
+              <form class="v-form-inline" action="#newsletter">
+                <div class="v-field v-grow">
+                  <label class="v-label" for="ex-newsletter" data-contrast>Email address</label>
+                  <input class="v-input" id="ex-newsletter" type="email" autocomplete="email" placeholder="you@business.ie" required>
+                </div>
+                <button class="v-btn v-btn-primary" type="submit" data-contrast>Subscribe</button>
+              </form>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="contact" data-variant="contact">
+      <div class="ex-variant-head">
+        <h2>Contact, form and details</h2>
+        <p class="ex-label"><code>.v-sidebar .v-form .v-form-grid</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head">
+            <p class="v-kicker" data-contrast>Contact</p>
+            <h3 data-contrast>Talk to a person, not a ticket</h3>
+            <p class="v-lead" data-contrast>Call, email or call in. We are in Tuam and we pick up the phone.</p>
+          </div>
+          <div class="v-sidebar" style="--v-side: 18rem; --v-gap: var(--v-space-7)">
+            <div class="v-stack" style="--v-gap: var(--v-space-5)">
+              <ul class="v-stack" style="--v-gap: var(--v-space-4)">
+                <li class="v-flex v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-phone"/></svg></span><span><span class="v-block v-fw-semibold" data-contrast>Phone</span><a href="#contact" data-contrast>091 555 0142</a><span class="v-block v-text-sm v-text-secondary" data-contrast>Monday to Friday, 8:00 to 18:00</span></span></li>
+                <li class="v-flex v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span><span class="v-block v-fw-semibold">Email</span><a href="#contact">hello@northwind.ie</a><span class="v-block v-text-sm v-text-secondary">We reply within one working day</span></span></li>
+                <li class="v-flex v-gap-3"><span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-pin"/></svg></span><span><span class="v-block v-fw-semibold">Office</span><span class="v-block" data-contrast>Unit 4, Dublin Road, Tuam, Co. Galway</span><span class="v-block v-text-sm v-text-secondary">Call in for a coffee and a demo</span></span></li>
+              </ul>
+            </div>
+            <form class="v-form v-card" action="#contact" novalidate data-v-validate>
+              <div class="v-form-grid">
+                <div class="v-field">
+                  <label class="v-label" for="ex-contact-name" data-contrast>Your name</label>
+                  <input class="v-input" id="ex-contact-name" type="text" autocomplete="name" required>
+                </div>
+                <div class="v-field">
+                  <label class="v-label" for="ex-contact-business">Business</label>
+                  <input class="v-input" id="ex-contact-business" type="text" autocomplete="organization">
+                </div>
+                <div class="v-field v-form-full">
+                  <label class="v-label" for="ex-contact-email">Email</label>
+                  <input class="v-input" id="ex-contact-email" type="email" autocomplete="email" required>
+                </div>
+                <div class="v-field v-form-full">
+                  <label class="v-label" for="ex-contact-topic">What can we help with?</label>
+                  <select class="v-select" id="ex-contact-topic" data-contrast><option>Getting started</option><option>Moving from another system</option><option>Billing</option><option>Something else</option></select>
+                </div>
+                <div class="v-field v-form-full">
+                  <label class="v-label" for="ex-contact-message">Message</label>
+                  <textarea class="v-input" id="ex-contact-message" rows="4" required></textarea>
+                </div>
+              </div>
+              <div class="v-form-actions">
+                <p class="v-hint v-form-actions-start" data-contrast>We never share your details.</p>
+                <button class="v-btn v-btn-primary" type="submit" data-contrast>Send message</button>
+              </div>
+            </form>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="team" data-variant="team">
+      <div class="ex-variant-head">
+        <h2>Team</h2>
+        <p class="ex-label"><code>.v-grid .v-person</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>The team</p>
+            <h3 data-contrast>Small team, west of Ireland</h3>
+            <p class="v-lead" data-contrast>Nine of us, mostly from families that ran a trade.</p>
+          </div>
+          <ul class="v-grid" style="--v-min: 14rem; --v-gap: var(--v-space-6) var(--v-space-5)">
+            <li class="v-person">
+              <span class="v-avatar" aria-hidden="true">AK</span>
+              <h4 class="v-person-name" data-contrast>Aoife Kelly</h4>
+              <span class="v-person-role" data-contrast>Founder</span>
+              <p data-contrast>Ran the office for her dad’s roofing firm for ten years. Built Northwind to fix it.</p>
+            </li>
+            <li class="v-person">
+              <span class="v-avatar" aria-hidden="true">SM</span>
+              <h4 class="v-person-name">Se&aacute;n Murphy</h4>
+              <span class="v-person-role">Engineering</span>
+              <p>Keeps the app fast on a weak signal in the middle of Connemara.</p>
+            </li>
+            <li class="v-person">
+              <span class="v-avatar" aria-hidden="true">CR</span>
+              <h4 class="v-person-name">Ciara Ryan</h4>
+              <span class="v-person-role">Customer success</span>
+              <p>Has moved over 400 businesses off paper. Answers the phone herself.</p>
+            </li>
+            <li class="v-person">
+              <span class="v-avatar" aria-hidden="true">TB</span>
+              <h4 class="v-person-name">Tom&aacute;s Byrne</h4>
+              <span class="v-person-role">Design</span>
+              <p>Tests every screen with gloves on. Seriously.</p>
+            </li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-variant" id="blog-list" data-variant="blog-list">
+      <div class="ex-variant-head">
+        <h2>Blog list</h2>
+        <p class="ex-label"><code>.v-grid a.v-card .v-card-media .v-frame</code></p>
+      </div>
+      <div class="ex-demo">
+        <div class="v-section">
+          <div class="v-container">
+          <div class="v-section-head">
+            <p class="v-kicker" data-contrast>From the blog</p>
+            <h3 data-contrast>Practical reading for busy owners</h3>
+            <p class="v-lead" data-contrast>Short guides on pricing, cash flow and getting found locally.</p>
+          </div>
+          <div class="v-grid" style="--v-min: 18rem">
+            <a class="v-card" href="#blog-list">
+              <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-accent-soft)"/><circle cx="360" cy="70" r="46" style="fill: var(--v-accent)" opacity="0.8"/><path d="M0 210L140 110l90 70 70-50 180 120V270H0z" style="fill: var(--v-accent-text)" opacity="0.9"/></svg></div></div>
+              <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent" data-contrast>Pricing</span><span data-contrast>28 October 2026 · 6 min read</span></p>
+              <h4 class="v-card-title" data-contrast>How to put your prices up without losing customers</h4>
+              <p class="v-card-text" data-contrast>A three-step plan, a letter you can copy, and what happened when 40 trades tried it.</p>
+            </a>
+            <a class="v-card" href="#blog-list">
+              <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-surface-2)"/><rect x="60" y="60" width="150" height="150" rx="18" style="fill: var(--v-accent)" opacity="0.85"/><rect x="230" y="100" width="190" height="24" rx="12" style="fill: var(--v-text-3)" opacity="0.6"/><rect x="230" y="140" width="140" height="24" rx="12" style="fill: var(--v-text-3)" opacity="0.4"/></svg></div></div>
+              <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Product</span><span>21 October 2026 · 3 min read</span></p>
+              <h4 class="v-card-title">Online booking is here</h4>
+              <p class="v-card-text">Customers can now pick a slot from your website. Here is how it works and how to switch it on.</p>
+            </a>
+            <a class="v-card" href="#blog-list">
+              <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-accent-soft)"/><g style="fill: var(--v-accent-text)"><rect x="70" y="150" width="50" height="80" rx="6" opacity="0.5"/><rect x="150" y="110" width="50" height="120" rx="6" opacity="0.65"/><rect x="230" y="80" width="50" height="150" rx="6" opacity="0.8"/><rect x="310" y="40" width="50" height="190" rx="6"/></g></svg></div></div>
+              <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Guides</span><span>14 October 2026 · 8 min read</span></p>
+              <h4 class="v-card-title">The quiet season survival guide</h4>
+              <p class="v-card-text">Cash flow tricks for November to February, from businesses that have been through twenty winters.</p>
+            </a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>

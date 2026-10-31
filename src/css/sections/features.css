@@ -1,0 +1,74 @@
+/* Feature sections. Layout comes from .v-grid and .v-bento; this file adds only what they cannot do.
+   - .v-feature-icon: the tinted tile an icon sits in.
+   - .v-alternate: rows of copy and art, each row a direct child, art swapping sides on every second row from 48rem wide.
+   - .v-howto: an <ol> of steps, numbered by CSS, in as many columns as fit.
+   - .v-stats: a <dl> of .v-stat blocks (term first, shown under the number), split by rules. */
+@layer components {
+  .v-feature-icon {
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    border-radius: var(--v-radius-md);
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+    flex-shrink: 0;
+    font-size: 1.25rem;
+  }
+
+  .v-alternate {
+    display: grid;
+    gap: clamp(3rem, 8vw, 6rem);
+    container-type: inline-size;
+  }
+
+  .v-alternate :is(h2, h3, h4) { font-size: var(--v-step-2); }
+
+  .v-alternate > * {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  @container (width >= 48rem) {
+    .v-alternate > * { grid-template-columns: 1fr 1fr; }
+    .v-alternate > :nth-child(even) > :first-child { order: 2; }
+  }
+
+  .v-howto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--v-space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: v-howto;
+  }
+
+  .v-howto > li { counter-increment: v-howto; }
+
+  .v-howto > li::before {
+    content: counter(v-howto, decimal-leading-zero);
+    color: var(--v-accent-text);
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-2);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--v-display-weight);
+    line-height: 1;
+  }
+
+  .v-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: var(--v-space-5);
+    margin: 0;
+  }
+
+  .v-stats > * {
+    padding-inline-start: var(--v-space-4);
+    border-inline-start: 2px solid var(--v-accent);
+  }
+
+  .v-stats .v-stat-value { font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem); }
+  .v-stats .v-stat-label { order: 1; }
+}

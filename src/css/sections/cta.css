@@ -1,0 +1,27 @@
+/* Call to action, on a card (.v-card, often .v-card-feature for the direction's emphasis surface).
+   .v-cta centres a title, a line of copy and the actions with generous padding. .v-cta-split puts the
+   copy beside the actions (or a newsletter form) once the card is 44rem wide. */
+@layer components {
+  .v-cta {
+    --v-card-pad: clamp(1.75rem, 6vw, 4rem);
+
+    gap: var(--v-space-5);
+    align-items: center;
+    text-align: center;
+  }
+
+  .v-cta .v-lead { margin-inline: auto; }
+
+  .v-cta-split {
+    display: grid;
+    inline-size: 100%;
+    gap: var(--v-space-5);
+    align-items: center;
+    text-align: start;
+  }
+
+  @container (width >= 44rem) {
+    .v-cta-split { grid-template-columns: 1.2fr 1fr; }
+    .v-cta-split > :last-child { justify-content: flex-end; }
+  }
+}

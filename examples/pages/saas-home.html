@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Northwind · The calm back office for busy trades</title>
+  <meta name="description" content="Example page built from Vectra sections: a SaaS home page for Northwind.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body id="top">
+  <a class="v-skip-link" href="#main">Skip to content</a>
+
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 2h6l1-2h5"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.8c1.6.8 2.6 2.5 3 5.2"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.4 4-6.5 8-6.5s7 2.1 8 6.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5v-3a4 4 0 018 0v3"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5z"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 014.8 1c0 1.7-2.4 2-2.4 3.5M12 17h.01"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 000-6H9a3 3 0 010-6h6.5"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 20V9M7 13.5l5-5 5 5M5 4h14"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M12 15l-3-3c1.5-4.5 4.5-8 10-9-1 5.5-4.5 8.5-9 10z"/><path d="M9 12l-4 .5L3 15l4 1M12 15l-.5 4L9 21l-1-4"/></symbol>
+  </svg>
+
+  <aside class="ex-bar" aria-label="Direction and theme">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../sections/">Vectra <span>example: SaaS home</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+
+    <div class="v-banner v-banner-accent v-announce" role="status" data-v-dismissable>
+      <svg class="v-icon v-hide-mobile" aria-hidden="true"><use href="#i-sparkle"/></svg>
+      <p class="v-banner-body" data-contrast><strong>New:</strong> customers can now book a slot straight from your website. <a href="#pricing">See how it works</a></p>
+      <button class="v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss" type="button" data-v-dismiss aria-label="Dismiss announcement"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </div>
+    <header class="v-navbar v-navbar-contained">
+      <a class="v-navbar-brand" href="#top" data-contrast><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+        <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <ul class="v-navbar-links">
+          <li><a href="#top" aria-current="page" data-contrast>Product</a></li>
+          <li><a href="#top" data-contrast>Pricing</a></li>
+          <li><a href="#top" data-contrast>Customers</a></li>
+          <li><a href="#top" data-contrast>Help</a></li>
+        </ul>
+        <div class="v-navbar-actions">
+          <a class="v-btn v-btn-ghost" href="#top" data-contrast>Sign in</a>
+          <a class="v-btn v-btn-primary" href="#top" data-contrast>Start free trial</a>
+        </div>
+      </nav>
+    </header>
+
+  <main id="main" class="v-skip-target" tabindex="-1">
+      <section class="v-hero v-hero-center">
+        <div class="v-container">
+          <div class="v-hero-copy">
+            <a class="v-badge v-badge-accent" href="#pricing" style="text-decoration: none" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-sparkle"/></svg>New: online booking for every plan</a>
+            <h1 class="v-display" data-contrast>The calm back office for busy trades.</h1>
+            <p class="v-lead" data-contrast>Bookings, quotes, invoices and reviews in one place. Set up in an afternoon, and it works on the phone in your pocket.</p>
+              <div class="v-cluster v-justify-center">
+                <a class="v-btn v-btn-primary v-btn-lg" href="#pricing" data-contrast>Start free trial <svg class="v-icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                <a class="v-btn v-btn-secondary v-btn-lg" href="#pricing" data-contrast>See it in action</a>
+              </div>
+          </div>
+          <div class="v-hero-shot">
+            <div class="v-shot">
+              <div class="v-shot-bar">app.northwind.ie</div>
+              <div class="v-shot-body" role="img" aria-label="The Northwind dashboard: this week's revenue, jobs booked and reviews, and the latest invoices.">
+                <div class="v-flex v-gap-4">
+                  <div class="v-hide-mobile" style="inline-size: 12rem; flex-shrink: 0">
+                    <div class="v-sidenav">
+                      <ul>
+                        <li><a aria-current="page"><svg class="v-icon" aria-hidden="true"><use href="#i-home"/></svg><span class="v-sidenav-label">Dashboard</span></a></li>
+                        <li><a><svg class="v-icon" aria-hidden="true"><use href="#i-folder"/></svg><span class="v-sidenav-label">Jobs</span><span class="v-badge v-badge-accent">4</span></a></li>
+                        <li><a><svg class="v-icon" aria-hidden="true"><use href="#i-calendar"/></svg><span class="v-sidenav-label">Calendar</span></a></li>
+                        <li><a><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span class="v-sidenav-label">Invoices</span></a></li>
+                        <li><a><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sidenav-label">Reviews</span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="v-stack v-grow" style="min-inline-size: 0">
+                    <div class="v-switcher" style="--v-switch: 17rem; --v-gap: var(--v-space-3)">
+                      <div class="v-card v-stat"><span class="v-stat-label">Revenue this week</span><span class="v-stat-value">&euro;8,420</span><span class="v-badge v-badge-success">+12%</span></div>
+                      <div class="v-card v-stat"><span class="v-stat-label">Jobs booked</span><span class="v-stat-value">23</span><span class="v-badge v-badge-success">+5</span></div>
+                      <div class="v-card v-stat v-hide-mobile"><span class="v-stat-label">Average review</span><span class="v-stat-value">4.9</span><span class="v-rating" style="--v-rating: 5; --v-rating-size: 0.875rem"></span></div>
+                    </div>
+                    <div class="v-table-wrap">
+                      <table class="v-table v-table-dense">
+                        <thead><tr><th scope="col">Invoice</th><th scope="col">Customer</th><th scope="col">Status</th><th class="v-table-num" scope="col">Amount</th></tr></thead>
+                        <tbody>
+                    <tr><th class="v-nowrap" scope="row">INV-2041</th><td>Mary Walsh</td><td><span class="v-badge v-badge-success v-badge-dot">Paid</span></td><td class="v-table-num">&euro;1,850</td></tr>
+                    <tr><th class="v-nowrap" scope="row">INV-2042</th><td>The Quay Bar</td><td><span class="v-badge v-badge-warning v-badge-dot">Due Friday</span></td><td class="v-table-num">&euro;640</td></tr>
+                    <tr><th class="v-nowrap" scope="row">INV-2043</th><td>Moss &amp; Fern</td><td><span class="v-badge v-badge-success v-badge-dot">Paid</span></td><td class="v-table-num">&euro;320</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <section class="v-section" aria-label="Customers" style="--v-section-pad: var(--v-space-7)">
+      <div class="v-container">
+          <p class="v-text-center v-text-secondary v-mb-6" data-contrast>Trusted by more than 1,200 trades and local businesses</p>
+          <ul class="v-logos" aria-label="Northwind customers">
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Halvex"><path d="M4 26L16 4l12 22z" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Halvex</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Morrow"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="4"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Morrow</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Quillon"><rect x="4" y="4" width="24" height="24" rx="6" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Quillon</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Ostra"><path d="M4 16h8l4-10 4 20 4-10h8" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><text x="40" y="23" font-size="19" font-weight="650" fill="currentColor">Ostra</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Vantis"><path d="M16 3l11 6.5v13L16 29 5 22.5v-13z" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Vantis</text></svg></li>
+            <li><svg viewBox="0 0 136 32" role="img" aria-label="Lumeo"><circle cx="11" cy="16" r="7" fill="currentColor"/><circle cx="22" cy="16" r="7" fill="currentColor" opacity="0.55"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Lumeo</text></svg></li>
+          </ul>
+      </div>
+    </section>
+
+    <section class="v-section" id="features">
+      <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>Everything in one place</p>
+            <h2 data-contrast>The whole job, from first call to five stars</h2>
+            <p class="v-lead" data-contrast>Six tools that talk to each other, so nothing gets typed twice and nothing slips.</p>
+          </div>
+          <div class="v-grid" style="--v-min: max(15rem, 30%); --v-gap: var(--v-space-6) var(--v-space-5)">
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+              <h3 data-contrast>Online booking</h3>
+              <p class="v-text-secondary" data-contrast>Customers pick a free slot on your site. It lands in your calendar with their address and notes.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+              <h3 data-contrast>Quotes in minutes</h3>
+              <p class="v-text-secondary" data-contrast>Start from a saved price list, add photos from the job, and send it before you leave the driveway.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-card"/></svg></span>
+              <h3 data-contrast>Get paid faster</h3>
+              <p class="v-text-secondary" data-contrast>Every invoice carries a pay-now link. Reminders go out on their own, politely.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg></span>
+              <h3 data-contrast>More good reviews</h3>
+              <p class="v-text-secondary" data-contrast>When a job is marked done, Northwind asks for a review at the moment people are happiest.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-route"/></svg></span>
+              <h3 data-contrast>Day planner</h3>
+              <p class="v-text-secondary" data-contrast>See today’s jobs in order, with travel time between them and one tap to get directions.</p>
+            </div>
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
+              <h3 data-contrast>Your data stays yours</h3>
+              <p class="v-text-secondary" data-contrast>Hosted in the EU, backed up every night, and exportable to a spreadsheet whenever you like.</p>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section class="v-section">
+      <div class="v-container">
+          <div class="v-alternate">
+          <div>
+            <div class="v-stack">
+              <p class="v-kicker" data-contrast>Booking</p>
+              <h3 data-contrast>Let people book while you are up a ladder</h3>
+              <p class="v-text-secondary" data-contrast>Share one link or add the booking button to your site. Customers see real free slots, pick one, and get a confirmation by text. You get the job, the address and the notes.</p>
+              <ul class="v-stack" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Set working hours and travel buffers</span></li>
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Ask for photos before you visit</span></li>
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Reminders the day before, by text</span></li>
+              </ul>
+            </div>
+            <div class="v-hero-art">
+              <div class="v-card" role="img" aria-label="A calendar with three bookings made online this week.">
+                <div class="v-card-header"><span class="v-card-title">This week</span><span class="v-badge v-badge-success v-badge-dot">3 booked online</span></div>
+                <ul class="v-list">
+                  <li class="v-list-item"><span class="v-badge v-badge-accent">Mon</span><span class="v-list-body"><span class="v-list-title">Mary Walsh</span><span class="v-list-meta">09:00, gutter clean</span></span></li>
+                  <li class="v-list-item"><span class="v-badge v-badge-accent">Wed</span><span class="v-list-body"><span class="v-list-title">Pádraig Ó Sé</span><span class="v-list-meta">13:30, roof survey</span></span></li>
+                  <li class="v-list-item"><span class="v-badge v-badge-info">Fri</span><span class="v-list-body"><span class="v-list-title">The Quay Bar</span><span class="v-list-meta">10:00, chimney repair</span></span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="v-stack">
+              <p class="v-kicker" data-contrast>Invoicing</p>
+              <h3 data-contrast>Invoices that pay themselves</h3>
+              <p class="v-text-secondary" data-contrast>Turn a finished job into an invoice in two taps. Card and bank transfer are built in, and polite reminders go out on day 7 and day 14 so you never have to chase.</p>
+              <ul class="v-stack" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Pay-now link on every invoice</span></li>
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Deposits and part payments</span></li>
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>VAT-ready exports for your accountant</span></li>
+              </ul>
+            </div>
+            <div class="v-hero-art">
+              <div class="v-card" role="img" aria-label="An invoice for 1,850 euro, paid two days after it was sent.">
+                <div class="v-card-header"><span class="v-card-title">INV-2041</span><span class="v-badge v-badge-success v-badge-dot">Paid</span></div>
+                <dl class="v-dl v-dl-cols">
+                  <div><dt>Customer</dt><dd>Mary Walsh</dd></div>
+                  <div><dt>Slate re-roof</dt><dd>&euro;1,650.00</dd></div>
+                  <div><dt>Skip hire</dt><dd>&euro;200.00</dd></div>
+                  <div><dt>Total</dt><dd><strong>&euro;1,850.00</strong></dd></div>
+                </dl>
+                <div class="v-cluster"><span class="v-text-sm v-text-secondary">Sent Monday, paid Wednesday</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="v-stack">
+              <p class="v-kicker" data-contrast>Reviews</p>
+              <h3 data-contrast>Ask for the review at the right moment</h3>
+              <p class="v-text-secondary" data-contrast>The evening a job is marked done, Northwind sends a short thank-you with a link to leave a review. Happy customers say yes; the rest come to you first.</p>
+              <ul class="v-stack" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Sent at a time you choose</span></li>
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Private feedback before public reviews</span></li>
+                <li class="v-flex v-gap-2" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Your best reviews on your website</span></li>
+              </ul>
+            </div>
+            <div class="v-hero-art">
+              <div class="v-card v-testimonial" role="img" aria-label="A five-star review that arrived the evening the job was finished.">
+                <span class="v-rating" style="--v-rating: 5"></span>
+                <div class="v-testimonial-quote"><p>Tidy, on time and the price was the price. Would have them back tomorrow.</p></div>
+                <div class="v-testimonial-author"><span class="v-avatar">MW</span><span><span class="v-testimonial-name">Mary Walsh</span><span class="v-testimonial-role">Left a review at 19:42</span></span></div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+    </section>
+
+    <section class="v-section" aria-label="Northwind in numbers">
+      <div class="v-container">
+          <dl class="v-stats">
+            <div class="v-stat"><dt class="v-stat-label" data-contrast>businesses run on Northwind</dt><dd class="v-stat-value" data-contrast>1,200+</dd></div>
+            <div class="v-stat"><dt class="v-stat-label" data-contrast>invoiced last year</dt><dd class="v-stat-value" data-contrast>&euro;38m</dd></div>
+            <div class="v-stat"><dt class="v-stat-label" data-contrast>average customer review</dt><dd class="v-stat-value" data-contrast>4.9 / 5</dd></div>
+            <div class="v-stat"><dt class="v-stat-label" data-contrast>sooner paid, on average</dt><dd class="v-stat-value" data-contrast>9 days</dd></div>
+          </dl>
+      </div>
+    </section>
+
+    <section class="v-section" id="customers">
+      <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>Customers</p>
+            <h2 data-contrast>Loved from Clifden to Castlebar</h2>
+            <p class="v-lead" data-contrast>Real words from businesses that switched last year.</p>
+          </div>
+          <div class="v-grid" style="--v-min: 18rem">
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5" style="--v-rating: 5"></span>
+              <blockquote class="v-testimonial-quote"><p data-contrast>Bookings come in while we are on a job. The calendar just fills up.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">NB</span>
+                <span><span class="v-testimonial-name" data-contrast>Niamh Brennan</span><span class="v-testimonial-role" data-contrast>Moss &amp; Fern Gardens, Clifden</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5" style="--v-rating: 5"></span>
+              <blockquote class="v-testimonial-quote"><p data-contrast>Our reviews went from 11 to 140 in a year, without asking anyone face to face.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">RM</span>
+                <span><span class="v-testimonial-name" data-contrast>R&oacute;is&iacute;n Moran</span><span class="v-testimonial-role" data-contrast>Westshore Cleaning, Galway</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 4.5 out of 5" style="--v-rating: 4.5"></span>
+              <blockquote class="v-testimonial-quote"><p data-contrast>The pay-now link alone was worth it. Late payers are a thing of the past.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">DK</span>
+                <span><span class="v-testimonial-name" data-contrast>Declan Keane</span><span class="v-testimonial-role" data-contrast>Keane Electrical, Castlebar</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5" style="--v-rating: 5"></span>
+              <blockquote class="v-testimonial-quote"><p data-contrast>Setup took an afternoon. Their team moved our old price list over for us.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">AF</span>
+                <span><span class="v-testimonial-name" data-contrast>Aisling Flynn</span><span class="v-testimonial-role" data-contrast>Flynn &amp; Daughters Plumbing, Ennis</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5" style="--v-rating: 5"></span>
+              <blockquote class="v-testimonial-quote"><p data-contrast>I run the bar and the events. Deposits for the function room are finally simple.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">CO</span>
+                <span><span class="v-testimonial-name" data-contrast>Conor O&rsquo;Brien</span><span class="v-testimonial-role" data-contrast>The Quay Bar, Westport</span></span>
+              </figcaption>
+            </figure>
+            <figure class="v-card v-testimonial">
+              <span class="v-rating" role="img" aria-label="Rated 4.5 out of 5" style="--v-rating: 4.5"></span>
+              <blockquote class="v-testimonial-quote"><p data-contrast>It does the boring bits and stays out of the way. That is all I wanted.</p></blockquote>
+              <figcaption class="v-testimonial-author">
+                <span class="v-avatar" aria-hidden="true">LT</span>
+                <span><span class="v-testimonial-name" data-contrast>Lisa Tierney</span><span class="v-testimonial-role" data-contrast>Tierney Window Cleaning, Athlone</span></span>
+              </figcaption>
+            </figure>
+          </div>
+      </div>
+    </section>
+
+    <section class="v-section" id="pricing">
+      <div class="v-container">
+          <div class="v-section-head v-section-head-center">
+            <p class="v-kicker" data-contrast>Pricing</p>
+            <h2 data-contrast>Pay monthly, or save with yearly</h2>
+            <p class="v-lead" data-contrast>Every plan includes online booking, card payments and EU hosting.</p>
+          </div>
+          <div class="v-billing">
+            <div class="v-cluster v-justify-center">
+              <fieldset class="v-segmented">
+                <legend class="v-sr-only">Billing period</legend>
+                <label><input type="radio" name="billing" value="monthly" checked><span data-contrast>Monthly</span></label>
+                <label><input type="radio" name="billing" value="yearly"><span data-contrast>Yearly</span></label>
+              </fieldset>
+              <span class="v-badge v-badge-success" data-contrast>Yearly saves two months</span>
+            </div>
+          <div class="v-switcher" style="--v-switch: 52rem">
+            <article class="v-card v-pricing">
+              <header class="v-pricing-header"><h3 class="v-pricing-name" data-contrast>Solo</h3></header>
+              <p class="v-pricing-price"><span class="v-pricing-amount" data-contrast>&euro;0</span><span class="v-pricing-period" data-contrast>forever</span></p>
+              <p class="v-pricing-desc" data-contrast>For one person doing the work and the admin.</p>
+              <ul class="v-pricing-features">
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Online booking page</li>
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Up to 20 invoices a month</li>
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Card payments</li>
+              </ul>
+              <a class="v-btn v-btn-secondary v-btn-block" href="#pricing" data-contrast>Start free</a>
+            </article>
+            <article class="v-card v-pricing v-pricing-featured">
+              <header class="v-pricing-header"><h3 class="v-pricing-name" data-contrast>Crew</h3><span class="v-badge v-badge-solid" data-contrast>Most popular</span></header>
+              <p class="v-pricing-price" data-period="monthly"><span class="v-pricing-amount" data-contrast>&euro;29</span><span class="v-pricing-period" data-contrast>per month</span></p>
+              <p class="v-pricing-price" data-period="yearly"><span class="v-pricing-amount" data-contrast>&euro;24</span><span class="v-pricing-period" data-contrast>per month, billed &euro;288 yearly</span></p>
+              <p class="v-pricing-desc" data-contrast>For a small team with a full calendar.</p>
+              <ul class="v-pricing-features">
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Everything in Solo</li>
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited quotes and invoices</li>
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Automatic review requests</li>
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Up to 5 team logins</li>
+              </ul>
+              <a class="v-btn v-btn-primary v-btn-block" href="#pricing" data-contrast>Start 14-day trial</a>
+            </article>
+            <article class="v-card v-pricing v-card-feature">
+              <header class="v-pricing-header"><h3 class="v-pricing-name" data-contrast>Business</h3></header>
+              <p class="v-pricing-price" data-period="monthly"><span class="v-pricing-amount" data-contrast>&euro;79</span><span class="v-pricing-period" data-contrast>per month</span></p>
+              <p class="v-pricing-price" data-period="yearly"><span class="v-pricing-amount" data-contrast>&euro;66</span><span class="v-pricing-period" data-contrast>per month, billed &euro;792 yearly</span></p>
+              <p class="v-pricing-desc" data-contrast>For several crews, vans and locations.</p>
+              <ul class="v-pricing-features">
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Everything in Crew</li>
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited team logins</li>
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Route planning</li>
+                <li data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>Priority phone support</li>
+              </ul>
+              <a class="v-btn v-btn-primary v-btn-block" href="#pricing" data-contrast>Talk to us</a>
+            </article>
+          </div>
+          </div>
+      </div>
+    </section>
+
+    <section class="v-section" id="faq">
+      <div class="v-container">
+        <div class="v-sidebar" style="--v-side: 18rem; --v-gap: var(--v-space-7)">
+          <div class="v-section-head v-mb-0">
+            <p class="v-kicker" data-contrast>Questions</p>
+            <h2 data-contrast>Asked before you start</h2>
+            <p class="v-text-secondary" data-contrast>Something else? <a href="#top">Ask us</a>, a real person replies within a working day.</p>
+          </div>
+          <div class="v-accordion">
+            <details name="faq" open>
+              <summary data-contrast>Do my customers need an app?</summary>
+              <p data-contrast>No. They book, accept quotes and pay from a link in their browser. Only you and your team sign in.</p>
+            </details>
+            <details name="faq">
+              <summary data-contrast>Can I move my existing customers over?</summary>
+              <p>Yes. Upload a spreadsheet or send us your old system’s export, and we will import it for free within two working days.</p>
+            </details>
+            <details name="faq">
+              <summary data-contrast>What does a card payment cost?</summary>
+              <p>Card payments are 1.4% plus 25 cent for European cards, paid straight to your bank account. Bank transfers are free.</p>
+            </details>
+            <details name="faq">
+              <summary data-contrast>Is there a contract?</summary>
+              <p>No. Plans run month to month, or yearly if you want the discount. Cancel any time and keep an export of everything.</p>
+            </details>
+            <details name="faq">
+              <summary data-contrast>Where is my data kept?</summary>
+              <p>In data centres in Ireland and Germany, encrypted and backed up every night. We never sell or share it.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="v-section">
+      <div class="v-container">
+          <div class="v-card v-card-feature v-cta">
+            <h2 class="v-display" style="font-size: var(--v-step-3)" data-contrast>Spend your evenings off the clock.</h2>
+            <p class="v-lead" data-contrast>Try Northwind free for 14 days. No card needed, and we will set up your price list with you.</p>
+            <div class="v-cluster v-justify-center">
+              <a class="v-btn v-btn-primary v-btn-lg" href="#pricing" data-contrast>Start free trial</a>
+              <a class="v-btn v-btn-ghost v-btn-lg" href="#pricing" data-contrast>Book a 15-minute demo</a>
+            </div>
+          </div>
+      </div>
+    </section>
+  </main>
+
+    <footer class="v-footer">
+      <div class="v-container">
+        <div class="v-footer-grid">
+          <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+            <a class="v-navbar-brand" href="#top" data-contrast><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+            <p class="v-max-prose" data-contrast>Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+            <span class="v-status" data-contrast>All systems running</span>
+          </div>
+          <div>
+            <h2 class="v-footer-title" data-contrast>Product</h2>
+            <ul class="v-footer-links">
+              <li><a href="#top" data-contrast>Features</a></li>
+              <li><a href="#top" data-contrast>Pricing</a></li>
+              <li><a href="#top" data-contrast>Online booking</a></li>
+              <li><a href="#top" data-contrast>Changelog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="v-footer-title" data-contrast>Company</h2>
+            <ul class="v-footer-links">
+              <li><a href="#top" data-contrast>About us</a></li>
+              <li><a href="#top" data-contrast>Customers</a></li>
+              <li><a href="#top" data-contrast>Careers</a></li>
+              <li><a href="#top" data-contrast>Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="v-footer-title" data-contrast>Help</h2>
+            <ul class="v-footer-links">
+              <li><a href="#top" data-contrast>Help centre</a></li>
+              <li><a href="#top" data-contrast>Guides</a></li>
+              <li><a href="#top" data-contrast>Status</a></li>
+              <li><a href="#top" data-contrast>Security</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="v-footer-bottom">
+          <p data-contrast>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+          <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+            <li><a href="#top" data-contrast>Privacy</a></li>
+            <li><a href="#top" data-contrast>Terms</a></li>
+            <li><a href="#top" data-contrast>Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>

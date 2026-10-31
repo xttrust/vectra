@@ -40,7 +40,7 @@
     white-space: nowrap;
   }
 
-  /* The copy button (wired up by JS later) sits at the inline end of the header. */
+  /* The copy button (data-v-copy) sits at the inline end of the header. */
   .v-code-copy { margin-inline-start: auto; }
 
   .v-code-body {
@@ -55,6 +55,9 @@
   }
 
   .v-code-body code { font-size: inherit; }
+
+  /* The scrolling body is focusable; .v-code clips overflow, so its ring is drawn inside. */
+  .v-code-body:focus-visible { outline-offset: calc(var(--v-focus-w) * -1); }
 
   /* Long lines wrap instead of scrolling. */
   .v-code-wrap .v-code-body {

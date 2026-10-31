@@ -13,6 +13,8 @@ import { init as dismiss } from './components/dismiss.js';
 import { init as validate } from './components/validate.js';
 import { init as unsaved } from './components/unsaved.js';
 import { init as strength } from './components/strength.js';
+import { init as toggle } from './components/toggle.js';
+import { init as shortcut } from './components/shortcut.js';
 
 // Navigation and overlays
 import { init as tabs } from './components/tabs.js';
@@ -47,6 +49,8 @@ register('dismiss', dismiss);
 register('validate', validate);
 register('unsaved', unsaved);
 register('strength', strength);
+register('toggle', toggle);
+register('shortcut', shortcut);
 
 register('tabs', tabs);
 register('menu', menu);

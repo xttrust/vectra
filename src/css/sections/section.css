@@ -1,0 +1,55 @@
+/* Shared section pieces.
+   - .v-section-head: kicker, title and lead above a section; .v-section-head-center centres it.
+   - .v-shot: a window frame for a product screenshot composed from real Vectra components. Give the
+     composed content role="img" and a label, and keep it free of focusable things: <a> without href,
+     <span class="v-btn">. .v-shot-bar is the title strip, .v-shot-body the content. */
+@layer components {
+  .v-section-head {
+    display: grid;
+    align-content: start;
+    gap: var(--v-space-3);
+    justify-items: start;
+    max-inline-size: 44rem;
+    margin-block-end: clamp(2rem, 4vw, 3rem);
+  }
+
+  .v-section-head > :is(h1, h2, h3, h4) { font-size: var(--v-step-3); }
+
+  .v-section-head-center {
+    justify-items: center;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .v-shot {
+    overflow: hidden;
+    border: var(--v-border-w) solid var(--v-card-border);
+    border-radius: var(--v-radius-xl);
+    background-color: var(--v-bg);
+    box-shadow: var(--v-shadow-3);
+  }
+
+  .v-shot-bar {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    padding: 0.55rem 0.9rem;
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-surface);
+    color: var(--v-text-3);
+    font-size: 0.75rem;
+  }
+
+  /* Three window dots, symmetric so they read the same in RTL. */
+  .v-shot-bar::before {
+    content: "";
+    inline-size: 2.6rem;
+    block-size: 0.6rem;
+    background: radial-gradient(circle, var(--v-border-strong) 0.28rem, transparent 0.3rem) 0 50% / 0.9rem 100% repeat-x;
+  }
+
+  .v-shot-body {
+    padding: var(--v-space-4);
+    user-select: none;
+  }
+}

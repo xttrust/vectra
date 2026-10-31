@@ -39,7 +39,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Segmented control | P0 | done | |
 | Toggle button (`aria-pressed`) | P0 | done | |
 | Split button (action + menu) | P1 | | uses dropdown menu |
-| Copy button | P0 | | shared with code block |
+| Copy button | P0 | done | |
 | Floating action button | P2 | | mobile apps |
 
 ### Display
@@ -71,12 +71,12 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Alert (four tones) | P0 | done | |
 | Progress (incl. indeterminate) | P0 | done | |
 | Meter | P0 | done | |
-| Toast (stack, actions, auto-dismiss) | P0 | | JS |
+| Toast (stack, actions, auto-dismiss) | P0 | done | |
 | Banner (page-level, dismissible) | P0 | done | |
 | Callout (docs style: note, tip, warning) | P0 | done | |
-| Inline save status (saving, saved, failed, offline) | P0 | | section 11 |
-| Connection banner (offline, back online, slow network) | P0 | | section 11, JS |
-| Session timeout warning (countdown dialog) | P0 | | section 11, JS |
+| Inline save status (saving, saved, failed, offline) | P0 | done | |
+| Connection banner (offline, back online, slow network) | P0 | done | |
+| Session timeout warning (countdown dialog) | P0 | done | |
 | Progress ring | P1 | | SVG |
 | Typing / presence indicator | P1 | | section 11 |
 | Notification centre (panel + unread count) | P1 | | |
@@ -90,14 +90,14 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Checkbox, radio, switch | P0 | done | |
 | Range | P0 | done | |
 | Input group (addons, icons, buttons) | P0 | done | |
-| Password reveal | P0 | done | static done, JS in M4 |
-| File drop zone | P0 | done | static done, JS in M4 |
+| Password reveal | P0 | done | |
+| File drop zone | P0 | done | |
 | Search field (with clear, shortcut hint) | P0 | done | |
-| Number stepper | P0 | | small JS |
-| Character counter | P0 | | small JS |
-| Error summary (links to each invalid field, takes focus on submit) | P0 | | section 11 |
-| Password strength meter | P0 | | built on meter |
-| Async field check (checking, available, taken) | P0 | | section 11 |
+| Number stepper | P0 | done | |
+| Character counter | P0 | done | |
+| Error summary (links to each invalid field, takes focus on submit) | P0 | done | |
+| Password strength meter | P0 | done | built on meter |
+| Async field check (checking, available, taken) | P0 | done | |
 | Checkbox / radio cards (rich selectable tiles) | P0 | done | pricing, onboarding |
 | Form layouts (stacked, two-column, sectioned settings, inline) | P0 | done | |
 | OTP input | P1 | | 2FA flows use a plain input in v2.0 |
@@ -117,11 +117,11 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Dialog (incl. confirm / alert dialog) | P0 | done | helpers in M4 |
+| Dialog (incl. confirm / alert dialog) | P0 | done | open, close and light-dismiss hooks |
 | Drawer / sheet (four sides, bottom sheet on phones) | P0 | done | `<dialog>` |
 | Popover | P0 | done | `popover` + anchor |
-| Dropdown menu (items, groups, checkable, submenus) | P0 | done | keys in M4 |
-| Tooltip | P0 | done | Escape in M4 |
+| Dropdown menu (items, groups, checkable, submenus) | P0 | done | arrow keys, Home and End |
+| Tooltip | P0 | done | Escape dismisses, stays open on hover |
 | Context menu | P1 | | |
 | Hover card | P1 | | |
 | Command palette (Ctrl/Cmd+K) | P1 | | |
@@ -131,9 +131,9 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Navbar (with mobile menu) | P0 | done | mobile menu works without JS; polish in M4 |
+| Navbar (with mobile menu) | P0 | done | mobile menu works without JS |
 | Sidebar nav (collapsible groups, icon rail) | P0 | done | |
-| Tabs (line, pill, vertical) | P0 | done | keys in M4 |
+| Tabs (line, pill, vertical) | P0 | done | arrow keys, Home and End |
 | Breadcrumb | P0 | done | |
 | Pagination (numbered, simple, load more) | P0 | done | |
 | Steps (horizontal, vertical) | P0 | done | |
@@ -169,7 +169,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Component | Tier | Status | Notes |
 |---|---|---|---|
 | Prose (long-form typography) | P0 | done | |
-| Code block with copy | P0 | done | copy in M4 |
+| Code block with copy | P0 | done | copy button |
 | Blockquote / testimonial | P0 | done | |
 | Pricing card | P0 | done | |
 | Logo cloud | P0 | done | |
@@ -198,11 +198,11 @@ Added 31 Oct 2026 after comparing current kits (section 12): chat and AI interfa
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Direction switcher | P0 | | |
-| Theme toggle (light, dark, system) | P0 | | |
-| Customizer | P0 | | |
+| Direction switcher | P0 | done | |
+| Theme toggle (light, dark, system) | P0 | done | |
+| Customizer | P0 | done | |
 | Scroll area (styled scrollbars, fade edges) | P0 | done | |
-| Visually hidden, sticky helpers | P0 | | utilities |
+| Visually hidden, sticky helpers | P0 | | `.v-sr-only` ships in utilities.css; no sticky helper yet |
 | Cookie consent banner | P1 | | no tracking code shipped |
 | Menubar (desktop-app style menus) | P2 | | |
 | Resizable split pane | P2 | | |
@@ -436,11 +436,11 @@ Replaces the M3 to M9 rows of PLAN.md section 14. Same gates as before: one bran
 | M3.3 | Display and form additions | done: toggle button, panel, kbd, tag, list group, description list, status indicator, figure, banner, callout, search field, checkbox cards, form layouts | M |
 | M3.4 | Navigation and disclosure (static) | done: navbar, sidebar, tabs, breadcrumb, pagination, steps, skip link, bottom bar, accordion, collapsible | M |
 | M3.5 | Overlays, data, content (static) | done: dialog, drawer, popover, menu, tooltip, table, timeline, prose, code block, testimonial, pricing card, logo cloud, scroll area | L |
-| M4 | JS core + interactive P0 | toast, tabs, menu, mobile nav, dialog helpers, password reveal, drop zone, stepper, counter, copy, theming components, plus the state helpers in section 11 (connection and slow-network detection, session timeout, error summary focus, unsaved changes, live announcements) | L |
-| M5 | Icons + fonts | sprite, subset tool, Inter subset | S |
-| M6 | Docs site + theme builder | as PLAN.md section 11 | L |
+| M4 | JS core + interactive P0 | done: toast, tabs, menu, mobile nav, dialog helpers, password reveal, drop zone, stepper, counter, copy, theming components, plus the state helpers in section 11 (connection and slow-network detection, session timeout, error summary focus, unsaved changes, live announcements) | L |
+| M5 | Icons + fonts | done: sprite, subset tool, Inter subset | S |
+| M6 | Docs site + theme builder | docs site done (M6a); theme builder and quality page in M6b | L |
 | M7.1 | Core sections | the about 45 core variants in section 3, `vectra.sections.css` | L |
-| M7.2 | Auth set | six layouts, all flows in section 4 | L |
+| M7.2 | Auth set | done: six layouts, all flows in section 4 | L |
 | M7.3 | Pages | system pages, P0 marketing pages, P0 app pages, v1 pages rebuilt | L |
 | M7.4 | States | the states gallery and copy guide in section 11; every P0 app page gets its loading, empty and error variants | M |
 | M8 | Hardening | screen readers, devices, forced colours, zoom, RTL pass, performance | M |
