@@ -77,7 +77,7 @@ test('dialog: a footer button closes it through <form method="dialog">', async (
 
 test('dialog: only the body scrolls in a long dialog', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 600 });
-  await page.click('[data-ex-open="dlg-lg"]');
+  await page.click('[data-v-dialog-open="dlg-lg"]');
   const body = page.locator('#dlg-lg .v-dialog-body');
   expect(await body.evaluate((el) => el.scrollHeight > el.clientHeight)).toBe(true);
   await expect(page.locator('#dlg-lg .v-dialog-footer')).toBeInViewport();
@@ -108,7 +108,7 @@ test('drawer: the end drawer sits at the inline end on desktop, start in RTL', a
   expect(Math.round(box.x)).toBe(0);
 });
 
-for (const [id, opener] of [['dlg-invite', '#open-dialog'], ['dlg-alert', '[data-ex-open="dlg-alert"]'], ['drw-end', '#open-drawer']]) {
+for (const [id, opener] of [['dlg-invite', '#open-dialog'], ['dlg-alert', '[data-v-dialog-open="dlg-alert"]'], ['drw-end', '#open-drawer']]) {
   test(`axe: open ${id}`, async ({ page }) => {
     await page.click(opener);
     await expect(page.locator(`#${id}`)).toBeVisible();

@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../../src/css/vectra.css">
   <link rel="stylesheet" href="../shared/examples.css">
   <script src="../shared/switcher.js" defer></script>
+  <script type="module" src="../../src/js/index.js"></script>
 </head>
 <body>
   <a class="v-skip-link" href="#main">Skip to content</a>
@@ -71,7 +72,7 @@
       <h2>Navbar</h2>
       <div class="v-stack">
         <div class="ex-box" style="padding: 0; overflow: hidden">
-          <header class="v-navbar">
+          <header class="v-navbar" data-v-nav>
             <a class="v-navbar-brand" href="#navbar" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-logo"/></svg>Northwind</a>
             <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="nav-main" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
             <nav class="v-navbar-menu" id="nav-main" popover aria-label="Main">
@@ -91,7 +92,7 @@
         </div>
         <p class="ex-label">A narrow slot: the same navbar collapses by container query, not viewport width.</p>
         <div class="ex-box" style="padding: 0; overflow: hidden; max-inline-size: 24rem">
-          <header class="v-navbar">
+          <header class="v-navbar" data-v-nav>
             <a class="v-navbar-brand" href="#navbar"><svg class="v-icon" aria-hidden="true"><use href="#i-logo"/></svg>Northwind</a>
             <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="nav-compact" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
             <nav class="v-navbar-menu" id="nav-compact" popover aria-label="Compact">
@@ -161,7 +162,7 @@
       <h2>Tabs</h2>
       <div class="v-stack" style="--v-gap: var(--v-space-6)">
         <div class="v-tabs">
-          <div class="v-tablist" role="tablist" aria-label="Project, line tabs">
+          <div class="v-tablist" role="tablist" aria-label="Project, line tabs" data-v-tabs>
             <button class="v-tab" id="tab-a1" role="tab" type="button" aria-selected="true" aria-controls="panel-a1" data-contrast>Overview</button>
             <button class="v-tab" id="tab-a2" role="tab" type="button" aria-selected="false" aria-controls="panel-a2" tabindex="-1" data-contrast>Activity</button>
             <button class="v-tab" id="tab-a3" role="tab" type="button" aria-selected="false" aria-controls="panel-a3" tabindex="-1" data-contrast>Settings</button>
@@ -174,7 +175,7 @@
         </div>
 
         <div class="v-tabs v-tabs-pill">
-          <div class="v-tablist" role="tablist" aria-label="Report range, pill tabs">
+          <div class="v-tablist" role="tablist" aria-label="Report range, pill tabs" data-v-tabs="manual">
             <button class="v-tab" id="tab-b1" role="tab" type="button" aria-selected="false" aria-controls="panel-b1" tabindex="-1" data-contrast>Day</button>
             <button class="v-tab" id="tab-b2" role="tab" type="button" aria-selected="true" aria-controls="panel-b2" data-contrast>Week</button>
             <button class="v-tab" id="tab-b3" role="tab" type="button" aria-selected="false" aria-controls="panel-b3" tabindex="-1" data-contrast>Month</button>
@@ -185,7 +186,7 @@
         </div>
 
         <div class="v-tabs v-tabs-vertical ex-box">
-          <div class="v-tablist" role="tablist" aria-label="Account, vertical tabs" aria-orientation="vertical">
+          <div class="v-tablist" role="tablist" aria-label="Account, vertical tabs" data-v-tabs aria-orientation="vertical">
             <button class="v-tab" id="tab-c1" role="tab" type="button" aria-selected="true" aria-controls="panel-c1" data-contrast>Profile</button>
             <button class="v-tab" id="tab-c2" role="tab" type="button" aria-selected="false" aria-controls="panel-c2" tabindex="-1" data-contrast>Security</button>
             <button class="v-tab" id="tab-c3" role="tab" type="button" aria-selected="false" aria-controls="panel-c3" tabindex="-1" data-contrast>Notifications</button>

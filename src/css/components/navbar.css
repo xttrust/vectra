@@ -1,6 +1,6 @@
 /* Navbar: brand, links and actions. Below 48rem of its own width (a container query, so it adapts to
    its slot, not the viewport) the links move into a native popover opened by .v-navbar-toggle via
-   popovertarget, so the mobile menu works without JS. M4 only adds polish. */
+   popovertarget, so the mobile menu works without JS. data-v-nav closes it on link follow and widening. */
 @layer components {
   .v-navbar {
     display: flex;
