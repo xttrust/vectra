@@ -232,10 +232,13 @@ test.describe('forced colours', () => {
         if (r.width < 4 || r.height < 4 || cs.visibility === 'hidden' || Number(cs.opacity) === 0) return [];
         // Inactive controls are exempt (WCAG 1.4.11), and so is anything scrolled out of its own scroller.
         if (el.closest('[hidden], .v-sr-only, [aria-hidden="true"]') || el.matches(':disabled, [aria-disabled="true"]')) return [];
+        // Content of a closed <details> (a collapsed nav group) is laid out but not rendered.
+        if (!el.checkVisibility()) return [];
         for (let a = el.parentElement; a; a = a.parentElement) {
-          if (getComputedStyle(a).overflowX === 'visible') continue;
+          const { overflowX, overflowY } = getComputedStyle(a);
           const b = a.getBoundingClientRect();
-          if (r.right <= b.left || r.left >= b.right) return [];
+          if (overflowX !== 'visible' && (r.right <= b.left || r.left >= b.right)) return [];
+          if (overflowY !== 'visible' && (r.bottom <= b.top || r.top >= b.bottom)) return [];
         }
         return [{ label: window.vLabel(el), x: r.left + scrollX - 1, y: r.top + scrollY - 1, w: r.width + 2, h: r.height + 2 }];
       }), CONTROLS);
@@ -422,7 +425,11 @@ test.describe('focus visible', () => {
               const p = getComputedStyle(c).position;
               return (p === 'fixed' || p === 'sticky') && !c.contains(el) && c.getBoundingClientRect().height > 0;
             }).map((c) => c.getBoundingClientRect());
-            const hidden = covers.some((c) => c.left <= r.left && c.right >= r.right && c.top <= r.top && c.bottom >= r.bottom);
+            // Covered geometrically is not enough: the focused element may sit above the cover (a skip link
+            // over a sticky header), so ask the browser what is really on top at its centre.
+            const onTop = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+            const hidden = covers.some((c) => c.left <= r.left && c.right >= r.right && c.top <= r.top && c.bottom >= r.bottom)
+              && !(onTop && (el.contains(onTop) || onTop.contains(el)));
             let bg = 'none';
             for (let a = el; a; a = a.parentElement) {
               const b = getComputedStyle(a).backgroundColor;
