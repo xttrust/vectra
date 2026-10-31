@@ -1,0 +1,142 @@
+/* Checkbox, radio and switch: native inputs drawn with appearance: none, so they keep native
+   keyboard, form and label behaviour. Switch: <input type="checkbox" role="switch" class="v-switch">.
+   Wrap control and text in <label class="v-choice"> so the whole row is the click target. */
+@layer components {
+  .v-choice {
+    display: inline-flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    color: var(--v-text);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    cursor: pointer;
+  }
+
+  .v-choice:has(:disabled) {
+    color: var(--v-text-3);
+    cursor: not-allowed;
+  }
+  .v-choice .v-hint { display: block; }
+
+  .v-choice-group {
+    display: grid;
+    gap: var(--v-space-3);
+    justify-items: start;
+  }
+
+  :is(.v-checkbox, .v-radio, .v-switch) {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    margin: 0.15em 0 0;
+    border: var(--v-border-w) solid var(--v-input-border);
+    border-radius: min(var(--v-radius-sm), 0.3rem);
+    background-color: var(--v-input-bg);
+    box-shadow: var(--v-input-shadow);
+    appearance: none;
+    cursor: inherit;
+    transition: background-color var(--v-dur-1), border-color var(--v-dur-1);
+  }
+
+  .v-radio { border-radius: 50%; }
+
+  /* The mark: a checkmark for checkboxes, a dash when indeterminate, a dot for radios. */
+  :is(.v-checkbox, .v-radio)::before {
+    content: "";
+    inline-size: 0.75rem;
+    block-size: 0.75rem;
+    background-color: var(--v-on-accent);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+    scale: 0;
+    transition: scale var(--v-dur-2) var(--v-ease-spring);
+  }
+
+  .v-checkbox:indeterminate::before { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M6 12h12'/%3E%3C/svg%3E"); }
+
+  .v-radio::before {
+    inline-size: 0.45rem;
+    block-size: 0.45rem;
+    border-radius: 50%;
+    mask: none;
+  }
+
+  :is(.v-checkbox:indeterminate, :is(.v-checkbox, .v-radio):checked) {
+    border-color: var(--v-accent);
+    background-color: var(--v-accent);
+  }
+
+  :is(.v-checkbox:indeterminate, :is(.v-checkbox, .v-radio):checked)::before { scale: 1; }
+
+  :is(.v-checkbox, .v-radio, .v-switch):hover:not(:checked, :disabled) { border-color: color-mix(in oklch, var(--v-input-border), var(--v-text) 40%); }
+  :is(.v-checkbox, .v-radio, .v-switch):focus-visible { outline-offset: 2px; }
+
+  :is(.v-checkbox, .v-radio, .v-switch):is(:user-invalid, [aria-invalid="true"]):not(:checked) {
+    border-color: var(--v-danger);
+    box-shadow: inset 0 0 0 var(--v-border-w) var(--v-danger);
+  }
+
+  :is(.v-checkbox, .v-radio, .v-switch):disabled { opacity: 0.55; }
+
+  /* Switch: a track with a thumb that slides to the end when on. */
+  .v-switch {
+    --v-switch-travel: 1rem;
+
+    place-items: center start;
+    inline-size: 2.5rem;
+    block-size: 1.5rem;
+    margin-block-start: 0;
+    padding: 2px;
+    border-radius: var(--v-radius-pill);
+  }
+
+  .v-switch::before {
+    content: "";
+    inline-size: calc(1.5rem - 4px - 2 * var(--v-border-w));
+    block-size: calc(1.5rem - 4px - 2 * var(--v-border-w));
+    border-radius: inherit;
+    background-color: var(--v-text-3);
+    box-shadow: 0 1px 2px color-mix(in oklch, var(--v-text) 25%, transparent);
+    transition: translate var(--v-dur-3) var(--v-ease-spring), background-color var(--v-dur-1);
+  }
+
+  .v-switch:checked {
+    border-color: var(--v-accent);
+    background-color: var(--v-accent);
+  }
+
+  .v-switch:checked::before {
+    background-color: var(--v-on-accent);
+    translate: var(--v-switch-travel) 0;
+  }
+
+  .v-switch:dir(rtl) { --v-switch-travel: -1rem; }
+  .v-choice:has(.v-switch) { align-items: center; }
+
+  /* Forced colours: draw everything in system colours so state never depends on the author palette. */
+  @media (forced-colors: active) {
+    :is(.v-checkbox, .v-radio, .v-switch) {
+      border-color: CanvasText;
+      background-color: Field;
+      forced-color-adjust: none;
+    }
+
+    :is(.v-checkbox:indeterminate, :is(.v-checkbox, .v-radio, .v-switch):checked) {
+      border-color: Highlight;
+      background-color: Highlight;
+    }
+
+    :is(.v-checkbox, .v-radio)::before { background-color: HighlightText; }
+    .v-switch::before { background-color: CanvasText; }
+    .v-switch:checked::before { background-color: HighlightText; }
+    :is(.v-checkbox, .v-radio, .v-switch):disabled { border-color: GrayText; }
+  }
+}
+
+@layer directions {
+  /* Editorial: square, inked marks. */
+  :root[data-direction="editorial"] .v-checkbox { border-radius: 0; }
+
+  :root[data-direction="glass"] :is(.v-checkbox, .v-radio, .v-switch) { backdrop-filter: blur(12px); }
+}
