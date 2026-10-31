@@ -75,6 +75,7 @@ const SPEC_NOTES = {
   'auth.spec.js': 'Sign in, sign up, recovery and two-step pages',
   'contrast.spec.js': 'Rendered text contrast on real pages',
   'core.spec.js': 'Auto-init, observer, events, storage, announcements',
+  'dist.spec.js': 'A plain page using only the built dist/ files works offline',
   'forms-js.spec.js': 'Form behaviour, with and without JavaScript',
   'hardening.spec.js': 'RTL, forced colours, 400% zoom, text spacing, focus visibility, reduced motion, target size',
   'sections.spec.js': 'Marketing and app sections and the example pages',
