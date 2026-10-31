@@ -1,0 +1,10 @@
+/* Injected only while visual tests take screenshots (stylePath in visual.spec.js). CI renders
+   backdrop-filter in software and its blur differs slightly from run to run, so Glass screenshots
+   would fail at random. Without the blur the translucent surfaces and the colour field behind them
+   are still compared; the blur itself is checked by eye and by the rendered contrast test. */
+*,
+*::before,
+*::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
