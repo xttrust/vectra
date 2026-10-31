@@ -1,0 +1,73 @@
+/* Site footer. .v-footer is the band (a size container); inside a .v-container:
+   - .v-footer-grid: a brand column (.v-footer-brand) and link columns. Columns sit two up on phones and
+     side by side from 48rem; set --v-footer-cols to the number of link columns (default 3).
+   - .v-footer-title heads a column, .v-footer-links is its list.
+   - .v-footer-bottom: the closing row (copyright, legal links), split by a rule; on its own it is the
+     whole of a simple footer. */
+@layer components {
+  .v-footer {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) var(--v-space-6);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-bg-subtle);
+    color: var(--v-text-2);
+    font-size: 0.9375rem;
+    container-type: inline-size;
+  }
+
+  .v-footer a:not(.v-btn) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .v-footer a:not(.v-btn):hover {
+    color: var(--v-text);
+    text-decoration: underline;
+  }
+
+  .v-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--v-space-6) var(--v-space-5);
+  }
+
+  .v-footer-brand { grid-column: 1 / -1; }
+
+  @container (width >= 48rem) {
+    .v-footer-grid { grid-template-columns: minmax(0, 1.6fr) repeat(var(--v-footer-cols, 3), minmax(0, 1fr)); }
+    .v-footer-brand { grid-column: auto; }
+  }
+
+  .v-footer-title {
+    margin-block-end: var(--v-space-3);
+    color: var(--v-text);
+    font-size: 0.875rem;
+    font-weight: 620;
+  }
+
+  .v-footer-links {
+    display: grid;
+    gap: var(--v-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v-footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3) var(--v-space-5);
+    align-items: center;
+    justify-content: space-between;
+    margin-block-start: clamp(2rem, 5vw, 3.5rem);
+    padding-block-start: var(--v-space-5);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    font-size: var(--v-step-minus-1);
+  }
+
+  /* A simple footer is just the bottom row. */
+  .v-footer-bottom:first-child {
+    margin-block-start: 0;
+    padding-block-start: 0;
+    border: 0;
+  }
+}

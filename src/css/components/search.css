@@ -2,7 +2,8 @@
    addon, an <input class="v-input" type="search" placeholder="..">, an optional clear button
    (.v-search-clear) and an optional shortcut hint (.v-search-hint holding a .v-kbd).
    The input needs a placeholder: the clear button shows only once there is text, and the hint
-   hides while the field is focused or filled. M4 adds the clear and shortcut behaviour. */
+   hides while the field is focused or filled. data-v-clear wires the clear button; data-v-shortcut="/" on the
+   input focuses it from anywhere on the page. */
 @layer components {
   .v-search > .v-input::-webkit-search-cancel-button { display: none; }
   .v-search > .v-input-addon { color: var(--v-text-3); }

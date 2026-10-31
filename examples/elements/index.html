@@ -132,18 +132,18 @@
       <h2>Toggle buttons and keys</h2>
       <div class="v-grid" style="--v-min: 26rem">
         <div class="v-stack" style="--v-gap: var(--v-space-3)">
-          <div class="v-cluster">
+          <div class="v-cluster" data-v-toggle>
             <button class="v-btn" type="button" aria-pressed="true" data-contrast>Pinned</button>
             <button class="v-btn" type="button" aria-pressed="false" data-contrast>Pin</button>
             <button class="v-btn v-btn-secondary" type="button" aria-pressed="true" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg>Starred</button>
             <button class="v-btn v-btn-ghost v-btn-icon" type="button" aria-pressed="false" aria-label="Favourite"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg></button>
           </div>
-          <div class="v-cluster"><div class="v-toggle-group" role="group" aria-label="Text style">
+          <div class="v-cluster"><div class="v-toggle-group" role="group" aria-label="Text style" data-v-toggle>
             <button class="v-btn v-btn-sm v-btn-icon" type="button" aria-pressed="true" aria-label="Bold"><svg class="v-icon" aria-hidden="true"><use href="#i-bold"/></svg></button>
             <button class="v-btn v-btn-sm v-btn-icon" type="button" aria-pressed="false" aria-label="Italic"><svg class="v-icon" aria-hidden="true"><use href="#i-italic"/></svg></button>
             <button class="v-btn v-btn-sm v-btn-icon" type="button" aria-pressed="true" aria-label="Underline"><svg class="v-icon" aria-hidden="true"><use href="#i-underline"/></svg></button>
           </div></div>
-          <div class="v-cluster"><div class="v-toggle-group" role="group" aria-label="Show columns">
+          <div class="v-cluster"><div class="v-toggle-group" role="group" aria-label="Show columns" data-v-toggle>
             <button class="v-btn v-btn-sm" type="button" aria-pressed="true" data-contrast>Client</button>
             <button class="v-btn v-btn-sm" type="button" aria-pressed="true" data-contrast>Amount</button>
             <button class="v-btn v-btn-sm" type="button" aria-pressed="false" data-contrast>Due</button>
@@ -316,7 +316,7 @@
           <label class="v-label" for="s-docs" data-contrast>Search the docs</label>
           <div class="v-input-group v-search">
             <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
-            <input class="v-input" id="s-docs" type="search" placeholder="Components, tokens" aria-keyshortcuts="/">
+            <input class="v-input" id="s-docs" type="search" placeholder="Components, tokens" aria-keyshortcuts="/" data-v-shortcut="/">
             <span class="v-search-hint" aria-hidden="true"><kbd class="v-kbd">/</kbd></span>
           </div>
         </div>

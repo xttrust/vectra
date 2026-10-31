@@ -1,0 +1,18 @@
+/* Pricing section with a monthly / yearly switch that needs no JS. Inside .v-billing put a .v-segmented
+   radio pair with the values "monthly" and "yearly", then the plans; mark each price that differs with
+   data-period="monthly" or data-period="yearly". The checked radio decides which ones show, so hidden
+   prices are hidden from screen readers too. */
+@layer components {
+  .v-billing {
+    display: grid;
+    gap: var(--v-space-6);
+    justify-items: center;
+  }
+
+  .v-billing > :not(.v-segmented) { inline-size: 100%; }
+
+  .v-billing:not(:has([value="yearly"]:checked)) [data-period="yearly"],
+  .v-billing:has([value="yearly"]:checked) [data-period="monthly"] {
+    display: none;
+  }
+}

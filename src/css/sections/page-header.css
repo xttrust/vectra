@@ -1,0 +1,37 @@
+/* Page header: the top of an app page. A breadcrumb or kicker, the title (.v-page-title), a line of
+   meta (.v-page-meta) and the page actions (.v-page-actions), which wrap under the title on narrow
+   screens. Add a .v-tablist of links (aria-current="page" on the current one) as the last child for
+   the tabbed variant; it then sits on the header's bottom rule. */
+@layer components {
+  .v-page-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-4) var(--v-space-5);
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .v-page-header > :first-child {
+    display: grid;
+    flex: 1 1 20rem;
+    gap: var(--v-space-2);
+  }
+
+  .v-page-title {
+    font-size: var(--v-step-3);
+    line-height: 1.15;
+  }
+
+  .v-page-meta { color: var(--v-text-2); }
+
+  .v-page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2);
+  }
+
+  .v-page-header > .v-tablist {
+    flex-basis: 100%;
+    margin-block-start: var(--v-space-2);
+  }
+}

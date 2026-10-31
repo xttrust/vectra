@@ -1,0 +1,69 @@
+/* Hero: the opening section. .v-hero paints the direction's hero background (fading out at the bottom)
+   and is a size container, so the layout follows the hero's own width, not the window.
+   - .v-hero-copy: badge, display title, lead, actions and a note, stacked.
+   - .v-hero-center: copy centred. .v-hero-split: copy beside .v-hero-art from 56rem of hero width.
+   - .v-hero-art: holds an illustration, a screenshot or a form; .v-hero-float pins a card over its corner.
+   - .v-hero-shot: a .v-shot below centred copy. */
+@layer components {
+  .v-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-block: clamp(3rem, 8vw, 6.5rem);
+    container-type: inline-size;
+  }
+
+  .v-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--v-hero-bg);
+    mask-image: linear-gradient(to bottom, currentcolor 55%, transparent);
+  }
+
+  /* The title scales with the hero's width, capped at the direction's display size. */
+  .v-hero .v-display { font-size: clamp(2.25rem, 1rem + 4.5cqi, var(--v-step-display)); }
+  .v-hero-split .v-display { font-size: clamp(2.25rem, 1rem + 3.4cqi, var(--v-step-display)); }
+
+  .v-hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--v-space-5);
+    align-items: flex-start;
+  }
+
+  .v-hero-center .v-hero-copy {
+    align-items: center;
+    max-inline-size: 50rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .v-hero-split {
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: center;
+  }
+
+  @container (width >= 56rem) {
+    .v-hero-split { grid-template-columns: 1.05fr 0.95fr; }
+    .v-hero-float { inset-inline-start: -2rem; }
+  }
+
+  .v-hero-art { position: relative; }
+
+  .v-hero-float {
+    position: absolute;
+    inset-block-end: -1.5rem;
+    inset-inline-start: var(--v-space-3);
+    inline-size: min(85%, 19rem);
+    box-shadow: var(--v-shadow-3);
+  }
+
+  .v-hero-shot { margin-block-start: clamp(2.5rem, 6vw, 4.5rem); }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-hero { border-block-end: var(--v-border-w) solid var(--v-border); }
+}
