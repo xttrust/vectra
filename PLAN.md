@@ -205,7 +205,7 @@ Built with the kit itself, so the site is the biggest demo.
 
 ## 13. Relationship to AdminVora
 
-Separate design language, as decided. Vectra is free and covers marketing pages, auth and general app UI; AdminVora (paid) owns the full admin experience: dashboards, data-heavy screens, starter kits. Vectra docs can link to AdminVora as the upgrade path. No shared code in v2.0, to keep both free to evolve.
+Separate design language, as decided. Vectra's free core covers components, marketing pages, auth and general app UI; Vectra Pro (section 17) adds blocks and site templates; AdminVora (paid) owns the full admin experience: dashboards, data-heavy screens, starter kits. Vectra docs link to AdminVora as the admin upgrade path. No shared code in v2.0, to keep both free to evolve.
 
 ## 14. Milestones
 
@@ -216,14 +216,16 @@ One branch and one PR per milestone, each merged only with green checks. Sizes a
 | M0 | Repo setup: tooling, CI pipeline, budgets, test harness, slash commands, caniuse check of section 3 | M | CI runs green on an empty kit |
 | M1 | Tokens + four directions + hue correction, ported from the prototype with `v-` naming | M | contrast sweep passes in CI |
 | M2 | Foundations: reset, base, typography, layout, utilities | S | layout demo page passes axe |
-| M3 | P0 static components (CSS only) | L | every component page passes axe and visual baseline |
+| M3 | P0 static components (CSS only), in three PRs: M3.1 actions, display, feedback; M3.2 forms; M3.3 navigation, overlays, data, content | L | every component passes axe, the rendered-contrast check and its visual baseline |
 | M4 | P0 interactive components + JS core | L | keyboard tests pass in three engines |
 | M5 | Icon sprite pipeline + font subsetting | S | no external URLs, font ≤ 45 KB |
 | M6 | Docs site + theme builder | L | site builds from the kit, deploys |
-| M7 | Rebuild the v1 pages on v2: 14 sections, 4 auth pages, components, forms, utilities, docs, index; add dashboard, pricing, settings, 404 examples | L | all pages pass the full CI matrix |
+| M7 | Sections and pages: the v1 pages rebuilt on v2 (14 sections, components, forms, utilities, docs, index), about 20 core sections, the full auth set (section 17), dashboard, pricing, settings and error pages | L | all pages pass the full CI matrix |
 | M8 | Hardening: screen readers, real devices, forced colours, zoom, performance | M | release checklist clean |
+| M8b | AI manifest: machine-readable component list, `llms.txt`, Claude Code skill | S | an AI assistant produces valid Vectra markup from the manifest alone |
 | M9 | Release v2.0: npm, zip, README, migration guide, announcement | S | published |
-| v2.1 | P1 components | L | per component, same gates |
+| v2.1 | P1 components, blocks library, `npx vectra add`, Blade package (section 17) | L | per item, same gates |
+| v2.2 | Site templates, Vue package, token exports, Vectra Pro launch (section 17) | L | per item, same gates |
 
 ## 15. Decisions (agreed 30 Oct 2026)
 
@@ -240,3 +242,43 @@ One branch and one PR per milestone, each merged only with green checks. Sizes a
 - **Glass blur** costs GPU on low-end phones (many blurred layers; in CI's software-rendered WebKit it is slow enough to stall tests). Mitigation: limit blur to surfaces in view, and the `prefers-reduced-transparency` fallback to solid surfaces, already in the prototype.
 - **Breaking change for v1 users.** Mitigation: v1 stays available in its own repo, plus a migration guide and class map.
 - **Visual regression noise** from font rendering across machines. Mitigation: run visual tests in one pinned container image.
+
+## 17. Product roadmap (agreed 31 Oct 2026)
+
+Vectra wins on a combination no one else offers: zero dependencies, native platform features, four directions from one markup, AA contrast at any accent hue, first-class Laravel support and AI-readiness. Depth per component beats component count.
+
+### v2.0: the kit (M3 to M9)
+
+- About 40 P0 components with every state (hover, focus, disabled, loading, error, empty), keyboard support, RTL and docs.
+- **Full auth set:** login, register, forgot and reset password, verify email, 2FA/OTP, magic link, social sign-in, invite accept, lock screen, session expired.
+- **About 20 core sections:** hero, features, pricing, testimonials, logos, stats, FAQ, CTA, newsletter, contact, navbar, footer; 404, 500 and maintenance pages.
+- **Docs site with the theme builder:** shareable links, export, copy-paste code, every example switchable across the four directions, and a public quality page (accessibility, sizes, browsers) fed by CI.
+- **AI manifest:** machine-readable component list, `llms.txt` and a Claude Code skill, so AI assistants write correct Vectra markup.
+
+### v2.1: reach
+
+- **P1 components:** combobox, command palette, data table with sort, filter and selection, date input styling, OTP input, tag input, carousel, SVG chart primitives.
+- **Blocks library:** about 60 marketing, app and e-commerce blocks (several variants per section, app shells, settings, onboarding, notifications, billing, product, cart, checkout).
+- **`npx vectra add <block>`:** copies a block's markup into a project.
+- **Laravel Blade package:** `<x-v-button>` and friends, zero dependencies, published on Packagist.
+
+### v2.2: templates and Pro
+
+- **Site templates,** starting with CreativeIgniter's real niches: trades (roofing, gardening, cleaning), bar and restaurant, music label and artist, SaaS landing, agency and portfolio, docs, blog. New client sites are built on Vectra, which doubles as real-world testing and a showcase.
+- **Vue components** for Inertia apps.
+- **Token exports:** W3C DTCG JSON (Figma via Tokens Studio or variables) and a Tailwind preset.
+- **Vectra Pro launches:** paid blocks and templates.
+
+### Business model
+
+- **Core stays free (MIT):** components, utilities, directions, theme builder, auth set, core sections, Blade package. The free core builds the audience.
+- **Vectra Pro (paid, from about v2.1 to v2.2):** the extended blocks library and site templates. Pricing decided at launch.
+- **AdminVora stays separate:** admin dashboards and data-heavy apps. No overlap with Pro.
+- **Launch channels for v2.0:** Laravel News, Show HN, Product Hunt, r/webdev, plus a showcase of real CreativeIgniter client sites.
+
+### Deliberately not doing (for now)
+
+- Chasing component count over depth.
+- React wrappers before the Blade and Vue packages prove the integration model.
+- A Figma library before v2.0 ships (token exports cover designers first).
+
