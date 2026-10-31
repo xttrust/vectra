@@ -4,8 +4,10 @@
 @layer components {
   .v-dropzone {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--v-space-2);
     justify-items: center;
+    min-inline-size: 0;
     padding: var(--v-space-6) var(--v-space-5);
     border: calc(var(--v-border-w) * 2) dashed var(--v-input-border);
     border-radius: var(--v-radius-lg);
@@ -13,6 +15,7 @@
     color: var(--v-text-2);
     font-size: 0.875rem;
     text-align: center;
+    text-wrap: balance;
     cursor: pointer;
     transition: border-color var(--v-dur-1), background-color var(--v-dur-1);
   }
