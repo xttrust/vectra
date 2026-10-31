@@ -1,0 +1,46 @@
+/* Logo cloud: monochrome logos, muted until hovered. SVG logos should paint with currentcolor;
+   images are greyed with a filter. .v-logos is a grid, .v-logos-inline a centred wrapping row. */
+@layer components {
+  .v-logos {
+    --v-logos-h: 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--v-logos-min, 9rem)), 1fr));
+    gap: var(--v-space-6) var(--v-space-5);
+    place-items: center;
+    color: var(--v-text-3);
+  }
+
+  .v-logos-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-5) var(--v-space-7);
+    justify-content: center;
+  }
+
+  .v-logos > * {
+    display: flex;
+    color: inherit;
+    opacity: 0.85;
+    transition: color var(--v-dur-2), opacity var(--v-dur-2);
+  }
+
+  .v-logos :is(svg, img) {
+    inline-size: auto;
+    block-size: var(--v-logos-h);
+  }
+
+  .v-logos img { filter: grayscale(1); }
+
+  @media (hover: hover) {
+    .v-logos > :hover {
+      color: var(--v-text);
+      opacity: 1;
+    }
+  }
+
+  .v-logos a:focus-visible {
+    color: var(--v-text);
+    opacity: 1;
+  }
+}

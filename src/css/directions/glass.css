@@ -52,6 +52,10 @@
     --v-card-sheen: linear-gradient(135deg, light-dark(oklch(100% 0 0deg / 35%), oklch(100% 0 0deg / 6%)), transparent 60%);
     --v-input-bg: light-dark(oklch(100% 0 0deg / 55%), oklch(100% 0 0deg / 6%));
 
+    /* Overlays float over anything, so they are frostier than cards to keep text readable. */
+    --v-overlay-bg: light-dark(oklch(100% 0 0deg / 86%), oklch(25% 0.045 var(--v-accent-h) / 90%));
+    --v-backdrop: light-dark(oklch(30% 0.1 var(--v-accent-h) / 28%), oklch(8% 0.04 var(--v-accent-h) / 55%));
+
     /* Feature surface */
 
     /* Each stop is darkened by its own hue's brightness (green-cyan reads lighter at equal lightness). */
@@ -76,6 +80,7 @@
       --v-surface: light-dark(oklch(99% 0.01 var(--v-accent-h)), oklch(26% 0.045 var(--v-accent-h)));
       --v-surface-2: light-dark(oklch(95% 0.02 var(--v-accent-h)), oklch(30% 0.045 var(--v-accent-h)));
       --v-bg-subtle: light-dark(oklch(96% 0.02 var(--v-accent-h)), oklch(22% 0.04 var(--v-accent-h)));
+      --v-overlay-bg: light-dark(oklch(99% 0.01 var(--v-accent-h)), oklch(26% 0.045 var(--v-accent-h)));
     }
   }
 }

@@ -49,6 +49,7 @@
     --v-btn-weight: 520;
     --v-card-shadow: none;
     --v-input-bg: transparent;
+    --v-backdrop: light-dark(oklch(21% 0.02 55deg / 40%), oklch(8% 0.008 70deg / 65%));
 
     /* Feature surface */
 

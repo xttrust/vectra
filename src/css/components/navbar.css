@@ -1,0 +1,144 @@
+/* Navbar: brand, links and actions. Below 48rem of its own width (a container query, so it adapts to
+   its slot, not the viewport) the links move into a native popover opened by .v-navbar-toggle via
+   popovertarget, so the mobile menu works without JS. M4 only adds polish. */
+@layer components {
+  .v-navbar {
+    display: flex;
+    gap: var(--v-space-4);
+    align-items: center;
+    min-block-size: calc(var(--v-control-h) + 2 * var(--v-space-3));
+    padding-inline: var(--v-space-4);
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-surface);
+    color: var(--v-text);
+    container: v-navbar / inline-size;
+  }
+
+  .v-navbar-brand {
+    display: inline-flex;
+    gap: var(--v-space-2);
+    align-items: center;
+    color: var(--v-text);
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .v-navbar-toggle { margin-inline-start: auto; }
+
+  /* Narrow: the menu is a popover sheet from the inline-end edge. */
+  .v-navbar-menu { display: none; }
+
+  .v-navbar-menu:popover-open {
+    position: fixed;
+    inset: 0 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--v-space-5);
+    inline-size: min(20rem, 100% - 3rem);
+    block-size: 100%;
+    max-block-size: none;
+    margin: 0;
+    padding: var(--v-space-4);
+    overflow-y: auto;
+    border: 0;
+    border-inline-start: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-bg);
+    color: var(--v-text);
+    box-shadow: var(--v-shadow-3);
+  }
+
+  .v-navbar-menu::backdrop { background-color: color-mix(in oklch, var(--v-bg) 65%, transparent); }
+  .v-navbar-close { align-self: flex-end; }
+
+  .v-navbar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v-navbar-links a {
+    display: flex;
+    gap: var(--v-space-2);
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--v-radius-sm);
+    color: var(--v-text-2);
+    font-weight: 520;
+    text-decoration: none;
+    transition: color var(--v-dur-1), background-color var(--v-dur-1);
+  }
+
+  .v-navbar-links a:hover {
+    background-color: var(--v-surface-2);
+    color: var(--v-text);
+  }
+
+  .v-navbar-links a[aria-current="page"] {
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+    font-weight: 620;
+  }
+
+  .v-navbar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2);
+    align-items: center;
+  }
+
+  /* Wide: links inline, toggle and close hidden. Doubled class so it beats .v-btn in any load order. */
+  @container v-navbar (width >= 48rem) {
+    .v-navbar .v-navbar-toggle,
+    .v-navbar .v-navbar-close {
+      display: none;
+    }
+
+    .v-navbar-menu,
+    .v-navbar-menu:popover-open {
+      position: static;
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      gap: var(--v-space-4);
+      align-items: center;
+      inline-size: auto;
+      block-size: auto;
+      padding: 0;
+      overflow: visible;
+      border: 0;
+      background: none;
+      box-shadow: none;
+    }
+
+    .v-navbar-links { flex-direction: row; }
+    .v-navbar-links a { padding-inline: 0.7rem; }
+
+    .v-navbar-links a[aria-current="page"] {
+      background-color: transparent;
+      color: var(--v-text);
+      text-decoration: underline 2px var(--v-accent);
+      text-underline-offset: 0.55em;
+    }
+
+    .v-navbar-actions { margin-inline-start: auto; }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-navbar { border-block-end-color: var(--v-border-strong); }
+  :root[data-direction="soft"] .v-navbar { box-shadow: var(--v-shadow-1); }
+
+  :root[data-direction="glass"] .v-navbar,
+  :root[data-direction="glass"] .v-navbar-menu:popover-open {
+    border-color: var(--v-card-border);
+    background-color: var(--v-surface);
+    backdrop-filter: blur(24px) saturate(1.6);
+  }
+}

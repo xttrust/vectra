@@ -1,0 +1,102 @@
+/* Code block: a header with the language and a copy-button slot, then a scrolling <pre>.
+   No highlighter ships (zero dependencies); pre-highlighted HTML can use the .v-tok-* classes.
+   Line numbers: wrap each line in .v-code-line and add .v-code-numbered. */
+@layer components {
+  .v-code {
+    overflow: hidden;
+    border: var(--v-border-w) solid var(--v-card-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-card-bg);
+    box-shadow: var(--v-card-shadow);
+    color: var(--v-text);
+  }
+
+  .v-code-header {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    justify-content: space-between;
+    min-block-size: 2.75rem;
+    padding: var(--v-space-1) var(--v-space-2) var(--v-space-1) var(--v-space-4);
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-surface-2);
+  }
+
+  .v-code-lang {
+    color: var(--v-text-2);
+    font-family: var(--v-font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .v-code-title {
+    overflow: hidden;
+    color: var(--v-text-2);
+    font-family: var(--v-font-mono);
+    font-size: 0.8125rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* The copy button (wired up by JS later) sits at the inline end of the header. */
+  .v-code-copy { margin-inline-start: auto; }
+
+  .v-code-body {
+    overflow: auto;
+    max-block-size: var(--v-code-max, none);
+    padding: var(--v-space-4);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    scrollbar-color: var(--v-border-strong) transparent;
+    scrollbar-width: thin;
+    tab-size: 2;
+  }
+
+  .v-code-body code { font-size: inherit; }
+
+  /* Long lines wrap instead of scrolling. */
+  .v-code-wrap .v-code-body {
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  .v-code-numbered code { counter-reset: v-line; }
+  .v-code-numbered .v-code-line { counter-increment: v-line; }
+
+  .v-code-numbered .v-code-line::before {
+    content: counter(v-line);
+    display: inline-block;
+    min-inline-size: 2.5ch;
+    margin-inline-end: 2ch;
+    color: var(--v-text-3);
+    text-align: end;
+    user-select: none;
+  }
+
+  /* Token classes for pre-highlighted code. Every colour is a text-safe token. */
+  .v-tok-comment {
+    color: var(--v-text-3);
+    font-style: italic;
+  }
+
+  .v-tok-keyword,
+  .v-tok-tag { color: var(--v-accent-text); }
+  .v-tok-string { color: var(--v-success); }
+  .v-tok-number { color: var(--v-warning); }
+  .v-tok-function { color: var(--v-info); }
+
+  .v-tok-property,
+  .v-tok-attr { color: var(--v-danger); }
+  .v-tok-punct { color: var(--v-text-2); }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-code-header {
+    border-block-end-color: var(--v-border-strong);
+    background-color: transparent;
+  }
+
+  :root[data-direction="glass"] .v-code { backdrop-filter: blur(24px) saturate(1.6); }
+}

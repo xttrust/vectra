@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Overlays</title>
+  <meta name="description" content="Vectra dialogs, drawers, popovers, menus and tooltips in every direction and theme.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <style>
+    /* Gallery only: show overlays in the page flow so they can be screenshotted and contrast-checked. */
+    dialog.ex-static {
+      position: static;
+      inline-size: 100%;
+      max-inline-size: 32rem;
+      block-size: auto;
+      margin: 0;
+      translate: none;
+    }
+
+    .ex-preview { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-4); align-content: start; justify-items: start; }
+    .ex-live { margin-block-start: var(--v-space-4); }
+  </style>
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5M5 13v7h14v-7"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../components/">Vectra <span>overlays</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">Components · overlays</p>
+      <h1 class="v-display">Dialogs, drawers, popovers, menus and tooltips.</h1>
+      <p class="v-lead">All on native &lt;dialog&gt; and popover. Each one is shown in the page for review, then opened for real from its button.</p>
+    </section>
+
+    <section id="dialog">
+      <h2>Dialog</h2>
+      <div class="v-grid" style="--v-min: 20rem">
+        <div class="ex-box ex-preview">
+          <dialog class="v-dialog ex-static" open aria-labelledby="pv-dialog-title">
+            <header class="v-dialog-header">
+              <h3 class="v-dialog-title" id="pv-dialog-title" data-contrast>Invite a teammate</h3>
+              <button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" type="button" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+            </header>
+            <div class="v-dialog-body">
+              <p data-contrast>They get an email with a link to join this workspace. You can change their role later.</p>
+            </div>
+            <footer class="v-dialog-footer">
+              <button class="v-btn v-btn-secondary" type="button" data-contrast>Cancel</button>
+              <button class="v-btn v-btn-primary" type="button" data-contrast>Send invite</button>
+            </footer>
+          </dialog>
+        </div>
+        <div class="ex-box ex-preview">
+          <dialog class="v-dialog v-dialog-danger ex-static" open role="alertdialog" aria-labelledby="pv-alert-title" aria-describedby="pv-alert-desc">
+            <header class="v-dialog-header">
+              <span class="v-dialog-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-alert"/></svg></span>
+              <h3 class="v-dialog-title" id="pv-alert-title" data-contrast>Delete project?</h3>
+            </header>
+            <div class="v-dialog-body">
+              <p id="pv-alert-desc" data-contrast>Project Atlas and its 24 files are removed for everyone. This cannot be undone.</p>
+            </div>
+            <footer class="v-dialog-footer">
+              <button class="v-btn v-btn-secondary" type="button" data-contrast>Keep it</button>
+              <button class="v-btn v-btn-danger" type="button" data-contrast>Delete</button>
+            </footer>
+          </dialog>
+        </div>
+      </div>
+      <div class="v-cluster ex-live">
+        <button class="v-btn v-btn-primary" type="button" id="open-dialog" data-ex-open="dlg-invite">Open dialog</button>
+        <button class="v-btn v-btn-secondary" type="button" data-ex-open="dlg-sm">Small</button>
+        <button class="v-btn v-btn-secondary" type="button" data-ex-open="dlg-lg">Large, scrolling</button>
+        <button class="v-btn v-btn-secondary" type="button" data-ex-open="dlg-full">Full on phones</button>
+        <button class="v-btn v-btn-danger" type="button" data-ex-open="dlg-alert">Delete project</button>
+      </div>
+    </section>
+
+    <section id="drawer">
+      <h2>Drawer and sheet</h2>
+      <div class="v-grid" style="--v-min: 20rem">
+        <div class="ex-box ex-preview">
+          <dialog class="v-drawer ex-static" open aria-labelledby="pv-drawer-title">
+            <header class="v-drawer-header">
+              <h3 class="v-drawer-title" id="pv-drawer-title" data-contrast>Filters</h3>
+              <button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" type="button" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+            </header>
+            <div class="v-drawer-body">
+              <p data-contrast>Narrow the list by status, owner and date. Filters apply as you change them.</p>
+            </div>
+            <footer class="v-drawer-footer">
+              <button class="v-btn v-btn-ghost" type="button" data-contrast>Reset</button>
+              <button class="v-btn v-btn-primary" type="button" data-contrast>Show 12 results</button>
+            </footer>
+          </dialog>
+        </div>
+      </div>
+      <div class="v-cluster ex-live">
+        <button class="v-btn v-btn-primary" type="button" id="open-drawer" data-ex-open="drw-end">End (sheet on phones)</button>
+        <button class="v-btn v-btn-secondary" type="button" data-ex-open="drw-start">Start</button>
+        <button class="v-btn v-btn-secondary" type="button" data-ex-open="drw-top">Top</button>
+        <button class="v-btn v-btn-secondary" type="button" data-ex-open="drw-bottom">Bottom</button>
+      </div>
+    </section>
+
+    <section id="popover">
+      <h2>Popover</h2>
+      <div class="v-grid" style="--v-min: 20rem">
+        <div class="ex-box ex-preview">
+          <div class="v-popover">
+            <p class="v-popover-title" data-contrast>Storage</p>
+            <p class="v-popover-text" data-contrast>You have used 8.2 GB of 10 GB. Old exports are removed after 30 days.</p>
+          </div>
+        </div>
+      </div>
+      <div class="v-cluster ex-live">
+        <button class="v-btn v-btn-secondary" type="button" id="open-popover" popovertarget="pop-storage">Storage details</button>
+        <button class="v-btn v-btn-secondary" type="button" popovertarget="pop-top">Opens above</button>
+      </div>
+    </section>
+
+    <section id="menu">
+      <h2>Dropdown menu</h2>
+      <div class="v-grid" style="--v-min: 16rem">
+        <div class="ex-box ex-preview">
+          <div class="v-menu" role="menu" aria-label="Project actions (preview)">
+            <div role="group" aria-labelledby="pv-menu-g1">
+              <div class="v-menu-label" id="pv-menu-g1" role="presentation" data-contrast>Project</div>
+              <button class="v-menu-item" type="button" role="menuitem" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg>Rename<kbd>F2</kbd></button>
+              <button class="v-menu-item" type="button" role="menuitem" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate<kbd>Ctrl D</kbd></button>
+              <button class="v-menu-item" type="button" role="menuitem" aria-disabled="true"><svg class="v-icon" aria-hidden="true"><use href="#i-share"/></svg>Share (no access)</button>
+            </div>
+            <hr class="v-menu-sep">
+            <div role="group" aria-labelledby="pv-menu-g2">
+              <div class="v-menu-label" id="pv-menu-g2" role="presentation" data-contrast>View</div>
+              <button class="v-menu-item" type="button" role="menuitemcheckbox" aria-checked="true"><span data-contrast>Show archived</span></button>
+              <button class="v-menu-item" type="button" role="menuitemcheckbox" aria-checked="false"><span data-contrast>Compact rows</span></button>
+              <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="true"><span data-contrast>Sort by name</span></button>
+              <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false"><span data-contrast>Sort by date</span></button>
+            </div>
+            <hr class="v-menu-sep">
+            <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+          </div>
+        </div>
+      </div>
+      <div class="v-cluster ex-live">
+        <button class="v-btn v-btn-secondary" type="button" id="open-menu" popovertarget="menu-project" aria-haspopup="menu"><svg class="v-icon" aria-hidden="true"><use href="#i-more"/></svg>Actions</button>
+      </div>
+    </section>
+
+    <section id="tooltip">
+      <h2>Tooltip</h2>
+      <div class="v-grid" style="--v-min: 16rem">
+        <div class="ex-box ex-preview">
+          <span class="v-tooltip" role="tooltip" data-contrast>Copy link to clipboard</span>
+        </div>
+      </div>
+      <div class="v-cluster ex-live">
+        <span class="v-tooltip-wrap">
+          <button class="v-btn v-btn-secondary" type="button" aria-describedby="tip-help"><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>Help</button>
+          <span class="v-tooltip" role="tooltip" id="tip-help">No popover needed</span>
+        </span>
+        <button class="v-btn v-btn-secondary" type="button" id="open-tooltip" popovertarget="tip-copy" aria-describedby="tip-copy">Click for a popover tooltip</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- The real overlays. Hidden until opened. -->
+  <dialog class="v-dialog" id="dlg-invite" aria-labelledby="dlg-invite-title">
+    <header class="v-dialog-header">
+      <h2 class="v-dialog-title" id="dlg-invite-title">Invite a teammate</h2>
+      <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    </header>
+    <div class="v-dialog-body">
+      <p>They get an email with a link to join this workspace. You can change their role later.</p>
+    </div>
+    <form class="v-dialog-footer" method="dialog">
+      <button class="v-btn v-btn-secondary" value="cancel">Cancel</button>
+      <button class="v-btn v-btn-primary" value="send">Send invite</button>
+    </form>
+  </dialog>
+
+  <dialog class="v-dialog v-dialog-sm" id="dlg-sm" aria-labelledby="dlg-sm-title">
+    <header class="v-dialog-header">
+      <h2 class="v-dialog-title" id="dlg-sm-title">Saved</h2>
+    </header>
+    <div class="v-dialog-body"><p>Your changes are live.</p></div>
+    <form class="v-dialog-footer" method="dialog"><button class="v-btn v-btn-primary">OK</button></form>
+  </dialog>
+
+  <dialog class="v-dialog v-dialog-lg" id="dlg-lg" aria-labelledby="dlg-lg-title">
+    <header class="v-dialog-header">
+      <h2 class="v-dialog-title" id="dlg-lg-title">Terms of service</h2>
+      <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    </header>
+    <div class="v-dialog-body v-stack">
+      <p>Only the body scrolls; the title and the actions stay where they are.</p>
+      <p>1. These terms cover your use of the service and any content you upload to it.</p>
+      <p>2. You keep ownership of your content. You give us the rights we need to host and show it.</p>
+      <p>3. Paid plans renew each month until cancelled. Cancelling stops the next renewal.</p>
+      <p>4. We may suspend accounts that break the acceptable use policy, after a warning where possible.</p>
+      <p>5. The service is provided as is. Our liability is limited to the fees paid in the last twelve months.</p>
+      <p>6. We announce changes to these terms by email at least 30 days before they apply.</p>
+      <p>7. Irish law applies. Disputes go to the courts of Ireland.</p>
+      <p>8. Questions about these terms can be sent to the address on the contact page.</p>
+      <p>9. If one part of these terms cannot be enforced, the rest still applies.</p>
+      <p>10. These terms replace any earlier agreement about the service.</p>
+    </div>
+    <form class="v-dialog-footer" method="dialog">
+      <button class="v-btn v-btn-secondary" value="decline">Decline</button>
+      <button class="v-btn v-btn-primary" value="accept">Accept</button>
+    </form>
+  </dialog>
+
+  <dialog class="v-dialog v-dialog-full" id="dlg-full" aria-labelledby="dlg-full-title">
+    <header class="v-dialog-header">
+      <h2 class="v-dialog-title" id="dlg-full-title">Edit profile</h2>
+      <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    </header>
+    <div class="v-dialog-body"><p>On phones this dialog fills the screen, which suits longer forms.</p></div>
+    <form class="v-dialog-footer" method="dialog">
+      <button class="v-btn v-btn-secondary">Cancel</button>
+      <button class="v-btn v-btn-primary">Save</button>
+    </form>
+  </dialog>
+
+  <dialog class="v-dialog v-dialog-danger" id="dlg-alert" role="alertdialog" aria-labelledby="dlg-alert-title" aria-describedby="dlg-alert-desc">
+    <header class="v-dialog-header">
+      <span class="v-dialog-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-alert"/></svg></span>
+      <h2 class="v-dialog-title" id="dlg-alert-title">Delete project?</h2>
+    </header>
+    <div class="v-dialog-body"><p id="dlg-alert-desc">Project Atlas and its 24 files are removed for everyone. This cannot be undone.</p></div>
+    <form class="v-dialog-footer" method="dialog">
+      <button class="v-btn v-btn-secondary" value="cancel" autofocus>Keep it</button>
+      <button class="v-btn v-btn-danger" value="delete">Delete</button>
+    </form>
+  </dialog>
+
+  <dialog class="v-drawer" id="drw-end" aria-labelledby="drw-end-title">
+    <header class="v-drawer-header">
+      <h2 class="v-drawer-title" id="drw-end-title">Filters</h2>
+      <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    </header>
+    <div class="v-drawer-body"><p>Narrow the list by status, owner and date. Filters apply as you change them.</p></div>
+    <form class="v-drawer-footer" method="dialog">
+      <button class="v-btn v-btn-ghost">Reset</button>
+      <button class="v-btn v-btn-primary">Show 12 results</button>
+    </form>
+  </dialog>
+
+  <dialog class="v-drawer v-drawer-start" id="drw-start" aria-labelledby="drw-start-title">
+    <header class="v-drawer-header">
+      <h2 class="v-drawer-title" id="drw-start-title">Navigation</h2>
+      <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    </header>
+    <div class="v-drawer-body"><p>The start drawer stays at the side on phones, which suits navigation.</p></div>
+  </dialog>
+
+  <dialog class="v-drawer v-drawer-top" id="drw-top" aria-labelledby="drw-top-title">
+    <header class="v-drawer-header">
+      <h2 class="v-drawer-title" id="drw-top-title">Announcement</h2>
+      <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    </header>
+    <div class="v-drawer-body"><p>A top sheet slides down from the edge of the screen.</p></div>
+  </dialog>
+
+  <dialog class="v-drawer v-drawer-bottom" id="drw-bottom" aria-labelledby="drw-bottom-title">
+    <header class="v-drawer-header">
+      <h2 class="v-drawer-title" id="drw-bottom-title">Share</h2>
+      <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-drawer-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    </header>
+    <div class="v-drawer-body"><p>A bottom sheet, at every width.</p></div>
+  </dialog>
+
+  <div class="v-popover" id="pop-storage" popover>
+    <p class="v-popover-title">Storage</p>
+    <p class="v-popover-text">You have used 8.2 GB of 10 GB. Old exports are removed after 30 days.</p>
+  </div>
+
+  <div class="v-popover v-popover-top" id="pop-top" popover>
+    <p class="v-popover-text">This one prefers the space above its trigger.</p>
+  </div>
+
+  <!-- popovertargetaction="hide" closes the menu when an item is chosen, without JS. -->
+  <div class="v-menu" id="menu-project" popover role="menu" aria-label="Project actions">
+    <div role="group" aria-labelledby="menu-g1">
+      <div class="v-menu-label" id="menu-g1" role="presentation">Project</div>
+      <button class="v-menu-item" type="button" role="menuitem" popovertarget="menu-project" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg>Rename<kbd>F2</kbd></button>
+      <button class="v-menu-item" type="button" role="menuitem" popovertarget="menu-project" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate<kbd>Ctrl D</kbd></button>
+      <button class="v-menu-item" type="button" role="menuitem" aria-disabled="true"><svg class="v-icon" aria-hidden="true"><use href="#i-share"/></svg>Share (no access)</button>
+    </div>
+    <hr class="v-menu-sep">
+    <div role="group" aria-labelledby="menu-g2">
+      <div class="v-menu-label" id="menu-g2" role="presentation">View</div>
+      <button class="v-menu-item" type="button" role="menuitemcheckbox" aria-checked="true">Show archived</button>
+      <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="true">Sort by name</button>
+      <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Sort by date</button>
+    </div>
+    <hr class="v-menu-sep">
+    <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="menu-project" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+  </div>
+
+  <span class="v-tooltip" id="tip-copy" popover="hint" role="tooltip">Placed above its trigger</span>
+
+  <script>
+    /* Gallery only: modal dialogs need showModal(). The dialog helpers arrive with the JS modules. */
+    document.querySelectorAll('[data-ex-open]').forEach(function (btn) {
+      btn.addEventListener('click', function () { document.getElementById(btn.dataset.exOpen).showModal(); });
+    });
+  </script>
+</body>
+</html>

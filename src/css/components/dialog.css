@@ -1,0 +1,150 @@
+/* Dialog on the native <dialog>: header, scrollable body, footer, sizes and the alert dialog.
+   showModal() gives the backdrop, focus trap, Escape and focus return. Close with <form method="dialog">.
+   Enter and exit animate with @starting-style and allow-discrete; browsers without them just snap. */
+@layer components {
+  .v-dialog {
+    --v-dialog-w: 32rem;
+    --v-dialog-pad: calc(clamp(1.15rem, 4vw, 1.6rem) * var(--v-density));
+
+    inline-size: min(100% - 2rem, var(--v-dialog-w));
+    max-inline-size: none;
+    max-block-size: min(100dvh - 2rem, 44rem);
+    margin: auto;
+    padding: 0;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-xl);
+    background-color: var(--v-overlay-bg);
+    box-shadow: var(--v-shadow-3);
+    color: var(--v-text);
+    opacity: 0;
+    translate: 0 12px;
+    scale: 0.97;
+    transition:
+      opacity var(--v-dur-2),
+      translate var(--v-dur-3) var(--v-ease-spring),
+      scale var(--v-dur-3) var(--v-ease-spring),
+      overlay var(--v-dur-3) allow-discrete,
+      display var(--v-dur-3) allow-discrete;
+  }
+
+  /* display only when open: an author display would beat the UA's dialog:not([open]) { display: none }. */
+  .v-dialog[open] {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+
+  @starting-style {
+    .v-dialog[open] {
+      opacity: 0;
+      translate: 0 12px;
+      scale: 0.97;
+    }
+  }
+
+  .v-dialog::backdrop {
+    background-color: var(--v-backdrop);
+    opacity: 0;
+    transition: opacity var(--v-dur-3), overlay var(--v-dur-3) allow-discrete, display var(--v-dur-3) allow-discrete;
+  }
+
+  .v-dialog[open]::backdrop { opacity: 1; }
+
+  @starting-style {
+    .v-dialog[open]::backdrop { opacity: 0; }
+  }
+
+  .v-dialog-header {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: flex-start;
+    padding: var(--v-dialog-pad) var(--v-dialog-pad) 0;
+  }
+
+  .v-dialog-title {
+    margin-inline-end: auto;
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    line-height: 1.25;
+  }
+
+  /* The close button sits in the corner without pushing the title down. */
+  .v-dialog-close {
+    flex: none;
+    margin-block-start: -0.35rem;
+    margin-inline: auto -0.5rem;
+  }
+
+  /* Only the body scrolls, so the title and actions stay in view. */
+  .v-dialog-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: var(--v-space-3) var(--v-dialog-pad);
+    color: var(--v-text-2);
+    overscroll-behavior: contain;
+  }
+
+  .v-dialog-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3);
+    justify-content: flex-end;
+    padding: var(--v-space-3) var(--v-dialog-pad) var(--v-dialog-pad);
+  }
+
+  .v-dialog-sm { --v-dialog-w: 24rem; }
+  .v-dialog-lg { --v-dialog-w: 48rem; }
+
+  /* Full: as large as lg on wide screens, the whole screen on phones. */
+  .v-dialog-full { --v-dialog-w: 48rem; }
+
+  /* Alert dialog (role="alertdialog"): narrow, with a tone icon. Add .v-dialog-danger for destructive confirms. */
+  .v-dialog[role="alertdialog"] { --v-dialog-w: 26rem; }
+
+  .v-dialog-icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+  }
+
+  .v-dialog-danger .v-dialog-icon {
+    background-color: var(--v-danger-soft);
+    color: var(--v-danger);
+  }
+
+  @media (width < 40rem) {
+    .v-dialog-full {
+      inline-size: 100%;
+      block-size: 100dvh;
+      max-block-size: none;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .v-dialog-footer > :is(.v-btn, button) { flex: 1 1 auto; }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-dialog {
+    border-color: var(--v-border-strong);
+    box-shadow: none;
+  }
+
+  :root[data-direction="glass"] .v-dialog { backdrop-filter: blur(24px) saturate(1.6); }
+  :root[data-direction="glass"] .v-dialog::backdrop { backdrop-filter: blur(6px); }
+
+  @media (prefers-reduced-transparency: reduce) {
+    :root[data-direction="glass"] .v-dialog,
+    :root[data-direction="glass"] .v-dialog::backdrop { backdrop-filter: none; }
+  }
+}

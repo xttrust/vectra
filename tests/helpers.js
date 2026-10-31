@@ -10,6 +10,9 @@ export const PAGES = [
   { name: 'layout', path: '/examples/layout/', storage: 'vectra', visual: 'basic' },
   { name: 'components', path: '/examples/components/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'forms', path: '/examples/forms/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'navigation', path: '/examples/navigation/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'content', path: '/examples/content/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'overlays', path: '/examples/overlays/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'elements', path: '/examples/elements/', storage: 'vectra', visual: 'full', rendered: true },
 ];
 
