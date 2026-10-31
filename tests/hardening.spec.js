@@ -226,6 +226,9 @@ test.describe('forced colours', () => {
       await page.setViewportSize({ width: 1280, height: 900 });
       await page.emulateMedia({ forcedColors: 'active' });
       await setup(page, target, { direction, theme: 'light' });
+      // The first full-page capture can settle the layout a few pixels differently (a row above re-wraps),
+      // and it stays that way. Capture once before measuring, so boxes match the capture that is sampled.
+      await page.screenshot({ fullPage: true, animations: 'disabled' });
       const items = await page.evaluate((sel) => [...document.querySelectorAll(sel)].flatMap((el) => {
         const r = el.getBoundingClientRect();
         const cs = getComputedStyle(el);
