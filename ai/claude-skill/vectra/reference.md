@@ -887,6 +887,9 @@ States:
 - data-state="failed": A red alert icon.
 - data-state="offline": A cloud with a slash.
 
+Hooks:
+- data-v-save-status-text (on a child of .v-save-status): The element whose text saveStatus() replaces; without it the whole status element's text is replaced.
+
 Accessibility:
 - saveStatus() announces Saved and failed messages politely by itself; keep the element out of live regions so the 30-second refreshes stay quiet.
 - Saving and offline are not announced, so a busy editor does not chatter.
@@ -3147,7 +3150,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.storage.set(key, value)`: Writes localStorage under the vectra- prefix; null removes the key; never throws.
 - `Vectra.announce(message, politeness = 'polite')`: Reads a message to screen readers through a shared live region. Use 'assertive' only for urgent news.
 - `Vectra.connection.slow(on = true)`: Shows (true) or clears (false) the slow network notice, for example when your own requests are timing out.
-- `Vectra.saveStatus(el, 'saving' | 'saved' | 'failed' | 'offline', { at })`: Sets data-state and the text. Saved shows the time since at (default now) and refreshes it every 30 seconds. Writes into a .v-save-status-text child if there is one, otherwise into el itself.
+- `Vectra.saveStatus(el, 'saving' | 'saved' | 'failed' | 'offline', { at })`: Sets data-state and the text. Saved shows the time since at (default now) and refreshes it every 30 seconds. Writes into the child marked data-v-save-status-text if there is one, otherwise into el itself.
 - `Vectra.session.warn({ expiresAt, onExtend, onExpire, onSignIn }) => { close }`: Opens the warning. expiresAt is a Date or a timestamp. Stay signed in and Escape call onExtend; at expiry onExpire runs and the button becomes Sign in (onSignIn). Only one warning is open at a time.
 - `Vectra.toast(message, { tone, action: { label, onClick }, undo, duration }) => { dismiss }`: Shows a toast. tone is 'success', 'info', 'warning' or 'danger'. undo is a shortcut for an Undo action. duration is in ms (default 5000, at least 10000 with an action, 0 to stay until closed). Returns dismiss() to close it early.
 - `Vectra.fieldState(input, state, message)`: state is "checking", "valid", "invalid" or "clear". Writes the message under the input's .v-field and announces it politely.

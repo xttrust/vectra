@@ -133,7 +133,7 @@ Feedback:
 - Banner: .v-banner, hooks data-v-dismissable data-v-dismiss data-v-dismiss-key
 - Callout: .v-callout
 - Connection banner: , hooks data-v-connection data-v-when
-- Inline save status: .v-save-status
+- Inline save status: .v-save-status, hooks data-v-save-status-text
 - Meter: .v-meter
 - Progress: .v-progress
 - Session timeout warning: 
