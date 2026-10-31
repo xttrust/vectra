@@ -14,6 +14,7 @@ export const PAGES = [
   { name: 'content', path: '/examples/content/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'overlays', path: '/examples/overlays/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'elements', path: '/examples/elements/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'icons', path: '/examples/icons/', storage: 'vectra', visual: 'basic' },
   { name: 'theming', path: '/examples/theming/', storage: 'vectra', visual: 'full', rendered: true },
 ];
 
