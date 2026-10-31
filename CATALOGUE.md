@@ -61,7 +61,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Description list (stacked, two-column, in card) | P0 | | |
 | Status indicator (online, busy, away; pulse) | P0 | | |
 | Figure / image with caption, aspect-ratio frame | P0 | | |
-| Icon (sprite `<use>`) | P0 | | after M5 |
+| Icon (sprite `<use>`) | P0 | done | M5, `examples/icons/` |
 | Ribbon / corner label | P2 | | |
 
 ### Feedback

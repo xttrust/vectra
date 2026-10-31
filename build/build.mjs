@@ -1,7 +1,7 @@
 /* Builds dist/ from src/ with Lightning CSS (bundled + minified CSS) and esbuild (JS as IIFE + ESM).
    CSS outputs: vectra.css (everything), vectra.core.css, vectra.components.css,
-   directions/<name>.css and components/<name>.css. */
-import { mkdir, readdir, writeFile } from 'node:fs/promises';
+   directions/<name>.css and components/<name>.css. Fonts are copied to dist/fonts/. */
+import { cp, mkdir, readdir, writeFile } from 'node:fs/promises';
 import { bundle } from 'lightningcss';
 import { build } from 'esbuild';
 import { lightningTargets, esbuildTargets } from './browsers.mjs';
@@ -15,15 +15,19 @@ const entries = [
   ...(await names('src/css/components')).map((c) => [`src/css/components/${c}.css`, `dist/components/${c}`]),
 ];
 
+// src/css/fonts.css points at ../fonts/; the bundles sit in dist/, next to dist/fonts/.
+const distUrl = (url) => (url.url.startsWith('../fonts/') ? { ...url, url: url.url.slice(3) } : url);
+
 await mkdir('dist/directions', { recursive: true });
 await mkdir('dist/components', { recursive: true });
 for (const [filename, out] of entries) {
   for (const minify of [false, true]) {
-    const { code } = bundle({ filename, minify, targets: lightningTargets });
+    const { code } = bundle({ filename, minify, targets: lightningTargets, visitor: { Url: distUrl } });
     await writeFile(`${out}${minify ? '.min' : ''}.css`, code);
   }
 }
 console.log(`built ${entries.length} CSS entries (plain + minified)`);
+await cp('src/fonts', 'dist/fonts', { recursive: true });
 
 const shared = { entryPoints: ['src/js/index.js'], bundle: true, target: esbuildTargets, legalComments: 'none' };
 await build({ ...shared, format: 'iife', globalName: 'Vectra', minify: true, outfile: 'dist/vectra.js' });

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Icon subset fixture</title>
+</head>
+<body>
+  <!-- Sprite references the subset tool must find: search, close (xlink), bell (data-icon), search again. -->
+  <button type="button"><svg class="v-icon" aria-hidden="true"><use href="../icons/sprite.svg#search"/></svg>Search</button>
+  <button type="button" aria-label="Close"><svg class="v-icon"><use xlink:href="/icons/sprite.svg?v=2#close"></use></svg></button>
+  <span data-icon="bell"></span>
+  <svg class="v-icon"><use href='sprite.svg#search'/></svg>
+  <!-- A same-page symbol, not a sprite icon: ignored. -->
+  <svg class="v-icon"><use href="#i-plus"/></svg>
+</body>
+</html>
