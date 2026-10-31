@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Too many attempts · Northwind · Vectra auth</title>
+  <meta name="description" content="Too many attempts: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <header class="v-auth-header">
+          <span class="v-auth-icon v-auth-icon-warning" aria-hidden="true"><svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg></span>
+          <h1 class="v-auth-title" id="auth-title">Too many attempts</h1>
+          <p class="v-auth-text">To keep your account safe, signing in is paused for a moment.</p>
+        </header>
+        <p class="v-alert v-alert-warning" id="retry">Try again in <strong><span data-countdown="60">60</span> seconds</strong>.</p>
+        <a class="v-btn v-btn-secondary v-btn-block" href="../recovery/forgot.html">Reset your password</a>
+        <p class="v-auth-alt"><a href="../sign-in/password.html">Back to sign in</a></p>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+  <script type="module">
+    /* Counts down the wait (HTTP 429, Retry-After). The number is not announced every second; the end is. */
+    import { announce } from '../../../src/js/index.js';
+    const out = document.querySelector('[data-countdown]');
+    let left = Number(out.dataset.countdown);
+    const tick = setInterval(() => {
+      left -= 1;
+      out.textContent = left;
+      out.nextSibling.textContent = left === 1 ? ' second' : ' seconds';
+      if (left > 0) return;
+      clearInterval(tick);
+      document.getElementById('retry').textContent = 'You can try again now.';
+      announce('You can try again now.');
+    }, 1000);
+  </script>
+</body>
+</html>

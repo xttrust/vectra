@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Email verified · Northwind · Vectra auth</title>
+  <meta name="description" content="Email verified: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <header class="v-auth-header">
+          <span class="v-auth-icon v-auth-icon-success" aria-hidden="true"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></span>
+          <h1 class="v-auth-title" id="auth-title">Email verified</h1>
+          <p class="v-auth-text">Thanks, Aoife. Your account is ready.</p>
+        </header>
+        <a class="v-btn v-btn-primary v-btn-block" href="../first-run/welcome.html">Go to Northwind</a>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SMS fallback · Northwind · Vectra auth</title>
+  <meta name="description" content="SMS fallback: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <header class="v-auth-header">
+          <span class="v-auth-icon" aria-hidden="true"><svg class="v-icon" aria-hidden="true"><use href="#i-phone"/></svg></span>
+          <h1 class="v-auth-title" id="auth-title">Check your phone</h1>
+          <p class="v-auth-text">We texted a 6-digit code to the number ending in 4821.</p>
+        </header>
+        <form class="v-form" id="sms-form" method="post" action="../first-run/welcome.html" data-v-validate>
+          <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+          <div class="v-field">
+            <label class="v-label" for="code">Code</label>
+            <input class="v-input v-auth-code" id="code" name="code" type="text" autocomplete="one-time-code" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6">
+            <p class="v-field-error" id="code-error">Enter the 6-digit code.</p>
+          </div>
+          <button class="v-btn v-btn-primary v-btn-block" type="submit">Verify</button>
+        </form>
+        <p class="v-auth-alt">No text after a minute? <a href="#">Send it again</a> or <a href="../two-factor/code.html">use your authenticator app</a>.</p>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

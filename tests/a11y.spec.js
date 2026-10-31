@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { DIRECTIONS, THEMES, PAGES, WCAG_TAGS, open, describeViolations } from './helpers.js';
+import { DIRECTIONS, THEMES, PAGES, AUTH_PAGES, WCAG_TAGS, open, describeViolations } from './helpers.js';
 
 // In WebKit, axe intermittently fails to read oklch()/light-dark() text colours and reports them as
 // black (verified: computed colours and screenshots are correct). Contrast is enforced in Chromium
@@ -10,15 +10,19 @@ const axeFor = (page, browserName) => {
   return browserName === 'webkit' ? builder.disableRules(['color-contrast']) : builder;
 };
 
-for (const target of PAGES) {
-  for (const direction of DIRECTIONS) {
-    for (const theme of THEMES) {
-      test(`axe: ${target.name} · ${direction} · ${theme}`, async ({ page, browserName }) => {
-        await open(page, target, { direction, theme });
-        const { violations } = await axeFor(page, browserName).analyze();
-        expect(describeViolations(violations)).toEqual([]);
-      });
-    }
+// Auth flow pages are many (about 40): the full 8-combo matrix measured 1.1 min on 10 local workers, about
+// 5.5 min on the 2-worker CI runner. They run in two combos that cover both themes and two directions; the
+// auth gallery holds the same components and runs the full matrix.
+const AUTH_COMBOS = [['tech', 'dark'], ['editorial', 'light']];
+const combos = (target) => (AUTH_PAGES.includes(target) ? AUTH_COMBOS : DIRECTIONS.flatMap((d) => THEMES.map((t) => [d, t])));
+
+for (const target of [...PAGES, ...AUTH_PAGES]) {
+  for (const [direction, theme] of combos(target)) {
+    test(`axe: ${target.name} · ${direction} · ${theme}`, async ({ page, browserName }) => {
+      await open(page, target, { direction, theme });
+      const { violations } = await axeFor(page, browserName).analyze();
+      expect(describeViolations(violations)).toEqual([]);
+    });
   }
 }
 

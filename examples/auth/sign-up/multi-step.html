@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multi-step · Northwind · Vectra auth</title>
+  <meta name="description" content="Multi-step: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth v-auth-wide">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <ol class="v-steps" aria-label="Sign-up progress">
+          <li class="v-step v-step-complete"><span class="v-step-label"><span class="v-sr-only">Completed: </span>Account</span></li>
+          <li class="v-step" aria-current="step"><span class="v-step-label">Profile</span></li>
+          <li class="v-step"><span class="v-step-label">Workspace</span></li>
+        </ol>
+        <header class="v-auth-header">
+          <h1 class="v-auth-title" id="auth-title">Tell us about you</h1>
+          <p class="v-auth-text">Step 2 of 3. You can change all of this later.</p>
+        </header>
+        <form class="v-form" id="profile-form" method="post" action="../first-run/onboarding.html" data-v-validate>
+          <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+          <div class="v-form-grid">
+            <div class="v-field">
+              <label class="v-label" for="first_name">First name</label>
+              <input class="v-input" id="first_name" name="first_name" type="text" autocomplete="given-name" required>
+              <p class="v-field-error" id="first_name-error">Enter your first name.</p>
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="last_name">Last name</label>
+              <input class="v-input" id="last_name" name="last_name" type="text" autocomplete="family-name" required>
+              <p class="v-field-error" id="last_name-error">Enter your last name.</p>
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="job_title">Job title <span class="v-optional">Optional</span></label>
+              <input class="v-input" id="job_title" name="job_title" type="text" autocomplete="organization-title">
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="phone">Mobile number <span class="v-optional">Optional</span></label>
+              <input class="v-input" id="phone" name="phone" type="tel" autocomplete="tel" aria-describedby="phone-hint">
+              <p class="v-hint" id="phone-hint">Only for sign-in codes.</p>
+            </div>
+          </div>
+          <div class="v-form-actions">
+            <a class="v-btn v-btn-ghost v-form-actions-start" href="../sign-up/single.html">Back</a>
+            <button class="v-btn v-btn-primary" type="submit">Continue</button>
+          </div>
+        </form>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>
