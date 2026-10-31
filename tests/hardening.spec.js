@@ -233,9 +233,12 @@ test.describe('forced colours', () => {
         // Inactive controls are exempt (WCAG 1.4.11), and so is anything scrolled out of its own scroller.
         if (el.closest('[hidden], .v-sr-only, [aria-hidden="true"]') || el.matches(':disabled, [aria-disabled="true"]')) return [];
         for (let a = el.parentElement; a; a = a.parentElement) {
-          if (getComputedStyle(a).overflowX === 'visible') continue;
+          const s = getComputedStyle(a);
           const b = a.getBoundingClientRect();
-          if (r.right <= b.left || r.left >= b.right) return [];
+          if (s.overflowX !== 'visible' && (r.right <= b.left || r.left >= b.right)) return [];
+          // Vertically too: the docs site's sticky sidebar scrolls, and links below its fold are not painted
+          // in a full-page screenshot.
+          if (s.overflowY !== 'visible' && a !== document.documentElement && a !== document.body && Math.min(r.bottom, b.bottom) - Math.max(r.top, b.top) < r.height / 2) return [];
         }
         return [{ label: window.vLabel(el), x: r.left + scrollX - 1, y: r.top + scrollY - 1, w: r.width + 2, h: r.height + 2 }];
       }), CONTROLS);
@@ -422,7 +425,10 @@ test.describe('focus visible', () => {
               const p = getComputedStyle(c).position;
               return (p === 'fixed' || p === 'sticky') && !c.contains(el) && c.getBoundingClientRect().height > 0;
             }).map((c) => c.getBoundingClientRect());
-            const hidden = covers.some((c) => c.left <= r.left && c.right >= r.right && c.top <= r.top && c.bottom >= r.bottom);
+            // Only if it is really painted underneath: a skip link inside the sticky header's box sits above it.
+            const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+            const onTop = top && (top === el || el.contains(top));
+            const hidden = !onTop && covers.some((c) => c.left <= r.left && c.right >= r.right && c.top <= r.top && c.bottom >= r.bottom);
             let bg = 'none';
             for (let a = el; a; a = a.parentElement) {
               const b = getComputedStyle(a).backgroundColor;

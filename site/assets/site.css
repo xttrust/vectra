@@ -1353,8 +1353,8 @@
 .tb-cell[aria-current="true"] { box-shadow: 0 0 0 2px var(--v-bg), 0 0 0 4px var(--v-text); }
 
 .tb-cell:focus-visible {
-  outline: var(--v-focus-w) solid var(--v-accent);
-  outline-offset: 3px;
+  outline: var(--v-focus-w) solid var(--tb-cell-fg, var(--v-on-accent));
+  outline-offset: -4px;
 }
 
 .tb-all > summary {
@@ -1420,3 +1420,11 @@
 }
 
 .tb-seg-4 label > span { padding-inline: 0.35rem; }
+
+/* Focus inside a demo or preview frame (site.js sets data-frame-focus) rings the example
+   or stage around it: the frame boxes clip, and the inner ring alone is easy to lose. */
+.site-example[data-frame-focus],
+.tb-stage[data-frame-focus] {
+  outline: var(--v-focus-w) solid var(--v-accent);
+  outline-offset: 2px;
+}

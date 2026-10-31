@@ -188,6 +188,23 @@
     });
   }
 
+  /* While focus is inside a demo or preview frame, mark the box around it (site.css draws the ring there):
+     the frame clips anything drawn outside it, and the parent page cannot style a focused iframe. */
+  function ringWhileFocused(frame, holder) {
+    var hook = function () {
+      var win = frame.contentWindow;
+      if (!win || win.vRing) return;
+      win.vRing = true;
+      win.addEventListener('focus', function () { holder.dataset.frameFocus = ''; });
+      win.addEventListener('blur', function () { delete holder.dataset.frameFocus; });
+    };
+    frame.addEventListener('load', hook);
+    hook();
+  }
+  document.querySelectorAll('[data-demo] iframe').forEach(function (f) { ringWhileFocused(f, f.closest('[data-demo]')); });
+  var preview = document.getElementById('tb-frame');
+  if (preview) ringWhileFocused(preview, preview.closest('.tb-stage'));
+
   var examples = document.querySelectorAll('[data-demo]');
   examples.forEach(wire);
   var all = function () { examples.forEach(apply); };
