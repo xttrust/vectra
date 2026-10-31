@@ -22,6 +22,7 @@ const declared = new Set([
   ...manifest.components.flatMap((c) => c.classes.map((k) => k.name)),
   ...manifest.layout.map((k) => k.name),
   ...manifest.utilities.flatMap((g) => g.classes),
+  ...manifest.sections.flatMap((g) => g.classes),
 ]);
 // Read by the JS but not styled, so not a declared class (src/js/components/save-status.js). Reported in M8b.
 const JS_ONLY = new Set(['v-save-status-text']);

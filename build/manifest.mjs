@@ -147,6 +147,18 @@ async function utilityGroups() {
   return groups.filter((g) => g.classes.length);
 }
 
+// Page sections (src/css/sections/*.css): the header comment describes the classes the file adds.
+async function sectionFiles() {
+  const list = [];
+  for (const file of (await readdir('src/css/sections')).filter((f) => f.endsWith('.css')).sort()) {
+    const css = await readFile(`src/css/sections/${file}`, 'utf8');
+    const head = css.match(/^\/\*([\s\S]*?)\*\//)?.[1] ?? '';
+    const classes = [...new Set([...css.matchAll(/\.(v-[a-z0-9]+(?:-[a-z0-9]+)*)/g)].map((m) => m[1]))];
+    list.push({ name: file.slice(0, -4), file: `dist/sections/${file}`, description: head.replace(/\s+/g, ' ').trim(), classes });
+  }
+  return list;
+}
+
 async function directions() {
   const names = (await readdir('src/css/directions')).filter((f) => f.endsWith('.css')).map((f) => f.slice(0, -4));
   const order = Object.keys(DIRECTION_LABELS);
@@ -171,6 +183,10 @@ async function patterns() {
     if (existsSync(index)) {
       const html = await readFile(index, 'utf8');
       list.push({ name: html.match(/<title>Vectra · ([^<]*)<\/title>/)?.[1] ?? dir, path: `examples/${dir}/`, description: descriptionOf(html) });
+    }
+    for (const file of (await readdir(`examples/${dir}`)).filter((f) => f.endsWith('.html') && f !== 'index.html').sort()) {
+      const html = await readFile(`examples/${dir}/${file}`, 'utf8');
+      list.push({ name: html.match(/<title>Vectra · ([^<]*)<\/title>/)?.[1] ?? titleOf(html), path: `examples/${dir}/${file}`, description: descriptionOf(html) });
     }
     for (const sub of (await readdir(`examples/${dir}`, { withFileTypes: true })).filter((d) => d.isDirectory()).map((d) => d.name).sort()) {
       for (const file of (await readdir(`examples/${dir}/${sub}`)).filter((f) => f.endsWith('.html')).sort()) {
@@ -274,7 +290,7 @@ export async function buildManifest() {
       { path: 'dist/vectra.css', kind: 'css', description: 'Everything: core, components, sections and all four directions. Minified: dist/vectra.min.css.' },
       { path: 'dist/vectra.core.css', kind: 'css', description: 'Reset, tokens, base typography, layout primitives and utilities.' },
       { path: 'dist/vectra.components.css', kind: 'css', description: 'Every component.' },
-      { path: 'dist/vectra.sections.css', kind: 'css', description: 'Page sections (auth layouts).' },
+      { path: 'dist/vectra.sections.css', kind: 'css', description: 'Page sections: auth layouts, app shell, hero, features, pricing, footer and more.' },
       ...dirs.map((d) => ({ path: d.file, kind: 'css', description: `The ${d.label} direction.` })),
       { path: 'dist/components/<name>.css', kind: 'css', description: 'One component on its own, to load less.' },
       { path: 'dist/vectra.js', kind: 'js', description: 'Every behaviour as one classic script (IIFE) that defines window.Vectra. Load with defer.' },
@@ -306,6 +322,7 @@ export async function buildManifest() {
     },
     layout: await layoutClasses(),
     utilities: await utilityGroups(),
+    sections: await sectionFiles(),
     components: components.map((c) => {
       const ex = c.examples[0];
       return {
@@ -392,6 +409,9 @@ function referenceText(m, depth) {
     out.push(`${h}# ${g}`, '');
     for (const c of m.components.filter((x) => x.group === g)) out.push(componentText(c, depth + 2), '');
   }
+  out.push(`${h} Sections`, '', 'Page sections (dist/vectra.sections.css, included in dist/vectra.css) built from the components above. Copy them from the pages in examples/sections/.', '');
+  for (const sec of m.sections) out.push(`- ${sec.name}: ${sec.description} Classes: ${sec.classes.map((k) => `.${k}`).join(' ')}`);
+  out.push('');
   out.push(`${h} Layout primitives`, '', 'Tune them with custom properties (--v-gap, --v-min, --v-container-max), not modifiers.', '');
   for (const k of m.layout) out.push(`- .${k.name}${k.description ? `: ${k.description}` : ''}`);
   out.push('', `${h} Utilities`, '');
@@ -512,10 +532,10 @@ function guidance(m, refName) {
     '',
     '## Common patterns',
     '',
-    '- Auth (sign in, sign up, recovery, two-factor, sessions, first run): a .v-card in a .v-container v-container-narrow with a .v-field per input, a .v-btn v-btn-primary v-btn-block submit, and an .v-error-summary above the form after a failed submit (or a .v-alert for one server error such as a wrong password). Plain text links need no class: base.css styles them. Pages: examples/auth/.',
-    '- Sections (hero, features, pricing, testimonials, logos, FAQ): .v-container v-stack per section with an h2; .v-grid of .v-card or .v-pricing; .v-logos; .v-testimonial; .v-accordion for the FAQ.',
+    '- Auth (sign in, sign up, recovery, two-factor, sessions, first run): a .v-auth layout (see the auth entry under Sections) with a .v-field per input, a .v-btn v-btn-primary v-btn-block submit, and an .v-error-summary above the form after a failed submit (or a .v-alert for one server error such as a wrong password). Plain text links need no class: base.css styles them. Pages: examples/auth/.',
+    '- Sections (hero, features, pricing, testimonials, logos, FAQ, call to action, footer): .v-hero, .v-section-head above each section with an h2, a .v-grid of .v-card or .v-pricing, .v-logos, .v-testimonial, .v-accordion for the FAQ, .v-cta, .v-footer. Pages: examples/sections/.',
+    '- App pages: .v-navbar or the .v-app shell (.v-app-sidebar holding a .v-sidenav, .v-app-main), .v-bottombar on phones, a .v-page-header, a .v-toolbar above tables, a .v-danger-zone for destructive settings.',
     '- States: .v-empty for nothing yet, .v-skeleton while loading, .v-alert or .v-callout for errors and notices, .v-toast via Vectra.toast() for results, .v-connection for offline.',
-    '- App shell: .v-navbar at the top, .v-sidenav at the side, .v-bottombar on phones, content in main.',
     '',
     'Galleries to copy from:',
     ...sections.map((p) => `- ${p.path}: ${p.description}`),

@@ -180,6 +180,12 @@ States:
 - aria-pressed="false": Switched off: the normal button style. Set it explicitly so screen readers know it is a toggle.
 - disabled: Native disabled: dimmed, not focusable.
 
+Hooks:
+- data-v-toggle = empty, or "single" (on a button with aria-pressed, or any container of them): Flips aria-pressed on click (Enter and Space work natively). With "single", at most one button in the container stays pressed.
+
+Events:
+- v:change detail { pressed }: Fires after the pressed state flips.
+
 Keyboard:
 - Tab: Moves focus to the button.
 - Enter / Space: Switches it on or off (your click handler flips aria-pressed).
@@ -192,18 +198,12 @@ Accessibility:
 Example (Single toggles):
 
 ```html
-<button class="v-btn" type="button" aria-pressed="true">Pinned</button>
-<button class="v-btn" type="button" aria-pressed="false">Pin</button>
-<button class="v-btn v-btn-secondary" type="button" aria-pressed="true"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg>Starred</button>
-<button class="v-btn v-btn-ghost v-btn-icon" type="button" aria-pressed="false" aria-label="Favourite"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#heart"/></svg></button>
-```
-
-```js
-document.querySelectorAll('[aria-pressed]').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') !== 'true');
-  });
-});
+<div class="v-cluster" data-v-toggle>
+  <button class="v-btn" type="button" aria-pressed="true">Pinned</button>
+  <button class="v-btn" type="button" aria-pressed="false">Pin</button>
+  <button class="v-btn v-btn-secondary" type="button" aria-pressed="true"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg>Starred</button>
+  <button class="v-btn v-btn-ghost v-btn-icon" type="button" aria-pressed="false" aria-label="Favourite"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#heart"/></svg></button>
+</div>
 ```
 
 ### Display
@@ -1692,6 +1692,7 @@ States:
 
 Hooks:
 - data-v-clear (on .v-search): Its first button empties the input, returns focus to it and fires input so live filters update.
+- data-v-shortcut = the key, default "/" (on the input): Pressing the key anywhere on the page focuses the field, unless focus is already in a text field. Pair it with aria-keyshortcuts and a visible .v-search-hint.
 
 Keyboard:
 - Tab: Moves to the input, then to the clear button when there is text.
@@ -2994,6 +2995,23 @@ Example (Toggle the mode):
 <button class="v-btn v-btn-icon v-btn-ghost v-theme-toggle" type="button" data-v-theme-toggle aria-label="Theme"><svg class="v-icon" data-for="light" aria-hidden="true"><use href="/icons/sprite.svg#sun"/></svg><svg class="v-icon" data-for="dark" aria-hidden="true"><use href="/icons/sprite.svg#moon"/></svg><svg class="v-icon" data-for="system" aria-hidden="true"><use href="/icons/sprite.svg#monitor"/></svg></button>
 ```
 
+## Sections
+
+Page sections (dist/vectra.sections.css, included in dist/vectra.css) built from the components above. Copy them from the pages in examples/sections/.
+
+- app-shell: App shell. .v-app holds a sidebar (.v-app-sidebar), the main column (.v-app-main: a .v-app-topbar and the .v-app-page) and, for phones, an optional .v-bottombar. - From 64rem of shell width the sidebar sits beside the main column and stays put while the page scrolls. Below that, a sidebar with the popover attribute and an id hides, and the top bar's .v-app-toggle (popovertarget) opens it as a sheet from the start edge; a .v-app-close button inside shows only while it is open. No JS needed. - The top bar is its own size container: the toggle hides once the bar is 48rem wide, which is when a 16rem sidebar is showing beside it. - A sidebar holding a .v-sidenav-rail stays an icon rail at every width. Classes: .v-app .v-app-sidebar .v-app-main .v-app-topbar .v-app-page .v-bottombar .v-app-toggle .v-app-close .v-sidenav-rail .v-navbar-brand .v-search
+- app-ui: App UI sections. Most are composition (panels, lists, tables, forms, description lists, empty states); this file adds the two pieces that are not: - .v-toolbar: a filter row above a table or list. The search grows, filters and actions wrap. - .v-danger-zone: a .v-panel for destructive actions, in the danger tone, one action per .v-panel-body row (text first, button last). Classes: .v-toolbar .v-danger-zone .v-panel .v-panel-body .v-search .v-panel-title
+- auth: Auth layouts: sign in, sign up, recovery and the rest. The wrapper picks the layout; the markup inside is the same in every one, so any flow drops into any layout by changing one class. <main class="v-auth"> centred card (default) <div class="v-auth-main"> <a class="v-auth-logo" href="/">..</a> <div class="v-auth-box"> .v-auth-header (.v-auth-title, .v-auth-text), a .v-form, .v-auth-alt <footer class="v-auth-footer">..</footer> </div> <aside class="v-auth-aside v-auth-art"> split layouts only: drawn art, or .v-auth-panel for a quote </main> Layouts: .v-auth-split (form beside an aside; stacks on phones), .v-auth-minimal (no card), .v-auth-bleed (card over a colour field; Glass shows its own), and .v-auth-dialog on a .v-dialog. .v-auth-wide widens the column for plan pickers, 2FA set-up and onboarding. Classes: .v-auth-header .v-auth-title .v-auth-text .v-form .v-auth-alt .v-auth-panel .v-auth-split .v-auth-minimal .v-auth-bleed .v-auth-dialog .v-dialog .v-auth-wide .v-auth .v-auth-main .v-auth-logo .v-icon .v-auth-box .v-auth-footer .v-auth-icon .v-auth-icon-success .v-auth-icon-warning .v-auth-icon-danger .v-auth-code .v-auth-qr .v-auth-codes .v-auth-aside .v-auth-art .v-testimonial-quote .v-dialog-close
+- cta: Call to action, on a card (.v-card, often .v-card-feature for the direction's emphasis surface). .v-cta centres a title, a line of copy and the actions with generous padding. .v-cta-split puts the copy beside the actions (or a newsletter form) once the card is 44rem wide. Classes: .v-card .v-card-feature .v-cta .v-cta-split .v-lead
+- features: Feature sections. Layout comes from .v-grid and .v-bento; this file adds only what they cannot do. - .v-feature-icon: the tinted tile an icon sits in. - .v-alternate: rows of copy and art, each row a direct child, art swapping sides on every second row from 48rem wide. - .v-howto: an <ol> of steps, numbered by CSS, in as many columns as fit. - .v-stats: a <dl> of .v-stat blocks (term first, shown under the number), split by rules. Classes: .v-grid .v-bento .v-feature-icon .v-alternate .v-howto .v-stats .v-stat .v-stat-value .v-stat-label
+- footer: Site footer. .v-footer is the band (a size container); inside a .v-container: - .v-footer-grid: a brand column (.v-footer-brand) and link columns. Columns sit two up on phones and side by side from 48rem; set --v-footer-cols to the number of link columns (default 3). - .v-footer-title heads a column, .v-footer-links is its list. - .v-footer-bottom: the closing row (copyright, legal links), split by a rule; on its own it is the whole of a simple footer. Classes: .v-footer .v-container .v-footer-grid .v-footer-brand .v-footer-title .v-footer-links .v-footer-bottom .v-btn
+- hero: Hero: the opening section. .v-hero paints the direction's hero background (fading out at the bottom) and is a size container, so the layout follows the hero's own width, not the window. - .v-hero-copy: badge, display title, lead, actions and a note, stacked. - .v-hero-center: copy centred. .v-hero-split: copy beside .v-hero-art from 56rem of hero width. - .v-hero-art: holds an illustration, a screenshot or a form; .v-hero-float pins a card over its corner. - .v-hero-shot: a .v-shot below centred copy. Classes: .v-hero .v-hero-copy .v-hero-center .v-hero-split .v-hero-art .v-hero-float .v-hero-shot .v-shot .v-display
+- page-header: Page header: the top of an app page. A breadcrumb or kicker, the title (.v-page-title), a line of meta (.v-page-meta) and the page actions (.v-page-actions), which wrap under the title on narrow screens. Add a .v-tablist of links (aria-current="page" on the current one) as the last child for the tabbed variant; it then sits on the header's bottom rule. Classes: .v-page-title .v-page-meta .v-page-actions .v-tablist .v-page-header
+- pricing-section: Pricing section with a monthly / yearly switch that needs no JS. Inside .v-billing put a .v-segmented radio pair with the values "monthly" and "yearly", then the plans; mark each price that differs with data-period="monthly" or data-period="yearly". The checked radio decides which ones show, so hidden prices are hidden from screen readers too. Classes: .v-billing .v-segmented
+- section: Shared section pieces. - .v-section-head: kicker, title and lead above a section; .v-section-head-center centres it. - .v-shot: a window frame for a product screenshot composed from real Vectra components. Give the composed content role="img" and a label, and keep it free of focusable things: <a> without href, <span class="v-btn">. .v-shot-bar is the title strip, .v-shot-body the content. Classes: .v-section-head .v-section-head-center .v-shot .v-shot-bar .v-shot-body
+- site-header: Site header pieces on top of the navbar and banner components. - .v-navbar-contained: keeps the navbar's content in line with a .v-container below it. - .v-navbar-center: links at the start, the brand in the middle, actions at the end, once the navbar is 48rem wide (below that it is the usual brand + menu button). - .v-announce: a slim, centred .v-banner strip above the navbar. Classes: .v-navbar-contained .v-container .v-navbar-center .v-announce .v-banner .v-navbar-brand .v-banner-body
+- team: Team: a grid of people. Each .v-person is a <figure> or <li> with a large avatar, the name (.v-person-name), the role (.v-person-role) and an optional line of bio. Centred in its cell. Classes: .v-person .v-person-name .v-person-role .v-avatar
+
 ## Layout primitives
 
 Tune them with custom properties (--v-gap, --v-min, --v-container-max), not modifiers.
@@ -3137,7 +3155,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.0").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-connection data-v-copy data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-menu data-v-nav data-v-password data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-connection data-v-copy data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-menu data-v-nav data-v-password data-v-shortcut data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 
@@ -3194,5 +3212,11 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/layout/: Foundations
 - examples/navigation/: Navigation
 - examples/overlays/: Overlays
+- examples/pages/app-shell.html: Northwind
+- examples/pages/saas-home.html: Northwind
+- examples/sections/: Sections
+- examples/sections/app.html: Sections: app UI
+- examples/sections/chrome.html: Sections: navigation and chrome
+- examples/sections/marketing.html: Sections: marketing
 - examples/theming/: Theming and feedback
 - examples/tokens/: Tokens

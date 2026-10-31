@@ -72,10 +72,10 @@ A page skeleton to start from:
 
 ## Common patterns
 
-- Auth (sign in, sign up, recovery, two-factor, sessions, first run): a .v-card in a .v-container v-container-narrow with a .v-field per input, a .v-btn v-btn-primary v-btn-block submit, and an .v-error-summary above the form after a failed submit (or a .v-alert for one server error such as a wrong password). Plain text links need no class: base.css styles them. Pages: examples/auth/.
-- Sections (hero, features, pricing, testimonials, logos, FAQ): .v-container v-stack per section with an h2; .v-grid of .v-card or .v-pricing; .v-logos; .v-testimonial; .v-accordion for the FAQ.
+- Auth (sign in, sign up, recovery, two-factor, sessions, first run): a .v-auth layout (see the auth entry under Sections) with a .v-field per input, a .v-btn v-btn-primary v-btn-block submit, and an .v-error-summary above the form after a failed submit (or a .v-alert for one server error such as a wrong password). Plain text links need no class: base.css styles them. Pages: examples/auth/.
+- Sections (hero, features, pricing, testimonials, logos, FAQ, call to action, footer): .v-hero, .v-section-head above each section with an h2, a .v-grid of .v-card or .v-pricing, .v-logos, .v-testimonial, .v-accordion for the FAQ, .v-cta, .v-footer. Pages: examples/sections/.
+- App pages: .v-navbar or the .v-app shell (.v-app-sidebar holding a .v-sidenav, .v-app-main), .v-bottombar on phones, a .v-page-header, a .v-toolbar above tables, a .v-danger-zone for destructive settings.
 - States: .v-empty for nothing yet, .v-skeleton while loading, .v-alert or .v-callout for errors and notices, .v-toast via Vectra.toast() for results, .v-connection for offline.
-- App shell: .v-navbar at the top, .v-sidenav at the side, .v-bottombar on phones, content in main.
 
 Galleries to copy from:
 - examples/auth/: Vectra auth layouts and flows: sign in, sign up, recovery, two-factor, sessions and first run.
@@ -86,6 +86,7 @@ Galleries to copy from:
 - examples/layout/: Vectra base typography, layout primitives and utilities in every direction.
 - examples/navigation/: Vectra navigation and disclosure components in every direction and theme.
 - examples/overlays/: Vectra dialogs, drawers, popovers, menus and tooltips in every direction and theme.
+- examples/sections/: Vectra section galleries: navigation and chrome, marketing and app UI, plus two example pages.
 - examples/theming/: Vectra direction switch, theme toggle, customizer, toasts, connection banner, session warning and save status.
 
 ## Never
@@ -105,7 +106,7 @@ Actions:
 - Copy button: , hooks data-v-copy data-v-copy-target
 - Icon button: 
 - Segmented control: .v-segmented
-- Toggle button: .v-toggle-group
+- Toggle button: .v-toggle-group, hooks data-v-toggle
 
 Display:
 - Avatar: .v-avatar .v-avatar-group
@@ -151,7 +152,7 @@ Forms:
 - Password reveal: , hooks data-v-password
 - Password strength meter: , hooks data-v-strength
 - Range: .v-range
-- Search field: .v-search, hooks data-v-clear
+- Search field: .v-search, hooks data-v-clear data-v-shortcut
 
 Overlays:
 - Dialog: .v-dialog, hooks data-v-dialog-open data-v-dialog-close data-v-dismissable
