@@ -29,6 +29,16 @@
 
   .v-navbar-toggle { margin-inline-start: auto; }
 
+  /* .v-navbar-end: a group after the menu that stays in the bar at every width (notifications, account). */
+  .v-navbar-end {
+    display: flex;
+    gap: var(--v-space-1);
+    align-items: center;
+    margin-inline-start: auto;
+  }
+
+  .v-navbar-end ~ .v-navbar-toggle { margin-inline-start: 0; }
+
   /* Narrow: the menu is a popover sheet from the inline-end edge. */
   .v-navbar-menu { display: none; }
 

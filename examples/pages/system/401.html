@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>401 Sign in needed · Northwind</title>
+  <meta name="description" content="Sign in needed: a Northwind system page (minimal layout) built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../pages.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../index.html">Vectra <span>example: sign in needed</span></a>
+      <nav class="ex-variants" aria-label="Layout">
+        <span class="ex-variants-label" aria-hidden="true">Layout</span>
+        <ul>
+          <li><a href="401.html" aria-current="page">Minimal</a></li>
+          <li><a href="401-illustrated.html">Illustrated</a></li>
+        </ul>
+      </nav>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <div class="v-system">
+    <header class="v-system-header">
+      <a class="v-navbar-brand" href="../saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    </header>
+    <main class="v-system-main v-skip-target" id="main" tabindex="-1">
+      <div class="v-system-copy">
+        <p class="v-system-code"><span class="v-sr-only">Error </span>401</p>
+        <h1 class="v-system-title">Sign in to see this page</h1>
+        <p class="v-system-text">This page belongs to a Northwind account. You are not signed in, or you were signed out after a while without activity.</p>
+        <div class="v-system-actions">
+          <a class="v-btn v-btn-primary" href="../../../examples/auth/sign-in/password.html">Sign in</a>
+          <a class="v-btn v-btn-secondary" href="../saas-home.html">Go to the home page</a>
+        </div>
+        <p class="v-system-note">No account yet? <a href="../../../examples/auth/sign-up/single.html">Start a free trial</a>, it takes two minutes.</p>
+      </div>
+    </main>
+    <footer class="v-system-footer">
+      <a href="../saas-home.html">Home</a>
+      <a href="../contact.html">Help</a>
+      <a href="coming-soon.html">Status</a>
+      <span>&copy; 2026 Northwind</span>
+    </footer>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

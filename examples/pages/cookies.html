@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cookie policy · Northwind</title>
+  <meta name="description" content="Example cookie policy. An example page built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: cookies</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <header class="v-navbar v-navbar-contained" data-v-nav>
+    <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li><a href="saas-home.html">Product</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="v-navbar-actions">
+        <a class="v-btn v-btn-ghost" href="../../examples/auth/sign-in/password.html">Sign in</a>
+        <a class="v-btn v-btn-primary" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="v-skip-target" tabindex="-1">
+    <section class="v-section" style="--v-section-pad: clamp(2.5rem, 5vw, 4rem) var(--v-space-6)">
+      <div class="v-container">
+        <div class="v-stack" style="--v-gap: var(--v-space-4)">
+          <p class="v-kicker">Legal</p>
+          <h1 class="v-display" style="font-size: var(--v-step-display)">Cookie policy</h1>
+          <p class="v-lead">Which cookies Northwind sets, what each one does, and how to change your choices.</p>
+          <p class="v-text-sm v-text-secondary">Last updated <time datetime="2026-10-01">1 October 2026</time> · Questions? <a href="mailto:legal@northwind.ie">legal@northwind.ie</a></p>
+          <nav class="v-tablist" aria-label="Legal pages">
+            <a class="v-tab" href="terms.html">Terms of service</a>
+            <a class="v-tab" href="privacy.html">Privacy notice</a>
+            <a class="v-tab" href="cookies.html" aria-current="page">Cookie policy</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+    <div class="v-container v-section" style="--v-section-pad: 0 clamp(3rem, 7vw, 6rem)">
+      <div class="v-article">
+        <aside class="v-article-aside" aria-label="Contents">
+          <nav class="v-toc" aria-labelledby="toc-title">
+            <p class="v-toc-title" id="toc-title">Contents</p>
+            <ol>
+              <li><a href="#c-what" aria-current="true">What cookies are</a></li>
+              <li><a href="#c-list">Cookies we use</a></li>
+              <li><a href="#c-choices">Your choices</a></li>
+            </ol>
+          </nav>
+        </aside>
+        <div class="v-article-body v-prose">
+          <aside class="v-callout v-callout-warning">
+            <p class="v-callout-title"><svg class="v-icon" aria-hidden="true"><use href="#i-alert"/></svg>Example text</p>
+            <p>This page shows how a legal page can be laid out. The wording is placeholder text for a made-up company and is not legal advice. Ask a solicitor to write yours.</p>
+          </aside>
+          <h2 id="c-what">What cookies are</h2>
+          <p>Cookies are small text files a website saves in your browser. Some are needed for the site to work at all; others help us understand how it is used. We do not use advertising cookies.</p>
+          <h2 id="c-list">Cookies we use</h2>
+          <table><thead><tr><th scope="col">Name</th><th scope="col">Purpose</th><th scope="col">Lasts</th><th scope="col">Type</th></tr></thead><tbody><tr><td><code>nw_session</code></td><td>Keeps you signed in</td><td>Until you sign out</td><td>Essential</td></tr><tr><td><code>nw_csrf</code></td><td>Protects forms from misuse</td><td>Session</td><td>Essential</td></tr><tr><td><code>nw_prefs</code></td><td>Remembers your theme and language</td><td>1 year</td><td>Preferences</td></tr><tr><td><code>nw_stats</code></td><td>Counts visits without identifying you</td><td>13 months</td><td>Analytics</td></tr></tbody></table>
+          <h2 id="c-choices">Your choices</h2>
+          <p>Essential cookies are always on, because Northwind cannot work without them. You can switch the others on or off below at any time, and you can also clear cookies in your browser settings.</p>
+          <form class="v-card v-form" action="cookies.html" method="post" aria-labelledby="cookie-form-title">
+            <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+            <h3 id="cookie-form-title">Cookie settings</h3>
+            <label class="v-choice"><input class="v-switch" type="checkbox" role="switch" name="essential" checked disabled><span>Essential: sign-in and security (always on)</span></label>
+            <label class="v-choice"><input class="v-switch" type="checkbox" role="switch" name="preferences" checked><span>Preferences: theme and language</span></label>
+            <label class="v-choice"><input class="v-switch" type="checkbox" role="switch" name="analytics"><span>Analytics: anonymous visit counts</span></label>
+            <div class="v-form-actions">
+              <button class="v-btn v-btn-primary" type="submit">Save my choices</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid">
+        <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+          <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+          <p class="v-max-prose">Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+          <span class="v-status">All systems running</span>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Product</h2>
+          <ul class="v-footer-links">
+            <li><a href="saas-home.html#features">Features</a></li>
+            <li><a href="landing.html">Online booking</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="system/coming-soon.html">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Company</h2>
+          <ul class="v-footer-links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="system/coming-soon.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Help</h2>
+          <ul class="v-footer-links">
+            <li><a href="system/coming-soon.html">Help centre</a></li>
+            <li><a href="system/coming-soon.html">Guides</a></li>
+            <li><a href="system/coming-soon.html">Status</a></li>
+            <li><a href="privacy.html#security">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-footer-bottom">
+        <p>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+        <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>

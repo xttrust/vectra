@@ -86,6 +86,7 @@ Galleries to copy from:
 - examples/layout/: Vectra base typography, layout primitives and utilities in every direction.
 - examples/navigation/: Vectra navigation and disclosure components in every direction and theme.
 - examples/overlays/: Vectra dialogs, drawers, popovers, menus and tooltips in every direction and theme.
+- examples/pages/: Vectra example pages: a marketing site, app screens with their states, and system pages.
 - examples/sections/: Vectra section galleries: navigation and chrome, marketing and app UI, plus two example pages.
 - examples/states/: Vectra states gallery and copy guide: loading, empty, errors, connection, permissions, session, validation, success, destructive actions, content status and edge cases.
 - examples/theming/: Vectra direction switch, theme toggle, customizer, toasts, connection banner, session warning and save status.

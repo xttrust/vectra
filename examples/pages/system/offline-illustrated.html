@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Offline · Northwind</title>
+  <meta name="description" content="Offline: a Northwind system page (illustrated layout) built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../pages.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 00-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0014.5 4.5L20 16M20 20v-4h-4"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../index.html">Vectra <span>example: offline</span></a>
+      <nav class="ex-variants" aria-label="Layout">
+        <span class="ex-variants-label" aria-hidden="true">Layout</span>
+        <ul>
+          <li><a href="offline.html">Minimal</a></li>
+          <li><a href="offline-illustrated.html" aria-current="page">Illustrated</a></li>
+        </ul>
+      </nav>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <div class="v-system v-system-illustrated">
+    <header class="v-system-header">
+      <a class="v-navbar-brand" href="../saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    </header>
+    <main class="v-system-main v-skip-target" id="main" tabindex="-1">
+      <div class="v-system-art">
+        <svg viewBox="0 0 320 260" aria-hidden="true" focusable="false">
+          <circle cx="160" cy="126" r="108" style="fill: var(--v-accent-soft)"/>
+          <circle cx="160" cy="126" r="108" fill="none" style="stroke: var(--v-border)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 10"/>
+          <path d="M36 222h248" fill="none" style="stroke: var(--v-border-strong)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="58" cy="70" r="6" style="fill: var(--v-accent-2)"/>
+          <circle cx="276" cy="176" r="5" style="fill: var(--v-accent-2)"/>
+          <circle cx="262" cy="52" r="3.5" style="fill: var(--v-accent)"/>
+          <path d="M104 176a34 34 0 01-2-68 46 46 0 0188-14 38 38 0 0128 82z" style="fill: var(--v-surface)"/>
+          <path d="M104 176a34 34 0 01-2-68 46 46 0 0188-14 38 38 0 0128 82z" fill="none" style="stroke: var(--v-accent-text)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M96 72l132 136" fill="none" style="stroke: var(--v-text-2)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M140 200h40M160 200v14" fill="none" style="stroke: var(--v-text-3)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="v-system-copy">
+        <p class="v-kicker">Offline</p>
+        <h1 class="v-system-title">You are offline</h1>
+        <p class="v-system-text">Northwind cannot reach the internet right now. Check your Wi-Fi or mobile data, then try again.</p>
+        <ul class="v-system-extra v-system-list">
+          <li><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Jobs you opened today are saved on this device</span></li>
+          <li><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Notes and photos you add now will sync later</span></li>
+          <li><svg class="v-icon" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Nothing is lost if you close the app</span></li>
+        </ul>
+        <div class="v-system-actions">
+          <a class="v-btn v-btn-primary" href="offline.html"><svg class="v-icon" aria-hidden="true"><use href="#i-refresh"/></svg>Try again</a>
+        </div>
+        <p class="v-system-note">Still offline after a few minutes? Restarting your router or phone often helps.</p>
+      </div>
+    </main>
+    <footer class="v-system-footer">
+      <a href="../saas-home.html">Home</a>
+      <a href="../contact.html">Help</a>
+      <a href="coming-soon.html">Status</a>
+      <span>&copy; 2026 Northwind</span>
+    </footer>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

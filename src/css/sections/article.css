@@ -1,0 +1,78 @@
+/* Article: long-form pages such as a blog post, legal terms or a help article. .v-article holds an optional
+   .v-article-aside (a table of contents, author details) and the .v-article-body (usually a .v-prose).
+   From 64rem the aside moves beside the body at the inline end and stays in view while the body scrolls;
+   below that it comes first. Headings with an id stop clear of the top edge when a link jumps to them.
+   .v-toc: a <nav> with a .v-toc-title and an <ol> of links (nest an <ol> for sub-sections). Mark the
+   section in view with aria-current="true"; the rule beside it turns accent. */
+@layer components {
+  .v-article {
+    display: grid;
+    gap: var(--v-space-6) var(--v-space-8);
+  }
+
+  .v-article > * { min-inline-size: 0; }
+  .v-article-body :where(h2, h3, h4)[id] { scroll-margin-block-start: var(--v-space-6); }
+
+  @media (width >= 64rem) {
+    .v-article:has(> .v-article-aside) { grid-template-columns: minmax(0, 1fr) 15rem; }
+
+    .v-article-body {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .v-article-aside {
+      position: sticky;
+      inset-block-start: var(--v-space-6);
+      grid-row: 1;
+      grid-column: 2;
+      align-self: start;
+    }
+  }
+
+  .v-toc {
+    display: grid;
+    gap: var(--v-space-3);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-toc-title {
+    color: var(--v-text);
+    font-weight: 650;
+  }
+
+  .v-toc ol {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v-toc > ol { border-inline-start: var(--v-border-w) solid var(--v-border); }
+  .v-toc ol ol { padding-inline-start: var(--v-space-3); }
+
+  .v-toc a {
+    display: block;
+    margin-inline-start: calc(var(--v-border-w) * -1);
+    padding: 0.3rem var(--v-space-3);
+    border-inline-start: 2px solid transparent;
+    color: var(--v-text-2);
+    text-decoration: none;
+  }
+
+  .v-toc a:hover {
+    border-inline-start-color: var(--v-border-strong);
+    color: var(--v-text);
+  }
+
+  .v-toc a[aria-current="true"] {
+    border-inline-start-color: var(--v-accent);
+    color: var(--v-accent-text);
+    font-weight: 600;
+  }
+
+  @media (forced-colors: active) {
+    .v-toc a[aria-current="true"] { border-inline-start-color: Highlight; }
+  }
+}
