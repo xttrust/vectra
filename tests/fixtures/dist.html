@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" data-direction="soft">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plain page using only dist/</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../dist/vectra.min.css">
+  <script src="../../dist/vectra.js" defer></script>
+</head>
+<body>
+  <main class="v-container v-stack">
+    <h1>Hello from dist</h1>
+    <button class="v-btn v-btn-primary" type="button" data-v-dialog-open="hello"><svg class="v-icon" aria-hidden="true"><use href="../../dist/icons/sprite.svg#plus"/></svg>Open</button>
+    <dialog class="v-dialog" id="hello" aria-labelledby="hello-t">
+      <div class="v-dialog-header"><h2 class="v-dialog-title" id="hello-t">It works</h2></div>
+      <div class="v-dialog-body"><p>No build step, nothing from another site.</p></div>
+      <div class="v-dialog-footer"><button class="v-btn" type="button" data-v-dialog-close>Close</button></div>
+    </dialog>
+  </main>
+</body>
+</html>

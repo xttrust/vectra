@@ -42,7 +42,7 @@ export { toast } from './components/toast.js';
 export { connection } from './components/connection.js';
 export { session } from './components/session.js';
 export { saveStatus } from './components/save-status.js';
-export const version = '2.0.0-alpha.0';
+export const version = '2.0.0-alpha.1';
 
 register('password', password);
 register('dropzone', dropzone);
