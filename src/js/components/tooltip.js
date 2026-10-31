@@ -4,6 +4,7 @@
    hover or focus, since CSS alone would keep showing it. */
 const SHOW = 300;
 const HIDE = 150;
+let count = 0;
 
 export function init(el) {
   const tip = document.getElementById(el.getAttribute('aria-describedby')?.split(' ')[0]);
@@ -11,12 +12,19 @@ export function init(el) {
   const pop = tip.hasAttribute('popover');
   let timer;
   let hovered = false;
+  // A named anchor works wherever anchor positioning does (Chrome 125+); showPopover's source option
+  // only arrived in Chrome 133. Browsers without either are placed by anchor.js.
+  const name = `--v-tip-${(count += 1)}`;
 
   const open = () => (pop ? tip.matches(':popover-open') : !tip.hidden);
   const show = () => {
     clearTimeout(timer);
     tip.hidden = false;
-    if (pop && !open()) tip.showPopover({ source: el });
+    if (pop && !open()) {
+      el.style.anchorName = name;
+      tip.style.positionAnchor = name;
+      tip.showPopover({ source: el });
+    }
   };
   const hide = () => {
     clearTimeout(timer);

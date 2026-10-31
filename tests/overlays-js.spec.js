@@ -153,6 +153,27 @@ test.describe('tooltip', () => {
     await expect(tip).toHaveCSS('opacity', '1');
   });
 
+  test('popover form: sits above its trigger without showPopover({ source }) (Chrome 125 to 132)', async ({ page }) => {
+    test.skip(!(await page.evaluate(() => CSS.supports('position-area', 'top'))), 'this engine has no anchor positioning');
+    // Drop the options argument, as browsers before source support do.
+    await page.addInitScript(() => {
+      const show = HTMLElement.prototype.showPopover;
+      HTMLElement.prototype.showPopover = function () { return show.call(this); };
+    });
+    await page.reload();
+    await ready(page);
+    await page.evaluate(() => scrollBy(0, document.getElementById('open-tooltip').getBoundingClientRect().top - 300));
+    await page.locator('#open-tooltip').focus();
+    await expect(page.locator('#tip-copy')).toBeVisible();
+    await expect.poll(async () => {
+      const p = await page.locator('#tip-copy').boundingBox();
+      const t = await page.locator('#open-tooltip').boundingBox();
+      const centre = Math.abs(p.x + p.width / 2 - (t.x + t.width / 2)) <= 1;
+      const gap = t.y - (p.y + p.height);
+      return centre && gap >= 4 && gap <= 9;
+    }).toBe(true);
+  });
+
   test('no-popover form: stays shown while the pointer is over the tooltip', async ({ page }) => {
     const tip = page.locator('#tip-help');
     await page.locator('[aria-describedby="tip-help"]').hover();
