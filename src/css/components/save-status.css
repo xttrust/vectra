@@ -1,0 +1,60 @@
+/* Inline save status: <p class="v-save-status" data-state="saved">Saved 2 minutes ago</p>.
+   States: saving (spinner), saved (check), failed (alert), offline (cloud with a slash). The icon is
+   drawn here; the words, set by saveStatus() in JS, carry the meaning. Keep the element out of live
+   regions: saveStatus() announces saved and failed itself. */
+@layer components {
+  .v-save-status {
+    --v-save-tone: var(--v-text-3);
+    --v-save-icon: none;
+
+    display: inline-flex;
+    gap: 0.45em;
+    align-items: center;
+    color: var(--v-text-2);
+    font-size: 0.875rem;
+  }
+
+  .v-save-status::before {
+    content: "";
+    flex: none;
+    inline-size: 1.1em;
+    block-size: 1.1em;
+    background-color: var(--v-save-tone);
+    mask: var(--v-save-icon) center / contain no-repeat;
+  }
+
+  .v-save-status[data-state="saving"]::before {
+    box-sizing: border-box;
+    inline-size: 0.95em;
+    block-size: 0.95em;
+    border: 2px solid var(--v-save-tone);
+    border-inline-end-color: transparent;
+    border-radius: 50%;
+    background: none;
+    mask: none;
+    animation: v-save-spin 0.8s linear infinite;
+  }
+
+  .v-save-status[data-state="saved"] {
+    --v-save-tone: var(--v-success);
+    --v-save-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+  }
+
+  .v-save-status[data-state="failed"] {
+    --v-save-tone: var(--v-danger);
+    --v-save-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5v.01'/%3E%3C/svg%3E");
+
+    color: var(--v-text);
+  }
+
+  .v-save-status[data-state="offline"] {
+    --v-save-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 18h10a4 4 0 0 0 .7-7.9A6 6 0 0 0 6.2 9.5 4.3 4.3 0 0 0 7 18zM4 4l16 16'/%3E%3C/svg%3E");
+  }
+
+  @keyframes v-save-spin { to { rotate: 1turn; } }
+
+  @media (forced-colors: active) {
+    .v-save-status::before { background-color: CanvasText; }
+    .v-save-status[data-state="saving"]::before { border-color: CanvasText Canvas CanvasText CanvasText; }
+  }
+}

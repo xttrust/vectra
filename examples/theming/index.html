@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Theming and feedback</title>
+  <meta name="description" content="Vectra direction switch, theme toggle, customizer, toasts, connection banner, session warning and save status.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction, theme and customizer choices before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        var c = JSON.parse(localStorage.getItem('vectra-custom')) || {};
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+        ['corners', 'density', 'font'].forEach(function (k) { if (c[k] && c[k] !== 'default') root.dataset[k] = c[k]; });
+        if (c.accent && c.accent !== 'default') root.style.setProperty('--v-accent-h', c.accent);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <style>
+    /* Gallery only: show the dialog previews in the page flow so they can be screenshotted and contrast-checked. */
+    dialog.ex-static {
+      position: static;
+      inline-size: 100%;
+      max-inline-size: 26rem;
+      block-size: auto;
+      margin: 0;
+      translate: none;
+    }
+
+    .ex-preview { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-3); align-content: start; justify-items: start; }
+    .ex-toasts { display: grid; gap: var(--v-space-2); max-inline-size: 24rem; }
+    .ex-live { margin-block-start: var(--v-space-4); }
+    .ex-preview .v-segmented { max-inline-size: 100%; }
+    .ex-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--v-space-4); align-items: start; }
+  </style>
+  <script type="module" src="../../src/js/index.js"></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 4.2-2.6M10.7 5.1A15 15 0 0 1 22 8.8M5 12.5a10 10 0 0 1 4-2.2M15.3 10.6a10 10 0 0 1 3.7 1.9M8.5 16a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  </svg>
+
+  <div class="v-banner v-connection" id="connection" data-v-connection role="status" hidden>
+    <svg class="v-icon" aria-hidden="true"><use href="#i-wifi-off"/></svg>
+    <p class="v-banner-body" data-v-when="offline"><strong>You are offline.</strong> You can keep working; changes save when the connection is back.</p>
+    <p class="v-banner-body" data-v-when="slow"><strong>Slow connection.</strong> Pages may take longer to load. Images are shown in lower quality.</p>
+  </div>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../components/">Vectra <span>theming</span></a>
+      <fieldset class="v-segmented" id="hdr-switch" data-v-theme-switch><legend class="v-sr-only">Design direction</legend><label><input type="radio" name="hdr-direction" value="tech"><span>Dark tech</span></label><label><input type="radio" name="hdr-direction" value="editorial"><span>Editorial</span></label><label><input type="radio" name="hdr-direction" value="soft"><span>Soft depth</span></label><label><input type="radio" name="hdr-direction" value="glass"><span>Glass</span></label></fieldset>
+      <button class="v-btn v-btn-secondary v-btn-sm" type="button" id="open-customizer" popovertarget="customizer"><svg class="v-icon" aria-hidden="true"><use href="#i-sliders"/></svg>Customize</button>
+      <button class="v-btn v-btn-icon v-btn-ghost v-theme-toggle" type="button" id="hdr-toggle" data-v-theme-toggle aria-label="Theme"><svg class="v-icon" data-for="light" aria-hidden="true"><use href="#i-sun"/></svg><svg class="v-icon" data-for="dark" aria-hidden="true"><use href="#i-moon"/></svg><svg class="v-icon" data-for="system" aria-hidden="true"><use href="#i-monitor"/></svg></button>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">Components · theming and feedback</p>
+      <h1 class="v-display">Theming, toasts and the states in between.</h1>
+      <p class="v-lead">Direction, mode and tokens through one small API, plus the feedback a real app needs: toasts, connection, session and save status.</p>
+    </section>
+
+    <section id="switcher">
+      <h2>Direction switch and theme toggle</h2>
+      <div class="ex-box ex-preview">
+        <p class="ex-label">data-v-theme-switch, data-v-theme-toggle</p>
+        <div class="v-cluster">
+          <fieldset class="v-segmented" id="demo-switch" data-v-theme-switch><legend class="v-sr-only">Design direction</legend><label><input type="radio" name="demo-direction" value="tech"><span data-contrast>Dark tech</span></label><label><input type="radio" name="demo-direction" value="editorial"><span data-contrast>Editorial</span></label><label><input type="radio" name="demo-direction" value="soft"><span data-contrast>Soft depth</span></label><label><input type="radio" name="demo-direction" value="glass"><span data-contrast>Glass</span></label></fieldset>
+          <button class="v-btn v-btn-icon v-btn-ghost v-theme-toggle" type="button" id="demo-toggle" data-v-theme-toggle aria-label="Theme"><svg class="v-icon" data-for="light" aria-hidden="true"><use href="#i-sun"/></svg><svg class="v-icon" data-for="dark" aria-hidden="true"><use href="#i-moon"/></svg><svg class="v-icon" data-for="system" aria-hidden="true"><use href="#i-monitor"/></svg></button>
+        </div>
+        <p class="v-text-secondary" data-contrast>The toggle cycles light, dark and system. System follows the OS as it changes.</p>
+      </div>
+    </section>
+
+    <section id="customizer-demo">
+      <h2>Customizer</h2>
+      <div class="ex-grid">
+        <div>
+      <aside class="v-customizer" data-v-customizer aria-labelledby="pv-title">
+        <header class="v-customizer-header">
+          <div>
+            <h2 class="v-customizer-title" id="pv-title" data-contrast>Customize</h2>
+            <p class="v-text-secondary" data-contrast>Changes apply live and are saved in this browser.</p>
+          </div>
+
+        </header>
+        <form class="v-customizer-body">
+          <fieldset>
+            <legend data-contrast>Style</legend>
+            <div class="v-segmented"><label><input type="radio" name="pv-direction" value="tech"><span data-contrast>Dark tech</span></label><label><input type="radio" name="pv-direction" value="editorial"><span data-contrast>Editorial</span></label><label><input type="radio" name="pv-direction" value="soft"><span data-contrast>Soft depth</span></label><label><input type="radio" name="pv-direction" value="glass"><span data-contrast>Glass</span></label></div>
+          </fieldset>
+          <fieldset>
+            <legend data-contrast>Mode</legend>
+            <div class="v-segmented"><label><input type="radio" name="pv-mode" value="light"><span data-contrast>Light</span></label><label><input type="radio" name="pv-mode" value="dark"><span data-contrast>Dark</span></label><label><input type="radio" name="pv-mode" value="system"><span data-contrast>System</span></label></div>
+          </fieldset>
+          <fieldset>
+            <legend data-contrast>Accent</legend>
+            <div class="v-swatches"><label title="Style default"><input type="radio" name="pv-accent" value="default"><span class="v-swatch" aria-hidden="true"></span><span class="v-sr-only">Style default</span></label><label title="Cyan"><input type="radio" name="pv-accent" value="200"><span class="v-swatch" style="background-color: oklch(65% 0.15 200deg)" aria-hidden="true"></span><span class="v-sr-only">Cyan</span></label><label title="Blue"><input type="radio" name="pv-accent" value="245"><span class="v-swatch" style="background-color: oklch(65% 0.15 245deg)" aria-hidden="true"></span><span class="v-sr-only">Blue</span></label><label title="Violet"><input type="radio" name="pv-accent" value="285"><span class="v-swatch" style="background-color: oklch(65% 0.15 285deg)" aria-hidden="true"></span><span class="v-sr-only">Violet</span></label><label title="Pink"><input type="radio" name="pv-accent" value="340"><span class="v-swatch" style="background-color: oklch(65% 0.15 340deg)" aria-hidden="true"></span><span class="v-sr-only">Pink</span></label><label title="Red"><input type="radio" name="pv-accent" value="25"><span class="v-swatch" style="background-color: oklch(65% 0.15 25deg)" aria-hidden="true"></span><span class="v-sr-only">Red</span></label><label title="Amber"><input type="radio" name="pv-accent" value="65"><span class="v-swatch" style="background-color: oklch(65% 0.15 65deg)" aria-hidden="true"></span><span class="v-sr-only">Amber</span></label><label title="Green"><input type="radio" name="pv-accent" value="150"><span class="v-swatch" style="background-color: oklch(65% 0.15 150deg)" aria-hidden="true"></span><span class="v-sr-only">Green</span></label></div>
+            <label class="v-hue-label" for="pv-hue"><span data-contrast>Any hue</span><output for="pv-hue" data-contrast></output></label>
+            <input class="v-hue" id="pv-hue" name="pv-accent" type="range" min="0" max="359" step="1">
+          </fieldset>
+          <fieldset>
+            <legend data-contrast>Corners</legend>
+            <div class="v-segmented"><label><input type="radio" name="pv-corners" value="default"><span data-contrast>Default</span></label><label><input type="radio" name="pv-corners" value="sharp"><span data-contrast>Sharp</span></label><label><input type="radio" name="pv-corners" value="rounded"><span data-contrast>Rounded</span></label><label><input type="radio" name="pv-corners" value="round"><span data-contrast>Round</span></label></div>
+          </fieldset>
+          <fieldset>
+            <legend data-contrast>Density</legend>
+            <div class="v-segmented"><label><input type="radio" name="pv-density" value="compact"><span data-contrast>Compact</span></label><label><input type="radio" name="pv-density" value="default"><span data-contrast>Default</span></label><label><input type="radio" name="pv-density" value="spacious"><span data-contrast>Spacious</span></label></div>
+          </fieldset>
+          <fieldset>
+            <legend data-contrast>Typeface</legend>
+            <div class="v-segmented"><label><input type="radio" name="pv-font" value="default"><span data-contrast>Default</span></label><label><input type="radio" name="pv-font" value="inter"><span data-contrast>Inter</span></label><label><input type="radio" name="pv-font" value="system"><span data-contrast>System</span></label><label><input type="radio" name="pv-font" value="serif"><span data-contrast>Serif</span></label></div>
+          </fieldset>
+          <button class="v-btn v-btn-secondary v-btn-block" type="button" data-v-reset data-contrast>Reset to defaults</button>
+        </form>
+      </aside>
+        </div>
+        <div class="ex-box ex-preview">
+          <p class="ex-label">data-v-customizer on a popover</p>
+          <p data-contrast>The same panel opens as a sheet on the end side, or from the bottom on phones. Escape or a click outside closes it.</p>
+          <button class="v-btn v-btn-primary" type="button" id="open-customizer-2" popovertarget="customizer"><svg class="v-icon" aria-hidden="true"><use href="#i-sliders"/></svg>Open the customizer</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="toast">
+      <h2>Toast</h2>
+      <div class="ex-box ex-preview">
+        <div class="ex-toasts">
+          <div class="v-toast"><p class="v-toast-text" data-contrast>Link copied to clipboard</p><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+          <div class="v-toast v-toast-success"><p class="v-toast-text" data-contrast>Changes saved</p><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+          <div class="v-toast v-toast-info"><p class="v-toast-text" data-contrast>3 new comments on Atlas</p><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+          <div class="v-toast v-toast-warning"><p class="v-toast-text" data-contrast>Storage is 90% full</p><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+          <div class="v-toast v-toast-danger"><p class="v-toast-text" data-contrast>Could not send the invite</p><button class="v-toast-action" type="button" data-contrast>Retry</button><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+          <div class="v-toast v-toast-success"><p class="v-toast-text" data-contrast>Project archived</p><button class="v-toast-action" type="button" data-contrast>Undo</button><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+        </div>
+      </div>
+      <div class="v-cluster ex-live">
+        <button class="v-btn v-btn-primary" type="button" id="toast-saved">Saved</button>
+        <button class="v-btn v-btn-secondary" type="button" id="toast-info">Info</button>
+        <button class="v-btn v-btn-secondary" type="button" id="toast-warning">Warning</button>
+        <button class="v-btn v-btn-danger" type="button" id="toast-danger">Error with retry</button>
+        <button class="v-btn v-btn-secondary" type="button" id="toast-undo">Archive with undo</button>
+        <button class="v-btn v-btn-secondary" type="button" id="toast-many">Five at once</button>
+      </div>
+    </section>
+
+    <section id="connection-demo">
+      <h2>Connection banner</h2>
+      <div class="ex-preview">
+        <div class="v-banner v-banner-warning">
+          <svg class="v-icon" aria-hidden="true"><use href="#i-wifi-off"/></svg>
+          <p class="v-banner-body" data-contrast><strong>You are offline.</strong> You can keep working; changes save when the connection is back.</p>
+        </div>
+        <div class="v-banner">
+          <svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg>
+          <p class="v-banner-body" data-contrast><strong>Slow connection.</strong> Pages may take longer to load. Images are shown in lower quality.</p>
+        </div>
+      </div>
+      <div class="v-cluster ex-live">
+        <button class="v-btn v-btn-secondary" type="button" id="go-offline">Go offline</button>
+        <button class="v-btn v-btn-secondary" type="button" id="go-online">Back online</button>
+        <button class="v-btn v-btn-secondary" type="button" id="go-slow">Slow network</button>
+        <button class="v-btn v-btn-ghost" type="button" id="go-fast">Clear slow</button>
+      </div>
+    </section>
+
+    <section id="session">
+      <h2>Session timeout warning</h2>
+      <div class="ex-grid">
+        <dialog class="v-dialog v-session ex-static" open aria-labelledby="pv-session-t" aria-describedby="pv-session-d">
+          <div class="v-dialog-header"><h3 class="v-dialog-title" id="pv-session-t" data-contrast>Your session is ending</h3></div>
+          <div class="v-dialog-body"><p id="pv-session-d" data-contrast>You will be signed out in <b class="v-session-time">1:59</b>.</p></div>
+          <div class="v-dialog-footer"><button class="v-btn v-btn-primary" type="button" data-contrast>Stay signed in</button></div>
+        </dialog>
+        <dialog class="v-dialog v-session ex-static" open aria-labelledby="pv-expired-t" aria-describedby="pv-expired-d">
+          <div class="v-dialog-header"><h3 class="v-dialog-title" id="pv-expired-t" data-contrast>You have been signed out</h3></div>
+          <div class="v-dialog-body"><p id="pv-expired-d" data-contrast>Sign in again to carry on where you left off.</p></div>
+          <div class="v-dialog-footer"><button class="v-btn v-btn-primary" type="button" data-contrast>Sign in</button></div>
+        </dialog>
+      </div>
+      <div class="v-cluster ex-live">
+        <button class="v-btn v-btn-primary" type="button" id="session-warn">Warn, expires in 70 seconds</button>
+      </div>
+    </section>
+
+    <section id="save-status">
+      <h2>Save status</h2>
+      <div class="ex-box ex-preview">
+        <p class="v-save-status" data-state="saving"><span class="v-save-status-text" data-contrast>Saving…</span></p>
+        <p class="v-save-status" data-state="saved"><span class="v-save-status-text" data-contrast>Saved 2 minutes ago</span></p>
+        <p class="v-save-status" data-state="failed"><span class="v-save-status-text" data-contrast>Not saved, try again</span></p>
+        <p class="v-save-status" data-state="offline"><span class="v-save-status-text" data-contrast>Offline, will save when back online</span></p>
+      </div>
+      <div class="ex-box ex-preview ex-live">
+        <p class="ex-label">saveStatus(el, state)</p>
+        <p class="v-save-status" id="live-status" data-state="saved"><span class="v-save-status-text">Saved just now</span></p>
+        <div class="v-cluster">
+          <button class="v-btn v-btn-secondary v-btn-sm" type="button" data-status="saving">Saving</button>
+          <button class="v-btn v-btn-secondary v-btn-sm" type="button" data-status="saved">Saved</button>
+          <button class="v-btn v-btn-secondary v-btn-sm" type="button" data-status="failed">Failed</button>
+          <button class="v-btn v-btn-secondary v-btn-sm" type="button" data-status="offline">Offline</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+      <aside class="v-customizer" id="customizer" popover data-v-customizer aria-labelledby="cz-title">
+        <header class="v-customizer-header">
+          <div>
+            <h2 class="v-customizer-title" id="cz-title">Customize</h2>
+            <p class="v-text-secondary">Changes apply live and are saved in this browser.</p>
+          </div>
+          <button class="v-btn v-btn-icon v-btn-ghost" type="button" popovertarget="customizer" popovertargetaction="hide" aria-label="Close customizer"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+        </header>
+        <form class="v-customizer-body">
+          <fieldset>
+            <legend>Style</legend>
+            <div class="v-segmented"><label><input type="radio" name="cz-direction" value="tech"><span>Dark tech</span></label><label><input type="radio" name="cz-direction" value="editorial"><span>Editorial</span></label><label><input type="radio" name="cz-direction" value="soft"><span>Soft depth</span></label><label><input type="radio" name="cz-direction" value="glass"><span>Glass</span></label></div>
+          </fieldset>
+          <fieldset>
+            <legend>Mode</legend>
+            <div class="v-segmented"><label><input type="radio" name="cz-mode" value="light"><span>Light</span></label><label><input type="radio" name="cz-mode" value="dark"><span>Dark</span></label><label><input type="radio" name="cz-mode" value="system"><span>System</span></label></div>
+          </fieldset>
+          <fieldset>
+            <legend>Accent</legend>
+            <div class="v-swatches"><label title="Style default"><input type="radio" name="cz-accent" value="default"><span class="v-swatch" aria-hidden="true"></span><span class="v-sr-only">Style default</span></label><label title="Cyan"><input type="radio" name="cz-accent" value="200"><span class="v-swatch" style="background-color: oklch(65% 0.15 200deg)" aria-hidden="true"></span><span class="v-sr-only">Cyan</span></label><label title="Blue"><input type="radio" name="cz-accent" value="245"><span class="v-swatch" style="background-color: oklch(65% 0.15 245deg)" aria-hidden="true"></span><span class="v-sr-only">Blue</span></label><label title="Violet"><input type="radio" name="cz-accent" value="285"><span class="v-swatch" style="background-color: oklch(65% 0.15 285deg)" aria-hidden="true"></span><span class="v-sr-only">Violet</span></label><label title="Pink"><input type="radio" name="cz-accent" value="340"><span class="v-swatch" style="background-color: oklch(65% 0.15 340deg)" aria-hidden="true"></span><span class="v-sr-only">Pink</span></label><label title="Red"><input type="radio" name="cz-accent" value="25"><span class="v-swatch" style="background-color: oklch(65% 0.15 25deg)" aria-hidden="true"></span><span class="v-sr-only">Red</span></label><label title="Amber"><input type="radio" name="cz-accent" value="65"><span class="v-swatch" style="background-color: oklch(65% 0.15 65deg)" aria-hidden="true"></span><span class="v-sr-only">Amber</span></label><label title="Green"><input type="radio" name="cz-accent" value="150"><span class="v-swatch" style="background-color: oklch(65% 0.15 150deg)" aria-hidden="true"></span><span class="v-sr-only">Green</span></label></div>
+            <label class="v-hue-label" for="cz-hue"><span>Any hue</span><output for="cz-hue"></output></label>
+            <input class="v-hue" id="cz-hue" name="cz-accent" type="range" min="0" max="359" step="1">
+          </fieldset>
+          <fieldset>
+            <legend>Corners</legend>
+            <div class="v-segmented"><label><input type="radio" name="cz-corners" value="default"><span>Default</span></label><label><input type="radio" name="cz-corners" value="sharp"><span>Sharp</span></label><label><input type="radio" name="cz-corners" value="rounded"><span>Rounded</span></label><label><input type="radio" name="cz-corners" value="round"><span>Round</span></label></div>
+          </fieldset>
+          <fieldset>
+            <legend>Density</legend>
+            <div class="v-segmented"><label><input type="radio" name="cz-density" value="compact"><span>Compact</span></label><label><input type="radio" name="cz-density" value="default"><span>Default</span></label><label><input type="radio" name="cz-density" value="spacious"><span>Spacious</span></label></div>
+          </fieldset>
+          <fieldset>
+            <legend>Typeface</legend>
+            <div class="v-segmented"><label><input type="radio" name="cz-font" value="default"><span>Default</span></label><label><input type="radio" name="cz-font" value="inter"><span>Inter</span></label><label><input type="radio" name="cz-font" value="system"><span>System</span></label><label><input type="radio" name="cz-font" value="serif"><span>Serif</span></label></div>
+          </fieldset>
+          <button class="v-btn v-btn-secondary v-btn-block" type="button" data-v-reset>Reset to defaults</button>
+        </form>
+      </aside>
+
+  <script type="module">
+    /* Gallery only: buttons that fire the real feedback. window.Vectra is for the tests. */
+    import * as Vectra from '../../src/js/index.js';
+    window.Vectra = Vectra;
+    const on = (id, fn) => document.getElementById(id).addEventListener('click', fn);
+    on('toast-saved', () => Vectra.toast('Changes saved', { tone: 'success' }));
+    on('toast-info', () => Vectra.toast('3 new comments on Atlas', { tone: 'info' }));
+    on('toast-warning', () => Vectra.toast('Storage is 90% full', { tone: 'warning' }));
+    on('toast-danger', () => Vectra.toast('Could not send the invite', { tone: 'danger', action: { label: 'Retry', onClick: () => Vectra.toast('Invite sent', { tone: 'success' }) } }));
+    on('toast-undo', () => Vectra.toast('Project archived', { tone: 'success', undo: () => Vectra.toast('Project restored') }));
+    on('toast-many', () => ['One', 'Two', 'Three', 'Four', 'Five'].forEach((n) => Vectra.toast(`Toast ${n.toLowerCase()}`)));
+
+    // The browser decides navigator.onLine, so the demo buttons override it to simulate a dropped connection.
+    const simulate = (online) => {
+      Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => online });
+      window.dispatchEvent(new Event(online ? 'online' : 'offline'));
+    };
+    on('go-offline', () => simulate(false));
+    on('go-online', () => simulate(true));
+    on('go-slow', () => Vectra.connection.slow(true));
+    on('go-fast', () => Vectra.connection.slow(false));
+
+    on('session-warn', () => Vectra.session.warn({
+      expiresAt: Date.now() + 70_000,
+      onExtend: () => Vectra.toast('You are still signed in', { tone: 'success' }),
+      onSignIn: () => Vectra.toast('Signed in again', { tone: 'success' }),
+    }));
+
+    const status = document.getElementById('live-status');
+    document.querySelectorAll('[data-status]').forEach((btn) => btn.addEventListener('click', () => Vectra.saveStatus(status, btn.dataset.status)));
+  </script>
+</body>
+</html>
