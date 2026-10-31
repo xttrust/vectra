@@ -109,6 +109,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Rating input | P1 | | radio group |
 | File list with upload progress | P1 | | |
 | Multi-step form (wizard) | P1 | | uses steps |
+| Repeater fields (add and remove rows, e.g. extra emails or line items) | P1 | | small JS |
 | Date picker calendar | P2 | | |
 | Colour picker | P2 | | |
 
@@ -159,6 +160,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Timeline / activity feed | P0 | done | |
 | Data table (sort, filter, column toggle, bulk actions) | P1 | | |
 | Charts: sparkline, bar, line, area, donut | P1 | | SVG, no library |
+| Chart legend and legend indicator | P1 | | with the charts |
 | Calendar (month, week) | P2 | | |
 | Kanban board | P2 | | |
 
@@ -175,8 +177,22 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Gallery / masonry grid | P1 | | |
 | Video embed (lite, click to load) | P1 | | no third-party request until clicked |
 | Marquee / logo ticker | P1 | | respects reduced motion |
+| Device frames (phone, laptop, browser window) for screenshots in heroes and features | P1 | | pure CSS, holds real Vectra UI or an image |
 | Countdown | P1 | | |
 | Map placeholder (static image + link) | P1 | | no map SDK |
+
+### Conversation and AI
+
+Added 31 Oct 2026 after comparing current kits (section 12): chat and AI interfaces are now a standard category.
+
+| Component | Tier | Status | Notes |
+|---|---|---|---|
+| Message bubble (sent, received, system, with avatar, time and status) | P1 | | |
+| Message thread with scroller (sticks to the newest message, "new messages" jump) | P1 | | JS |
+| Prompt input (auto-growing textarea, attachments, send and stop, shortcut hints) | P1 | | builds on input group and drop zone |
+| Attachment chip and preview (file, image, upload progress, remove) | P1 | | |
+| Streaming reply and reasoning or tool trace (collapsible steps) | P1 | | builds on collapsible and timeline |
+| Suggested prompts | P1 | | builds on tag |
 
 ### Theming and utility
 
@@ -188,6 +204,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Scroll area (styled scrollbars, fade edges) | P0 | done | |
 | Visually hidden, sticky helpers | P0 | | utilities |
 | Cookie consent banner | P1 | | no tracking code shipped |
+| Menubar (desktop-app style menus) | P2 | | |
 | Resizable split pane | P2 | | |
 
 ## 3. Sections (blocks)
@@ -593,3 +610,19 @@ Built in M7.4 as `examples/states/` (one gallery, grouped like the tables below)
 | Right to left | every state in RTL | P0 |
 | Reduced motion, forced colours, print | every state stays clear | P0 |
 | New version available | "A new version is ready, reload" | P1 |
+
+## 12. Research notes (31 Oct 2026)
+
+Compared against the current component indexes of shadcn/ui and Preline, and the published structure of Tailwind Plus (Application UI, Marketing, Ecommerce; about 670 block variants by one unofficial count). Gaps found and now in the tables above: conversation and AI components, device frames, chart legends, repeater fields, menubar.
+
+Platform features to use as progressive enhancement as they reach the browser floor (PLAN.md section 3), each with today's approach as the fallback:
+
+| Feature | Use | Fallback today |
+|---|---|---|
+| `command` / `commandfor` invokers | open dialogs and drawers without JS | `data-v-dialog-open` (M4) |
+| `popover="hint"` with `interestfor` | declarative tooltips and hover cards | `data-v-tooltip` (M4) |
+| `closedby="any"` on `<dialog>` | light-dismiss dialogs | `data-v-dismissable` (M4) |
+| `appearance: base-select` | fully styled `<select>` with rich options | styled native select (M3.2) |
+| Cross-document view transitions | page-to-page transitions on multi-page sites | none needed |
+
+Sources: [shadcn/ui components](https://ui.shadcn.com/docs/components), [Preline docs](https://preline.co/docs/index.html), [Tailwind Plus ecommerce blocks](https://tailwindcss.com/plus/ui-blocks/ecommerce), [Chrome: What's new in Web UI, I/O 2025](https://developer.chrome.com/blog/new-in-web-ui-io-2025-recap), [CSS Wrapped 2025](https://chrome.dev/css-wrapped-2025/).
