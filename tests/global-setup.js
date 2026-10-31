@@ -3,7 +3,7 @@
 import { execFileSync } from 'node:child_process';
 
 export default function globalSetup() {
-  for (const script of ['build/build.mjs', 'build/icons.mjs', 'build/site.mjs']) {
+  for (const script of ['build/build.mjs', 'build/icons.mjs', 'build/manifest.mjs', 'build/site.mjs']) {
     execFileSync(process.execPath, [script], { stdio: ['ignore', 'ignore', 'inherit'] });
   }
 }

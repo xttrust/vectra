@@ -43,11 +43,30 @@ npm run serve        # then open http://127.0.0.1:4173/site/dist/
 
 Every URL in the site is relative, so it works under any base path. It is deployed to GitHub Pages (https://xttrust.github.io/vectra/) by `.github/workflows/pages.yml`, only when a release is published or the workflow is run by hand.
 
+## For AI assistants
+
+`npm run build` also writes `dist/ai/`, generated from the same component data as the docs site:
+
+- `vectra.manifest.json` (schema beside it): every component with its classes, states, hooks, events, keyboard, accessibility notes, tokens and a canonical example, plus the token contract, icon names, the JS API and the rules.
+- `llms.txt` and `llms-full.txt`: the [llms.txt](https://llmstxt.org) index and one file an assistant can read in one go. Both are also at the root of the docs site.
+- `claude-skill/vectra/` and `AGENTS.md`: the same guidance for Claude Code and for other assistants. The committed copies live in `ai/`.
+
+**Claude Code skill.** Copy the folder into your project (or `~/.claude/skills/` for every project):
+
+```sh
+mkdir -p .claude/skills && cp -r node_modules/@creativeigniter/vectra/dist/ai/claude-skill/vectra .claude/skills/
+```
+
+Claude then uses it whenever you build UI with Vectra. For Codex, Cursor and other assistants, paste `ai/AGENTS.md` into your `AGENTS.md`.
+
+`tests/manifest.spec.js` renders every canonical example from the manifest alone in a blank page and checks the classes, hooks, axe and visibility. After changing component data, run `npm run ai:skill` to refresh `ai/`; `npm run check:manifest` fails when it is stale.
+
 ## Development
 
 | Command | What it does |
 |---|---|
-| `npm run check` | Lint, build, size budgets, external-URL check, browser floor check |
+| `npm run check` | Lint, build, size budgets, external-URL check, browser floor check, AI manifest freshness |
+| `npm run ai:skill` | Regenerate the committed Claude Code skill and `AGENTS.md` in `ai/` from the component data |
 | `npm run site:check` | Validate the component data, build the docs site and check every page (one h1, landmarks, links, no external URLs) |
 | `npm test` | Accessibility, contrast sweep and keyboard tests in Chromium |
 | `npm run build:icons` | Copy the icons listed in `src/icons/icons.json` from Lucide into `src/icons/svg/`, then build the sprite |
