@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="../shared/examples.css">
   <style>
     /* Gallery only: the layout of the guide. Every state itself is built from kit classes. */
+    /* Keeps the last section's margin inside main, so the page height is the same on every full-page capture. */
+    .ex-main { display: flow-root; }
     .st-toc { display: flex; flex-wrap: wrap; gap: var(--v-space-2); margin: 0; padding: 0; list-style: none; }
     .st-group > p { max-inline-size: 65ch; color: var(--v-text-2); }
     .st-item { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-4); padding-block: var(--v-space-6); border-block-start: var(--v-border-w) solid var(--v-border); }
