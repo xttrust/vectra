@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Components</title>
+  <meta name="description" content="Vectra components in every direction and theme.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 2h6l1-2h5"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../layout/">Vectra <span>components</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">Components · part 1</p>
+      <h1 class="v-display">Actions, display and feedback.</h1>
+      <p class="v-lead">Every text element on this page is contrast-checked against what is actually rendered behind it, in every direction and theme.</p>
+    </section>
+
+    <section id="buttons">
+      <h2>Buttons</h2>
+      <div class="v-stack">
+        <div class="v-cluster">
+          <button class="v-btn v-btn-primary" type="button" data-contrast>Primary</button>
+          <button class="v-btn v-btn-secondary" type="button" data-contrast>Secondary</button>
+          <button class="v-btn v-btn-ghost" type="button" data-contrast>Ghost</button>
+          <button class="v-btn v-btn-soft" type="button" data-contrast>Soft</button>
+          <button class="v-btn v-btn-danger" type="button" data-contrast>Danger</button>
+          <button class="v-btn" type="button" data-contrast>Default</button>
+        </div>
+        <div class="v-cluster">
+          <button class="v-btn v-btn-primary v-btn-sm" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-plus"/></svg>Small</button>
+          <button class="v-btn v-btn-primary" type="button">Medium</button>
+          <button class="v-btn v-btn-primary v-btn-lg" type="button">Large <svg class="v-icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button class="v-btn v-btn-secondary v-btn-icon" type="button" aria-label="Search"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+          <button class="v-btn v-btn-danger v-btn-icon" type="button" aria-label="Delete"><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg></button>
+        </div>
+        <div class="v-cluster">
+          <button class="v-btn v-btn-primary" type="button" aria-busy="true" disabled>Saving</button>
+          <button class="v-btn v-btn-secondary" type="button" disabled>Disabled</button>
+          <a class="v-btn v-btn-secondary" href="#buttons" data-contrast>Link styled as a button</a>
+        </div>
+        <div class="v-cluster">
+          <div class="v-btn-group" role="group" aria-label="Text alignment">
+            <button class="v-btn v-btn-secondary" type="button">Left</button>
+            <button class="v-btn v-btn-secondary" type="button">Centre</button>
+            <button class="v-btn v-btn-secondary" type="button">Right</button>
+          </div>
+          <fieldset class="v-segmented">
+            <legend class="v-sr-only">Billing period</legend>
+            <label><input type="radio" name="period" value="monthly" checked><span data-contrast>Monthly</span></label>
+            <label><input type="radio" name="period" value="yearly"><span data-contrast>Yearly</span></label>
+            <label><input type="radio" name="period" value="lifetime"><span data-contrast>Lifetime</span></label>
+          </fieldset>
+        </div>
+      </div>
+    </section>
+
+    <section id="badges">
+      <h2>Badges and avatars</h2>
+      <div class="v-stack">
+        <div class="v-cluster">
+          <span class="v-badge" data-contrast>Default</span>
+          <span class="v-badge v-badge-accent" data-contrast>Accent</span>
+          <span class="v-badge v-badge-solid" data-contrast>Solid</span>
+          <span class="v-badge v-badge-success v-badge-dot" data-contrast>Paid</span>
+          <span class="v-badge v-badge-warning v-badge-dot" data-contrast>Pending</span>
+          <span class="v-badge v-badge-danger v-badge-dot" data-contrast>Overdue</span>
+          <span class="v-badge v-badge-info" data-contrast>Info</span>
+          <span class="v-badge v-badge-outline" data-contrast>Outline</span>
+        </div>
+        <div class="v-cluster">
+          <span class="v-avatar v-avatar-sm" data-contrast>FP</span>
+          <span class="v-avatar" data-contrast>AK</span>
+          <span class="v-avatar v-avatar-lg" data-contrast>RM</span>
+          <span class="v-avatar v-avatar-square" data-contrast>JS</span>
+          <div class="v-avatar-group" aria-label="3 team members">
+            <span class="v-avatar">AK</span><span class="v-avatar">RM</span><span class="v-avatar">JS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cards">
+      <h2>Cards</h2>
+      <div class="v-grid" style="--v-min: 17rem">
+        <article class="v-card">
+          <header class="v-card-header">
+            <h3 class="v-card-title" data-contrast>Project Atlas</h3>
+            <span class="v-badge v-badge-success" data-contrast>Live</span>
+          </header>
+          <p class="v-card-text" data-contrast>Marketing site for a roofing company. Launched last week, already ranking for local searches.</p>
+          <footer class="v-card-footer">
+            <button class="v-btn v-btn-primary v-btn-sm" type="button" data-contrast>Open</button>
+            <button class="v-btn v-btn-ghost v-btn-sm" type="button" data-contrast>Share</button>
+          </footer>
+        </article>
+        <a class="v-card" href="#cards">
+          <h3 class="v-card-title" data-contrast>Link card</h3>
+          <p class="v-card-text" data-contrast>The whole card is one link, so it lifts on hover and shows a focus ring.</p>
+        </a>
+        <article class="v-card v-card-feature">
+          <p class="v-kicker" style="color: var(--v-feature-fg-2)" data-contrast>Most popular</p>
+          <h3 class="v-card-title" data-contrast>Team plan</h3>
+          <p class="v-card-text" data-contrast>Everything in Starter, plus shared tokens and priority support.</p>
+          <button class="v-btn v-btn-primary v-btn-block" type="button" data-contrast>Start free trial</button>
+        </article>
+      </div>
+      <div class="v-grid v-mt-4" style="--v-min: 12rem">
+        <div class="v-card v-stat"><span class="v-stat-label" data-contrast>Monthly revenue</span><span class="v-stat-value" data-contrast>€12,940</span><span class="v-badge v-badge-success" data-contrast>+8.2%</span></div>
+        <div class="v-card v-stat"><span class="v-stat-label" data-contrast>Active clients</span><span class="v-stat-value" data-contrast>186</span><span class="v-badge v-badge-danger" data-contrast>−3</span></div>
+        <div class="v-card v-stat"><span class="v-stat-label" data-contrast>Avg. response</span><span class="v-stat-value" data-contrast>1.4h</span><span class="v-badge" data-contrast>No change</span></div>
+      </div>
+    </section>
+
+    <section id="alerts">
+      <h2>Alerts</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-3)">
+        <div class="v-alert v-alert-info"><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg><p class="v-alert-body" data-contrast><strong class="v-alert-title">Heads up.</strong> Maintenance on Sunday from 02:00.</p></div>
+        <div class="v-alert v-alert-success"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg><p class="v-alert-body" data-contrast><strong class="v-alert-title">Payment received.</strong> Your invoice is marked as paid.</p></div>
+        <div class="v-alert v-alert-warning"><svg class="v-icon" aria-hidden="true"><use href="#i-alert"/></svg><p class="v-alert-body" data-contrast><strong class="v-alert-title">Storage at 85%.</strong> Upgrade before it fills up.</p></div>
+        <div class="v-alert v-alert-danger"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg><p class="v-alert-body" data-contrast><strong class="v-alert-title">Card declined.</strong> Update your billing details.</p></div>
+      </div>
+    </section>
+
+    <section id="feedback">
+      <h2>Progress and loading</h2>
+      <div class="v-grid" style="--v-min: 16rem">
+        <div class="v-card">
+          <div class="v-flex v-justify-between"><span data-contrast>Launch checklist</span><span class="v-tabular" data-contrast>68%</span></div>
+          <progress class="v-progress" value="68" max="100" aria-label="Launch checklist">68%</progress>
+          <span class="v-text-sm v-text-secondary" data-contrast>Uploading files</span>
+          <progress class="v-progress" aria-label="Uploading files"></progress>
+          <span class="v-text-sm v-text-secondary" data-contrast>Disk usage</span>
+          <meter class="v-meter" min="0" max="100" low="70" high="90" optimum="20" value="82" aria-label="Disk usage">82%</meter>
+        </div>
+        <div class="v-card">
+          <div class="v-cluster" role="status"><span class="v-spinner" aria-hidden="true"></span><span data-contrast>Loading projects…</span></div>
+          <div class="v-cluster" aria-hidden="true">
+            <span class="v-skeleton v-skeleton-circle"></span>
+            <span class="v-grow"><span class="v-skeleton v-skeleton-text" style="inline-size: 70%"></span><span class="v-skeleton v-skeleton-text" style="inline-size: 45%"></span></span>
+          </div>
+        </div>
+        <div class="v-card">
+          <div class="v-empty">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-inbox"/></svg></span>
+            <p class="v-empty-title" data-contrast>No invoices yet</p>
+            <p data-contrast>When you send your first invoice, it shows up here.</p>
+            <button class="v-btn v-btn-primary v-btn-sm" type="button" data-contrast>Create invoice</button>
+          </div>
+        </div>
+      </div>
+      <p class="v-divider v-mt-6"><span data-contrast>or continue with</span></p>
+    </section>
+  </main>
+</body>
+</html>

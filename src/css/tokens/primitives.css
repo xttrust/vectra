@@ -37,15 +37,16 @@
     --v-focus-w: 2px;
 
     /* Status colours, shared by every direction */
-    --v-success: light-dark(oklch(46% 0.13 150deg), oklch(80% 0.15 152deg));
-    --v-warning: light-dark(oklch(52% 0.12 70deg), oklch(84% 0.14 80deg));
+    --v-success: light-dark(oklch(44% 0.13 150deg), oklch(80% 0.15 152deg));
+    --v-warning: light-dark(oklch(48% 0.12 70deg), oklch(84% 0.14 80deg));
     --v-danger: light-dark(oklch(50% 0.19 25deg), oklch(74% 0.16 25deg));
-    --v-info: light-dark(oklch(52% 0.13 245deg), oklch(78% 0.11 240deg));
+    --v-info: light-dark(oklch(48% 0.13 245deg), oklch(78% 0.11 240deg));
     --v-success-soft: light-dark(oklch(50% 0.13 150deg / 10%), oklch(80% 0.15 152deg / 12%));
     --v-warning-soft: light-dark(oklch(60% 0.13 75deg / 12%), oklch(84% 0.14 80deg / 12%));
     --v-danger-soft: light-dark(oklch(53% 0.19 25deg / 9%), oklch(74% 0.16 25deg / 13%));
     --v-info-soft: light-dark(oklch(52% 0.13 245deg / 9%), oklch(78% 0.11 240deg / 12%));
     --v-on-danger: light-dark(oklch(100% 0 0deg), oklch(18% 0.03 25deg));
+    --v-danger-hover: light-dark(oklch(44% 0.18 25deg), oklch(80% 0.13 25deg));
 
     /* 0..1, peaks for green-cyan accents, which read brighter than other hues at the same OKLCH
        lightness. Directions subtract a little light-theme lightness with it to keep AA at any hue. */

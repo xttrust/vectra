@@ -1,0 +1,209 @@
+/* Buttons, button groups and the segmented control. Works on <button>, <a> and <input type="submit">. */
+@layer components {
+  .v-btn {
+    --v-btn-h: var(--v-control-h);
+
+    display: inline-flex;
+    gap: 0.5em;
+    align-items: center;
+    justify-content: center;
+    min-block-size: var(--v-btn-h);
+    padding: 0 1.1rem;
+    border: var(--v-border-w) solid var(--v-btn-border);
+    border-radius: var(--v-btn-radius);
+    background-color: var(--v-surface-2);
+    color: var(--v-text);
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: var(--v-btn-weight);
+    line-height: 1;
+    letter-spacing: -0.005em;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--v-dur-1),
+      color var(--v-dur-1),
+      border-color var(--v-dur-1),
+      box-shadow var(--v-dur-2) var(--v-ease-out),
+      translate var(--v-dur-2) var(--v-ease-spring);
+  }
+
+  .v-btn:hover { background-color: color-mix(in oklch, var(--v-surface-2) 88%, var(--v-text)); }
+
+  .v-btn:disabled,
+  .v-btn[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .v-btn:active:not(:disabled, [aria-disabled="true"]) { translate: 0 1px; }
+
+
+  .v-btn .v-icon {
+    inline-size: 1.1em;
+    block-size: 1.1em;
+
+  }
+
+  .v-btn-primary {
+    background-color: var(--v-primary-bg);
+    color: var(--v-primary-fg);
+    box-shadow: var(--v-btn-shadow);
+  }
+
+  .v-btn-primary:hover:not(:disabled) {
+    background-color: var(--v-primary-hover-bg);
+    color: var(--v-primary-hover-fg);
+
+  }
+
+  .v-btn-secondary {
+    border-color: var(--v-border-strong);
+    background-color: var(--v-surface);
+  }
+
+  .v-btn-secondary:hover:not(:disabled) { background-color: var(--v-surface-2); }
+
+  .v-btn-ghost {
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  .v-btn-ghost:hover:not(:disabled) { background-color: var(--v-surface-2); }
+
+  .v-btn-soft {
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+  }
+
+  .v-btn-soft:hover:not(:disabled) { background-color: color-mix(in oklch, var(--v-accent-soft) 70%, var(--v-accent) 12%); }
+
+  .v-btn-danger {
+    background-color: var(--v-danger);
+    color: var(--v-on-danger);
+  }
+
+  .v-btn-danger:hover:not(:disabled) { background-color: var(--v-danger-hover); }
+
+  .v-btn-sm {
+    --v-btn-h: calc(var(--v-control-h) * 0.81);
+
+    padding-inline: 0.8rem;
+    font-size: 0.875rem;
+
+  }
+
+  .v-btn-lg {
+    --v-btn-h: calc(var(--v-control-h) * 1.19);
+
+    padding-inline: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .v-btn-icon {
+    inline-size: var(--v-btn-h);
+    padding: 0;
+  }
+  .v-btn-block { inline-size: 100%; }
+
+  /* Loading: keep the label, add a spinner. Pair with disabled so it can't be clicked twice. */
+  .v-btn[aria-busy="true"]::before {
+    content: "";
+    inline-size: 1em;
+    block-size: 1em;
+    border: 2px solid currentcolor;
+    border-inline-end-color: transparent;
+    border-radius: 50%;
+    animation: v-spin 0.7s linear infinite;
+  }
+
+  /* Attached buttons */
+  .v-btn-group { display: inline-flex; }
+
+  .v-btn-group > .v-btn:not(:first-child) {
+    margin-inline-start: calc(var(--v-border-w) * -1);
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  .v-btn-group > .v-btn:not(:last-child) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .v-btn-group > .v-btn:focus-visible {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Segmented control: a radio group that looks like a toggle bar. */
+  .v-segmented {
+    display: inline-flex;
+    gap: 2px;
+    overflow-x: auto;
+    padding: 3px;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: calc(var(--v-btn-radius) + 3px);
+    background-color: var(--v-surface-2);
+    scrollbar-width: none;
+  }
+
+  .v-segmented label {
+    position: relative;
+    flex: 1 0 auto;
+
+  }
+
+  .v-segmented input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .v-segmented span {
+    display: block;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--v-btn-radius);
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    font-weight: 560;
+    text-align: center;
+    white-space: nowrap;
+    transition: color var(--v-dur-1), background-color var(--v-dur-2);
+  }
+
+  .v-segmented label:hover span { color: var(--v-text); }
+
+  .v-segmented input:checked + span {
+    background-color: var(--v-surface);
+    color: var(--v-text);
+    box-shadow: var(--v-shadow-1);
+  }
+
+  .v-segmented input:focus-visible + span {
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 1px;
+  }
+
+  @keyframes v-spin { to { rotate: 1turn; } }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-btn { letter-spacing: 0.01em; }
+
+  :root[data-direction="glass"] .v-btn-primary { background-image: linear-gradient(135deg, var(--v-accent), var(--v-accent-2)); }
+  :root[data-direction="glass"] .v-btn-primary:hover:not(:disabled) { background-image: linear-gradient(135deg, var(--v-accent-hover), var(--v-accent-hover)); }
+
+  :root[data-direction="glass"] .v-btn-secondary {
+    border-color: var(--v-card-border);
+    background-color: var(--v-card-bg);
+    backdrop-filter: blur(24px) saturate(1.6);
+  }
+
+  :root[data-direction="glass"] .v-segmented input:checked + span { background-color: var(--v-card-bg); }
+}

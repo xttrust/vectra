@@ -52,6 +52,7 @@
     --v-feature-bg: linear-gradient(150deg, light-dark(oklch(calc(0.48 - 0.08 * max(0, cos((var(--v-accent-h) - 180) * 1deg))) 0.2 var(--v-accent-h)), oklch(calc(0.42 - 0.06 * max(0, cos((var(--v-accent-h) - 180) * 1deg))) 0.16 var(--v-accent-h))), light-dark(oklch(calc(0.5 - 0.08 * max(0, cos((var(--v-accent-h) + 52 - 180) * 1deg))) 0.19 calc(var(--v-accent-h) + 52)), oklch(calc(0.44 - 0.06 * max(0, cos((var(--v-accent-h) + 52 - 180) * 1deg))) 0.14 calc(var(--v-accent-h) + 52))));
     --v-feature-fg: oklch(100% 0 0deg);
     --v-feature-fg-2: oklch(95% 0.025 var(--v-accent-h));
+    --v-feature-on-fg: oklch(32% 0.13 var(--v-accent-h));
     --v-feature-border: oklch(100% 0 0deg / 22%);
 
     /* Backgrounds */

@@ -54,12 +54,15 @@ test('token contrast: every direction, theme and accent hue', async ({ page }) =
       pairs.push([tone, ['bg', 'surface'], 4.5, `${tone} on surface`]);
       pairs.push([tone, ['bg', 'card-bg'], 4.5, `${tone} on card`]);
       pairs.push([tone, ['bg', 'surface', `${tone}-soft`], 4.5, `${tone} on ${tone}-soft`]);
+      pairs.push(['text', ['bg', 'surface', `${tone}-soft`], 4.5, `text on ${tone}-soft`]);
+      pairs.push(['text-2', ['bg', 'surface', `${tone}-soft`], 4.5, `text-2 on ${tone}-soft`]);
     }
     pairs.push(['accent-text', ['bg', 'surface', 'accent-soft'], 4.5, 'accent-text on accent-soft']);
     pairs.push(['on-accent', ['bg', 'accent'], 4.5, 'on-accent on accent']);
     pairs.push(['primary-fg', ['bg', 'primary-bg'], 4.5, 'primary-fg on primary-bg']);
     pairs.push(['primary-hover-fg', ['bg', 'primary-hover-bg'], 4.5, 'primary-hover-fg on primary-hover-bg']);
     pairs.push(['on-danger', ['bg', 'danger'], 4.5, 'on-danger on danger']);
+    pairs.push(['on-danger', ['bg', 'danger-hover'], 4.5, 'on-danger on danger-hover']);
     pairs.push(['text', ['bg', 'card-bg', 'input-bg'], 4.5, 'text in input']);
     pairs.push(['text-3', ['bg', 'card-bg', 'input-bg'], 4.5, 'placeholder in input']);
     pairs.push(['border-control', ['bg', 'card-bg'], 3, 'border-control vs card']);

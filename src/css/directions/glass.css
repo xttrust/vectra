@@ -18,7 +18,13 @@
     --v-accent-hover: light-dark(oklch(44% 0.2 var(--v-accent-h)), oklch(86% 0.11 var(--v-accent-h)));
     --v-accent-2: light-dark(oklch(50% 0.2 calc(var(--v-accent-h) + 50)), oklch(80% 0.13 calc(var(--v-accent-h) + 50)));
     --v-accent-text: light-dark(oklch(45% 0.2 var(--v-accent-h)), oklch(85% 0.11 var(--v-accent-h)));
-    --v-accent-soft: light-dark(oklch(50% 0.2 var(--v-accent-h) / 14%), oklch(80% 0.13 var(--v-accent-h) / 18%));
+
+    /* Soft tints are opaque here: translucent tints let the colour field through and lose contrast. */
+    --v-accent-soft: light-dark(oklch(93% 0.05 var(--v-accent-h)), oklch(33% 0.08 var(--v-accent-h)));
+    --v-success-soft: light-dark(oklch(94% 0.05 150deg), oklch(31% 0.06 150deg));
+    --v-warning-soft: light-dark(oklch(95% 0.05 80deg), oklch(32% 0.05 75deg));
+    --v-danger-soft: light-dark(oklch(94% 0.04 25deg), oklch(31% 0.07 25deg));
+    --v-info-soft: light-dark(oklch(94% 0.04 245deg), oklch(31% 0.06 245deg));
     --v-on-accent: light-dark(oklch(100% 0 0deg), oklch(20% 0.06 var(--v-accent-h)));
 
     /* Type */
@@ -52,6 +58,7 @@
     --v-feature-bg: linear-gradient(135deg, oklch(calc(0.46 - 0.08 * max(0, cos((var(--v-accent-h) - 180) * 1deg))) 0.2 var(--v-accent-h) / 92%), oklch(calc(0.42 - 0.08 * max(0, cos((var(--v-accent-h) + 50 - 180) * 1deg))) 0.2 calc(var(--v-accent-h) + 50) / 92%));
     --v-feature-fg: oklch(100% 0 0deg);
     --v-feature-fg-2: oklch(96% 0.025 var(--v-accent-h));
+    --v-feature-on-fg: oklch(32% 0.13 var(--v-accent-h));
     --v-feature-border: oklch(100% 0 0deg / 30%);
     --v-page-bg:
       radial-gradient(42% 38% at 12% 18%, light-dark(oklch(78% 0.15 calc(var(--v-accent-h) + 50) / 55%), oklch(50% 0.2 calc(var(--v-accent-h) + 50) / 50%)), transparent 70%),

@@ -1,0 +1,35 @@
+/* Avatars: image or initials, single or stacked. */
+@layer components {
+  .v-avatar {
+    --v-avatar-size: 2.5rem;
+
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    overflow: hidden;
+    inline-size: var(--v-avatar-size);
+    block-size: var(--v-avatar-size);
+    border-radius: 50%;
+
+    /* Tint over an opaque base, so stacked avatars never show through each other. */
+    background: linear-gradient(var(--v-accent-soft), var(--v-accent-soft)), var(--v-surface);
+    color: var(--v-accent-text);
+    font-size: calc(var(--v-avatar-size) * 0.38);
+    font-weight: 650;
+    letter-spacing: 0.02em;
+  }
+
+  .v-avatar img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+
+  }
+  .v-avatar-sm { --v-avatar-size: 2rem; }
+  .v-avatar-lg { --v-avatar-size: 3.5rem; }
+  .v-avatar-square { border-radius: var(--v-radius-md); }
+
+  .v-avatar-group { display: flex; }
+  .v-avatar-group > .v-avatar { box-shadow: 0 0 0 2px var(--v-surface); }
+  .v-avatar-group > .v-avatar + .v-avatar { margin-inline-start: calc(var(--v-avatar-size) * -0.28); }
+}
