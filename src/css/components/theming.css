@@ -170,6 +170,17 @@
   .v-swatch[style] { background-image: none; }
   .v-swatches input:checked + .v-swatch { box-shadow: 0 0 0 2px var(--v-overlay-bg), 0 0 0 4px var(--v-text); }
 
+  /* A swatch is its colour, so it keeps it in forced colours (like a colour picker); the edge and the
+     checked ring move to system colours so they show on any high contrast theme. */
+  @media (forced-colors: active) {
+    .v-swatch {
+      box-shadow: inset 0 0 0 1px CanvasText;
+      forced-color-adjust: none;
+    }
+
+    .v-swatches input:checked + .v-swatch { box-shadow: 0 0 0 2px Canvas, 0 0 0 4px CanvasText; }
+  }
+
   .v-swatches input:focus-visible + .v-swatch {
     outline: var(--v-focus-w) solid var(--v-accent);
     outline-offset: 5px;

@@ -156,10 +156,14 @@
     z-index: 1;
   }
 
-  /* Segmented control: a radio group that looks like a toggle bar. */
+  /* Segmented control: a radio group that looks like a toggle bar. min-inline-size: 0 and the max let
+     it shrink and scroll in a narrow slot: a <fieldset> otherwise keeps its min-content width and
+     pushes the page sideways at 320px (400% zoom). */
   .v-segmented {
     display: inline-flex;
     gap: 2px;
+    min-inline-size: 0;
+    max-inline-size: 100%;
     overflow-x: auto;
     padding: 3px;
     border: var(--v-border-w) solid var(--v-border);
@@ -222,6 +226,13 @@
   }
 
   @media (forced-colors: active) {
+    /* The checked segment differs by a surface tint and shadow, both of which forced colours remove. */
+    .v-segmented input:checked + span {
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
+    }
+
     .v-btn[aria-pressed="true"]:where(:not(.v-password-toggle)) {
       border-color: Highlight;
       background-color: Highlight;
@@ -246,4 +257,8 @@
   }
 
   :root[data-direction="glass"] .v-segmented input:checked + span { background-color: var(--v-card-bg); }
+
+  @media (forced-colors: active) {
+    :root[data-direction] .v-segmented input:checked + span { background-color: Highlight; }
+  }
 }

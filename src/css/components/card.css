@@ -83,6 +83,9 @@
     color: var(--v-feature-fg);
   }
 
+  /* The accent ring can sit too close to the feature surface's own colour; its text colour never does. */
+  .v-card-feature :focus-visible { outline-color: var(--v-feature-fg); }
+
   /* Stat: a labelled number. */
   .v-stat {
     display: grid;

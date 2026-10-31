@@ -120,6 +120,15 @@
     color: var(--v-accent-text);
     font-weight: 620;
   }
+
+  @media (forced-colors: active) {
+    /* The current link's tint, colour and bar are flattened by forced colours: use the system highlight. */
+    .v-sidenav a[aria-current="page"] {
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
+    }
+  }
 }
 
 @layer directions {
@@ -135,4 +144,11 @@
   }
 
   :root[data-direction="editorial"] .v-sidenav a[aria-current="page"]:dir(rtl) { box-shadow: inset -2px 0 0 var(--v-accent); }
+
+  @media (forced-colors: active) {
+    :root[data-direction] .v-sidenav a[aria-current="page"] {
+      background-color: Highlight;
+      color: HighlightText;
+    }
+  }
 }

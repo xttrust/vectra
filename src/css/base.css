@@ -2,7 +2,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-block-start: var(--v-scroll-offset, 5rem);
+
+    /* Room below as well as above, so a field focused at the bottom edge brings its focus ring into view. */
+    scroll-padding-block: var(--v-scroll-offset, 5rem) var(--v-space-4);
   }
 
   body {
@@ -131,7 +133,8 @@
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
-    *::after {
+    *::after,
+    *::backdrop {
       animation-delay: 0s !important;
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;

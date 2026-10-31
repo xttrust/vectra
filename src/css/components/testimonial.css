@@ -53,6 +53,16 @@
     mask-position: 100% 0;
   }
 
+  /* Forced colours drop the gradient, so the stars vanished: paint them in system colours instead. */
+  @media (forced-colors: active) {
+    .v-rating {
+      background: linear-gradient(to right, CanvasText calc(var(--v-rating, 5) * 20%), GrayText 0);
+      forced-color-adjust: none;
+    }
+
+    .v-rating:dir(rtl) { background: linear-gradient(to left, CanvasText calc(var(--v-rating, 5) * 20%), GrayText 0); }
+  }
+
   /* Large: a centred pull-quote with a big opening mark. */
   .v-testimonial-lg {
     align-items: center;
