@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recovery codes · Northwind · Vectra auth</title>
+  <meta name="description" content="Recovery codes: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 19h16"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <header class="v-auth-header">
+          <span class="v-auth-icon v-auth-icon-success" aria-hidden="true"><svg class="v-icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
+          <h1 class="v-auth-title" id="auth-title">Save your recovery codes</h1>
+          <p class="v-auth-text">If you lose your phone, each code signs you in once. Keep them somewhere safe, like your password manager.</p>
+        </header>
+        <ul class="v-auth-codes" id="codes" aria-label="Recovery codes">
+          <li>7KQ2-M9XD</li>
+          <li>P4WN-8J3C</li>
+          <li>T6RB-2HVE</li>
+          <li>Z9LF-5QAK</li>
+          <li>C3YG-7NMP</li>
+          <li>H8DS-4UWT</li>
+          <li>R2XJ-6BKF</li>
+          <li>V5EQ-9LZA</li>
+        </ul>
+        <div class="v-cluster">
+          <button class="v-btn v-btn-secondary" type="button" data-v-copy data-v-copy-target="#codes"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
+          <a class="v-btn v-btn-secondary" href="data:text/plain;charset=utf-8,Northwind%20recovery%20codes%0A%0A7KQ2-M9XD%0AP4WN-8J3C%0AT6RB-2HVE%0AZ9LF-5QAK%0AC3YG-7NMP%0AH8DS-4UWT%0AR2XJ-6BKF%0AV5EQ-9LZA%0A" download="northwind-recovery-codes.txt"><svg class="v-icon" aria-hidden="true"><use href="#i-download"/></svg>Download</a>
+        </div>
+        <form class="v-form" id="saved-codes-form" method="post" action="../first-run/welcome.html" data-v-validate>
+          <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+          <div class="v-field">
+            <label class="v-choice"><input class="v-checkbox" id="saved" type="checkbox" name="saved" required><span>I've saved my recovery codes</span></label>
+            <p class="v-field-error" id="saved-error">Save your codes first, then tick the box.</p>
+          </div>
+          <button class="v-btn v-btn-primary v-btn-block" type="submit">Done</button>
+        </form>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

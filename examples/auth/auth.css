@@ -1,0 +1,43 @@
+/* Gallery chrome for the auth examples. Not part of the kit. */
+
+/* Flow pages: the layout fills the window under the switcher bar. */
+.ex-auth {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100dvh;
+}
+
+.ex-auth > .v-auth {
+  flex: 1;
+  min-block-size: 0;
+}
+
+/* Gallery: each layout in a framed box, as if it were the whole window. */
+.ex-layout { display: grid; gap: var(--v-space-3); }
+.ex-layout h2 { margin: 0; }
+
+.ex-frame {
+  overflow: hidden;
+  border: var(--v-border-w) solid var(--v-border);
+  border-radius: var(--v-radius-lg);
+}
+
+.ex-frame > .v-auth { min-block-size: 46rem; }
+
+.ex-frame-dialog {
+  display: grid;
+  place-items: center;
+  padding: var(--v-space-6) var(--v-space-4);
+  background: var(--v-backdrop);
+}
+
+dialog.ex-static {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 26rem;
+  block-size: auto;
+  margin: 0;
+  translate: none;
+}
+
+.ex-flow-list { display: grid; gap: var(--v-space-2); margin: 0; padding-inline-start: 1.1rem; }

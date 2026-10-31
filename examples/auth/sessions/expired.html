@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Session expired · Northwind · Vectra auth</title>
+  <meta name="description" content="Session expired: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-2.6 3.5M6.6 6.6A17 17 0 0 0 2 12s3.5 7 10 7a10 10 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <header class="v-auth-header">
+          <span class="v-auth-icon v-auth-icon-warning" aria-hidden="true"><svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg></span>
+          <h1 class="v-auth-title" id="auth-title">Your session expired</h1>
+          <p class="v-auth-text">You were signed out after 2 hours without activity. Sign in again and we'll take you back to the page you were on.</p>
+        </header>
+        <div class="v-alert v-alert-info" role="status"><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg><p class="v-alert-body">Anything you'd typed is saved as a draft.</p></div>
+        <form class="v-form" id="expired-form" method="post" action="../first-run/empty-dashboard.html" data-v-validate>
+          <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+          <div class="v-field">
+            <label class="v-label" for="email">Email</label>
+            <input class="v-input" id="email" name="email" type="email" autocomplete="username" value="aoife@westline.ie" required>
+            <p class="v-field-error" id="email-error">Enter your email address, like name@example.com.</p>
+          </div>
+          <div class="v-field">
+            <div class="v-cluster v-justify-between">
+              <label class="v-label" for="password">Password</label>
+              <a class="v-text-sm" href="../recovery/forgot.html">Forgot password?</a>
+            </div>
+            <div class="v-input-group" data-v-password>
+              <input class="v-input" id="password" name="password" type="password" autocomplete="current-password" required>
+              <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="password"><svg class="v-icon" aria-hidden="true"><use href="#i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#i-eye-off"/></svg></button>
+            </div>
+            <p class="v-field-error" id="password-error">Enter your password.</p>
+          </div>
+          <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in again</button>
+        </form>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

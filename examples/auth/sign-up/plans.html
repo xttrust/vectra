@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>With plan picker · Northwind · Vectra auth</title>
+  <meta name="description" content="With plan picker: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth v-auth-wide">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <header class="v-auth-header">
+          <h1 class="v-auth-title" id="auth-title">Pick a plan</h1>
+          <p class="v-auth-text">Every plan starts with a 14 day free trial. Switch or cancel any time.</p>
+        </header>
+        <form class="v-form" id="plan-form" method="post" action="../sign-up/single.html" data-v-validate>
+          <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+          <fieldset class="v-fieldset v-fieldset-plain">
+            <legend class="v-legend">Plan</legend>
+            <div class="v-stack v-gap-3">
+              <label class="v-choice-card">
+                <input class="v-radio" type="radio" name="plan" value="starter">
+                <span class="v-choice-card-body"><span class="v-choice-card-title">Starter</span><span class="v-choice-card-text">For one person getting organised.</span></span>
+                <span class="v-choice-card-price">€0<small>forever</small></span>
+              </label>
+              <label class="v-choice-card">
+                <input class="v-radio" type="radio" name="plan" value="team" checked>
+                <span class="v-choice-card-body"><span class="v-choice-card-title">Team</span><span class="v-choice-card-text">A shared schedule, crews and job notes.</span></span>
+                <span class="v-choice-card-price">€12<small>per person a month</small></span>
+              </label>
+              <label class="v-choice-card">
+                <input class="v-radio" type="radio" name="plan" value="business">
+                <span class="v-choice-card-body"><span class="v-choice-card-title">Business</span><span class="v-choice-card-text">Roles, an audit log and single sign-on.</span></span>
+                <span class="v-choice-card-price">€24<small>per person a month</small></span>
+              </label>
+            </div>
+          </fieldset>
+          <button class="v-btn v-btn-primary v-btn-block" type="submit">Start free trial</button>
+        </form>
+        <p class="v-auth-alt">Need more than 50 seats? <a href="#">Talk to us</a></p>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

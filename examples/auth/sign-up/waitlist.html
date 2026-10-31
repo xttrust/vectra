@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invite-only waitlist · Northwind · Vectra auth</title>
+  <meta name="description" content="Invite-only waitlist: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth v-auth-split">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <header class="v-auth-header">
+          <h1 class="v-auth-title" id="auth-title">Northwind is invite-only for now</h1>
+          <p class="v-auth-text">Join the waiting list and we'll email you when there's room. Got an invite? Use the link in your email.</p>
+        </header>
+        <form class="v-form" id="waitlist-form" method="post" action="#" data-v-validate>
+          <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+          <div class="v-field">
+            <label class="v-label" for="email">Email</label>
+            <input class="v-input" id="email" name="email" type="email" autocomplete="email" required>
+            <p class="v-field-error" id="email-error">Enter your email address, like name@example.com.</p>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="team_size">Team size <span class="v-optional">Optional</span></label>
+            <select class="v-select" id="team_size" name="team_size">
+              <option value="">Choose one</option>
+              <option>Just me</option>
+              <option>2 to 10</option>
+              <option>11 to 50</option>
+              <option>More than 50</option>
+            </select>
+          </div>
+          <button class="v-btn v-btn-primary v-btn-block" type="submit">Join the waiting list</button>
+        </form>
+        <p class="v-auth-alt">We only email you about your invite. Already invited? <a href="../accounts/invite.html">Accept your invite</a></p>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+    <aside class="v-auth-aside v-auth-art" aria-label="About Northwind">
+      <svg viewBox="0 0 640 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-linecap="round">
+          <circle cx="470" cy="220" r="230" stroke-opacity=".14" stroke-width="2"/>
+          <circle cx="470" cy="220" r="150" stroke-opacity=".2" stroke-width="2"/>
+          <circle cx="470" cy="220" r="70" stroke-opacity=".28" stroke-width="2"/>
+          <path d="M-40 250C140 180 300 310 680 210" stroke-opacity="0.34" stroke-width="3.0"/>
+          <path d="M-40 300C140 230 300 360 680 260" stroke-opacity="0.29" stroke-width="2.6"/>
+          <path d="M-40 350C140 280 300 410 680 310" stroke-opacity="0.24" stroke-width="2.2"/>
+          <path d="M-40 400C140 330 300 460 680 360" stroke-opacity="0.19" stroke-width="1.8"/>
+          <path d="M-40 450C140 380 300 510 680 410" stroke-opacity="0.14" stroke-width="1.4"/>
+        </g>
+        <path d="M470 120l38 110-38-22-38 22z" fill="currentColor" fill-opacity=".5"/>
+        <circle cx="150" cy="268" r="9" style="fill: var(--v-accent-2)"/>
+        <circle cx="390" cy="372" r="7" style="fill: var(--v-accent-2)"/>
+        <circle cx="560" cy="300" r="5" fill="currentColor" fill-opacity=".6"/>
+      </svg>
+      <p>Plan the week in ten minutes.</p>
+      <p>Jobs, crews and invoices in one calm place, for small teams who would rather be out working.</p>
+    </aside>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>
