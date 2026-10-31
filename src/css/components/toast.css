@@ -65,6 +65,7 @@
     min-inline-size: 0;
     padding-block: 0.35rem;
     line-height: 1.4;
+    overflow-wrap: break-word;
   }
 
   .v-toast-action,

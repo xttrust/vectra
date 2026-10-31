@@ -28,6 +28,11 @@ import { themeSwitch } from './components/theme-switch.js';
 import { customizer } from './components/customizer.js';
 import { connectionBanner } from './components/connection.js';
 
+// States
+import { init as slow } from './components/slow.js';
+import { init as confirmText } from './components/confirm.js';
+import { init as countdown } from './components/countdown.js';
+
 export { init, register, emit, storage, announce } from './core.js';
 export { fieldState } from './components/field.js';
 export { theme } from './theme.js';
@@ -61,5 +66,9 @@ register('theme-toggle', themeToggle);
 register('theme-switch', themeSwitch);
 register('customizer', customizer);
 register('connection', connectionBanner);
+
+register('slow', slow);
+register('confirm-text', confirmText);
+register('countdown', countdown);
 
 start();

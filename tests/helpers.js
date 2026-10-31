@@ -20,6 +20,7 @@ export const PAGES = [
   { name: 'icons', path: '/examples/icons/', storage: 'vectra', visual: 'basic' },
   { name: 'theming', path: '/examples/theming/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'auth', path: '/examples/auth/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'states', path: '/examples/states/', storage: 'vectra', visual: 'full', rendered: true },
 ];
 
 // Every generated auth page (examples/auth/<group>/<flow>.html), found on disk so new flows are tested
