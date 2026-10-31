@@ -1,4 +1,4 @@
-/* Fails when a built file goes over its gzipped budget. Writes a table to the GitHub job summary. */
+/* Fails when a built file goes over its budget: gzipped bytes, or raw bytes for { "raw": n }. Writes a table to the GitHub job summary. */
 import { readFile, readdir, appendFile } from 'node:fs/promises';
 import { dirname, basename } from 'node:path';
 import { gzipSync } from 'node:zlib';
@@ -22,14 +22,17 @@ for (const [pattern, limit] of Object.entries(budgets)) {
   for (const file of await expand(pattern)) checks.push([file, limit]);
 }
 
-for (const [file, limit] of checks) {
-  const size = gzipSync(await readFile(file), { level: 9 }).length;
+for (const [file, budget] of checks) {
+  const raw = typeof budget === 'object';
+  const limit = raw ? budget.raw : budget;
+  const bytes = await readFile(file);
+  const size = raw ? bytes.length : gzipSync(bytes, { level: 9 }).length;
   const ok = size <= limit;
   failed ||= !ok;
-  rows.push(`| ${file} | ${kb(size)} | ${kb(limit)} | ${ok ? 'ok' : 'OVER'} |`);
+  rows.push(`| ${file} | ${kb(size)}${raw ? ' raw' : ''} | ${kb(limit)} | ${ok ? 'ok' : 'OVER'} |`);
 }
 
-const table = ['| File | Gzipped | Budget | |', '|---|---|---|---|', ...rows].join('\n');
+const table = ['| File | Size (gzipped unless raw) | Budget | |', '|---|---|---|---|', ...rows].join('\n');
 console.log(table);
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, `### Size budgets\n\n${table}\n`);
 if (failed) {

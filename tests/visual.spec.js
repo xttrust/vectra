@@ -13,7 +13,9 @@ for (const target of [...PAGES, ...AUTH_PAGES].filter((p) => p.visual !== 'none'
         test(`visual: ${target.name} · ${direction} · ${theme} · ${label}`, { tag: '@visual' }, async ({ page }) => {
           await page.setViewportSize(viewport);
           await open(page, target, { direction, theme });
-          await expect(page).toHaveScreenshot(`${target.name}-${direction}-${theme}-${label}.png`, { fullPage: true, timeout: 15_000 });
+          // A page whose height has a fraction is 1px taller once the viewport grows to fit it, so the first
+          // two shots never match; long glass pages can then need more than the default 5 s to settle.
+          await expect(page).toHaveScreenshot(`${target.name}-${direction}-${theme}-${label}.png`, { fullPage: true, timeout: 15000 });
         });
       }
     }
