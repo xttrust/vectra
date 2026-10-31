@@ -1,0 +1,143 @@
+/* Base: element defaults and type classes. Everything reads tokens; no colours are written here. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-block-start: var(--v-scroll-offset, 5rem);
+  }
+
+  body {
+    background: var(--v-page-bg), var(--v-bg);
+    background-attachment: fixed;
+    color: var(--v-text);
+    font: 400 var(--v-step-0) / 1.6 var(--v-font-body);
+    font-feature-settings: "cv11", "ss03";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizelegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--v-font-display);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  h1 { font-size: var(--v-step-3); }
+  h2 { font-size: var(--v-step-2); }
+  h3 { font-size: var(--v-step-1); }
+  h4 { font-size: var(--v-step-0); }
+
+  p,
+  li,
+  dd,
+  figcaption {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--v-accent-text);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.2em;
+  }
+
+  a:hover { text-decoration-thickness: 0.14em; }
+
+  strong,
+  b {
+    font-weight: 650;
+  }
+
+  small { font-size: var(--v-step-minus-1); }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--v-font-mono);
+    font-size: 0.875em;
+  }
+
+  :not(pre) > code,
+  kbd {
+    padding: 0.1em 0.35em;
+    border-radius: var(--v-radius-sm);
+    background: var(--v-surface-2);
+  }
+
+  kbd {
+    border: var(--v-border-w) solid var(--v-border-strong);
+    border-block-end-width: calc(var(--v-border-w) * 2);
+  }
+  pre { overflow-x: auto; }
+
+  hr {
+    border: 0;
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  ::selection { background: color-mix(in oklch, var(--v-accent) 30%, transparent); }
+
+  :focus-visible {
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 2px;
+  }
+
+  /* Type classes */
+  .v-display {
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-display);
+    font-weight: var(--v-display-weight);
+    letter-spacing: var(--v-display-tracking);
+    line-height: var(--v-display-leading);
+    text-wrap: balance;
+  }
+
+  .v-lead {
+    max-inline-size: 40rem;
+    color: var(--v-text-2);
+    font-size: var(--v-step-1);
+    line-height: 1.55;
+  }
+
+  .v-kicker {
+    color: var(--v-accent-text);
+    font-family: var(--v-font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Inline SVG icons inherit colour and scale with the text. */
+  .v-icon {
+    flex-shrink: 0;
+    inline-size: 1.15em;
+    block-size: 1.15em;
+    fill: none;
+    stroke: currentcolor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  /* Honour reduced motion everywhere. !important in an early layer outranks every later layer.
+     Transitions are switched off (0s), not shortened: a near-zero duration would give every element
+     a transition on "all", so style changes would read back stale for a frame. Animations keep a
+     near-zero duration so animationend still fires. Vectra's JS never waits on transitionend. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-delay: 0s !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-delay: 0s !important;
+      transition-duration: 0s !important;
+    }
+  }
+}

@@ -19,13 +19,14 @@
     })();
   </script>
   <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
   <link rel="stylesheet" href="tokens.css">
-  <script src="tokens.js" defer></script>
+  <script src="../shared/switcher.js" defer></script>
 </head>
 <body>
-  <header class="bar">
-    <div class="wrap bar-inner">
-      <p class="title">Vectra <span>tokens</span></p>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../layout/">Vectra <span>tokens</span></a>
       <label>Direction
         <select id="direction">
           <option value="tech">Dark tech</option>
@@ -44,10 +45,10 @@
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="v-container ex-main">
     <section>
       <h1>Design tokens</h1>
-      <p class="lead">Every surface, text and accent token, as the components will use them. Each pairing on this page is contrast-checked in CI for every direction, theme and accent hue.</p>
+      <p class="v-lead">Every surface, text and accent token, as the components will use them. Each pairing on this page is contrast-checked in CI for every direction, theme and accent hue.</p>
     </section>
 
     <section>
@@ -102,7 +103,7 @@
 
     <section>
       <h2>Type and space</h2>
-      <p class="display">Display</p>
+      <p class="v-display">Display</p>
       <p style="font-size: var(--v-step-3)">Step 3 heading</p>
       <p style="font-size: var(--v-step-2)">Step 2 heading</p>
       <p style="font-size: var(--v-step-1)">Step 1 lead text</p>

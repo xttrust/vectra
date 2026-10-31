@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Foundations</title>
+  <meta name="description" content="Vectra base typography, layout primitives and utilities in every direction.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../tokens/">Vectra <span>foundations</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">Foundations</p>
+      <h1 class="v-display">Typography that reads well everywhere.</h1>
+      <p class="v-lead">Base styles, layout primitives and a small set of utilities. Every value comes from a token, so each direction changes the feel without touching the markup.</p>
+    </section>
+
+    <section>
+      <h2>Type</h2>
+      <div class="v-stack v-max-prose">
+        <h1>Heading one</h1>
+        <h2>Heading two</h2>
+        <h3>Heading three</h3>
+        <h4>Heading four</h4>
+        <p>Body text sits at a comfortable size and line height, with balanced headings and pretty wrapping for paragraphs. It has <a href="#type">links that stay readable</a>, <strong>strong emphasis</strong>, <code>inline code</code> and keyboard keys like <kbd>Ctrl</kbd> + <kbd>K</kbd>.</p>
+        <p><small>Small print uses the smallest step of the scale.</small></p>
+        <hr>
+        <p class="v-text-secondary">Secondary text for supporting details.</p>
+        <p class="v-text-muted">Muted text for metadata and hints.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Stack and cluster</h2>
+      <div class="v-switcher" style="--v-switch: 40rem">
+        <div class="ex-box v-stack" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">.v-stack</p>
+          <p>One</p>
+          <p>Two</p>
+          <p>Three</p>
+        </div>
+        <div class="ex-box v-stack">
+          <p class="ex-label">.v-cluster</p>
+          <div class="v-cluster">
+            <span class="v-bg-subtle v-border v-rounded-pill v-p-2 v-text-sm">Design</span>
+            <span class="v-bg-subtle v-border v-rounded-pill v-p-2 v-text-sm">Development</span>
+            <span class="v-bg-subtle v-border v-rounded-pill v-p-2 v-text-sm">Accessibility</span>
+            <span class="v-bg-subtle v-border v-rounded-pill v-p-2 v-text-sm">Performance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Grid</h2>
+      <p class="v-text-secondary v-mb-4">As many columns as fit, each at least 14rem. No media queries.</p>
+      <div class="v-grid" id="demo-grid" style="--v-min: 14rem">
+        <div class="ex-box"><p class="ex-label">1</p><p>Card</p></div>
+        <div class="ex-box"><p class="ex-label">2</p><p>Card</p></div>
+        <div class="ex-box"><p class="ex-label">3</p><p>Card</p></div>
+        <div class="ex-box"><p class="ex-label">4</p><p>Card</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Sidebar</h2>
+      <p class="v-text-secondary v-mb-4">Side by side while the content has room, stacked when it doesn't.</p>
+      <div class="v-sidebar" id="demo-sidebar">
+        <nav class="ex-box v-stack" aria-label="Demo sections" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Sidebar</p>
+          <a href="#type">Type</a>
+          <a href="#demo-grid">Grid</a>
+          <a href="#demo-bento">Bento</a>
+        </nav>
+        <div class="ex-box">
+          <p class="ex-label">Content</p>
+          <p>The content column takes the remaining space and keeps at least 55% of the row before the sidebar wraps above it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Switcher</h2>
+      <p class="v-text-secondary v-mb-4">Three equal columns that all stack together below 36rem of space.</p>
+      <div class="v-switcher" id="demo-switcher">
+        <div class="ex-box"><p class="ex-label">A</p></div>
+        <div class="ex-box"><p class="ex-label">B</p></div>
+        <div class="ex-box"><p class="ex-label">C</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bento</h2>
+      <div class="v-bento" id="demo-bento">
+        <div class="ex-box v-span-8"><p class="ex-label">.v-span-8</p></div>
+        <div class="ex-box v-span-4"><p class="ex-label">.v-span-4</p></div>
+        <div class="ex-box v-span-5"><p class="ex-label">.v-span-5</p></div>
+        <div class="ex-box v-span-7"><p class="ex-label">.v-span-7</p></div>
+        <div class="ex-box"><p class="ex-label">full width</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Utilities</h2>
+      <div class="v-grid" style="--v-min: 16rem">
+        <div class="ex-box v-stack" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Text colours</p>
+          <p class="v-text-accent">Accent</p>
+          <p class="v-text-success">Success</p>
+          <p class="v-text-warning">Warning</p>
+          <p class="v-text-danger">Danger</p>
+          <p class="v-text-info">Info</p>
+        </div>
+        <div class="ex-box v-stack" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Truncate and numbers</p>
+          <p class="v-truncate">This sentence is far too long to fit on one line, so it ends with an ellipsis.</p>
+          <p class="v-tabular v-font-mono">1,111.11<br>9,999.99</p>
+        </div>
+        <div class="ex-box v-stack" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Hidden always wins</p>
+          <p>The next element has <code>.v-flex</code> and <code>hidden</code>; it stays hidden.</p>
+          <div class="v-flex" id="demo-hidden" hidden>You should not see this.</div>
+          <p class="v-hide-mobile">Only on wider screens.</p>
+          <p class="v-hide-desktop">Only on phones.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -47,9 +47,11 @@
     --v-input-bg: light-dark(oklch(97.5% 0.008 var(--v-accent-h)), oklch(20.5% 0.022 var(--v-accent-h)));
 
     /* Feature surface */
-    --v-feature-bg: linear-gradient(150deg, light-dark(oklch(48% 0.2 var(--v-accent-h)), oklch(42% 0.16 var(--v-accent-h))), light-dark(oklch(50% 0.19 calc(var(--v-accent-h) + 52)), oklch(44% 0.14 calc(var(--v-accent-h) + 52))));
+
+    /* Each stop is darkened by its own hue's brightness (green-cyan reads lighter at equal lightness). */
+    --v-feature-bg: linear-gradient(150deg, light-dark(oklch(calc(0.48 - 0.08 * max(0, cos((var(--v-accent-h) - 180) * 1deg))) 0.2 var(--v-accent-h)), oklch(calc(0.42 - 0.06 * max(0, cos((var(--v-accent-h) - 180) * 1deg))) 0.16 var(--v-accent-h))), light-dark(oklch(calc(0.5 - 0.08 * max(0, cos((var(--v-accent-h) + 52 - 180) * 1deg))) 0.19 calc(var(--v-accent-h) + 52)), oklch(calc(0.44 - 0.06 * max(0, cos((var(--v-accent-h) + 52 - 180) * 1deg))) 0.14 calc(var(--v-accent-h) + 52))));
     --v-feature-fg: oklch(100% 0 0deg);
-    --v-feature-fg-2: oklch(93% 0.03 var(--v-accent-h));
+    --v-feature-fg-2: oklch(95% 0.025 var(--v-accent-h));
     --v-feature-border: oklch(100% 0 0deg / 22%);
 
     /* Backgrounds */

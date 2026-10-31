@@ -51,7 +51,11 @@
     --v-input-bg: transparent;
 
     /* Feature surface */
-    --v-feature-bg: var(--v-bg);
-    --v-feature-border: var(--v-border);
+
+    /* Inverted: ink card on paper in light, paper card on ink in dark. */
+    --v-feature-bg: light-dark(oklch(21% 0.02 55deg), oklch(94% 0.012 85deg));
+    --v-feature-border: light-dark(oklch(21% 0.02 55deg), oklch(94% 0.012 85deg));
+    --v-feature-fg: light-dark(oklch(97.2% 0.012 85deg), oklch(21% 0.02 55deg));
+    --v-feature-fg-2: light-dark(oklch(84% 0.012 80deg), oklch(38% 0.02 55deg));
   }
 }

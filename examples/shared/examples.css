@@ -1,0 +1,37 @@
+/* Shared chrome for the example pages (switcher bar, demo boxes). Not part of the kit. */
+.ex-bar { border-block-end: var(--v-border-w) solid var(--v-border); background: var(--v-surface); }
+.ex-bar-inner { display: flex; flex-wrap: wrap; gap: var(--v-space-4); align-items: center; padding-block: var(--v-space-3); }
+
+.ex-title {
+  margin-inline-end: auto;
+  font-family: var(--v-font-display);
+  font-size: 1.125rem;
+  font-weight: var(--v-heading-weight);
+  text-decoration: none;
+  color: var(--v-text);
+}
+
+.ex-title span { color: var(--v-accent-text); }
+.ex-bar label { display: flex; gap: var(--v-space-2); align-items: center; color: var(--v-text-2); font-size: 0.875rem; }
+
+.ex-bar select {
+  min-block-size: 2.25rem;
+  padding-inline: 0.6rem;
+  border: var(--v-border-w) solid var(--v-border-control);
+  border-radius: var(--v-radius-sm);
+  background: var(--v-input-bg);
+  color: var(--v-text);
+}
+
+.ex-main > section { margin-block: var(--v-space-7); }
+.ex-main h2 { margin-block-end: var(--v-space-4); }
+
+.ex-box {
+  padding: var(--v-space-4);
+  border: var(--v-border-w) solid var(--v-card-border);
+  border-radius: var(--v-radius-lg);
+  background: var(--v-card-bg);
+  box-shadow: var(--v-card-shadow);
+}
+
+.ex-label { color: var(--v-text-3); font-family: var(--v-font-mono); font-size: 0.75rem; }

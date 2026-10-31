@@ -5,8 +5,9 @@ import { DIRECTIONS, THEMES, PAGES, open } from './helpers.js';
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, phone: { width: 390, height: 844 } };
 
 for (const target of PAGES) {
+  const directions = target.visual === 'full' ? DIRECTIONS : ['tech'];
   for (const [label, viewport] of Object.entries(VIEWPORTS)) {
-    for (const direction of DIRECTIONS) {
+    for (const direction of directions) {
       for (const theme of THEMES) {
         test(`visual: ${target.name} · ${direction} · ${theme} · ${label}`, { tag: '@visual' }, async ({ page }) => {
           await page.setViewportSize(viewport);
