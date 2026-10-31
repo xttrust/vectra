@@ -6,7 +6,6 @@
      while aria-busy="true".
    - .v-slow: the "Taking longer than usual" note (data-v-slow shows it after a delay).
    - Image placeholders live in figure.css (--v-frame-fill, .v-frame-missing).
-   - .v-load-more: the footer of a long list (load more, loading, end of list).
    - .v-locked: an inline section the person cannot open yet; .v-locked-preview (inert, aria-hidden)
      sits blurred behind .v-locked-panel.
    - .v-new-items: a sticky, zero-height holder for a "3 new posts" button, so the feed never jumps.
@@ -101,16 +100,6 @@
   }
 
   :is(.v-slow, .v-new-items)[hidden] { display: none; }
-
-  .v-load-more {
-    display: grid;
-    gap: var(--v-space-2);
-    justify-items: center;
-    padding: var(--v-space-5) var(--v-space-4);
-    color: var(--v-text-3);
-    font-size: 0.875rem;
-    text-align: center;
-  }
 
   .v-locked {
     display: grid;
