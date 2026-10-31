@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Onboarding steps · Northwind · Vectra auth</title>
+  <meta name="description" content="Onboarding steps: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body class="ex-auth">
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-northwind" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 5.5l3.2 9-3.2-1.8-3.2 1.8z"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 9h4a1 1 0 0 1 1 1v11M3 21h18M8 8h3M8 12h3M8 16h3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <div class="v-auth v-auth-wide">
+    <main class="v-auth-main v-skip-target" id="main" tabindex="-1">
+      <a class="v-auth-logo" href="../index.html"><svg class="v-icon" aria-hidden="true"><use href="#i-northwind"/></svg>Northwind</a>
+      <div class="v-auth-box">
+        <ol class="v-steps" aria-label="Set-up progress">
+          <li class="v-step" aria-current="step"><span class="v-step-label">Your team</span></li>
+          <li class="v-step"><span class="v-step-label">Your work</span></li>
+          <li class="v-step"><span class="v-step-label">Invite</span></li>
+        </ol>
+        <header class="v-auth-header">
+          <h1 class="v-auth-title" id="auth-title">How big is your team?</h1>
+          <p class="v-auth-text">We'll set up Northwind to fit. You can change this later.</p>
+        </header>
+        <form class="v-form" id="onboarding-form" method="post" action="../first-run/connect.html" data-v-validate>
+          <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+          <fieldset class="v-fieldset v-fieldset-plain">
+            <legend class="v-legend">Team size</legend>
+            <div class="v-grid" style="--v-min: 13rem">
+              <label class="v-choice-card">
+                <input class="v-radio" type="radio" name="team_size" value="solo">
+                <span class="v-choice-card-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+                <span class="v-choice-card-body"><span class="v-choice-card-title">Just me</span></span>
+              </label>
+              <label class="v-choice-card">
+                <input class="v-radio" type="radio" name="team_size" value="small" checked>
+                <span class="v-choice-card-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+                <span class="v-choice-card-body"><span class="v-choice-card-title">2 to 10 people</span></span>
+              </label>
+              <label class="v-choice-card">
+                <input class="v-radio" type="radio" name="team_size" value="medium">
+                <span class="v-choice-card-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-building"/></svg></span>
+                <span class="v-choice-card-body"><span class="v-choice-card-title">11 to 50 people</span></span>
+              </label>
+              <label class="v-choice-card">
+                <input class="v-radio" type="radio" name="team_size" value="large">
+                <span class="v-choice-card-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-building"/></svg></span>
+                <span class="v-choice-card-body"><span class="v-choice-card-title">More than 50</span></span>
+              </label>
+            </div>
+          </fieldset>
+          <div class="v-field">
+            <label class="v-label" for="trade">What kind of work do you do?</label>
+            <select class="v-select" id="trade" name="trade" required>
+              <option value="">Choose one</option>
+              <option>Roofing</option>
+              <option>Gardening and landscaping</option>
+              <option>Cleaning</option>
+              <option>Electrical</option>
+              <option>Something else</option>
+            </select>
+            <p class="v-field-error" id="trade-error">Choose the closest match.</p>
+          </div>
+          <div class="v-form-actions">
+            <a class="v-btn v-btn-ghost v-form-actions-start" href="../first-run/empty-dashboard.html">Skip set-up</a>
+            <button class="v-btn v-btn-primary" type="submit">Continue</button>
+          </div>
+        </form>
+      </div>
+      <footer class="v-auth-footer"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

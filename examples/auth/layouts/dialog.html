@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in, dialog · Northwind · Vectra auth</title>
+  <meta name="description" content="Sign in, dialog: a Northwind auth example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../auth.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <main class="v-container ex-main v-stack v-skip-target" id="main" tabindex="-1">
+    <p class="v-kicker">Northwind</p>
+    <h1 class="v-display">Plan the week in ten minutes.</h1>
+    <p class="v-lead">Sign in without leaving the page: the form opens in a dialog, and closing it brings you back here.</p>
+    <div class="v-cluster"><button class="v-btn v-btn-primary" type="button" data-ex-open="sign-in-dialog">Sign in</button></div>
+  </main>
+  <dialog class="v-dialog v-auth-dialog" id="sign-in-dialog" aria-labelledby="sign-in-dialog-auth-title">
+    <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    <div class="v-auth-box">
+      <header class="v-auth-header">
+        <h2 class="v-auth-title" id="sign-in-dialog-auth-title">Welcome back</h2>
+        <p class="v-auth-text">Sign in to pick up where you left off.</p>
+      </header>
+      <form class="v-form" id="sign-in-dialog-sign-in-form" method="post" action="../first-run/welcome.html" data-v-validate>
+        <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+        <div class="v-field">
+          <label class="v-label" for="sign-in-dialog-email">Email</label>
+          <input class="v-input" id="sign-in-dialog-email" autofocus name="email" type="email" autocomplete="username" required>
+          <p class="v-field-error" id="sign-in-dialog-email-error">Enter your email address, like name@example.com.</p>
+        </div>
+        <div class="v-field">
+          <div class="v-cluster v-justify-between">
+            <label class="v-label" for="sign-in-dialog-password">Password</label>
+            <a class="v-text-sm" href="../recovery/forgot.html">Forgot password?</a>
+          </div>
+          <div class="v-input-group" data-v-password>
+            <input class="v-input" id="sign-in-dialog-password" name="password" type="password" autocomplete="current-password" required>
+            <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="sign-in-dialog-password"><svg class="v-icon" aria-hidden="true"><use href="#sign-in-dialog-i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#sign-in-dialog-i-eye-off"/></svg></button>
+          </div>
+          <p class="v-field-error" id="sign-in-dialog-password-error">Enter your password.</p>
+        </div>
+        <label class="v-choice"><input class="v-checkbox" type="checkbox" name="remember" value="1"><span>Keep me signed in on this device</span></label>
+        <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in</button>
+      </form>
+      <p class="v-auth-alt">New to Northwind? <a href="../sign-up/single.html">Create an account</a></p>
+    </div>
+  </dialog>
+  <script type="module" src="../../../src/js/index.js"></script>
+  <script type="module">
+    /* Gallery only: modal dialogs need showModal(). */
+    document.querySelectorAll('[data-ex-open]').forEach((btn) => {
+      btn.addEventListener('click', () => document.getElementById(btn.dataset.exOpen).showModal());
+    });
+    /* Open on arrival, as it would be after pressing "Sign in" on a real page. */
+    document.getElementById('sign-in-dialog').showModal();
+  </script>
+</body>
+</html>

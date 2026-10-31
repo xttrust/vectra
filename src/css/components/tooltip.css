@@ -2,8 +2,8 @@
    1. Popover: <span class="v-tooltip" popover="hint" role="tooltip"> opened by its trigger (or JS);
       placed above the anchor where anchor positioning exists, centred in the viewport elsewhere.
    2. No popover: wrap trigger and tooltip in .v-tooltip-wrap; it shows on hover and keyboard focus.
-   Either way, point the trigger's aria-describedby at the tooltip. Escape-to-dismiss for the
-   hover form comes with the JS modules. */
+   Either way, point the trigger's aria-describedby at the tooltip. data-v-tooltip on the trigger adds
+   hover and focus to the popover form and Escape-to-dismiss to both (it sets [hidden] on this form). */
 @layer components {
   .v-tooltip {
     inline-size: max-content;
@@ -63,5 +63,14 @@
   .v-tooltip-wrap:is(:hover, :focus-within) > .v-tooltip:not([popover]) {
     opacity: 1;
     translate: -50% 0;
+    pointer-events: auto;
+  }
+
+  /* Bridges the gap to the trigger so the pointer can move onto a shown tooltip (WCAG 1.4.13). */
+  .v-tooltip-wrap > .v-tooltip:not([popover])::after {
+    content: "";
+    position: absolute;
+    inset: 100% 0 auto;
+    block-size: 0.4rem;
   }
 }

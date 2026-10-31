@@ -5,13 +5,16 @@
   "tier": "P0",
   "status": "done",
   "summary": "The top bar with a brand, page links and actions, which folds its links into a native popover menu in narrow slots.",
-  "description": "Use it as the main site or app header. Below 48rem of its own width (a container query, not the viewport) the links move into a sheet opened by the menu button, so the mobile menu works without JavaScript.",
+  "description": "Use it as the main site or app header. Below 48rem of its own width (a container query, not the viewport) the links move into a sheet opened by the menu button, so the mobile menu works without JavaScript. data-v-nav closes the sheet when a link is followed or the bar grows wide.",
   "native": "<nav>, popover, popovertarget, container queries",
   "catalogue": [
     "Navbar"
   ],
   "css": [
     "navbar.css"
+  ],
+  "js": [
+    "components/nav.js"
   ],
   "classes": [
     {
@@ -62,6 +65,18 @@
     {
       "attribute": "popovertarget",
       "description": "On the toggle and close buttons: the id of the menu. The close button adds popovertargetaction=\"hide\"."
+    },
+    {
+      "attribute": "aria-expanded",
+      "description": "On the toggle: set by the JS to match the sheet, open or closed."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-nav",
+      "value": "",
+      "on": ".v-navbar",
+      "description": "Closes the sheet when a link inside is followed or when the bar becomes wide enough to show the links inline, and keeps aria-expanded on the toggle in step."
     }
   ],
   "keyboard": [
@@ -87,8 +102,9 @@
     }
   ],
   "a11y": [
-    "The links sit in a <nav> with an aria-label, so it is listed as a landmark.",
+    "The links sit in a <nav> with an aria-label, so it is listed as a landmark. Use a different label for each nav on one page.",
     "The menu and close buttons are icon-only, so each needs an aria-label.",
+    "With data-v-nav, following a link in the sheet closes it and focus goes back to the menu button, unless the link moves focus to a target on the same page.",
     "Mark the current page with aria-current=\"page\", not only with a colour."
   ],
   "tokens": [
@@ -110,7 +126,7 @@
     {
       "title": "Navbar",
       "description": "Links inline when the bar is at least 48rem wide. In a narrower frame the menu button opens them in a sheet.",
-      "html": "<header class=\"v-navbar\">\n  <a class=\"v-navbar-brand\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#layers\"/></svg>Northwind</a>\n  <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-toggle\" type=\"button\" popovertarget=\"nav-main\" aria-label=\"Open menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#menu\"/></svg></button>\n  <nav class=\"v-navbar-menu\" id=\"nav-main\" popover aria-label=\"Main\">\n    <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-close\" type=\"button\" popovertarget=\"nav-main\" popovertargetaction=\"hide\" aria-label=\"Close menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n    <ul class=\"v-navbar-links\">\n      <li><a href=\"#\" aria-current=\"page\">Overview</a></li>\n      <li><a href=\"#\">Projects</a></li>\n      <li><a href=\"#\">Team</a></li>\n      <li><a href=\"#\">Pricing</a></li>\n    </ul>\n    <div class=\"v-navbar-actions\">\n      <a class=\"v-btn v-btn-ghost\" href=\"#\">Sign in</a>\n      <a class=\"v-btn v-btn-primary\" href=\"#\">Get started</a>\n    </div>\n  </nav>\n</header>",
+      "html": "<header class=\"v-navbar\" data-v-nav>\n  <a class=\"v-navbar-brand\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#layers\"/></svg>Northwind</a>\n  <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-toggle\" type=\"button\" popovertarget=\"nav-main\" aria-label=\"Open menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#menu\"/></svg></button>\n  <nav class=\"v-navbar-menu\" id=\"nav-main\" popover aria-label=\"Main\">\n    <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-close\" type=\"button\" popovertarget=\"nav-main\" popovertargetaction=\"hide\" aria-label=\"Close menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n    <ul class=\"v-navbar-links\">\n      <li><a href=\"#\" aria-current=\"page\">Overview</a></li>\n      <li><a href=\"#\">Projects</a></li>\n      <li><a href=\"#\">Team</a></li>\n      <li><a href=\"#\">Pricing</a></li>\n    </ul>\n    <div class=\"v-navbar-actions\">\n      <a class=\"v-btn v-btn-ghost\" href=\"#\">Sign in</a>\n      <a class=\"v-btn v-btn-primary\" href=\"#\">Get started</a>\n    </div>\n  </nav>\n</header>",
       "height": 120,
       "layout": "fill",
       "source": "examples/navigation/#navbar"
@@ -118,7 +134,7 @@
     {
       "title": "Narrow slot",
       "description": "The same navbar in a 24rem slot collapses by container query. Press the menu button to open the sheet.",
-      "html": "<div style=\"max-inline-size: 24rem\">\n  <header class=\"v-navbar\">\n    <a class=\"v-navbar-brand\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#layers\"/></svg>Northwind</a>\n    <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-toggle\" type=\"button\" popovertarget=\"nav-compact\" aria-label=\"Open menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#menu\"/></svg></button>\n    <nav class=\"v-navbar-menu\" id=\"nav-compact\" popover aria-label=\"Compact\">\n      <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-close\" type=\"button\" popovertarget=\"nav-compact\" popovertargetaction=\"hide\" aria-label=\"Close menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n      <ul class=\"v-navbar-links\">\n        <li><a href=\"#\" aria-current=\"page\">Overview</a></li>\n        <li><a href=\"#\">Projects</a></li>\n        <li><a href=\"#\">Team</a></li>\n      </ul>\n      <div class=\"v-navbar-actions\"><a class=\"v-btn v-btn-primary v-btn-block\" href=\"#\">Get started</a></div>\n    </nav>\n  </header>\n</div>",
+      "html": "<div style=\"max-inline-size: 24rem\">\n  <header class=\"v-navbar\" data-v-nav>\n    <a class=\"v-navbar-brand\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#layers\"/></svg>Northwind</a>\n    <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-toggle\" type=\"button\" popovertarget=\"nav-compact\" aria-label=\"Open menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#menu\"/></svg></button>\n    <nav class=\"v-navbar-menu\" id=\"nav-compact\" popover aria-label=\"Compact\">\n      <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-close\" type=\"button\" popovertarget=\"nav-compact\" popovertargetaction=\"hide\" aria-label=\"Close menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n      <ul class=\"v-navbar-links\">\n        <li><a href=\"#\" aria-current=\"page\">Overview</a></li>\n        <li><a href=\"#\">Projects</a></li>\n        <li><a href=\"#\">Team</a></li>\n      </ul>\n      <div class=\"v-navbar-actions\"><a class=\"v-btn v-btn-primary v-btn-block\" href=\"#\">Get started</a></div>\n    </nav>\n  </header>\n</div>",
       "height": 360,
       "layout": "fill",
       "source": "examples/navigation/#navbar"

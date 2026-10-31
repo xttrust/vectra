@@ -5,13 +5,16 @@
   "tier": "P0",
   "status": "done",
   "summary": "A small floating panel on the native popover attribute, opened by a button with popovertarget and placed next to it.",
-  "description": "Use a popover for extra detail or a few controls tied to one button, which people can glance at and dismiss. It does not block the page; when the choice must be made first, use a dialog.\n\nWhere CSS anchor positioning exists it opens next to its trigger and flips when it runs out of room. Elsewhere it opens centred in the viewport, which stays usable.",
+  "description": "Use a popover for extra detail or a few controls tied to one button, which people can glance at and dismiss. It does not block the page; when the choice must be made first, use a dialog.\n\nWhere CSS anchor positioning exists it opens next to its trigger and flips when it runs out of room. Elsewhere vectra.js places it the same way (anchor.js runs by itself, no attribute needed).",
   "native": "popover, popovertarget, CSS anchor positioning",
   "catalogue": [
     "Popover"
   ],
   "css": [
     "popover.css"
+  ],
+  "js": [
+    "components/anchor.js"
   ],
   "classes": [
     {

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Auth</title>
+  <meta name="description" content="Vectra auth layouts and flows: sign in, sign up, recovery, two-factor, sessions and first run.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="auth.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../components/">Vectra <span>auth</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+  <main class="v-container ex-main v-skip-target" id="main" tabindex="-1">
+    <section class="v-stack">
+      <p class="v-kicker">Sections · auth</p>
+      <h1 class="v-display">Auth.</h1>
+      <p class="v-lead" data-contrast>Every sign-in, sign-up and account page a product needs, for a pretend product called Northwind. Six layouts, one set of form markup, and field names that match Laravel Breeze and Fortify.</p>
+    </section>
+    <section class="ex-layout" aria-labelledby="layout-card">
+      <div class="v-cluster v-justify-between v-items-baseline">
+        <h2 id="layout-card">1. Centred card</h2>
+        <a href="layouts/card.html" data-contrast>Open as a page</a>
+      </div>
+      <p class="v-max-prose" data-contrast>The default: logo, a card and footer links on the page background.</p>
+      <div class="ex-frame">
+        <div class="v-auth">
+          <div class="v-auth-main">
+            <a class="v-auth-logo" href="index.html"><svg class="v-icon" aria-hidden="true"><use href="#card-i-northwind"/></svg>Northwind</a>
+            <div class="v-auth-box">
+              <header class="v-auth-header">
+                <h3 class="v-auth-title" data-contrast id="card-auth-title">Welcome back</h3>
+                <p class="v-auth-text" data-contrast>Sign in to pick up where you left off.</p>
+              </header>
+              <form class="v-form" id="card-sign-in-form" method="post" action="first-run/welcome.html" data-v-validate>
+                <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+                <div class="v-field">
+                  <label class="v-label" data-contrast for="card-email">Email</label>
+                  <input class="v-input" id="card-email" name="email" type="email" autocomplete="username" required>
+                  <p class="v-field-error" id="card-email-error">Enter your email address, like name@example.com.</p>
+                </div>
+                <div class="v-field">
+                  <div class="v-cluster v-justify-between">
+                    <label class="v-label" data-contrast for="card-password">Password</label>
+                    <a class="v-text-sm" href="recovery/forgot.html">Forgot password?</a>
+                  </div>
+                  <div class="v-input-group" data-v-password>
+                    <input class="v-input" id="card-password" name="password" type="password" autocomplete="current-password" required>
+                    <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="card-password"><svg class="v-icon" aria-hidden="true"><use href="#card-i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#card-i-eye-off"/></svg></button>
+                  </div>
+                  <p class="v-field-error" id="card-password-error">Enter your password.</p>
+                </div>
+                <label class="v-choice"><input class="v-checkbox" type="checkbox" name="remember" value="1"><span>Keep me signed in on this device</span></label>
+                <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in</button>
+              </form>
+              <p class="v-auth-alt">New to Northwind? <a href="sign-up/single.html">Create an account</a></p>
+            </div>
+            <footer class="v-auth-footer"><a href="#" data-contrast>Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-layout" aria-labelledby="layout-split-art">
+      <div class="v-cluster v-justify-between v-items-baseline">
+        <h2 id="layout-split-art">2. Split screen with art</h2>
+        <a href="sign-in/password.html" data-contrast>Open as a page</a>
+      </div>
+      <p class="v-max-prose" data-contrast>The form beside a drawn art panel in the direction's feature colours. On phones the art becomes a short band on top.</p>
+      <div class="ex-frame">
+        <div class="v-auth v-auth-split">
+          <div class="v-auth-main">
+            <a class="v-auth-logo" href="index.html"><svg class="v-icon" aria-hidden="true"><use href="#split-art-i-northwind"/></svg>Northwind</a>
+            <div class="v-auth-box">
+              <header class="v-auth-header">
+                <h3 class="v-auth-title" data-contrast id="split-art-auth-title">Welcome back</h3>
+                <p class="v-auth-text" data-contrast>Sign in to pick up where you left off.</p>
+              </header>
+              <form class="v-form" id="split-art-sign-in-form" method="post" action="first-run/welcome.html" data-v-validate>
+                <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+                <div class="v-field">
+                  <label class="v-label" data-contrast for="split-art-email">Email</label>
+                  <input class="v-input" id="split-art-email" name="email" type="email" autocomplete="username" required>
+                  <p class="v-field-error" id="split-art-email-error">Enter your email address, like name@example.com.</p>
+                </div>
+                <div class="v-field">
+                  <div class="v-cluster v-justify-between">
+                    <label class="v-label" data-contrast for="split-art-password">Password</label>
+                    <a class="v-text-sm" href="recovery/forgot.html">Forgot password?</a>
+                  </div>
+                  <div class="v-input-group" data-v-password>
+                    <input class="v-input" id="split-art-password" name="password" type="password" autocomplete="current-password" required>
+                    <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="split-art-password"><svg class="v-icon" aria-hidden="true"><use href="#split-art-i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#split-art-i-eye-off"/></svg></button>
+                  </div>
+                  <p class="v-field-error" id="split-art-password-error">Enter your password.</p>
+                </div>
+                <label class="v-choice"><input class="v-checkbox" type="checkbox" name="remember" value="1"><span>Keep me signed in on this device</span></label>
+                <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in</button>
+              </form>
+              <p class="v-auth-alt">New to Northwind? <a href="sign-up/single.html">Create an account</a></p>
+            </div>
+            <footer class="v-auth-footer"><a href="#" data-contrast>Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+          </div>
+          <div class="v-auth-aside v-auth-art">
+            <svg viewBox="0 0 640 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+              <g fill="none" stroke="currentColor" stroke-linecap="round">
+                <circle cx="470" cy="220" r="230" stroke-opacity=".14" stroke-width="2"/>
+                <circle cx="470" cy="220" r="150" stroke-opacity=".2" stroke-width="2"/>
+                <circle cx="470" cy="220" r="70" stroke-opacity=".28" stroke-width="2"/>
+                <path d="M-40 250C140 180 300 310 680 210" stroke-opacity="0.34" stroke-width="3.0"/>
+                <path d="M-40 300C140 230 300 360 680 260" stroke-opacity="0.29" stroke-width="2.6"/>
+                <path d="M-40 350C140 280 300 410 680 310" stroke-opacity="0.24" stroke-width="2.2"/>
+                <path d="M-40 400C140 330 300 460 680 360" stroke-opacity="0.19" stroke-width="1.8"/>
+                <path d="M-40 450C140 380 300 510 680 410" stroke-opacity="0.14" stroke-width="1.4"/>
+              </g>
+              <path d="M470 120l38 110-38-22-38 22z" fill="currentColor" fill-opacity=".5"/>
+              <circle cx="150" cy="268" r="9" style="fill: var(--v-accent-2)"/>
+              <circle cx="390" cy="372" r="7" style="fill: var(--v-accent-2)"/>
+              <circle cx="560" cy="300" r="5" fill="currentColor" fill-opacity=".6"/>
+            </svg>
+            <p data-contrast>Plan the week in ten minutes.</p>
+            <p data-contrast>Jobs, crews and invoices in one calm place, for small teams who would rather be out working.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-layout" aria-labelledby="layout-split-panel">
+      <div class="v-cluster v-justify-between v-items-baseline">
+        <h2 id="layout-split-panel">3. Split screen with a testimonial</h2>
+        <a href="layouts/split-panel.html" data-contrast>Open as a page</a>
+      </div>
+      <p class="v-max-prose" data-contrast>The form beside a quote and a few numbers. On phones the panel follows the form.</p>
+      <div class="ex-frame">
+        <div class="v-auth v-auth-split">
+          <div class="v-auth-main">
+            <a class="v-auth-logo" href="index.html"><svg class="v-icon" aria-hidden="true"><use href="#split-panel-i-northwind"/></svg>Northwind</a>
+            <div class="v-auth-box">
+              <header class="v-auth-header">
+                <h3 class="v-auth-title" data-contrast id="split-panel-auth-title">Welcome back</h3>
+                <p class="v-auth-text" data-contrast>Sign in to pick up where you left off.</p>
+              </header>
+              <form class="v-form" id="split-panel-sign-in-form" method="post" action="first-run/welcome.html" data-v-validate>
+                <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+                <div class="v-field">
+                  <label class="v-label" data-contrast for="split-panel-email">Email</label>
+                  <input class="v-input" id="split-panel-email" name="email" type="email" autocomplete="username" required>
+                  <p class="v-field-error" id="split-panel-email-error">Enter your email address, like name@example.com.</p>
+                </div>
+                <div class="v-field">
+                  <div class="v-cluster v-justify-between">
+                    <label class="v-label" data-contrast for="split-panel-password">Password</label>
+                    <a class="v-text-sm" href="recovery/forgot.html">Forgot password?</a>
+                  </div>
+                  <div class="v-input-group" data-v-password>
+                    <input class="v-input" id="split-panel-password" name="password" type="password" autocomplete="current-password" required>
+                    <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="split-panel-password"><svg class="v-icon" aria-hidden="true"><use href="#split-panel-i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#split-panel-i-eye-off"/></svg></button>
+                  </div>
+                  <p class="v-field-error" id="split-panel-password-error">Enter your password.</p>
+                </div>
+                <label class="v-choice"><input class="v-checkbox" type="checkbox" name="remember" value="1"><span>Keep me signed in on this device</span></label>
+                <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in</button>
+              </form>
+              <p class="v-auth-alt">New to Northwind? <a href="sign-up/single.html">Create an account</a></p>
+            </div>
+            <footer class="v-auth-footer"><a href="#" data-contrast>Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+          </div>
+          <div class="v-auth-aside v-auth-panel">
+            <figure class="v-testimonial v-testimonial-lg">
+              <span class="v-rating" role="img" aria-label="Rated 5 out of 5"></span>
+              <blockquote class="v-testimonial-quote"><p>Monday planning used to take the whole morning. Now it takes ten minutes, and the crew can see the week on their phones.</p></blockquote>
+              <figcaption class="v-testimonial-author"><span class="v-avatar" aria-hidden="true">CR</span><span><span class="v-testimonial-name" data-contrast>Ciara Ryan</span><span class="v-testimonial-role">Operations, Westline Roofing</span></span></figcaption>
+            </figure>
+            <div class="v-cluster v-justify-center v-gap-6">
+              <div class="v-stat"><span class="v-stat-label" data-contrast>Teams on Northwind</span><span class="v-stat-value">4,200</span></div>
+              <div class="v-stat"><span class="v-stat-label" data-contrast>Jobs planned a week</span><span class="v-stat-value">61k</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-layout" aria-labelledby="layout-minimal">
+      <div class="v-cluster v-justify-between v-items-baseline">
+        <h2 id="layout-minimal">4. Minimal</h2>
+        <a href="layouts/minimal.html" data-contrast>Open as a page</a>
+      </div>
+      <p class="v-max-prose" data-contrast>No card: the form sits on the page background, near the top.</p>
+      <div class="ex-frame">
+        <div class="v-auth v-auth-minimal">
+          <div class="v-auth-main">
+            <a class="v-auth-logo" href="index.html"><svg class="v-icon" aria-hidden="true"><use href="#minimal-i-northwind"/></svg>Northwind</a>
+            <div class="v-auth-box">
+              <header class="v-auth-header">
+                <h3 class="v-auth-title" data-contrast id="minimal-auth-title">Welcome back</h3>
+                <p class="v-auth-text" data-contrast>Sign in to pick up where you left off.</p>
+              </header>
+              <form class="v-form" id="minimal-sign-in-form" method="post" action="first-run/welcome.html" data-v-validate>
+                <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+                <div class="v-field">
+                  <label class="v-label" data-contrast for="minimal-email">Email</label>
+                  <input class="v-input" id="minimal-email" name="email" type="email" autocomplete="username" required>
+                  <p class="v-field-error" id="minimal-email-error">Enter your email address, like name@example.com.</p>
+                </div>
+                <div class="v-field">
+                  <div class="v-cluster v-justify-between">
+                    <label class="v-label" data-contrast for="minimal-password">Password</label>
+                    <a class="v-text-sm" href="recovery/forgot.html">Forgot password?</a>
+                  </div>
+                  <div class="v-input-group" data-v-password>
+                    <input class="v-input" id="minimal-password" name="password" type="password" autocomplete="current-password" required>
+                    <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="minimal-password"><svg class="v-icon" aria-hidden="true"><use href="#minimal-i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#minimal-i-eye-off"/></svg></button>
+                  </div>
+                  <p class="v-field-error" id="minimal-password-error">Enter your password.</p>
+                </div>
+                <label class="v-choice"><input class="v-checkbox" type="checkbox" name="remember" value="1"><span>Keep me signed in on this device</span></label>
+                <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in</button>
+              </form>
+              <p class="v-auth-alt">New to Northwind? <a href="sign-up/single.html">Create an account</a></p>
+            </div>
+            <footer class="v-auth-footer"><a href="#" data-contrast>Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-layout" aria-labelledby="layout-bleed">
+      <div class="v-cluster v-justify-between v-items-baseline">
+        <h2 id="layout-bleed">5. Full-bleed background</h2>
+        <a href="layouts/bleed.html" data-contrast>Open as a page</a>
+      </div>
+      <p class="v-max-prose" data-contrast>The card floats over a colour field. Under Glass it is the page's own field.</p>
+      <div class="ex-frame">
+        <div class="v-auth v-auth-bleed">
+          <div class="v-auth-main">
+            <a class="v-auth-logo" href="index.html"><svg class="v-icon" aria-hidden="true"><use href="#bleed-i-northwind"/></svg>Northwind</a>
+            <div class="v-auth-box">
+              <header class="v-auth-header">
+                <h3 class="v-auth-title" data-contrast id="bleed-auth-title">Welcome back</h3>
+                <p class="v-auth-text" data-contrast>Sign in to pick up where you left off.</p>
+              </header>
+              <form class="v-form" id="bleed-sign-in-form" method="post" action="first-run/welcome.html" data-v-validate>
+                <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+                <div class="v-field">
+                  <label class="v-label" data-contrast for="bleed-email">Email</label>
+                  <input class="v-input" id="bleed-email" name="email" type="email" autocomplete="username" required>
+                  <p class="v-field-error" id="bleed-email-error">Enter your email address, like name@example.com.</p>
+                </div>
+                <div class="v-field">
+                  <div class="v-cluster v-justify-between">
+                    <label class="v-label" data-contrast for="bleed-password">Password</label>
+                    <a class="v-text-sm" href="recovery/forgot.html">Forgot password?</a>
+                  </div>
+                  <div class="v-input-group" data-v-password>
+                    <input class="v-input" id="bleed-password" name="password" type="password" autocomplete="current-password" required>
+                    <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="bleed-password"><svg class="v-icon" aria-hidden="true"><use href="#bleed-i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#bleed-i-eye-off"/></svg></button>
+                  </div>
+                  <p class="v-field-error" id="bleed-password-error">Enter your password.</p>
+                </div>
+                <label class="v-choice"><input class="v-checkbox" type="checkbox" name="remember" value="1"><span>Keep me signed in on this device</span></label>
+                <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in</button>
+              </form>
+              <p class="v-auth-alt">New to Northwind? <a href="sign-up/single.html">Create an account</a></p>
+            </div>
+            <footer class="v-auth-footer"><a href="#" data-contrast>Terms</a><a href="#">Privacy</a><a href="#">Help</a><span>© 2026 Northwind</span></footer>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ex-layout" aria-labelledby="layout-dialog">
+      <div class="v-cluster v-justify-between v-items-baseline">
+        <h2 id="layout-dialog">6. Dialog</h2>
+        <a href="layouts/dialog.html" data-contrast>Open as a page</a>
+      </div>
+      <p class="v-max-prose" data-contrast>Sign in over the page you are on, in a native dialog. Shown in place here; the button opens it for real.</p>
+      <div class="ex-frame ex-frame-dialog">
+        <dialog class="v-dialog v-auth-dialog ex-static" id="static-dialog" aria-labelledby="static-dialog-auth-title" open>
+          <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+          <div class="v-auth-box">
+            <header class="v-auth-header">
+              <h3 class="v-auth-title" data-contrast id="static-dialog-auth-title">Welcome back</h3>
+              <p class="v-auth-text" data-contrast>Sign in to pick up where you left off.</p>
+            </header>
+            <form class="v-form" id="static-dialog-sign-in-form" method="post" action="first-run/welcome.html" data-v-validate>
+              <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+              <div class="v-field">
+                <label class="v-label" data-contrast for="static-dialog-email">Email</label>
+                <input class="v-input" id="static-dialog-email" name="email" type="email" autocomplete="username" required>
+                <p class="v-field-error" id="static-dialog-email-error">Enter your email address, like name@example.com.</p>
+              </div>
+              <div class="v-field">
+                <div class="v-cluster v-justify-between">
+                  <label class="v-label" data-contrast for="static-dialog-password">Password</label>
+                  <a class="v-text-sm" href="recovery/forgot.html">Forgot password?</a>
+                </div>
+                <div class="v-input-group" data-v-password>
+                  <input class="v-input" id="static-dialog-password" name="password" type="password" autocomplete="current-password" required>
+                  <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="static-dialog-password"><svg class="v-icon" aria-hidden="true"><use href="#static-dialog-i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#static-dialog-i-eye-off"/></svg></button>
+                </div>
+                <p class="v-field-error" id="static-dialog-password-error">Enter your password.</p>
+              </div>
+              <label class="v-choice"><input class="v-checkbox" type="checkbox" name="remember" value="1"><span>Keep me signed in on this device</span></label>
+              <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in</button>
+            </form>
+            <p class="v-auth-alt">New to Northwind? <a href="sign-up/single.html">Create an account</a></p>
+          </div>
+        </dialog>
+      </div>
+      <div class="v-cluster"><button class="v-btn v-btn-primary" type="button" data-ex-open="sign-in-dialog" data-contrast>Open the sign-in dialog</button></div>
+    </section>
+    <section aria-labelledby="flows">
+      <h2 id="flows">Every flow</h2>
+      <p class="v-max-prose" data-contrast>Each flow is its own page, in a centred card or a split screen. Open one, then copy the box into whichever layout you use.</p>
+      <div class="v-grid ex-flows" style="--v-min: 15rem">
+        <section class="v-card" aria-labelledby="group-sign-in">
+          <h3 class="v-card-title" id="group-sign-in">Sign in</h3>
+          <ul class="ex-flow-list">
+            <li><a href="sign-in/password.html">Password</a></li>
+            <li><a href="sign-in/error.html">Wrong password (server error)</a></li>
+            <li><a href="sign-in/magic-link.html">Magic link</a></li>
+            <li><a href="sign-in/passkey.html">Passkey</a></li>
+            <li><a href="sign-in/social.html">Social buttons</a></li>
+            <li><a href="sign-in/sso.html">Single sign-on (SSO)</a></li>
+            <li><a href="sign-in/remember-me.html">Remembered accounts</a></li>
+          </ul>
+        </section>
+        <section class="v-card" aria-labelledby="group-sign-up">
+          <h3 class="v-card-title" id="group-sign-up">Sign up</h3>
+          <ul class="ex-flow-list">
+            <li><a href="sign-up/single.html">Single step</a></li>
+            <li><a href="sign-up/multi-step.html">Multi-step</a></li>
+            <li><a href="sign-up/plans.html">With plan picker</a></li>
+            <li><a href="sign-up/waitlist.html">Invite-only waitlist</a></li>
+          </ul>
+        </section>
+        <section class="v-card" aria-labelledby="group-recovery">
+          <h3 class="v-card-title" id="group-recovery">Recovery</h3>
+          <ul class="ex-flow-list">
+            <li><a href="recovery/forgot.html">Forgot password</a></li>
+            <li><a href="recovery/check-email.html">Check your email</a></li>
+            <li><a href="recovery/reset.html">Reset password</a></li>
+            <li><a href="recovery/changed.html">Password changed</a></li>
+          </ul>
+        </section>
+        <section class="v-card" aria-labelledby="group-verification">
+          <h3 class="v-card-title" id="group-verification">Verification</h3>
+          <ul class="ex-flow-list">
+            <li><a href="verification/link-sent.html">Verify email (link sent)</a></li>
+            <li><a href="verification/code.html">Verify email (code entry)</a></li>
+            <li><a href="verification/verified.html">Email verified</a></li>
+          </ul>
+        </section>
+        <section class="v-card" aria-labelledby="group-two-factor">
+          <h3 class="v-card-title" id="group-two-factor">Two-factor</h3>
+          <ul class="ex-flow-list">
+            <li><a href="two-factor/code.html">Enter code</a></li>
+            <li><a href="two-factor/recovery.html">Use a recovery code</a></li>
+            <li><a href="two-factor/setup.html">Set up 2FA</a></li>
+            <li><a href="two-factor/recovery-codes.html">Recovery codes</a></li>
+            <li><a href="two-factor/sms.html">SMS fallback</a></li>
+          </ul>
+        </section>
+        <section class="v-card" aria-labelledby="group-sessions">
+          <h3 class="v-card-title" id="group-sessions">Sessions</h3>
+          <ul class="ex-flow-list">
+            <li><a href="sessions/lock.html">Lock screen</a></li>
+            <li><a href="sessions/expired.html">Session expired</a></li>
+            <li><a href="sessions/signed-out.html">Signed out</a></li>
+            <li><a href="sessions/too-many.html">Too many attempts</a></li>
+            <li><a href="sessions/locked.html">Account locked</a></li>
+            <li><a href="sessions/suspended.html">Account suspended</a></li>
+          </ul>
+        </section>
+        <section class="v-card" aria-labelledby="group-accounts">
+          <h3 class="v-card-title" id="group-accounts">Accounts</h3>
+          <ul class="ex-flow-list">
+            <li><a href="accounts/invite.html">Accept invite</a></li>
+            <li><a href="accounts/workspace.html">Choose workspace</a></li>
+            <li><a href="accounts/terms.html">Consent and terms update</a></li>
+            <li><a href="accounts/delete.html">Delete account</a></li>
+          </ul>
+        </section>
+        <section class="v-card" aria-labelledby="group-first-run">
+          <h3 class="v-card-title" id="group-first-run">First run</h3>
+          <ul class="ex-flow-list">
+            <li><a href="first-run/welcome.html">Welcome</a></li>
+            <li><a href="first-run/onboarding.html">Onboarding steps</a></li>
+            <li><a href="first-run/connect.html">Connect accounts</a></li>
+            <li><a href="first-run/empty-dashboard.html">Empty dashboard</a></li>
+          </ul>
+        </section>
+      </div>
+    </section>
+    <section aria-labelledby="use">
+      <h2 id="use">Use any flow in any layout</h2>
+      <p class="v-max-prose" data-contrast>Copy the <code>.v-auth-box</code> from a flow page and drop it into the layout you want: change the class on the wrapper, and add an aside for the split screens. In a dialog, the box goes straight inside <code>&lt;dialog class="v-dialog v-auth-dialog"&gt;</code>.</p>
+      <div class="v-code v-mt-4">
+        <div class="v-code-header"><span class="v-code-lang">HTML</span></div>
+        <pre class="v-code-body" tabindex="0"><code>&lt;!-- Pick the layout on the wrapper. The box inside is the same for every layout. --&gt;
+&lt;div class="v-auth v-auth-split"&gt;
+  &lt;main class="v-auth-main"&gt;
+    &lt;a class="v-auth-logo" href="/"&gt;...&lt;/a&gt;
+    &lt;div class="v-auth-box"&gt;...&lt;/div&gt;
+    &lt;footer class="v-auth-footer"&gt;...&lt;/footer&gt;
+  &lt;/main&gt;
+  &lt;aside class="v-auth-aside v-auth-art"&gt;...&lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+      <p class="v-max-prose v-mt-4" data-contrast>For Laravel: the fields are named <code>email</code>, <code>password</code>, <code>password_confirmation</code>, <code>remember</code>, <code>code</code>, <code>recovery_code</code> and <code>token</code>, as Breeze and Fortify expect. Each form has a comment where <code>@csrf</code> goes, and server errors sit under their field with <code>aria-invalid</code>, like <a href="sign-in/error.html">the wrong password page</a>.</p>
+    </section>
+  </main>
+  <dialog class="v-dialog v-auth-dialog" id="sign-in-dialog" aria-labelledby="sign-in-dialog-auth-title">
+    <form method="dialog"><button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"><svg class="v-icon" aria-hidden="true"><use href="#i-x"/></svg></button></form>
+    <div class="v-auth-box">
+      <header class="v-auth-header">
+        <h2 class="v-auth-title" id="sign-in-dialog-auth-title">Welcome back</h2>
+        <p class="v-auth-text">Sign in to pick up where you left off.</p>
+      </header>
+      <form class="v-form" id="sign-in-dialog-sign-in-form" method="post" action="first-run/welcome.html" data-v-validate>
+        <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+        <div class="v-field">
+          <label class="v-label" for="sign-in-dialog-email">Email</label>
+          <input class="v-input" id="sign-in-dialog-email" autofocus name="email" type="email" autocomplete="username" required>
+          <p class="v-field-error" id="sign-in-dialog-email-error">Enter your email address, like name@example.com.</p>
+        </div>
+        <div class="v-field">
+          <div class="v-cluster v-justify-between">
+            <label class="v-label" for="sign-in-dialog-password">Password</label>
+            <a class="v-text-sm" href="recovery/forgot.html">Forgot password?</a>
+          </div>
+          <div class="v-input-group" data-v-password>
+            <input class="v-input" id="sign-in-dialog-password" name="password" type="password" autocomplete="current-password" required>
+            <button class="v-btn v-btn-ghost v-btn-icon v-password-toggle" type="button" aria-label="Show password" aria-pressed="false" aria-controls="sign-in-dialog-password"><svg class="v-icon" aria-hidden="true"><use href="#sign-in-dialog-i-eye"/></svg><svg class="v-icon" aria-hidden="true"><use href="#sign-in-dialog-i-eye-off"/></svg></button>
+          </div>
+          <p class="v-field-error" id="sign-in-dialog-password-error">Enter your password.</p>
+        </div>
+        <label class="v-choice"><input class="v-checkbox" type="checkbox" name="remember" value="1"><span>Keep me signed in on this device</span></label>
+        <button class="v-btn v-btn-primary v-btn-block" type="submit">Sign in</button>
+      </form>
+      <p class="v-auth-alt">New to Northwind? <a href="sign-up/single.html">Create an account</a></p>
+    </div>
+  </dialog>
+  <script type="module" src="../../src/js/index.js"></script>
+  <script type="module">
+    /* Gallery only: modal dialogs need showModal(). */
+    document.querySelectorAll('[data-ex-open]').forEach((btn) => {
+      btn.addEventListener('click', () => document.getElementById(btn.dataset.exOpen).showModal());
+    });
+  </script>
+</body>
+</html>

@@ -5,13 +5,16 @@
   "tier": "P0",
   "status": "done",
   "summary": "A modal window on the native <dialog>, with a header, a scrolling body, a footer, three sizes and an alert dialog for confirms.",
-  "description": "Use a dialog when people must answer or finish something before they go back to the page, such as a confirm, a short form or a decision. For extra detail that does not block the page, use a drawer or a popover instead.\n\nOpen it with showModal() so the browser adds the backdrop, the focus trap, Escape and focus return. Buttons inside <form method=\"dialog\"> close it without any script.",
+  "description": "Use a dialog when people must answer or finish something before they go back to the page, such as a confirm, a short form or a decision. For extra detail that does not block the page, use a drawer or a popover instead.\n\nOpen it from a button with data-v-dialog-open, which calls showModal() so the browser adds the backdrop, the focus trap, Escape and focus return. Buttons inside <form method=\"dialog\"> close it without any script.",
   "native": "<dialog>, showModal(), <form method=\"dialog\">",
   "catalogue": [
     "Dialog"
   ],
   "css": [
     "dialog.css"
+  ],
+  "js": [
+    "components/dialog.js"
   ],
   "classes": [
     {
@@ -73,7 +76,7 @@
   "states": [
     {
       "attribute": "open",
-      "description": "Set by showModal() or show(). The dialog is shown; without it the dialog is hidden."
+      "description": "Set by showModal(), which data-v-dialog-open calls. The dialog is shown; without it the dialog is hidden."
     },
     {
       "attribute": "role=\"alertdialog\"",
@@ -82,6 +85,40 @@
     {
       "attribute": "autofocus",
       "description": "On a button inside, picks which control gets focus on open. Use it on the safe choice in a destructive confirm."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-dialog-open",
+      "value": "The id of the dialog",
+      "on": "A button outside the dialog",
+      "description": "Opens that dialog with showModal() and returns focus to the button when it closes."
+    },
+    {
+      "name": "data-v-dialog-close",
+      "value": "Optional return value",
+      "on": "A button inside the dialog",
+      "description": "Closes the enclosing dialog and sets its returnValue. Not needed for buttons in <form method=\"dialog\">."
+    },
+    {
+      "name": "data-v-dismissable",
+      "value": "",
+      "on": "The <dialog>",
+      "description": "Closes the dialog on a click on the backdrop. A drag that starts inside the dialog does not close it."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:open",
+      "on": "The dialog",
+      "detail": "{ opener }",
+      "description": "Fires after a data-v-dialog-open button opens it."
+    },
+    {
+      "name": "v:close",
+      "on": "The dialog",
+      "detail": "{ returnValue, opener }",
+      "description": "Fires when a dialog opened that way closes, however it was closed."
     }
   ],
   "keyboard": [
@@ -107,10 +144,10 @@
     }
   ],
   "a11y": [
-    "Open with showModal(), not the open attribute: only a modal dialog makes the page behind it inert and traps focus.",
+    "Open it with data-v-dialog-open or showModal(), not the open attribute: only a modal dialog makes the page behind it inert and traps focus.",
     "Name it with aria-labelledby pointing at the .v-dialog-title, and give the icon-only close button an aria-label.",
-    "When the dialog closes, focus returns to the button that opened it.",
-    "In a destructive confirm, name the action on the button (Delete, not OK) and put autofocus on the safe choice."
+    "When the dialog closes, focus returns to the button that opened it, also in Safari, which does not focus clicked buttons.",
+    "In a destructive confirm, name the action on the button (Delete, not OK), put autofocus on the safe choice and leave out data-v-dismissable."
   ],
   "tokens": [
     "--v-dialog-w",
@@ -131,9 +168,8 @@
   "examples": [
     {
       "title": "Modal dialog",
-      "description": "The dialog sits closed in the markup; the button opens it with showModal(). Cancel, Send invite and the close button all close it through <form method=\"dialog\">.",
-      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" id=\"open-invite\">Invite a teammate</button>\n<dialog class=\"v-dialog\" id=\"invite\" aria-labelledby=\"invite-title\">\n  <header class=\"v-dialog-header\">\n    <h2 class=\"v-dialog-title\" id=\"invite-title\">Invite a teammate</h2>\n    <form method=\"dialog\"><button class=\"v-btn v-btn-ghost v-btn-icon v-dialog-close\" aria-label=\"Close\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></form>\n  </header>\n  <div class=\"v-dialog-body\">\n    <p>They get an email with a link to join this workspace. You can change their role later.</p>\n  </div>\n  <form class=\"v-dialog-footer\" method=\"dialog\">\n    <button class=\"v-btn v-btn-secondary\" value=\"cancel\">Cancel</button>\n    <button class=\"v-btn v-btn-primary\" value=\"send\">Send invite</button>\n  </form>\n</dialog>",
-      "js": "document.getElementById('open-invite').addEventListener('click', () => document.getElementById('invite').showModal());",
+      "description": "The dialog sits closed in the markup; the button opens it with data-v-dialog-open. Cancel, Send invite, the close button, Escape and a click on the backdrop all close it.",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" data-v-dialog-open=\"invite\">Invite a teammate</button>\n<dialog class=\"v-dialog\" id=\"invite\" data-v-dismissable aria-labelledby=\"invite-title\">\n  <header class=\"v-dialog-header\">\n    <h2 class=\"v-dialog-title\" id=\"invite-title\">Invite a teammate</h2>\n    <form method=\"dialog\"><button class=\"v-btn v-btn-ghost v-btn-icon v-dialog-close\" aria-label=\"Close\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></form>\n  </header>\n  <div class=\"v-dialog-body\">\n    <p>They get an email with a link to join this workspace. You can change their role later.</p>\n  </div>\n  <form class=\"v-dialog-footer\" method=\"dialog\">\n    <button class=\"v-btn v-btn-secondary\" value=\"cancel\">Cancel</button>\n    <button class=\"v-btn v-btn-primary\" value=\"send\">Send invite</button>\n  </form>\n</dialog>",
       "height": 420,
       "layout": "center",
       "source": "examples/overlays/#dialog"

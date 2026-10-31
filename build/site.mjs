@@ -123,7 +123,7 @@ function demo(page, ex, { code = true, lockDirection = '', bar = true, label = '
   const n = page.demos;
   const file = `demo-${n}.html`;
   const root = page.root;
-  const needsJs = /\sdata-v-/.test(ex.html);
+  const needsJs = /\sdata-v-|\spopover[\s>=]/.test(ex.html); // popovers use the anchor fallback
   demoFiles.push([`${page.path}${file}`, demoDoc(root, { ...ex, title: `${page.title}: ${ex.title}`, needsJs })]);
   const height = ex.height ?? 160;
   const min = ROOM.test(ex.html) || ex.js ? height : 0;

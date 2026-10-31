@@ -4,7 +4,7 @@ import globals from 'globals';
 export default [
   {
     // Built and generated files are not source.
-    ignores: ['node_modules/', 'dist/', 'site/dist/', 'test-results/', 'playwright-report/', 'blob-report/'],
+    ignores: ['node_modules/', 'dist/', 'site/dist/', 'test-results/', 'playwright-report/', 'blob-report/', '.claude/'],
   },
   js.configs.recommended,
   {

@@ -1,7 +1,7 @@
 /* Dropdown menu: a popover with role="menu" (<div popover class="v-menu" role="menu">).
    Items are buttons or links with role="menuitem", "menuitemcheckbox" or "menuitemradio" (aria-checked),
    plus <hr class="v-menu-sep">, group labels, icons and <kbd> shortcuts. Placement works like
-   .v-popover. Arrow keys and typeahead come with the menu JS module; Tab and Escape work natively. */
+   .v-popover. data-v-menu adds arrow keys, typeahead and checkable items; Escape works natively. */
 @layer components {
   .v-menu {
     --v-menu-pad: 0.35rem;

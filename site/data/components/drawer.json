@@ -5,13 +5,16 @@
   "tier": "P0",
   "status": "done",
   "summary": "A panel that slides in from an edge of the screen, on the native <dialog>, and becomes a bottom sheet on phones.",
-  "description": "Use a drawer for filters, settings or a detail view that people open beside their work. It slides in from the end edge by default; .v-drawer-start suits navigation, and top and bottom make sheets.\n\nLike the dialog, open it with showModal() and close it with <form method=\"dialog\">.",
+  "description": "Use a drawer for filters, settings or a detail view that people open beside their work. It slides in from the end edge by default; .v-drawer-start suits navigation, and top and bottom make sheets.\n\nLike the dialog, open it with a data-v-dialog-open button and close it with <form method=\"dialog\">. Add data-v-dismissable so a click on the backdrop closes it.",
   "native": "<dialog>, showModal(), <form method=\"dialog\">",
   "catalogue": [
     "Drawer / sheet"
   ],
   "css": [
     "drawer.css"
+  ],
+  "js": [
+    "components/dialog.js"
   ],
   "classes": [
     {
@@ -63,7 +66,41 @@
   "states": [
     {
       "attribute": "open",
-      "description": "Set by showModal(). The drawer slides in; without it the drawer is hidden."
+      "description": "Set by showModal(), which data-v-dialog-open calls. The drawer slides in; without it the drawer is hidden."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-dialog-open",
+      "value": "The id of the drawer",
+      "on": "A button outside the drawer",
+      "description": "Opens that drawer with showModal() and returns focus to the button when it closes."
+    },
+    {
+      "name": "data-v-dialog-close",
+      "value": "Optional return value",
+      "on": "A button inside the drawer",
+      "description": "Closes the enclosing drawer and sets its returnValue. Not needed for buttons in <form method=\"dialog\">."
+    },
+    {
+      "name": "data-v-dismissable",
+      "value": "",
+      "on": "The <dialog class=\"v-drawer\">",
+      "description": "Closes the drawer on a click on the backdrop."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:open",
+      "on": "The drawer",
+      "detail": "{ opener }",
+      "description": "Fires after a data-v-dialog-open button opens it."
+    },
+    {
+      "name": "v:close",
+      "on": "The drawer",
+      "detail": "{ returnValue, opener }",
+      "description": "Fires when a drawer opened that way closes."
     }
   ],
   "keyboard": [
@@ -89,7 +126,7 @@
     }
   ],
   "a11y": [
-    "Open with showModal() so the page behind is inert and focus is trapped; focus returns to the trigger on close.",
+    "data-v-dialog-open uses showModal(), so the page behind is inert and focus is trapped; focus returns to the trigger on close.",
     "Name it with aria-labelledby pointing at the .v-drawer-title, and give the icon-only close button an aria-label.",
     "Start and end follow the writing direction, so the drawer comes from the correct side in right-to-left pages."
   ],
@@ -111,9 +148,8 @@
   "examples": [
     {
       "title": "Filters drawer",
-      "description": "Opens from the end edge on wide screens and as a bottom sheet on phones. Add .v-drawer-start, -top or -bottom for another edge.",
-      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" id=\"open-filters\">Filters</button>\n<dialog class=\"v-drawer\" id=\"filters\" aria-labelledby=\"filters-title\">\n  <header class=\"v-drawer-header\">\n    <h2 class=\"v-drawer-title\" id=\"filters-title\">Filters</h2>\n    <form method=\"dialog\"><button class=\"v-btn v-btn-ghost v-btn-icon v-drawer-close\" aria-label=\"Close\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></form>\n  </header>\n  <div class=\"v-drawer-body\"><p>Narrow the list by status, owner and date. Filters apply as you change them.</p></div>\n  <form class=\"v-drawer-footer\" method=\"dialog\">\n    <button class=\"v-btn v-btn-ghost\">Reset</button>\n    <button class=\"v-btn v-btn-primary\">Show 12 results</button>\n  </form>\n</dialog>",
-      "js": "document.getElementById('open-filters').addEventListener('click', () => document.getElementById('filters').showModal());",
+      "description": "Opens from the end edge on wide screens and as a bottom sheet on phones; a click on the backdrop closes it. Add .v-drawer-start, -top or -bottom for another edge.",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" data-v-dialog-open=\"filters\">Filters</button>\n<dialog class=\"v-drawer\" id=\"filters\" data-v-dismissable aria-labelledby=\"filters-title\">\n  <header class=\"v-drawer-header\">\n    <h2 class=\"v-drawer-title\" id=\"filters-title\">Filters</h2>\n    <form method=\"dialog\"><button class=\"v-btn v-btn-ghost v-btn-icon v-drawer-close\" aria-label=\"Close\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></form>\n  </header>\n  <div class=\"v-drawer-body\"><p>Narrow the list by status, owner and date. Filters apply as you change them.</p></div>\n  <form class=\"v-drawer-footer\" method=\"dialog\">\n    <button class=\"v-btn v-btn-ghost\">Reset</button>\n    <button class=\"v-btn v-btn-primary\">Show 12 results</button>\n  </form>\n</dialog>",
       "height": 420,
       "layout": "center",
       "source": "examples/overlays/#drawer"
