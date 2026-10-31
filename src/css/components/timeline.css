@@ -1,0 +1,147 @@
+/* Timeline / activity feed: an ordered list of events joined by a line. The marker is a dot when
+   empty, or holds an icon or an avatar. The line stops short of each marker, so nothing needs an
+   opaque background (Glass stays see-through). */
+@layer components {
+  .v-timeline {
+    --v-tl-size: 2rem;
+    --v-tl-dot: 0.625rem;
+    --v-tl-line: 1.5rem;
+    --v-tl-gap: var(--v-space-1);
+    --v-tl-dot-top: calc((var(--v-tl-line) - var(--v-tl-dot)) / 2);
+  }
+
+  .v-timeline-item {
+    --v-tl-top: 0px;
+    --v-tl-bottom: var(--v-tl-size);
+    --v-tl-pad: calc((var(--v-tl-size) - var(--v-tl-line)) / 2);
+
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--v-tl-size) minmax(0, 1fr);
+    column-gap: var(--v-space-3);
+    padding-block-end: var(--v-tl-space, var(--v-space-5));
+  }
+
+  .v-timeline-item:last-child { padding-block-end: 0; }
+
+  /* Dot items: the dot sits on the title's first line. */
+  .v-timeline-item:has(> .v-timeline-marker:empty) {
+    --v-tl-top: var(--v-tl-dot-top);
+    --v-tl-bottom: calc(var(--v-tl-dot-top) + var(--v-tl-dot));
+    --v-tl-pad: 0px;
+  }
+
+  .v-timeline-item:has(+ .v-timeline-item > .v-timeline-marker:empty) { --v-tl-next: var(--v-tl-dot-top); }
+
+  .v-timeline-item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    inset-block: calc(var(--v-tl-bottom) + var(--v-tl-gap)) calc(var(--v-tl-gap) - var(--v-tl-next, 0px));
+    inset-inline-start: calc(var(--v-tl-size) / 2 - var(--v-border-w));
+    inline-size: calc(var(--v-border-w) * 2);
+    border-radius: var(--v-border-w);
+    background-color: var(--v-border-strong);
+  }
+
+  .v-timeline-marker {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    inline-size: var(--v-tl-size);
+    block-size: var(--v-tl-size);
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: 50%;
+    background-color: var(--v-surface-2);
+    color: var(--v-text-2);
+  }
+
+  .v-timeline-marker .v-icon {
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+
+  .v-timeline-marker > .v-avatar {
+    --v-avatar-size: 100%;
+
+    font-size: calc(var(--v-tl-size) * 0.38);
+  }
+
+  .v-timeline-marker:has(> .v-avatar) { border: 0; }
+
+  .v-timeline-marker:empty {
+    justify-self: center;
+    inline-size: var(--v-tl-dot);
+    block-size: var(--v-tl-dot);
+    margin-block-start: var(--v-tl-top);
+    border: 0;
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-accent);
+  }
+
+  .v-timeline-content {
+    display: grid;
+    gap: var(--v-space-1);
+    min-inline-size: 0;
+    padding-block-start: var(--v-tl-pad);
+  }
+
+  .v-timeline-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--v-space-3);
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .v-timeline-title {
+    color: var(--v-text);
+    font-weight: 600;
+    line-height: var(--v-tl-line);
+  }
+
+  .v-timeline-time {
+    color: var(--v-text-3);
+    font-size: var(--v-step-minus-1);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .v-timeline-body { color: var(--v-text-2); }
+
+  .v-timeline-compact {
+    --v-tl-size: 1.5rem;
+    --v-tl-dot: 0.5rem;
+    --v-tl-line: 1.375rem;
+    --v-tl-space: var(--v-space-3);
+
+    font-size: var(--v-step-minus-1);
+  }
+
+
+  .v-timeline-compact .v-timeline-marker .v-icon {
+    inline-size: 0.8rem;
+    block-size: 0.8rem;
+  }
+
+  .v-timeline-compact .v-timeline-title { font-weight: 550; }
+}
+
+@layer directions {
+  :root:is(:not([data-direction]), [data-direction="tech"]) .v-timeline-time {
+    font-family: var(--v-font-mono);
+    font-size: 0.75rem;
+  }
+
+  :root[data-direction="glass"] .v-timeline-marker { backdrop-filter: blur(12px); }
+
+  /* Editorial: a hairline rule in ink. */
+  :root[data-direction="editorial"] .v-timeline-item:not(:last-child)::before {
+    inset-inline-start: calc(var(--v-tl-size) / 2 - var(--v-border-w) / 2);
+    inline-size: var(--v-border-w);
+  }
+
+  :root[data-direction="editorial"] .v-timeline-marker:empty { background-color: var(--v-text); }
+
+  /* Soft: the dot carries a halo of its own tint. */
+  :root[data-direction="soft"] .v-timeline-marker:empty { box-shadow: 0 0 0 4px var(--v-accent-soft); }
+}

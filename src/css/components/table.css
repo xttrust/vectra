@@ -1,0 +1,148 @@
+/* Tables: native <table> markup. Variants by modifier class; selection by native state
+   (a checked checkbox in the row, or aria-selected). Wrap in .v-table-wrap to scroll on small screens. */
+@layer components {
+  /* Scroll container and surface. Give it role="region", a label and tabindex="0" so keyboard users can scroll it. */
+  .v-table-wrap {
+    /* Positioned, so visually hidden labels inside it cannot widen the page. */
+    position: relative;
+    overflow: auto;
+    max-block-size: var(--v-table-max, none);
+    border: var(--v-border-w) solid var(--v-card-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-card-bg);
+    box-shadow: var(--v-card-shadow);
+    overscroll-behavior-inline: contain;
+    scrollbar-color: var(--v-border-strong) transparent;
+    scrollbar-width: thin;
+  }
+
+  .v-table {
+    --v-table-pad-x: var(--v-space-4);
+    --v-table-pad-y: var(--v-space-3);
+    --v-table-head-bg: var(--v-surface-2);
+
+    inline-size: 100%;
+    border-spacing: 0;
+    border-collapse: separate;
+    color: var(--v-text);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .v-table-wrap > .v-table { min-inline-size: var(--v-table-min, auto); }
+
+  .v-table caption {
+    padding: var(--v-table-pad-x) var(--v-table-pad-x) var(--v-space-2);
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    text-align: start;
+  }
+
+  .v-table :is(th, td) {
+    padding: var(--v-table-pad-y) var(--v-table-pad-x);
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    text-align: start;
+    vertical-align: middle;
+  }
+
+  .v-table thead th {
+    border-block-end-color: var(--v-border-strong);
+    background-color: var(--v-table-head-bg);
+    color: var(--v-text-2);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .v-table tbody th { font-weight: 600; }
+  .v-table tbody tr:last-child > * { border-block-end: 0; }
+
+  .v-table tfoot :is(th, td) {
+    border-block-start: var(--v-border-w) solid var(--v-border-strong);
+    border-block-end: 0;
+    font-weight: 600;
+  }
+
+  /* Numbers line up on the decimal side. */
+  .v-table .v-table-num {
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  /* Checkbox column and row actions take only the room they need. */
+  .v-table .v-table-check {
+    inline-size: 1%;
+    padding-inline-end: 0;
+  }
+
+  .v-table .v-table-actions {
+    inline-size: 1%;
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  .v-table-actions > :not(:first-child) { margin-inline-start: var(--v-space-1); }
+
+  /* Full-width message row when there is no data. */
+  .v-table .v-table-empty {
+    padding-block: var(--v-space-7);
+    color: var(--v-text-2);
+    text-align: center;
+  }
+
+  .v-table-zebra tbody tr:nth-child(even) { background-color: color-mix(in oklch, var(--v-surface-2) 70%, transparent); }
+
+  @media (hover: hover) {
+    .v-table-hover tbody tr:hover { background-color: color-mix(in oklch, var(--v-accent) 6%, transparent); }
+  }
+
+  /* Selected rows: tinted, with an accent bar on the leading edge. */
+  .v-table tbody tr:is([aria-selected="true"], :has(> .v-table-check input:checked)) { background-color: var(--v-accent-soft); }
+  .v-table tbody tr:is([aria-selected="true"], :has(> .v-table-check input:checked)) > :first-child { box-shadow: inset 3px 0 0 var(--v-accent); }
+  .v-table:dir(rtl) tbody tr:is([aria-selected="true"], :has(> .v-table-check input:checked)) > :first-child { box-shadow: inset -3px 0 0 var(--v-accent); }
+
+  .v-table-dense {
+    --v-table-pad-x: var(--v-space-3);
+    --v-table-pad-y: var(--v-space-2);
+
+    font-size: 0.875rem;
+  }
+
+  .v-table-bordered :is(th, td) + :is(th, td) { border-inline-start: var(--v-border-w) solid var(--v-border); }
+
+  /* Sticky header: stays put while the wrapper scrolls (set --v-table-max on the wrapper).
+     The header sits on an opaque base so rows never show through it. */
+  .v-table-sticky thead th {
+    position: sticky;
+    z-index: 1;
+    inset-block-start: 0;
+    background: linear-gradient(var(--v-table-head-bg), var(--v-table-head-bg)), var(--v-bg);
+  }
+}
+
+@layer directions {
+  /* Tech: monospaced column labels. */
+  :root:is(:not([data-direction]), [data-direction="tech"]) .v-table thead th {
+    font-family: var(--v-font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Editorial: no header fill, an ink rule under the labels and a double rule over the totals. */
+  :root[data-direction="editorial"] .v-table { --v-table-head-bg: transparent; }
+
+  :root[data-direction="editorial"] .v-table thead th {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  :root[data-direction="editorial"] .v-table tfoot :is(th, td) { border-block-start: 3px double var(--v-border-strong); }
+  :root[data-direction="editorial"] .v-table caption { font-style: italic; }
+  :root[data-direction="glass"] .v-table-wrap { backdrop-filter: blur(24px) saturate(1.6); }
+}
