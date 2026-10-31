@@ -1,5 +1,6 @@
 /* Vectra v2 core: everything except directions. Load it with one file from directions/. */
 @import url("./layers.css");
+@import url("./fonts.css");
 @import url("./reset.css");
 @import url("./tokens/primitives.css");
 @import url("./tokens/semantic.css");
