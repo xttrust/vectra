@@ -1,0 +1,248 @@
+/* Theming controls: the customizer presets, the theme toggle, the customizer panel and the view
+   transition used when the direction or mode changes. The direction switch is a .v-segmented group.
+   Presets: data-corners (sharp, rounded, round), data-density (compact, spacious) and data-font
+   (inter, system, serif) on <html> override the direction's tokens; theme.set() writes them. */
+@layer components {
+  :root[data-corners="sharp"] {
+    --v-radius-sm: 0;
+    --v-radius-md: 2px;
+    --v-radius-lg: 4px;
+    --v-radius-xl: 6px;
+  }
+
+  :root[data-corners="rounded"] {
+    --v-radius-sm: 8px;
+    --v-radius-md: 12px;
+    --v-radius-lg: 18px;
+    --v-radius-xl: 24px;
+  }
+
+  :root[data-corners="round"] {
+    --v-radius-sm: 12px;
+    --v-radius-md: 18px;
+    --v-radius-lg: 28px;
+    --v-radius-xl: 36px;
+  }
+
+  :root[data-density="compact"] { --v-density: 0.85; }
+  :root[data-density="spacious"] { --v-density: 1.15; }
+
+  :root:is([data-font="inter"], [data-font="serif"]) {
+    --v-font-body: var(--v-font-sans);
+    --v-font-display: var(--v-font-sans);
+  }
+
+  :root[data-font="serif"] { --v-font-display: var(--v-font-serif); }
+
+  :root[data-font="system"] {
+    --v-font-body: system-ui, sans-serif;
+    --v-font-display: system-ui, sans-serif;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: var(--v-dur-3); }
+
+  /* Theme toggle: one icon per mode (data-for="light|dark|system"); JS sets data-mode. Without JS the
+     button would do nothing, so it stays hidden. */
+  .v-theme-toggle:not([data-mode]),
+  .v-theme-toggle > [data-for] { display: none; }
+
+  .v-theme-toggle[data-mode="light"] > [data-for="light"],
+  .v-theme-toggle[data-mode="dark"] > [data-for="dark"],
+  .v-theme-toggle[data-mode="system"] > [data-for="system"] { display: block; }
+
+  /* Customizer panel: a popover sheet on the end side, a bottom sheet on phones. Without the
+     popover attribute it sits in the page flow. */
+  .v-customizer {
+    inline-size: min(22rem, 100vw - 1.5rem);
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-xl);
+    background-color: var(--v-overlay-bg);
+    box-shadow: var(--v-shadow-3);
+    color: var(--v-text);
+  }
+
+  .v-customizer[popover] {
+    inset: var(--v-space-3);
+    inset-inline-start: auto;
+    block-size: auto;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 0;
+    translate: 1rem 0;
+    transition:
+      opacity var(--v-dur-2),
+      translate var(--v-dur-3) var(--v-ease-out),
+      overlay var(--v-dur-3) allow-discrete,
+      display var(--v-dur-3) allow-discrete;
+  }
+
+  .v-customizer:popover-open {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .v-customizer:popover-open {
+      opacity: 0;
+      translate: 1rem 0;
+    }
+  }
+
+  .v-customizer-header {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: var(--v-space-4) var(--v-space-4) var(--v-space-3) var(--v-space-5);
+    border-block-end: var(--v-border-w) solid var(--v-border);
+  }
+
+  .v-customizer-title {
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+  }
+
+  .v-customizer-body {
+    display: grid;
+    gap: var(--v-space-5);
+    padding: var(--v-space-5);
+  }
+
+  .v-customizer fieldset {
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .v-customizer legend {
+    margin-block-end: var(--v-space-2);
+    padding: 0;
+    color: var(--v-text-2);
+    font-size: 0.75rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Equal columns that fit the panel; long labels wrap rather than scroll. */
+  .v-customizer .v-segmented {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+  }
+
+  .v-customizer .v-segmented span {
+    padding-inline: 0.25rem;
+    white-space: normal;
+  }
+
+  .v-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2);
+  }
+
+  .v-swatches label { position: relative; }
+
+  .v-swatches input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Each swatch's colour comes from its markup (style="background-color: ..."); the default one
+     shows the direction's own accents. */
+  .v-swatch {
+    display: block;
+    inline-size: 1.85rem;
+    block-size: 1.85rem;
+    border-radius: var(--v-radius-pill);
+    background-image: conic-gradient(var(--v-accent) 0 50%, var(--v-accent-2) 0);
+    box-shadow: inset 0 0 0 var(--v-border-w) var(--v-border-strong);
+  }
+
+  .v-swatch[style] { background-image: none; }
+  .v-swatches input:checked + .v-swatch { box-shadow: 0 0 0 2px var(--v-overlay-bg), 0 0 0 4px var(--v-text); }
+
+  .v-swatches input:focus-visible + .v-swatch {
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 5px;
+  }
+
+  .v-hue-label {
+    display: flex;
+    justify-content: space-between;
+    margin-block: var(--v-space-3) var(--v-space-2);
+    color: var(--v-text-2);
+    font-size: 0.875rem;
+  }
+
+  .v-hue-label output {
+    color: var(--v-text);
+    font-family: var(--v-font-mono);
+  }
+
+  /* The track runs the whole hue wheel: one colour, interpolated the long way round. */
+  .v-hue {
+    inline-size: 100%;
+    block-size: 0.65rem;
+    border-radius: var(--v-radius-pill);
+    background: linear-gradient(to right in oklch longer hue, var(--v-danger), var(--v-danger));
+    cursor: pointer;
+    appearance: none;
+  }
+
+  .v-hue::-webkit-slider-thumb {
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    border: 3px solid var(--v-surface);
+    border-radius: 50%;
+    background: var(--v-accent);
+    box-shadow: var(--v-shadow-1);
+    appearance: none;
+  }
+
+  .v-hue::-moz-range-thumb {
+    inline-size: 0.85rem;
+    block-size: 0.85rem;
+    border: 3px solid var(--v-surface);
+    border-radius: 50%;
+    background: var(--v-accent);
+  }
+
+  @media (width < 40rem) {
+    .v-customizer[popover] {
+      inset: auto 0 0;
+      inline-size: 100%;
+      max-block-size: 85dvh;
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
+      translate: 0 100%;
+    }
+
+    .v-customizer:popover-open { translate: 0 0; }
+
+    @starting-style {
+      .v-customizer:popover-open { translate: 0 100%; }
+    }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-customizer {
+    border-color: var(--v-border-strong);
+    box-shadow: none;
+  }
+
+  :root[data-direction="glass"] .v-customizer { backdrop-filter: blur(24px) saturate(1.6); }
+
+  @media (prefers-reduced-transparency: reduce) {
+    :root[data-direction="glass"] .v-customizer { backdrop-filter: none; }
+  }
+}
