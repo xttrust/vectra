@@ -1,0 +1,213 @@
+/* Text inputs, textarea and select, plus input groups (addons, icons, buttons, password reveal).
+   .v-input works on <input> and <textarea>; .v-select on a native <select>.
+   Tokens: --v-input-bg, --v-input-border (3:1 against what sits behind it), --v-input-radius, --v-input-shadow.
+   States sit in :where() so they stay one class strong and the bare controls inside a group win. */
+@layer components {
+  :is(.v-input, .v-select, .v-input-group) {
+    --v-input-h: var(--v-control-h);
+
+    inline-size: 100%;
+    min-block-size: var(--v-input-h);
+    border: var(--v-border-w) solid var(--v-input-border);
+    border-radius: var(--v-input-radius);
+    background-color: var(--v-input-bg);
+    box-shadow: var(--v-input-shadow);
+    color: var(--v-text);
+    transition: border-color var(--v-dur-1), box-shadow var(--v-dur-2) var(--v-ease-out);
+  }
+
+  :is(.v-input, .v-select) {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+
+  .v-input::placeholder {
+    color: var(--v-text-3);
+    opacity: 1;
+  }
+
+  :is(.v-input, .v-select, .v-input-group):where(:hover) { border-color: color-mix(in oklch, var(--v-input-border), var(--v-text) 40%); }
+
+  :is(.v-input, .v-select):where(:focus-visible),
+  .v-input-group:where(:has(:focus-visible)) {
+    border-color: var(--v-accent);
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 0;
+  }
+
+  /* Invalid: danger border, doubled in width, so it reads without colour. */
+  :is(.v-input, .v-select):where(:user-invalid, [aria-invalid="true"]),
+  .v-input-group:where(:has(:user-invalid, [aria-invalid="true"])) {
+    border-color: var(--v-danger);
+    box-shadow: inset 0 0 0 var(--v-border-w) var(--v-danger);
+    outline-color: var(--v-danger);
+  }
+
+  :is(.v-input, .v-select):where(:disabled),
+  .v-input-group:where(:has(.v-input:disabled)) {
+    background-color: var(--v-surface-2);
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .v-input:where(:read-only:not(:disabled)) {
+    border-style: dashed;
+    background-color: var(--v-bg-subtle);
+  }
+
+  .v-input-sm {
+    --v-input-h: calc(var(--v-control-h) * 0.81);
+
+    padding-block: 0.3rem;
+    font-size: 0.875rem;
+  }
+
+  .v-input-lg {
+    --v-input-h: calc(var(--v-control-h) * 1.19);
+
+    padding-inline: 1rem;
+    font-size: 1rem;
+  }
+
+  textarea.v-input {
+    min-block-size: 6.5rem;
+    max-block-size: 20rem;
+    field-sizing: content;
+    resize: vertical;
+  }
+
+  /* Select: native element, own chevron drawn with two gradients so it follows the text colour. */
+  .v-select {
+    padding-inline-end: 2.4rem;
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--v-text-2) 50%),
+      linear-gradient(135deg, var(--v-text-2) 50%, transparent 50%);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 1.15rem) 52%, calc(100% - 0.8rem) 52%;
+    background-size: 0.35rem 0.35rem;
+    cursor: pointer;
+  }
+
+  .v-select:dir(rtl) { background-position: 0.8rem 52%, 1.15rem 52%; }
+
+  .v-select:is([multiple], [size]) {
+    padding-inline-end: 0.85rem;
+    background-image: none;
+  }
+
+  .v-select option {
+    background-color: var(--v-surface);
+    color: var(--v-text);
+  }
+
+  /* Input group: the box is drawn by the group, the parts inside are bare. */
+  .v-input-group {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .v-input-group > .v-input {
+    flex: 1;
+    min-inline-size: 0;
+    min-block-size: calc(var(--v-input-h) - 2 * var(--v-border-w));
+    border: 0;
+    border-radius: inherit;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+    opacity: 1;
+  }
+
+  .v-input-addon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    padding-inline: 0.85rem;
+    color: var(--v-text-2);
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+
+  .v-input-group > .v-input-addon + .v-input { padding-inline-start: 0; }
+  .v-input-group > .v-input:has(+ .v-input-addon) { padding-inline-end: 0; }
+
+  .v-input-group > .v-btn {
+    --v-btn-h: calc(var(--v-input-h) - 2 * var(--v-border-w));
+
+    flex: none;
+    border-radius: 0;
+  }
+
+  .v-input-group > .v-btn:last-child {
+    border-start-end-radius: calc(var(--v-input-radius) - var(--v-border-w));
+    border-end-end-radius: calc(var(--v-input-radius) - var(--v-border-w));
+  }
+
+  .v-input-group > .v-btn:focus-visible { outline-offset: -4px; }
+
+  /* Password reveal (M4 adds the toggle): with two icons, aria-pressed swaps which one shows. */
+  .v-password-toggle .v-icon + .v-icon,
+  .v-password-toggle[aria-pressed="true"] .v-icon:has(+ .v-icon) { display: none; }
+  .v-password-toggle[aria-pressed="true"] .v-icon + .v-icon { display: block; }
+
+  @media (forced-colors: active) {
+    /* Forced colours drop gradients, so the select opts out and is drawn in system colours. */
+    .v-select {
+      border-color: FieldText;
+      background-color: Field;
+      background-image:
+        linear-gradient(45deg, transparent 50%, FieldText 50%),
+        linear-gradient(135deg, FieldText 50%, transparent 50%);
+      box-shadow: none;
+      color: FieldText;
+      forced-color-adjust: none;
+    }
+
+    .v-select:focus-visible { outline-color: Highlight; }
+
+    .v-select:disabled {
+      border-color: GrayText;
+      color: GrayText;
+    }
+
+    :is(.v-input, .v-select):where(:user-invalid, [aria-invalid="true"]),
+    .v-input-group:where(:has(:user-invalid, [aria-invalid="true"])) { border-width: calc(var(--v-border-w) * 2); }
+  }
+}
+
+@layer directions {
+  /* Editorial: text fields are a ruled line, like a form on paper; focus thickens the rule. */
+  :root[data-direction="editorial"] :is(.v-input:not(textarea, .v-input-group > *), .v-input-group) {
+    padding-inline: 0;
+    border-width: 0 0 var(--v-border-w);
+    border-radius: 0;
+  }
+
+  :root[data-direction="editorial"] :is(.v-input:not(textarea, .v-input-group > *), .v-input-group):where(:focus-visible, :has(:focus-visible)) {
+    outline: none;
+    box-shadow: 0 var(--v-focus-w) 0 0 var(--v-accent);
+  }
+
+  :root[data-direction="editorial"] :is(.v-input:not(textarea, .v-input-group > *), .v-input-group):where(:user-invalid, [aria-invalid="true"], :has(:user-invalid, [aria-invalid="true"])) {
+    box-shadow: 0 var(--v-border-w) 0 0 var(--v-danger);
+  }
+
+  :root[data-direction="editorial"] :is(.v-input:not(textarea, .v-input-group > *), .v-input-group):where(:user-invalid, [aria-invalid="true"], :has(:user-invalid, [aria-invalid="true"])):where(:focus-visible, :has(:focus-visible)) {
+    box-shadow: 0 var(--v-focus-w) 0 0 var(--v-danger);
+  }
+
+  :root[data-direction="editorial"] .v-input-group > :is(.v-input, .v-input-addon):first-child { padding-inline-start: 0; }
+
+  /* Soft: tinted fill pressed slightly into the surface. */
+  :root[data-direction="soft"] { --v-input-shadow: inset 0 1px 2px color-mix(in oklch, var(--v-text) 8%, transparent); }
+
+  /* Glass: the field is frosted like the panels around it. */
+  :root[data-direction="glass"] :is(.v-input:not(.v-input-group > *), .v-select, .v-input-group) { backdrop-filter: blur(16px) saturate(1.4); }
+
+  /* Tech: a soft accent glow around the focused field. */
+  :root[data-direction="tech"] :is(.v-input:not(.v-input-group > *), .v-select, .v-input-group):where(:focus-visible, :has(:focus-visible)) {
+    box-shadow: 0 0 0 5px color-mix(in oklch, var(--v-accent) 22%, transparent);
+  }
+}

@@ -1,0 +1,111 @@
+/* Fields: label, control, hint and error stacked in one .v-field, plus fieldset and legend.
+   Client-side errors: the message shows once the control is :user-invalid (after the person has
+   interacted), so a fresh form never opens in red. Keep the error out of aria-describedby here; the
+   browser already announces the invalid state. Server-side errors: put aria-invalid="true" on the
+   control and link the message with aria-describedby; it is then always visible. */
+@layer components {
+  .v-field {
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+    min-inline-size: 0;
+  }
+
+  .v-label {
+    display: flex;
+    gap: 0.35em;
+    align-items: baseline;
+    color: var(--v-text);
+    font-size: 0.875rem;
+    font-weight: 560;
+  }
+
+  /* The asterisk is decoration; the control's required attribute is what assistive tech reads. */
+  .v-required { color: var(--v-danger); }
+
+  .v-optional {
+    margin-inline-start: auto;
+    color: var(--v-text-3);
+    font-size: 0.8125rem;
+    font-weight: 400;
+  }
+
+  .v-hint {
+    color: var(--v-text-3);
+    font-size: 0.8125rem;
+  }
+
+  .v-field-error {
+    display: none;
+    gap: 0.4em;
+    align-items: flex-start;
+    color: var(--v-danger);
+    font-size: 0.8125rem;
+    font-weight: 560;
+  }
+
+  /* Never colour alone: every message carries an icon. */
+  .v-field-error::before {
+    content: "";
+    flex: none;
+    inline-size: 1.1em;
+    block-size: 1.1em;
+    margin-block-start: 0.1em;
+    background-color: currentcolor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5h.01'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .v-field:has(:user-invalid, [aria-invalid="true"]) > .v-field-error { display: flex; }
+
+  .v-fieldset {
+    display: grid;
+    gap: var(--v-space-4);
+    min-inline-size: 0;
+    margin: 0;
+    padding: var(--v-space-4) var(--v-space-5) var(--v-space-5);
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-lg);
+  }
+
+  .v-legend {
+    padding-inline: 0.4rem;
+    margin-inline-start: -0.4rem;
+    color: var(--v-text);
+    font-weight: var(--v-heading-weight);
+  }
+
+  /* A fieldset that only groups (checkboxes, radios) and draws no box. */
+  .v-fieldset-plain {
+    padding: 0;
+    border: 0;
+  }
+
+  .v-fieldset-plain > .v-legend {
+    margin-block-end: 0.4rem;
+    padding: 0;
+    margin-inline-start: 0;
+    font-size: 0.875rem;
+    font-weight: 560;
+  }
+
+  @media (forced-colors: active) {
+    .v-field-error::before {
+      background-color: CanvasText;
+      forced-color-adjust: none;
+    }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-legend {
+    font-family: var(--v-font-display);
+    font-size: 1.125rem;
+  }
+
+  :root[data-direction="editorial"] .v-fieldset-plain > .v-legend {
+    font-family: var(--v-font-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+}
