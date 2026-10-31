@@ -1,0 +1,68 @@
+/* Scroll area: thin themed scrollbars, and edges that fade where more content waits.
+   Give it a size (--v-scroll-max) and, when it overflows, tabindex="0", role="region" and a label
+   so keyboard users can reach it. The fade is a scroll-driven enhancement; without it the area
+   simply scrolls. It drops while focused so the focus ring is never masked. */
+@property --v-scroll-a {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --v-scroll-b {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@layer components {
+  .v-scroll {
+    --v-scroll-fade: var(--v-space-6);
+
+    overflow: auto;
+    max-block-size: var(--v-scroll-max, 20rem);
+    overscroll-behavior: contain;
+    scrollbar-color: var(--v-border-strong) transparent;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+  }
+
+  .v-scroll-x {
+    max-block-size: none;
+    overflow: auto hidden;
+    scrollbar-gutter: auto;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .v-scroll {
+      animation: v-scroll-fade linear both;
+      animation-timeline: scroll(self block);
+      mask-image: linear-gradient(to bottom, transparent, var(--v-text) var(--v-scroll-a), var(--v-text) calc(100% - var(--v-scroll-b)), transparent);
+    }
+
+    .v-scroll-x {
+      animation-timeline: scroll(self inline);
+      mask-image: linear-gradient(to right, transparent, var(--v-text) var(--v-scroll-a), var(--v-text) calc(100% - var(--v-scroll-b)), transparent);
+    }
+
+    .v-scroll-x:dir(rtl) { mask-image: linear-gradient(to left, transparent, var(--v-text) var(--v-scroll-a), var(--v-text) calc(100% - var(--v-scroll-b)), transparent); }
+    .v-scroll:focus-visible { mask-image: none; }
+  }
+
+  @keyframes v-scroll-fade {
+    0% {
+      --v-scroll-a: 0px;
+      --v-scroll-b: var(--v-scroll-fade);
+    }
+
+    12%,
+    88% {
+      --v-scroll-a: var(--v-scroll-fade);
+      --v-scroll-b: var(--v-scroll-fade);
+    }
+
+    100% {
+      --v-scroll-a: var(--v-scroll-fade);
+      --v-scroll-b: 0px;
+    }
+  }
+}

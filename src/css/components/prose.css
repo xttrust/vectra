@@ -1,0 +1,172 @@
+/* Prose: long-form typography for CMS and markdown output, where the HTML has no classes.
+   Element rules sit inside :where() so any Vectra class used inside prose still wins. Tables,
+   pre, figures and blockquotes are styled only when they carry no class of their own. */
+@layer components {
+  .v-prose {
+    --v-prose-flow: 1.25em;
+
+    max-inline-size: var(--v-prose-measure, 68ch);
+    color: var(--v-text-2);
+    font-size: var(--v-prose-size, var(--v-step-0));
+    line-height: 1.7;
+    overflow-wrap: break-word;
+  }
+
+  .v-prose > * + * { margin-block-start: var(--v-prose-flow); }
+
+  .v-prose :where(h1, h2, h3, h4) {
+    color: var(--v-text);
+    line-height: 1.2;
+  }
+
+  .v-prose :where(h1) { font-size: var(--v-step-3); }
+
+  .v-prose > :where(h2) {
+    margin-block-start: 2em;
+    font-size: var(--v-step-2);
+  }
+
+  .v-prose > :where(h3) {
+    margin-block-start: 1.75em;
+    font-size: var(--v-step-1);
+  }
+
+  .v-prose > :where(h4) { margin-block-start: 1.5em; }
+  .v-prose > :where(h1, h2, h3, h4) + * { margin-block-start: 0.6em; }
+  .v-prose > :where(:first-child) { margin-block-start: 0; }
+  .v-prose :where(strong, b, h1 a, h2 a, h3 a) { color: var(--v-text); }
+
+  .v-prose :where(ul, ol) { padding-inline-start: 1.4em; }
+  .v-prose :where(li + li, li > ul, li > ol) { margin-block-start: 0.4em; }
+  .v-prose :where(li)::marker { color: var(--v-text-3); }
+  .v-prose :where(ol > li)::marker { font-variant-numeric: tabular-nums; }
+
+  .v-prose :where(blockquote:not([class])) {
+    padding-inline-start: 1.1em;
+    border-inline-start: 3px solid var(--v-accent);
+    color: var(--v-text);
+    font-size: 1.1em;
+  }
+
+  .v-prose :where(blockquote:not([class]) > * + *) { margin-block-start: 0.6em; }
+
+  .v-prose :where(pre:not([class])) {
+    padding: var(--v-space-4);
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-md);
+    background-color: var(--v-surface-2);
+    color: var(--v-text);
+    font-size: 0.85em;
+    line-height: 1.6;
+    tab-size: 2;
+  }
+
+  .v-prose :where(table:not([class])) {
+    inline-size: 100%;
+    border-spacing: 0;
+    border-collapse: separate;
+    font-size: 0.9em;
+  }
+
+  .v-prose :where(table:not([class]) :is(th, td)) {
+    padding: 0.5em 0.75em;
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    text-align: start;
+  }
+
+  .v-prose :where(table:not([class]) th) {
+    border-block-end-color: var(--v-border-strong);
+    color: var(--v-text);
+    font-weight: 600;
+  }
+
+  .v-prose :where(figure:not([class])) { margin-block: 2em; }
+
+  .v-prose :where(img, video) {
+    max-inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--v-radius-md);
+  }
+
+  .v-prose :where(figcaption) {
+    margin-block-start: 0.75em;
+    color: var(--v-text-3);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-prose :where(hr) { margin-block: 2.5em; }
+
+  .v-prose :where(dt) {
+    color: var(--v-text);
+    font-weight: 600;
+  }
+
+  .v-prose :where(dd) { padding-inline-start: 1.4em; }
+}
+
+@layer directions {
+  /* Editorial is the showcase: serif text, an italic pull-quote, a drop cap and a typographic break. */
+  :root[data-direction="editorial"] .v-prose {
+    --v-prose-measure: 64ch;
+
+    font-family: var(--v-font-serif);
+    font-size: var(--v-prose-size, calc(var(--v-step-0) * 1.08));
+    line-height: 1.75;
+  }
+
+  :root[data-direction="editorial"] .v-prose :where(blockquote:not([class])) {
+    padding-inline-start: 0;
+    border: 0;
+    font-family: var(--v-font-display);
+    font-size: 1.35em;
+    font-style: italic;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  :root[data-direction="editorial"] .v-prose > :where(p:first-child)::first-letter {
+    float: inline-start;
+    margin-block: 0.08em 0;
+    margin-inline-end: 0.08em;
+    color: var(--v-text);
+    font-family: var(--v-font-display);
+    font-size: 3.6em;
+    line-height: 0.82;
+  }
+
+  :root[data-direction="editorial"] .v-prose :where(hr) {
+    overflow: visible;
+    border: 0;
+    color: var(--v-text-3);
+    text-align: center;
+  }
+
+  :root[data-direction="editorial"] .v-prose :where(hr)::after {
+    content: "\2042";
+    font-size: 1.2em;
+  }
+
+  :root[data-direction="editorial"] .v-prose :where(table:not([class]) th) {
+    font-family: var(--v-font-sans);
+    font-size: 0.8em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Tech: headings carry a short accent rule. */
+  :root:is(:not([data-direction]), [data-direction="tech"]) .v-prose > :where(h2)::before {
+    content: "";
+    display: block;
+    inline-size: 1.5rem;
+    block-size: 2px;
+    margin-block-end: 0.6em;
+    background-color: var(--v-accent);
+  }
+
+  :root[data-direction="soft"] .v-prose :where(blockquote:not([class])) {
+    padding: 0.9em 1.1em;
+    border: 0;
+    border-radius: var(--v-radius-md);
+    background-color: var(--v-accent-soft);
+  }
+}

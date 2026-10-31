@@ -11,6 +11,7 @@ export const PAGES = [
   { name: 'components', path: '/examples/components/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'forms', path: '/examples/forms/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'navigation', path: '/examples/navigation/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'content', path: '/examples/content/', storage: 'vectra', visual: 'full', rendered: true },
 ];
 
 export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
