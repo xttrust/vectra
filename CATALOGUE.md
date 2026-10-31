@@ -1,6 +1,6 @@
 # Vectra v2: full catalogue
 
-Status: agreed 31 Oct 2026, with the proposals in section 10 accepted. Companion to [PLAN.md](PLAN.md): the plan says how Vectra is built, this file says everything it will contain and when.
+Status: agreed 31 Oct 2026, with the proposals in section 10 accepted. Section 11 (states and patterns) added the same day. Companion to [PLAN.md](PLAN.md): the plan says how Vectra is built, this file says everything it will contain and when.
 
 ## 1. The bar
 
@@ -74,7 +74,11 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Toast (stack, actions, auto-dismiss) | P0 | | JS |
 | Banner (page-level, dismissible) | P0 | | |
 | Callout (docs style: note, tip, warning) | P0 | | |
+| Inline save status (saving, saved, failed, offline) | P0 | | section 11 |
+| Connection banner (offline, back online, slow network) | P0 | | section 11, JS |
+| Session timeout warning (countdown dialog) | P0 | | section 11, JS |
 | Progress ring | P1 | | SVG |
+| Typing / presence indicator | P1 | | section 11 |
 | Notification centre (panel + unread count) | P1 | | |
 
 ### Forms
@@ -91,6 +95,9 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Search field (with clear, shortcut hint) | P0 | | |
 | Number stepper | P0 | | small JS |
 | Character counter | P0 | | small JS |
+| Error summary (links to each invalid field, takes focus on submit) | P0 | | section 11 |
+| Password strength meter | P0 | | built on meter |
+| Async field check (checking, available, taken) | P0 | | section 11 |
 | Checkbox / radio cards (rich selectable tiles) | P0 | | pricing, onboarding |
 | Form layouts (stacked, two-column, sectioned settings, inline) | P0 | | |
 | OTP input | P1 | | 2FA flows use a plain input in v2.0 |
@@ -412,12 +419,13 @@ Replaces the M3 to M9 rows of PLAN.md section 14. Same gates as before: one bran
 | M3.3 | Display and form additions | toggle button, panel, kbd, tag, list group, description list, status indicator, figure, banner, callout, search field, checkbox cards, form layouts | M |
 | M3.4 | Navigation and disclosure (static) | navbar, sidebar, tabs, breadcrumb, pagination, steps, skip link, bottom bar, accordion, collapsible | M |
 | M3.5 | Overlays, data, content (static) | dialog, drawer, popover, menu, tooltip, table, timeline, prose, code block, testimonial, pricing card, logo cloud, scroll area | L |
-| M4 | JS core + interactive P0 | toast, tabs, menu, mobile nav, dialog helpers, password reveal, drop zone, stepper, counter, copy, theming components | L |
+| M4 | JS core + interactive P0 | toast, tabs, menu, mobile nav, dialog helpers, password reveal, drop zone, stepper, counter, copy, theming components, plus the state helpers in section 11 (connection and slow-network detection, session timeout, error summary focus, unsaved changes, live announcements) | L |
 | M5 | Icons + fonts | sprite, subset tool, Inter subset | S |
 | M6 | Docs site + theme builder | as PLAN.md section 11 | L |
 | M7.1 | Core sections | the about 45 core variants in section 3, `vectra.sections.css` | L |
 | M7.2 | Auth set | six layouts, all flows in section 4 | L |
 | M7.3 | Pages | system pages, P0 marketing pages, P0 app pages, v1 pages rebuilt | L |
+| M7.4 | States | the states gallery and copy guide in section 11; every P0 app page gets its loading, empty and error variants | M |
 | M8 | Hardening | screen readers, devices, forced colours, zoom, RTL pass, performance | M |
 | M8b | AI manifest | unchanged | S |
 | M9 | Release v2.0 | unchanged | S |
@@ -430,3 +438,158 @@ Replaces the M3 to M9 rows of PLAN.md section 14. Same gates as before: one bran
 2. **App pages vs AdminVora.** Proposed: Vectra ships one showcase dashboard plus settings, profile and list/detail pages; dashboard families and data-heavy screens stay in AdminVora.
 3. **v2.0 scope.** Proposed: v2.0 is everything marked P0 here (about 75 components, 45 section variants, 45 auth pages, about 25 pages). Everything else moves to v2.1 and later, so the release isn't held up by breadth.
 4. **Email templates.** Proposed: Pro, v2.2, last, because they need their own toolchain and mail-client testing.
+
+## 11. States and patterns
+
+Real products spend most of their screens in some state other than "everything loaded and fine". The best kits show the happy path; Vectra ships the other states too, as a first-class part of the kit. Every state below gets:
+
+- **A visual** built from existing components (empty state, skeleton, alert, banner, toast, dialog, progress) plus the few new pieces marked in section 2.
+- **Copy guidance**: what happened, why, and what the person can do next, in plain words, with a sample line ready to paste.
+- **Accessibility wiring**: the right live region (`role="status"` for polite news, `role="alert"` only when something urgent interrupts), where focus goes, and enough time to react (WCAG 2.2.1).
+- **Tests**: axe and rendered contrast on the states gallery, plus behaviour tests for anything with JS.
+
+Built in M7.4 as `examples/states/` (one gallery, grouped like the tables below) and a copy guide on the docs site. The JS parts (detection, timers, focus) come in M4. Every P0 app page in section 5 also ships its loading, empty and error variants.
+
+### Loading
+
+| State | Variants | Tier |
+|---|---|---|
+| Page skeletons | list, card grid, table, detail view, dashboard, profile | P0 |
+| Inline loading | button busy (`aria-busy`), spinner in a field, refreshing a section in place | P0 |
+| Long task progress | determinate bar with steps and time left, indeterminate with status text | P0 |
+| Slow loading | "Taking longer than usual" message after a delay, with a cancel or retry | P0 |
+| Image placeholders | colour or low-res placeholder, aspect ratio kept so nothing jumps | P0 |
+| Loading more | infinite list footer, "load more" busy, end of list | P0 |
+| Optimistic update | item shown at once in a pending style, rolled back with a message if it fails | P1 |
+| Streaming text | typing indicator and progressive text for AI or chat replies | P1 |
+
+### Empty
+
+| State | Variants | Tier |
+|---|---|---|
+| First run | no data yet, with one clear first action and an optional sample-data link | P0 |
+| No search results | the query repeated, spelling hint, suggestions, "clear search" | P0 |
+| Filtered to nothing | which filters are on, "clear filters" | P0 |
+| All done | inbox zero, no notifications, all tasks complete (calm, a little positive) | P0 |
+| Nothing selected | the detail pane before a choice in a list and detail layout | P0 |
+| Empty table, list, cart, favourites | in-place versions sized to their container | P0 |
+| Item gone | deleted, archived, moved, with a way back or a restore action | P1 |
+
+### Errors
+
+| State | Variants | Tier |
+|---|---|---|
+| Field errors | required, format, too short or long, mismatch (password confirm), server rejected | P0 |
+| Error summary | list at the top of the form linking to each field; focus moves to it on submit | P0 |
+| Section failed to load | message in place of the section with retry; rest of the page keeps working | P0 |
+| Action failed | toast or inline alert with retry and, where it helps, details to copy | P0 |
+| Not found in app | item or page missing inside the app shell, not the bare 404 | P0 |
+| Partial failure | "18 of 20 sent", which ones failed and why, retry the failed ones | P1 |
+| Upload failed | per file, with reason (too large, wrong type, network) and retry | P0 |
+| Payment failed | card declined, authentication needed, expired card | P1 |
+| Too many requests | 429 with a countdown until it can be tried again | P0 |
+| Edit conflict | someone else saved first: compare, keep mine, take theirs | P1 |
+| Server error and maintenance | 500 and 503 inside the app shell, status page link | P0 |
+
+### Connection and network
+
+| State | Variants | Tier |
+|---|---|---|
+| Offline | banner that appears when the connection drops and says what still works | P0 |
+| Back online | short polite toast, then the banner goes | P0 |
+| Slow network | quiet notice when requests take long, lighter images suggested | P0 |
+| Retrying | "Retrying in 5s" with a manual retry now | P0 |
+| Sync status | synced, syncing, changes waiting to sync, sync failed | P0 |
+| Stale data | "Updated 10 minutes ago", refresh action | P1 |
+| Offline queue | actions saved while offline, sent when back, with a count | P1 |
+
+### Permissions and access
+
+| State | Variants | Tier |
+|---|---|---|
+| No permission | full page (403) and inline locked section, who to ask | P0 |
+| Request access | form, then "request sent" and "request declined" | P0 |
+| View only | read-only banner and disabled editing controls with the reason | P0 |
+| Plan limit | feature locked or limit reached, with an upgrade prompt that isn't pushy | P0 |
+| Invitation pending | invited but not yet accepted, resend | P1 |
+| Account suspended or not available in a region | full page with next steps | P1 |
+| Browser permission denied | camera, microphone, location, notifications: what was blocked and how to turn it back on | P1 |
+| Embed blocked by consent | placeholder for a video or map until cookies are accepted | P1 |
+
+### Session and account
+
+| State | Variants | Tier |
+|---|---|---|
+| Session about to expire | dialog with a countdown and "stay signed in" (WCAG 2.2.1) | P0 |
+| Session expired | sign in again without losing what was typed where possible | P0 |
+| Signed out elsewhere | "You were signed out on this device" | P0 |
+| Email not verified | persistent banner with resend | P0 |
+| Viewing as another user | impersonation banner that can't be missed, with "stop" | P1 |
+| Trial ending, payment overdue | banners with the date and one action | P1 |
+| New sign-in detected | notice with "this was me" and "secure my account" | P1 |
+
+### Form validation
+
+| Pattern | Notes | Tier |
+|---|---|---|
+| When errors show | after the field is left (`:user-invalid`), on submit for untouched fields, never while typing the first time | P0, done in M3.2 |
+| Server errors | `aria-invalid` with the message always visible, linked by `aria-describedby` | P0, done in M3.2 |
+| Error summary | see Errors above | P0 |
+| Valid field | quiet success mark for fields where it helps (username, card number), not on every field | P0 |
+| Async checks | "Checking", "Available", "Taken, try ..." with suggestions | P0 |
+| Password strength | meter with plain-language hints, no rules hidden until failure | P0 |
+| Character limits | counter that announces when close to the limit | P0 |
+| Submit button | stays enabled; pressing it shows what is missing instead of a dead button | P0 |
+| Unsaved changes | warning when leaving with edits, and on closing a dialog with edits | P0 |
+| Autosave | saving, saved (with time), failed with retry | P0 |
+| Multi-step forms | per-step validation, step marked with errors, progress kept on back | P1 |
+
+### Success and confirmation
+
+| State | Variants | Tier |
+|---|---|---|
+| Saved | inline "Saved" status and a short toast, not both | P0 |
+| Done page | sent, order placed, booking confirmed, with what happens next | P0 |
+| Undo | toast with undo after delete or archive, long enough to use | P0 |
+| Check your email | after sign-up, reset, invite, with resend and "wrong address?" | P0 |
+| Copied | button feedback and announcement | P0 |
+| Milestone reached | onboarding complete, first sale: a small celebration, still under reduced motion | P1 |
+
+### Destructive actions
+
+| Pattern | Notes | Tier |
+|---|---|---|
+| Confirm dialog | says exactly what will be lost, the destructive button names the action | P0 |
+| Type to confirm | type the project name for the most serious actions | P0 |
+| Bulk actions | count in the button and the dialog ("Delete 12 files") | P0 |
+| Soft delete | moved to trash with restore, emptied later | P1 |
+
+### Background work
+
+| State | Variants | Tier |
+|---|---|---|
+| Processing | job started, running in the background, notify when done | P1 |
+| Import results | "240 imported, 3 skipped" with reasons and a download of the skipped rows | P1 |
+| Queued | position in queue or expected wait | P1 |
+
+### Content status
+
+| State | Variants | Tier |
+|---|---|---|
+| Publishing | draft, scheduled, published, archived, with matching badges | P0 |
+| New and unread | unread dot, "new" badge, "3 new posts, show them" without jumping the page | P0 |
+| Feature labels | beta, new, deprecated | P0 |
+| Locked content | members-only or paid, with a preview and an unlock action | P1 |
+| Expired | offer or link expired, what to do instead | P1 |
+
+### Environment and edge cases
+
+| Case | Notes | Tier |
+|---|---|---|
+| No JavaScript | everything still readable and usable (PLAN.md section 1); `<noscript>` notice only where a feature truly needs JS | P0 |
+| Unsupported browser | quiet notice below the floor in PLAN.md section 3, page still usable | P1 |
+| Long and unusual content | very long names and words, missing images, missing avatars, zero and huge numbers: nothing breaks or overflows | P0 |
+| Small screens and zoom | 320 px wide and 400% zoom reflow (WCAG 1.4.10) | P0 |
+| Right to left | every state in RTL | P0 |
+| Reduced motion, forced colours, print | every state stays clear | P0 |
+| New version available | "A new version is ready, reload" | P1 |
