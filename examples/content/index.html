@@ -307,9 +307,9 @@
         <div class="v-code v-code-numbered">
           <div class="v-code-header">
             <span class="v-code-lang" data-contrast>CSS</span>
-            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
+            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button" data-v-copy data-v-copy-target="#code-css"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
           </div>
-          <pre class="v-code-body" tabindex="0" data-contrast><code><span class="v-code-line"><span class="v-tok-comment">/* Theme one card without touching the rest */</span></span>
+          <pre class="v-code-body" id="code-css" tabindex="0" data-contrast><code><span class="v-code-line"><span class="v-tok-comment">/* Theme one card without touching the rest */</span></span>
 <span class="v-code-line"><span class="v-tok-tag">.pricing</span> <span class="v-tok-punct">{</span></span>
 <span class="v-code-line">  <span class="v-tok-property">--v-card-bg</span><span class="v-tok-punct">:</span> <span class="v-tok-function">var</span><span class="v-tok-punct">(</span>--v-surface-2<span class="v-tok-punct">);</span></span>
 <span class="v-code-line">  <span class="v-tok-property">--v-density</span><span class="v-tok-punct">:</span> <span class="v-tok-number">0.85</span><span class="v-tok-punct">;</span></span>
@@ -320,9 +320,9 @@
         <div class="v-code">
           <div class="v-code-header">
             <span class="v-code-title" data-contrast>src/js/menu.js</span>
-            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
+            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button" data-v-copy data-v-copy-target="#code-js"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
           </div>
-          <pre class="v-code-body" tabindex="0"><code><span class="v-tok-keyword">export function</span> <span class="v-tok-function">open</span><span class="v-tok-punct">(</span>menu<span class="v-tok-punct">) {</span>
+          <pre class="v-code-body" id="code-js" tabindex="0"><code><span class="v-tok-keyword">export function</span> <span class="v-tok-function">open</span><span class="v-tok-punct">(</span>menu<span class="v-tok-punct">) {</span>
   menu<span class="v-tok-punct">.</span><span class="v-tok-function">showPopover</span><span class="v-tok-punct">();</span>
   menu<span class="v-tok-punct">.</span><span class="v-tok-function">querySelector</span><span class="v-tok-punct">(</span><span class="v-tok-string">'[role="menuitem"]'</span><span class="v-tok-punct">)?.</span><span class="v-tok-function">focus</span><span class="v-tok-punct">();</span>
   <span class="v-tok-keyword">return</span> <span class="v-tok-number">true</span><span class="v-tok-punct">;</span>
@@ -332,9 +332,9 @@
         <div class="v-code v-code-wrap">
           <div class="v-code-header">
             <span class="v-code-lang" data-contrast>Shell, wrapped</span>
-            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
+            <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button" data-v-copy data-v-copy-target="#code-shell"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
           </div>
-          <pre class="v-code-body" data-contrast><code>npx playwright test --project=chromium tests/rendered.spec.js --grep content --reporter=list</code></pre>
+          <pre class="v-code-body" id="code-shell" data-contrast><code>npx playwright test --project=chromium tests/rendered.spec.js --grep content --reporter=list</code></pre>
         </div>
       </div>
     </section>
@@ -479,5 +479,6 @@
       </div>
     </section>
   </main>
+  <script type="module" src="../../src/js/index.js"></script>
 </body>
 </html>
