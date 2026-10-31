@@ -9,6 +9,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: CI,
   retries: CI ? 1 : 0,
+  // GitHub's Linux runners have 4 cores; the default (half) left them idle while the suite grew past 20 minutes.
+  workers: CI ? 4 : undefined,
   reporter: CI ? [['github'], ['html', { open: 'never' }]] : 'list',
   snapshotPathTemplate: '{testDir}/__screenshots__/{arg}{ext}',
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.002, animations: 'disabled' } },

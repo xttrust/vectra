@@ -455,6 +455,7 @@ await cp('dist/fonts', `${OUT}/assets/fonts`, { recursive: true });
 await cp('dist/icons/sprite.svg', `${OUT}/assets/icons/sprite.svg`);
 await cp('dist/icons/icons.json', `${OUT}/assets/icons/icons.json`);
 for (const f of await readdir('site/assets')) await cp(`site/assets/${f}`, `${OUT}/assets/${f}`);
+for (const f of ['llms.txt', 'llms-full.txt']) if (existsSync(`dist/ai/${f}`)) await cp(`dist/ai/${f}`, `${OUT}/${f}`); // AI manifest (build/manifest.mjs)
 // The galleries load ../../src/ and ../shared/, so both are copied with the same layout.
 await cp('examples', `${OUT}/examples`, { recursive: true });
 for (const d of ['css', 'js', 'fonts']) await cp(`src/${d}`, `${OUT}/src/${d}`, { recursive: true });

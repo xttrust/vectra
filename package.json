@@ -14,7 +14,7 @@
     "vectra-icons": "build/icons-subset.mjs"
   },
   "scripts": {
-    "build": "node build/build.mjs && node build/icons.mjs",
+    "build": "node build/build.mjs && node build/icons.mjs && node build/manifest.mjs",
     "build:icons": "node build/icons.mjs --sync",
     "build:fonts": "node build/fonts.mjs",
     "icons": "node build/icons-subset.mjs",
@@ -25,8 +25,10 @@
     "check:urls": "node build/check-urls.mjs",
     "check:baseline": "node build/check-baseline.mjs",
     "check:auth": "node build/auth-pages.mjs --check",
+    "check:manifest": "node build/manifest.mjs --check",
+    "ai:skill": "node build/manifest.mjs --write",
     "auth:pages": "node build/auth-pages.mjs",
-    "check": "npm run lint && npm run check:tokens && npm run build && npm run check:size && npm run check:urls && npm run check:baseline && npm run check:auth",
+    "check": "npm run lint && npm run check:tokens && npm run build && npm run check:size && npm run check:urls && npm run check:baseline && npm run check:auth && npm run check:manifest",
     "serve": "node build/serve.mjs",
     "site": "node build/site.mjs",
     "site:check": "node build/site.mjs --check",
