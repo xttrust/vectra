@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="../shared/examples.css">
   <style>
     /* Gallery only: the layout of the guide. Every state itself is built from kit classes. */
-    /* Keeps the last section's margin inside main, so the page height is the same on every full-page capture. */
+    /* Keeps the last section's margin inside main. */
     .ex-main { display: flow-root; }
     .st-toc { display: flex; flex-wrap: wrap; gap: var(--v-space-2); margin: 0; padding: 0; list-style: none; }
     .st-group > p { max-inline-size: 65ch; color: var(--v-text-2); }
@@ -36,7 +36,8 @@
     .st-guide { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--v-space-2) var(--v-space-3); align-content: start; align-items: baseline; margin: 0; font-size: 0.875rem; }
     .st-guide dt { color: var(--v-text-3); font-size: 0.6875rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; }
     .st-guide dd { min-inline-size: 0; margin: 0; color: var(--v-text-2); }
-    .st-guide code { font-size: 0.8125rem; overflow-wrap: anywhere; }
+    /* line-height 0: inline code never changes the height of its line, so captures stay the same height. */
+    .st-guide code { font-size: 0.8125rem; line-height: 0; overflow-wrap: anywhere; }
     .st-say { display: flex; gap: var(--v-space-2); align-items: center; justify-content: space-between; padding: var(--v-space-2) var(--v-space-2) var(--v-space-2) var(--v-space-3); border-radius: var(--v-radius-md); background-color: var(--v-surface-2); color: var(--v-text); }
     .st-say q { min-inline-size: 0; }
     .st-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-4); }
@@ -59,9 +60,12 @@
       .st-shell { grid-template-columns: 9rem minmax(0, 1fr); }
       .st-shell-nav { display: grid; gap: var(--v-space-2); align-content: start; }
     }
+    /* Desktop: the preview on the left; the state's name and its guide on the right. */
     @media (width >= 64rem) {
-      .st-item { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: var(--v-space-6); }
-      .st-item > h3 { grid-column: 1 / -1; }
+      .st-item { grid-template-rows: auto 1fr; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--v-space-3) var(--v-space-6); padding-block: var(--v-space-5); }
+      .st-item > h3 { grid-row: 1; grid-column: 2; }
+      .st-preview { grid-row: 1 / span 2; grid-column: 1; }
+      .st-guide { grid-row: 2; grid-column: 2; }
     }
   </style>
   <script type="module" src="../../src/js/index.js"></script>
@@ -117,14 +121,14 @@
   </div>
 
   <header class="ex-bar">
-    <div class="v-container ex-bar-inner">
+    <div class="v-container v-container-wide ex-bar-inner">
       <a class="ex-title" href="../components/">Vectra <span>states</span></a>
       <fieldset class="v-segmented" id="hdr-switch" data-v-theme-switch><legend class="v-sr-only">Design direction</legend><label><input type="radio" name="hdr-direction" value="tech"><span>Dark tech</span></label><label><input type="radio" name="hdr-direction" value="editorial"><span>Editorial</span></label><label><input type="radio" name="hdr-direction" value="soft"><span>Soft depth</span></label><label><input type="radio" name="hdr-direction" value="glass"><span>Glass</span></label></fieldset>
       <button class="v-btn v-btn-icon v-btn-ghost v-theme-toggle" type="button" id="hdr-toggle" data-v-theme-toggle aria-label="Theme"><svg class="v-icon" data-for="light" aria-hidden="true"><use href="#i-sun"/></svg><svg class="v-icon" data-for="dark" aria-hidden="true"><use href="#i-moon"/></svg><svg class="v-icon" data-for="system" aria-hidden="true"><use href="#i-monitor"/></svg></button>
     </div>
   </header>
 
-  <main class="v-container ex-main">
+  <main class="v-container v-container-wide ex-main">
     <section class="v-stack">
       <p class="v-kicker">States and patterns · copy guide</p>
       <h1 class="v-display">Finally, the states in between.</h1>
@@ -157,7 +161,7 @@
         <h3>Page skeletons</h3>
         <div class="st-preview ex-box">
           <p class="ex-label">.v-skeleton-row, -lines, -grid, -table, -block, -heading, -btn</p>
-          <div class="v-grid" style="--v-min: 9rem">
+          <div class="v-grid" style="--v-min: 7rem">
             <div class="st-mini" aria-busy="true">
               <p class="ex-label">List</p>
               <p class="v-sr-only" role="status">Loading messages</p>
@@ -887,6 +891,7 @@
         <h3>No permission</h3>
         <div class="st-preview ex-box">
           <p class="ex-label">.v-empty (403 page) and .v-locked (inline section)</p>
+          <div class="v-grid" style="--v-min: 17rem">
           <div class="v-card v-empty v-empty-sm">
             <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-lock"/></svg></span>
             <p class="v-kicker">Error 403</p>
@@ -908,10 +913,11 @@
             </div>
             <div class="v-locked-panel">
               <svg class="v-icon" aria-hidden="true"><use href="#i-lock"/></svg>
-              <p class="v-fw-semibold v-text-lg" style="color: var(--v-text)">Only admins can see revenue</p>
+              <p class="v-fw-semibold" style="color: var(--v-text)">Only admins can see revenue</p>
               <p>Ask Aoife Byrne to make you an admin.</p>
               <button class="v-btn v-btn-secondary v-btn-sm" type="button">Ask Aoife</button>
             </div>
+          </div>
           </div>
         </div>
         <dl class="st-guide">
@@ -935,6 +941,7 @@
             </div>
             <div><button class="v-btn v-btn-primary v-btn-sm" type="button">Send request</button></div>
           </form>
+          <div class="v-grid" style="--v-min: 16rem">
           <div class="v-alert v-alert-success" role="status">
             <svg class="v-icon" aria-hidden="true"><use href="#i-send"/></svg>
             <div class="v-alert-body"><p class="v-alert-title" data-contrast>Request sent to Aoife Byrne</p><p>We'll email you when she replies.</p></div>
@@ -942,6 +949,7 @@
           <div class="v-alert">
             <svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>
             <div class="v-alert-body"><p class="v-alert-title" data-contrast>Aoife declined your request</p><p>She said: "Billing is for the finance team." You can ask Tom Walsh instead.</p></div>
+          </div>
           </div>
         </div>
         <dl class="st-guide">
