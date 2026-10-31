@@ -1,0 +1,67 @@
+{
+  "name": "Empty state",
+  "slug": "empty-state",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A centred icon, title, line of help and action, for a list or page with nothing in it yet.",
+  "description": "Say what will appear here and give the one action that gets people started. Use it for first runs, no search results and cleared filters, each with its own wording.",
+  "native": "<div>",
+  "catalogue": [
+    "Empty state"
+  ],
+  "css": [
+    "misc.css"
+  ],
+  "classes": [
+    {
+      "name": "v-empty",
+      "kind": "base",
+      "description": "Centres its children in a padded column."
+    },
+    {
+      "name": "v-empty-icon",
+      "kind": "part",
+      "description": "A soft tile that holds one icon."
+    },
+    {
+      "name": "v-empty-title",
+      "kind": "part",
+      "description": "The short headline, in the display font."
+    }
+  ],
+  "a11y": [
+    "Hide the icon tile with aria-hidden=\"true\"; the title says it all.",
+    "If the empty state appears after a search or filter, announce it (for example inside a role=\"status\" region) so screen reader users know the result.",
+    "Use a heading element for the title when the empty state stands in for a whole page section."
+  ],
+  "tokens": [
+    "--v-space-7",
+    "--v-space-3",
+    "--v-surface-2",
+    "--v-text-3",
+    "--v-radius-lg",
+    "--v-font-display"
+  ],
+  "related": [
+    "card",
+    "button",
+    "icon",
+    "skeleton"
+  ],
+  "examples": [
+    {
+      "title": "First run",
+      "html": "<div class=\"v-empty\">\n  <span class=\"v-empty-icon\" aria-hidden=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#inbox\"/></svg></span>\n  <p class=\"v-empty-title\">No invoices yet</p>\n  <p>When you send your first invoice, it shows up here.</p>\n  <button class=\"v-btn v-btn-primary v-btn-sm\" type=\"button\">Create invoice</button>\n</div>",
+      "layout": "stack",
+      "height": 300,
+      "source": "examples/components/#feedback"
+    },
+    {
+      "title": "No results",
+      "html": "<div class=\"v-empty\" role=\"status\">\n  <span class=\"v-empty-icon\" aria-hidden=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></span>\n  <p class=\"v-empty-title\">No clients match \"Galway\"</p>\n  <p>Check the spelling or clear the filters.</p>\n  <button class=\"v-btn v-btn-secondary v-btn-sm\" type=\"button\">Clear filters</button>\n</div>",
+      "layout": "stack",
+      "height": 300
+    }
+  ]
+}

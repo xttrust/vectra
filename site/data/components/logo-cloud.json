@@ -1,0 +1,62 @@
+{
+  "name": "Logo cloud",
+  "slug": "logo-cloud",
+  "group": "Content",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A row or grid of monochrome client or press logos, muted until hovered.",
+  "description": "Use it under a hero or next to testimonials as social proof. Inline SVG logos should paint with currentColor so they follow the theme; images are greyed with a filter. Only show logos you have permission to use.",
+  "catalogue": [
+    "Logo cloud"
+  ],
+  "css": [
+    "logos.css"
+  ],
+  "classes": [
+    {
+      "name": "v-logos",
+      "kind": "base",
+      "description": "An auto-fit grid of logos, centred in their cells. Use it on a <ul>."
+    },
+    {
+      "name": "v-logos-inline",
+      "kind": "modifier",
+      "description": "A centred, wrapping row instead of a grid."
+    }
+  ],
+  "a11y": [
+    "Give each SVG role=\"img\" and an aria-label with the company name; give each <img> alt text with the name.",
+    "Label the list (aria-label=\"Clients\") so it is announced as a group with a purpose.",
+    "Logos are muted to --v-text-3, which is fine for decoration because the label carries the name.",
+    "Linked logos show full colour on keyboard focus as well as on hover."
+  ],
+  "tokens": [
+    "--v-logos-h",
+    "--v-logos-min",
+    "--v-text-3",
+    "--v-text",
+    "--v-dur-2"
+  ],
+  "related": [
+    "testimonial",
+    "icon",
+    "figure"
+  ],
+  "examples": [
+    {
+      "title": "Grid",
+      "html": "<ul class=\"v-logos\" aria-label=\"Clients\">\n  <li><svg viewBox=\"0 0 136 32\" role=\"img\" aria-label=\"Halvex\"><path d=\"M4 26L16 4l12 22z\" fill=\"currentColor\"/><text x=\"36\" y=\"23\" font-size=\"19\" font-weight=\"650\" fill=\"currentColor\">Halvex</text></svg></li>\n  <li><svg viewBox=\"0 0 136 32\" role=\"img\" aria-label=\"Morrow\"><circle cx=\"16\" cy=\"16\" r=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\"/><text x=\"36\" y=\"23\" font-size=\"19\" font-weight=\"650\" fill=\"currentColor\">Morrow</text></svg></li>\n  <li><svg viewBox=\"0 0 136 32\" role=\"img\" aria-label=\"Quillon\"><rect x=\"4\" y=\"4\" width=\"24\" height=\"24\" rx=\"6\" fill=\"currentColor\"/><text x=\"36\" y=\"23\" font-size=\"19\" font-weight=\"650\" fill=\"currentColor\">Quillon</text></svg></li>\n  <li><svg viewBox=\"0 0 136 32\" role=\"img\" aria-label=\"Ostra\"><path d=\"M4 16h8l4-10 4 20 4-10h8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/><text x=\"40\" y=\"23\" font-size=\"19\" font-weight=\"650\" fill=\"currentColor\">Ostra</text></svg></li>\n  <li><svg viewBox=\"0 0 136 32\" role=\"img\" aria-label=\"Vantis\"><path d=\"M16 3l11 6.5v13L16 29 5 22.5v-13z\" fill=\"currentColor\"/><text x=\"36\" y=\"23\" font-size=\"19\" font-weight=\"650\" fill=\"currentColor\">Vantis</text></svg></li>\n  <li><svg viewBox=\"0 0 136 32\" role=\"img\" aria-label=\"Lumeo\"><circle cx=\"11\" cy=\"16\" r=\"7\" fill=\"currentColor\"/><circle cx=\"22\" cy=\"16\" r=\"7\" fill=\"currentColor\" opacity=\"0.55\"/><text x=\"36\" y=\"23\" font-size=\"19\" font-weight=\"650\" fill=\"currentColor\">Lumeo</text></svg></li>\n</ul>",
+      "layout": "fill",
+      "height": 180,
+      "source": "examples/content/#logos"
+    },
+    {
+      "title": "Inline row, smaller",
+      "description": "--v-logos-h sets the logo height.",
+      "html": "<ul class=\"v-logos v-logos-inline\" aria-label=\"Featured in\" style=\"--v-logos-h: 1.5rem\">\n  <li><svg viewBox=\"0 0 128 32\" role=\"img\" aria-label=\"Brightmoor\"><rect x=\"2\" y=\"9\" width=\"14\" height=\"14\" fill=\"currentColor\" transform=\"rotate(45 9 16)\"/><text x=\"24\" y=\"22\" font-size=\"17\" font-weight=\"600\" fill=\"currentColor\">Brightmoor</text></svg></li>\n  <li><svg viewBox=\"0 0 112 32\" role=\"img\" aria-label=\"Fernwave\"><path d=\"M3 22c6-12 12-12 18 0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\"/><text x=\"26\" y=\"22\" font-size=\"17\" font-weight=\"600\" fill=\"currentColor\">Fernwave</text></svg></li>\n  <li><svg viewBox=\"0 0 100 32\" role=\"img\" aria-label=\"Orbitas\"><circle cx=\"12\" cy=\"16\" r=\"9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/><circle cx=\"12\" cy=\"16\" r=\"3\" fill=\"currentColor\"/><text x=\"26\" y=\"22\" font-size=\"17\" font-weight=\"600\" fill=\"currentColor\">Orbitas</text></svg></li>\n  <li><svg viewBox=\"0 0 90 32\" role=\"img\" aria-label=\"Kelpie\"><path d=\"M4 26V6l16 20V6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/><text x=\"26\" y=\"22\" font-size=\"17\" font-weight=\"600\" fill=\"currentColor\">Kelpie</text></svg></li>\n</ul>",
+      "layout": "fill",
+      "height": 110,
+      "source": "examples/content/#logos"
+    }
+  ]
+}

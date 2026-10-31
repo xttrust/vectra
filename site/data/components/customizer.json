@@ -1,0 +1,176 @@
+{
+  "name": "Customizer",
+  "slug": "customizer",
+  "group": "Theming",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A panel of theme choices (direction, mode, accent swatches and any hue, corners, density, typeface) that applies live and is saved in the browser.",
+  "description": "Add data-v-customizer to a .v-customizer panel. With the popover attribute it opens as a sheet on the end side, or from the bottom on phones; without it the panel sits in the page. Include only the fieldsets you want: each input name ends in the theme key it sets. It changes the theme of this whole docs site too, and the choice is saved in this browser.",
+  "native": "popover, <fieldset>, <input type=\"radio\">, <input type=\"range\">",
+  "catalogue": [
+    "Customizer"
+  ],
+  "css": [
+    "theming.css",
+    "button.css"
+  ],
+  "js": [
+    "theme.js",
+    "components/customizer.js",
+    "components/theme-switch.js"
+  ],
+  "classes": [
+    {
+      "name": "v-customizer",
+      "kind": "base",
+      "description": "The panel. A popover sheet when it has the popover attribute, a card in the flow otherwise."
+    },
+    {
+      "name": "v-customizer-header",
+      "kind": "part",
+      "description": "The top row: title, a line of help and an optional close button."
+    },
+    {
+      "name": "v-customizer-title",
+      "kind": "part",
+      "description": "The panel heading."
+    },
+    {
+      "name": "v-customizer-body",
+      "kind": "part",
+      "description": "The <form> holding one fieldset per setting."
+    },
+    {
+      "name": "v-swatches",
+      "kind": "part",
+      "description": "A row of round accent swatches made from radios."
+    },
+    {
+      "name": "v-swatch",
+      "kind": "part",
+      "description": "One swatch; its colour comes from an inline background-color. Without one it shows the direction accents."
+    },
+    {
+      "name": "v-hue-label",
+      "kind": "part",
+      "description": "The label row above the hue slider, with an <output> for the value."
+    },
+    {
+      "name": "v-hue",
+      "kind": "part",
+      "description": "A range input whose track runs the whole hue wheel."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "popover",
+      "description": "Makes the panel a sheet in the top layer, opened by a popovertarget button."
+    },
+    {
+      "attribute": ":popover-open",
+      "description": "The open sheet; it slides in from the end side, or up from the bottom on phones."
+    },
+    {
+      "attribute": "data-corners, data-density, data-font",
+      "description": "Written on <html> by theme.set(); their values live in theming.css."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-customizer",
+      "value": "",
+      "on": "The .v-customizer panel",
+      "description": "Binds every input inside to the theme by the last part of its name (direction, mode, accent, corners, density, font) and keeps them in sync."
+    },
+    {
+      "name": "data-v-reset",
+      "value": "",
+      "on": "A button inside the panel",
+      "description": "Restores every theme default and announces it."
+    }
+  ],
+  "api": [
+    {
+      "signature": "Vectra.theme.set({ direction, mode, accent, corners, density, font })",
+      "description": "Changes any of the settings. accent is a hue in degrees or 'default'; unknown values are ignored. Saved in storage."
+    },
+    {
+      "signature": "Vectra.theme.get()",
+      "description": "The current choices plus resolved, the theme actually showing."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:theme",
+      "on": "<html>",
+      "detail": "theme.get()",
+      "description": "Fires after every change."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Moves between the setting groups, the hue slider and the reset button."
+    },
+    {
+      "keys": [
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown"
+      ],
+      "action": "Picks a choice inside a group, or moves the hue slider."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the popover sheet and returns focus to the button that opened it."
+    }
+  ],
+  "a11y": [
+    "Opening the sheet moves focus to the first checked choice; the popover gives Escape, light dismiss and focus return.",
+    "Each group is a <fieldset> with a <legend>, and each swatch has a visually hidden name, so the colours are not only shown.",
+    "The reset is announced through the shared live region.",
+    "Label the panel with aria-labelledby pointing at its title."
+  ],
+  "tokens": [
+    "--v-accent-h",
+    "--v-density",
+    "--v-radius-sm",
+    "--v-radius-md",
+    "--v-radius-lg",
+    "--v-radius-xl",
+    "--v-font-body",
+    "--v-font-display",
+    "--v-overlay-bg"
+  ],
+  "related": [
+    "direction-switcher",
+    "theme-toggle",
+    "popover",
+    "segmented-control",
+    "drawer"
+  ],
+  "examples": [
+    {
+      "title": "In the page",
+      "description": "A compact panel with mode, accent, corners and density. It changes the theme of this whole docs site too, and the choice is saved in this browser.",
+      "html": "<aside class=\"v-customizer\" data-v-customizer aria-labelledby=\"cz-title\">\n  <header class=\"v-customizer-header\">\n    <div>\n      <h2 class=\"v-customizer-title\" id=\"cz-title\">Customize</h2>\n      <p class=\"v-text-secondary\">Changes apply live and are saved in this browser.</p>\n    </div>\n  </header>\n  <form class=\"v-customizer-body\">\n    <fieldset>\n      <legend>Mode</legend>\n      <div class=\"v-segmented\"><label><input type=\"radio\" name=\"cz-mode\" value=\"light\"><span>Light</span></label><label><input type=\"radio\" name=\"cz-mode\" value=\"dark\"><span>Dark</span></label><label><input type=\"radio\" name=\"cz-mode\" value=\"system\"><span>System</span></label></div>\n    </fieldset>\n    <fieldset>\n      <legend>Accent</legend>\n      <div class=\"v-swatches\"><label title=\"Style default\"><input type=\"radio\" name=\"cz-accent\" value=\"default\"><span class=\"v-swatch\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Style default</span></label><label title=\"Cyan\"><input type=\"radio\" name=\"cz-accent\" value=\"200\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 200deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Cyan</span></label><label title=\"Blue\"><input type=\"radio\" name=\"cz-accent\" value=\"245\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 245deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Blue</span></label><label title=\"Violet\"><input type=\"radio\" name=\"cz-accent\" value=\"285\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 285deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Violet</span></label><label title=\"Pink\"><input type=\"radio\" name=\"cz-accent\" value=\"340\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 340deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Pink</span></label><label title=\"Red\"><input type=\"radio\" name=\"cz-accent\" value=\"25\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 25deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Red</span></label><label title=\"Amber\"><input type=\"radio\" name=\"cz-accent\" value=\"65\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 65deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Amber</span></label><label title=\"Green\"><input type=\"radio\" name=\"cz-accent\" value=\"150\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 150deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Green</span></label></div>\n      <label class=\"v-hue-label\" for=\"cz-hue\"><span>Any hue</span><output for=\"cz-hue\"></output></label>\n      <input class=\"v-hue\" id=\"cz-hue\" name=\"cz-accent\" type=\"range\" min=\"0\" max=\"359\" step=\"1\">\n    </fieldset>\n    <fieldset>\n      <legend>Corners</legend>\n      <div class=\"v-segmented\"><label><input type=\"radio\" name=\"cz-corners\" value=\"default\"><span>Default</span></label><label><input type=\"radio\" name=\"cz-corners\" value=\"sharp\"><span>Sharp</span></label><label><input type=\"radio\" name=\"cz-corners\" value=\"rounded\"><span>Rounded</span></label><label><input type=\"radio\" name=\"cz-corners\" value=\"round\"><span>Round</span></label></div>\n    </fieldset>\n    <fieldset>\n      <legend>Density</legend>\n      <div class=\"v-segmented\"><label><input type=\"radio\" name=\"cz-density\" value=\"compact\"><span>Compact</span></label><label><input type=\"radio\" name=\"cz-density\" value=\"default\"><span>Default</span></label><label><input type=\"radio\" name=\"cz-density\" value=\"spacious\"><span>Spacious</span></label></div>\n    </fieldset>\n    <button class=\"v-btn v-btn-secondary v-btn-block\" type=\"button\" data-v-reset>Reset to defaults</button>\n  </form>\n</aside>",
+      "layout": "center",
+      "height": 640,
+      "source": "examples/theming/#customizer-demo"
+    },
+    {
+      "title": "As a popover sheet",
+      "description": "The same panel with the popover attribute, opened by a button. Escape or a click outside closes it.",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" popovertarget=\"customizer\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#sliders\"/></svg>Open the customizer</button>\n<aside class=\"v-customizer\" id=\"customizer\" popover data-v-customizer aria-labelledby=\"sheet-title\">\n  <header class=\"v-customizer-header\">\n    <div>\n      <h2 class=\"v-customizer-title\" id=\"sheet-title\">Customize</h2>\n      <p class=\"v-text-secondary\">Changes apply live and are saved in this browser.</p>\n    </div>\n    <button class=\"v-btn v-btn-icon v-btn-ghost\" type=\"button\" popovertarget=\"customizer\" popovertargetaction=\"hide\" aria-label=\"Close customizer\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n  </header>\n  <form class=\"v-customizer-body\">\n    <fieldset>\n      <legend>Mode</legend>\n      <div class=\"v-segmented\"><label><input type=\"radio\" name=\"sheet-mode\" value=\"light\"><span>Light</span></label><label><input type=\"radio\" name=\"sheet-mode\" value=\"dark\"><span>Dark</span></label><label><input type=\"radio\" name=\"sheet-mode\" value=\"system\"><span>System</span></label></div>\n    </fieldset>\n    <fieldset>\n      <legend>Accent</legend>\n      <div class=\"v-swatches\"><label title=\"Style default\"><input type=\"radio\" name=\"sheet-accent\" value=\"default\"><span class=\"v-swatch\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Style default</span></label><label title=\"Cyan\"><input type=\"radio\" name=\"sheet-accent\" value=\"200\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 200deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Cyan</span></label><label title=\"Blue\"><input type=\"radio\" name=\"sheet-accent\" value=\"245\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 245deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Blue</span></label><label title=\"Violet\"><input type=\"radio\" name=\"sheet-accent\" value=\"285\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 285deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Violet</span></label><label title=\"Pink\"><input type=\"radio\" name=\"sheet-accent\" value=\"340\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 340deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Pink</span></label><label title=\"Red\"><input type=\"radio\" name=\"sheet-accent\" value=\"25\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 25deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Red</span></label><label title=\"Amber\"><input type=\"radio\" name=\"sheet-accent\" value=\"65\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 65deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Amber</span></label><label title=\"Green\"><input type=\"radio\" name=\"sheet-accent\" value=\"150\"><span class=\"v-swatch\" style=\"background-color: oklch(65% 0.15 150deg)\" aria-hidden=\"true\"></span><span class=\"v-sr-only\">Green</span></label></div>\n      <label class=\"v-hue-label\" for=\"sheet-hue\"><span>Any hue</span><output for=\"sheet-hue\"></output></label>\n      <input class=\"v-hue\" id=\"sheet-hue\" name=\"sheet-accent\" type=\"range\" min=\"0\" max=\"359\" step=\"1\">\n    </fieldset>\n    <fieldset>\n      <legend>Corners</legend>\n      <div class=\"v-segmented\"><label><input type=\"radio\" name=\"sheet-corners\" value=\"default\"><span>Default</span></label><label><input type=\"radio\" name=\"sheet-corners\" value=\"sharp\"><span>Sharp</span></label><label><input type=\"radio\" name=\"sheet-corners\" value=\"rounded\"><span>Rounded</span></label><label><input type=\"radio\" name=\"sheet-corners\" value=\"round\"><span>Round</span></label></div>\n    </fieldset>\n    <fieldset>\n      <legend>Density</legend>\n      <div class=\"v-segmented\"><label><input type=\"radio\" name=\"sheet-density\" value=\"compact\"><span>Compact</span></label><label><input type=\"radio\" name=\"sheet-density\" value=\"default\"><span>Default</span></label><label><input type=\"radio\" name=\"sheet-density\" value=\"spacious\"><span>Spacious</span></label></div>\n    </fieldset>\n    <button class=\"v-btn v-btn-secondary v-btn-block\" type=\"button\" data-v-reset>Reset to defaults</button>\n  </form>\n</aside>",
+      "layout": "center",
+      "height": 640,
+      "source": "examples/theming/#customizer-demo"
+    }
+  ]
+}

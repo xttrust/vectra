@@ -1,0 +1,85 @@
+{
+  "name": "Copy button",
+  "slug": "copy-button",
+  "group": "Actions",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A button that copies a fixed string or the text of another element to the clipboard.",
+  "description": "Use it next to things people paste elsewhere: code, API keys, invite links. The label reads Copied for two seconds, then goes back. If the browser blocks the clipboard, the target text is selected so Ctrl+C still works.",
+  "native": "<button>, navigator.clipboard",
+  "catalogue": [
+    "Copy button"
+  ],
+  "css": [
+    "button.css"
+  ],
+  "js": [
+    "components/copy.js"
+  ],
+  "classes": [],
+  "states": [
+    {
+      "attribute": "aria-label",
+      "description": "On an icon-only copy button this is the text that changes to Copied, so screen readers hear it too."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-copy",
+      "value": "The text to copy. Leave it empty when data-v-copy-target is set.",
+      "on": "The <button>.",
+      "description": "Turns the button into a copy button. Always needed, even with a target."
+    },
+    {
+      "name": "data-v-copy-target",
+      "value": "A CSS selector, e.g. #api-key.",
+      "on": "The <button>.",
+      "description": "Copies the textContent of the element it points at instead of the data-v-copy value."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the button."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Copies, and the label reads Copied for two seconds."
+    }
+  ],
+  "a11y": [
+    "The result is announced through Vectra's live region: \"Copied to clipboard\", or a note that the text is selected when copying fails.",
+    "The visible label changes too (the last text node, or aria-label on an icon button), so sighted users get the same feedback.",
+    "Keep a real text label or an aria-label such as \"Copy API key\"; a bare icon gives no name."
+  ],
+  "tokens": [
+    "--v-btn-radius",
+    "--v-control-h",
+    "--v-surface-2"
+  ],
+  "related": [
+    "code-block",
+    "button",
+    "icon-button",
+    "input-group"
+  ],
+  "examples": [
+    {
+      "title": "Copy a value",
+      "html": "<button class=\"v-btn v-btn-secondary\" type=\"button\" data-v-copy=\"npm install @creativeigniter/vectra\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Copy install command</button>",
+      "height": 100
+    },
+    {
+      "title": "Copy another element",
+      "description": "data-v-copy-target points at the element whose text is copied.",
+      "html": "<code id=\"api-key\">vk_test_51Hx9QeLk2</code>\n<button class=\"v-btn v-btn-ghost v-btn-sm\" type=\"button\" data-v-copy data-v-copy-target=\"#api-key\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Copy</button>\n<button class=\"v-btn v-btn-ghost v-btn-sm v-btn-icon\" type=\"button\" data-v-copy data-v-copy-target=\"#api-key\" aria-label=\"Copy API key\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#clipboard\"/></svg></button>",
+      "height": 100,
+      "source": "examples/content/#code"
+    }
+  ]
+}

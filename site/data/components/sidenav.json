@@ -1,0 +1,105 @@
+{
+  "name": "Sidebar nav",
+  "slug": "sidenav",
+  "group": "Navigation",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Vertical navigation with group headings, icon and label items, badges, collapsible groups and an icon rail.",
+  "description": "Use it for the main navigation of an app with many sections. Collapsible groups are native <details>, so they work without JavaScript. The icon rail keeps the labels for screen readers.",
+  "native": "<nav>, <details>, <summary>",
+  "catalogue": [
+    "Sidebar nav"
+  ],
+  "css": [
+    "sidenav.css"
+  ],
+  "classes": [
+    {
+      "name": "v-sidenav",
+      "kind": "base",
+      "description": "The navigation, on a <nav>. Styles its lists, links and summaries."
+    },
+    {
+      "name": "v-sidenav-heading",
+      "kind": "part",
+      "description": "A small uppercase group heading."
+    },
+    {
+      "name": "v-sidenav-label",
+      "kind": "part",
+      "description": "The item text. Takes the free space so a badge sits at the end."
+    },
+    {
+      "name": "v-sidenav-rail",
+      "kind": "modifier",
+      "description": "Icons only. Labels and headings stay for screen readers; badges become a small count on the icon."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-current=\"page\"",
+      "description": "On the link to the current page: tinted with the accent."
+    },
+    {
+      "attribute": "open",
+      "description": "On a <details> group: shows its links and turns the chevron up."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Moves through the links and group headers."
+    },
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "Follows a link."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On a group header, opens or closes the group."
+    }
+  ],
+  "a11y": [
+    "Give the <nav> an aria-label, and a different one if the page has more than one navigation.",
+    "Mark the current page with aria-current=\"page\".",
+    "In the rail, every link keeps its .v-sidenav-label text, so it still has a name. Add a tooltip for sighted users if the icons are not obvious.",
+    "A badge is read as part of the link text, so make it meaningful (12 unread, not only 12) with .v-sr-only text where needed."
+  ],
+  "tokens": [
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-surface-2",
+    "--v-radius-sm",
+    "--v-text-2",
+    "--v-text-3",
+    "--v-border"
+  ],
+  "related": [
+    "navbar",
+    "drawer",
+    "badge",
+    "collapsible"
+  ],
+  "examples": [
+    {
+      "title": "Groups and collapsible sections",
+      "html": "<nav class=\"v-sidenav\" aria-label=\"Workspace\">\n  <p class=\"v-sidenav-heading\">Workspace</p>\n  <ul>\n    <li><a href=\"#\" aria-current=\"page\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#home\"/></svg><span class=\"v-sidenav-label\">Dashboard</span></a></li>\n    <li><a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#inbox\"/></svg><span class=\"v-sidenav-label\">Inbox</span><span class=\"v-badge v-badge-accent\">12</span></a></li>\n    <li>\n      <details open>\n        <summary><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#folder\"/></svg><span class=\"v-sidenav-label\">Projects</span></summary>\n        <ul>\n          <li><a href=\"#\"><span class=\"v-sidenav-label\">Website redesign</span></a></li>\n          <li><a href=\"#\"><span class=\"v-sidenav-label\">Mobile app</span><span class=\"v-badge\">3</span></a></li>\n        </ul>\n      </details>\n    </li>\n    <li><a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chart-bar\"/></svg><span class=\"v-sidenav-label\">Reports</span></a></li>\n  </ul>\n  <p class=\"v-sidenav-heading\">Account</p>\n  <ul>\n    <li>\n      <details>\n        <summary><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#users\"/></svg><span class=\"v-sidenav-label\">Team</span></summary>\n        <ul>\n          <li><a href=\"#\"><span class=\"v-sidenav-label\">Members</span></a></li>\n          <li><a href=\"#\"><span class=\"v-sidenav-label\">Roles</span></a></li>\n        </ul>\n      </details>\n    </li>\n    <li><a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#settings\"/></svg><span class=\"v-sidenav-label\">Settings</span></a></li>\n  </ul>\n</nav>",
+      "height": 440,
+      "source": "examples/navigation/#sidenav"
+    },
+    {
+      "title": "Icon rail",
+      "html": "<nav class=\"v-sidenav v-sidenav-rail\" aria-label=\"Workspace, icon rail\">\n  <ul>\n    <li><a href=\"#\" aria-current=\"page\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#home\"/></svg><span class=\"v-sidenav-label\">Dashboard</span></a></li>\n    <li><a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#inbox\"/></svg><span class=\"v-sidenav-label\">Inbox</span><span class=\"v-badge v-badge-solid\">12</span></a></li>\n    <li><a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#folder\"/></svg><span class=\"v-sidenav-label\">Projects</span></a></li>\n    <li><a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chart-bar\"/></svg><span class=\"v-sidenav-label\">Reports</span></a></li>\n    <li><a href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#settings\"/></svg><span class=\"v-sidenav-label\">Settings</span></a></li>\n  </ul>\n</nav>",
+      "height": 280,
+      "source": "examples/navigation/#sidenav"
+    }
+  ]
+}

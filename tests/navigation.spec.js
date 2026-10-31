@@ -21,6 +21,15 @@ test.describe('navigation', () => {
     await expect(page.locator('#main')).toBeFocused();
   });
 
+  test('skip link: hidden means invisible, shadow included', async ({ page }) => {
+    // The corner must render the same with the unfocused skip link as without it.
+    const corner = { x: 0, y: 0, width: 320, height: 48 };
+    const withLink = await page.screenshot({ clip: corner, animations: 'disabled' });
+    await page.addStyleTag({ content: '.v-skip-link { display: none !important; }' });
+    const withoutLink = await page.screenshot({ clip: corner, animations: 'disabled' });
+    expect(withLink.equals(withoutLink)).toBe(true);
+  });
+
   test('accordion: opening one item closes the other (native details name)', async ({ page }) => {
     const items = page.locator('.v-accordion details');
     await expect(items.nth(0)).toHaveAttribute('open', '');

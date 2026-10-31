@@ -1,0 +1,104 @@
+{
+  "name": "Number stepper",
+  "slug": "number-stepper",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A number input with minus and plus buttons either side, for small counts such as seats or quantities.",
+  "description": "The buttons ship hidden and the JS shows them, so without JS the plain number input still works with its own arrows and keys. min, max and step are honoured natively, and a button is disabled at its limit.",
+  "native": "<input type=\"number\">",
+  "catalogue": [
+    "Number stepper"
+  ],
+  "css": [
+    "input.css"
+  ],
+  "js": [
+    "components/stepper.js"
+  ],
+  "classes": [
+    {
+      "name": "v-stepper",
+      "kind": "base",
+      "description": "Goes on the .v-input-group. Centres the number and hides the native spin arrows once the buttons show."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "min, max, step",
+      "description": "The native limits and step; stepUp and stepDown do the maths."
+    },
+    {
+      "attribute": "hidden",
+      "description": "Put it on both buttons in the markup. The JS removes it when it takes over."
+    },
+    {
+      "attribute": "disabled",
+      "description": "Set by the JS on a button at its limit, or on both when the input is disabled."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-stepper",
+      "value": "",
+      "on": ".v-input-group.v-stepper",
+      "description": "Wires the step buttons to the number input inside."
+    },
+    {
+      "name": "data-v-step",
+      "value": "up | down",
+      "on": "each button",
+      "description": "Which way the button steps."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "ArrowUp",
+        "ArrowDown"
+      ],
+      "action": "In the input: steps the value up or down (native)."
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves between the minus button, the input and the plus button."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On a button: steps once."
+    }
+  ],
+  "a11y": [
+    "Name each button for what it does to this field (aria-label=\"More seats\") and point aria-controls at the input.",
+    "When a button is disabled at a limit while focused, focus moves to the input rather than being lost.",
+    "Each step fires input and change, so live totals and the unsaved-changes helper see it."
+  ],
+  "tokens": [
+    "--v-input-h",
+    "--v-input-border",
+    "--v-input-radius",
+    "--v-control-h",
+    "--v-focus-w"
+  ],
+  "related": [
+    "input-group",
+    "input",
+    "range",
+    "icon-button"
+  ],
+  "examples": [
+    {
+      "title": "Seats",
+      "description": "Step down to 1 or up to 50 and the button at the limit is disabled.",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"f-qty\">Seats</label>\n  <div class=\"v-input-group v-stepper\" data-v-stepper>\n    <button class=\"v-btn v-btn-ghost v-btn-icon\" type=\"button\" data-v-step=\"down\" aria-label=\"Fewer seats\" aria-controls=\"f-qty\" hidden><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#minus\"/></svg></button>\n    <input class=\"v-input\" id=\"f-qty\" name=\"seats\" type=\"number\" min=\"1\" max=\"50\" value=\"3\">\n    <button class=\"v-btn v-btn-ghost v-btn-icon\" type=\"button\" data-v-step=\"up\" aria-label=\"More seats\" aria-controls=\"f-qty\" hidden><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#plus\"/></svg></button>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 100,
+      "source": "examples/forms/#inputs"
+    }
+  ]
+}

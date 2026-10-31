@@ -1,0 +1,125 @@
+{
+  "name": "List group",
+  "slug": "list-group",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Rows of related items in one bordered box, plain or with avatars, meta and actions.",
+  "description": "Use it for short lists people scan: invoices, team members, settings sections. For many columns of data that people compare, use a table.",
+  "native": "<ul>, <ol>",
+  "catalogue": [
+    "List group"
+  ],
+  "css": [
+    "list.css"
+  ],
+  "classes": [
+    {
+      "name": "v-list",
+      "kind": "base",
+      "description": "The bordered box on a <ul>, <ol> or <div>, with a rule between rows."
+    },
+    {
+      "name": "v-list-item",
+      "kind": "part",
+      "description": "One row. Put it on the <li>, or on an <a> or <button> inside the <li> to make the whole row clickable."
+    },
+    {
+      "name": "v-list-body",
+      "kind": "part",
+      "description": "The main text block, which grows to fill the row."
+    },
+    {
+      "name": "v-list-title",
+      "kind": "part",
+      "description": "The row's main line."
+    },
+    {
+      "name": "v-list-meta",
+      "kind": "part",
+      "description": "A second, smaller line under the title."
+    },
+    {
+      "name": "v-list-end",
+      "kind": "part",
+      "description": "Actions, badges or meta pushed to the end of the row."
+    },
+    {
+      "name": "v-list-plain",
+      "kind": "modifier",
+      "description": "No box: rows are separated by rules only."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-current=\"page\"",
+      "description": "On a linked row: tinted, with an accent bar at the start, for the current item."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves between linked rows and any buttons in the rows."
+    },
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "Follows a linked row, or presses a button row."
+    }
+  ],
+  "a11y": [
+    "Use <ul> or <ol> so screen readers announce the number of items.",
+    "Wrap a list of navigation links in <nav aria-label> and mark the current one with aria-current=\"page\".",
+    "The current row shows a start bar as well as a tint, so it does not rest on colour; in forced colours the bar uses Highlight.",
+    "Do not put buttons inside a linked row; give the row a separate action in .v-list-end instead."
+  ],
+  "tokens": [
+    "--v-border",
+    "--v-radius-lg",
+    "--v-surface",
+    "--v-surface-2",
+    "--v-accent-soft",
+    "--v-accent",
+    "--v-text-3"
+  ],
+  "related": [
+    "avatar",
+    "status-indicator",
+    "badge",
+    "table",
+    "sidenav"
+  ],
+  "examples": [
+    {
+      "title": "With actions",
+      "html": "<ul class=\"v-list\">\n  <li class=\"v-list-item\"><span class=\"v-list-body\"><span class=\"v-list-title\">Invoice INV-0142</span><span class=\"v-list-meta\">Sent 28 Oct · €1,499</span></span><span class=\"v-list-end\"><span class=\"v-badge v-badge-success\">Paid</span></span></li>\n  <li class=\"v-list-item\"><span class=\"v-list-body\"><span class=\"v-list-title\">Invoice INV-0143</span><span class=\"v-list-meta\">Sent 30 Oct · €799</span></span><span class=\"v-list-end\"><span class=\"v-badge v-badge-warning\">Due</span></span></li>\n  <li class=\"v-list-item\"><span class=\"v-list-body\"><span class=\"v-list-title\">Invoice INV-0144</span><span class=\"v-list-meta\">Draft</span></span><span class=\"v-list-end\"><button class=\"v-btn v-btn-secondary v-btn-sm\" type=\"button\">Send</button></span></li>\n</ul>",
+      "layout": "stack",
+      "height": 220,
+      "source": "examples/elements/#lists"
+    },
+    {
+      "title": "With avatars",
+      "html": "<ul class=\"v-list\">\n  <li class=\"v-list-item\"><span class=\"v-status-avatar\"><span class=\"v-avatar v-avatar-sm\">AK</span><span class=\"v-status\"><span class=\"v-sr-only\">Online</span></span></span><span class=\"v-list-body\"><span class=\"v-list-title\">Aoife Kelly</span><span class=\"v-list-meta\">Owner · aoife@example.ie</span></span><span class=\"v-list-end\">2 min</span></li>\n  <li class=\"v-list-item\"><span class=\"v-avatar v-avatar-sm\">SM</span><span class=\"v-list-body\"><span class=\"v-list-title\">Sean Murphy</span><span class=\"v-list-meta\">Editor · sean@example.ie</span></span><span class=\"v-list-end\">1 h</span></li>\n  <li class=\"v-list-item\"><span class=\"v-avatar v-avatar-sm\">CR</span><span class=\"v-list-body\"><span class=\"v-list-title\">Ciara Ryan</span><span class=\"v-list-meta\">Viewer · ciara@example.ie</span></span><span class=\"v-list-end\">Yesterday</span></li>\n</ul>",
+      "layout": "stack",
+      "height": 220,
+      "source": "examples/elements/#lists"
+    },
+    {
+      "title": "Linked rows",
+      "html": "<nav aria-label=\"Settings\">\n  <ul class=\"v-list\">\n    <li><a class=\"v-list-item\" href=\"#\" aria-current=\"page\"><span class=\"v-list-body\"><span class=\"v-list-title\">Profile</span><span class=\"v-list-meta\">Name, photo and bio</span></span></a></li>\n    <li><a class=\"v-list-item\" href=\"#\"><span class=\"v-list-body\"><span class=\"v-list-title\">Billing</span><span class=\"v-list-meta\">Plan, cards and invoices</span></span></a></li>\n    <li><a class=\"v-list-item\" href=\"#\"><span class=\"v-list-body\"><span class=\"v-list-title\">Team</span><span class=\"v-list-meta\">3 members</span></span></a></li>\n  </ul>\n</nav>",
+      "layout": "stack",
+      "height": 220,
+      "source": "examples/elements/#lists"
+    },
+    {
+      "title": "Plain",
+      "html": "<ol class=\"v-list v-list-plain\">\n  <li class=\"v-list-item\"><span class=\"v-list-body\"><span class=\"v-list-title\">Point the domain</span><span class=\"v-list-meta\">Nameservers updated</span></span><span class=\"v-list-end\">Done</span></li>\n  <li class=\"v-list-item\"><span class=\"v-list-body\"><span class=\"v-list-title\">Upload the content</span><span class=\"v-list-meta\">14 of 20 pages</span></span><span class=\"v-list-end\">70%</span></li>\n  <li class=\"v-list-item\"><span class=\"v-list-body\"><span class=\"v-list-title\">Go live</span><span class=\"v-list-meta\">Planned for Monday</span></span></li>\n</ol>",
+      "layout": "stack",
+      "height": 200,
+      "source": "examples/elements/#lists"
+    }
+  ]
+}

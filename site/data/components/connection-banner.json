@@ -1,0 +1,92 @@
+{
+  "name": "Connection banner",
+  "slug": "connection-banner",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A banner that stays hidden until the network drops or slows, then sticks to the top of the page with the right message.",
+  "description": "Put one in the app shell. The JS watches the online and offline events (and navigator.connection where the browser has it), shows the message for the current state and, when the network comes back, hides the banner and shows a short Back online toast.",
+  "catalogue": [
+    "Connection banner"
+  ],
+  "css": [
+    "connection.css",
+    "banner.css"
+  ],
+  "js": [
+    "components/connection.js"
+  ],
+  "classes": [
+    {
+      "name": "v-connection",
+      "kind": "modifier",
+      "description": "On a .v-banner: sticks to the top of the viewport and turns to the warning tone when offline."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "hidden",
+      "description": "Set on the banner while the connection is fine, and on every message part except the current one."
+    },
+    {
+      "attribute": "data-state=\"offline\" | \"slow\"",
+      "description": "Set by the JS. Offline wins over slow."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-connection",
+      "value": "",
+      "on": "A .v-banner.v-connection, hidden to start",
+      "description": "Wires the banner to the network state."
+    },
+    {
+      "name": "data-v-when",
+      "value": "offline or slow",
+      "on": "A child of the banner",
+      "description": "The message for that state; only the one that applies is shown."
+    }
+  ],
+  "api": [
+    {
+      "signature": "Vectra.connection.slow(on = true)",
+      "description": "Shows (true) or clears (false) the slow network notice, for example when your own requests are timing out."
+    }
+  ],
+  "a11y": [
+    "The banner carries role=\"status\" and its text is announced when a state starts, so people know why things have stopped working.",
+    "Back online is announced by a success toast, so the end of the problem is heard too.",
+    "The message says what still works (\"You can keep working\"), not only what is wrong."
+  ],
+  "tokens": [
+    "--v-tone",
+    "--v-tone-soft",
+    "--v-warning",
+    "--v-warning-soft",
+    "--v-info"
+  ],
+  "related": [
+    "banner",
+    "toast",
+    "save-status"
+  ],
+  "examples": [
+    {
+      "title": "Live",
+      "description": "The buttons fake a dropped connection, since the browser owns navigator.onLine.",
+      "html": "<div class=\"v-banner v-connection\" data-v-connection role=\"status\" hidden>\n  <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#wifi-off\"/></svg>\n  <p class=\"v-banner-body\" data-v-when=\"offline\"><strong>You are offline.</strong> You can keep working; changes save when the connection is back.</p>\n  <p class=\"v-banner-body\" data-v-when=\"slow\"><strong>Slow connection.</strong> Pages may take longer to load.</p>\n</div>\n<div class=\"v-cluster\">\n  <button class=\"v-btn v-btn-secondary\" type=\"button\" id=\"go-offline\">Go offline</button>\n  <button class=\"v-btn v-btn-secondary\" type=\"button\" id=\"go-online\">Back online</button>\n  <button class=\"v-btn v-btn-secondary\" type=\"button\" id=\"go-slow\">Slow network</button>\n  <button class=\"v-btn v-btn-ghost\" type=\"button\" id=\"go-fast\">Clear slow</button>\n</div>",
+      "js": "const on = (id, fn) => document.getElementById(id).addEventListener('click', fn);\n// Demo only: pretend the network dropped or came back.\nconst simulate = (online) => {\n  Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => online });\n  window.dispatchEvent(new Event(online ? 'online' : 'offline'));\n};\non('go-offline', () => simulate(false));\non('go-online', () => simulate(true));\non('go-slow', () => Vectra.connection.slow(true));\non('go-fast', () => Vectra.connection.slow(false));",
+      "layout": "stack",
+      "height": 220,
+      "source": "examples/theming/#connection-demo"
+    },
+    {
+      "title": "The two messages",
+      "description": "How each state looks, shown as plain banners.",
+      "html": "<div class=\"v-banner v-banner-warning\">\n  <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#wifi-off\"/></svg>\n  <p class=\"v-banner-body\"><strong>You are offline.</strong> You can keep working; changes save when the connection is back.</p>\n</div>\n<div class=\"v-banner\">\n  <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#clock\"/></svg>\n  <p class=\"v-banner-body\"><strong>Slow connection.</strong> Pages may take longer to load. Images are shown in lower quality.</p>\n</div>",
+      "layout": "stack",
+      "height": 150,
+      "source": "examples/theming/#connection-demo"
+    }
+  ]
+}

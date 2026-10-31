@@ -1,0 +1,207 @@
+{
+  "name": "Code block",
+  "slug": "code-block",
+  "group": "Content",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A framed code sample with a language or file name, a copy button and a scrolling body.",
+  "description": "Use it for code people will copy: install commands, config, snippets. No highlighter ships; pre-highlighted HTML can use the .v-tok-* classes. Inside long-form text, a plain <pre> in .v-prose is lighter.",
+  "native": "<pre><code>",
+  "catalogue": [
+    "Code block with copy"
+  ],
+  "css": [
+    "code.css"
+  ],
+  "js": [
+    "components/copy.js"
+  ],
+  "classes": [
+    {
+      "name": "v-code",
+      "kind": "base",
+      "description": "The frame: card surface, border and radius."
+    },
+    {
+      "name": "v-code-header",
+      "kind": "part",
+      "description": "The top bar holding the label and the copy button."
+    },
+    {
+      "name": "v-code-lang",
+      "kind": "part",
+      "description": "Language label, small uppercase mono."
+    },
+    {
+      "name": "v-code-title",
+      "kind": "part",
+      "description": "A file name instead of a language, cut with an ellipsis when long."
+    },
+    {
+      "name": "v-code-copy",
+      "kind": "part",
+      "description": "Pushes the copy button to the inline end of the header."
+    },
+    {
+      "name": "v-code-body",
+      "kind": "part",
+      "description": "The <pre>. Scrolls both ways; cap its height with --v-code-max."
+    },
+    {
+      "name": "v-code-wrap",
+      "kind": "modifier",
+      "description": "Long lines wrap instead of scrolling sideways."
+    },
+    {
+      "name": "v-code-numbered",
+      "kind": "modifier",
+      "description": "Shows line numbers. Wrap each line in .v-code-line."
+    },
+    {
+      "name": "v-code-line",
+      "kind": "part",
+      "description": "One line of code, counted when .v-code-numbered is set."
+    },
+    {
+      "name": "v-tok-comment",
+      "kind": "helper",
+      "description": "Comments, muted and italic."
+    },
+    {
+      "name": "v-tok-keyword",
+      "kind": "helper",
+      "description": "Keywords, in the accent text colour."
+    },
+    {
+      "name": "v-tok-tag",
+      "kind": "helper",
+      "description": "Tags and selectors, in the accent text colour."
+    },
+    {
+      "name": "v-tok-string",
+      "kind": "helper",
+      "description": "Strings, in the success colour."
+    },
+    {
+      "name": "v-tok-number",
+      "kind": "helper",
+      "description": "Numbers and literals, in the warning colour."
+    },
+    {
+      "name": "v-tok-function",
+      "kind": "helper",
+      "description": "Function names, in the info colour."
+    },
+    {
+      "name": "v-tok-property",
+      "kind": "helper",
+      "description": "CSS properties, in the danger colour."
+    },
+    {
+      "name": "v-tok-attr",
+      "kind": "helper",
+      "description": "HTML attributes, in the danger colour."
+    },
+    {
+      "name": "v-tok-punct",
+      "kind": "helper",
+      "description": "Punctuation, in secondary text."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "tabindex=\"0\"",
+      "description": "On the .v-code-body <pre>: lets keyboard users focus and scroll code that overflows."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-copy",
+      "value": "Text to copy, or empty with data-v-copy-target",
+      "on": "The copy <button>",
+      "description": "Turns the button into a copy button. The label reads \"Copied\" for 2 seconds."
+    },
+    {
+      "name": "data-v-copy-target",
+      "value": "A CSS selector, e.g. #code-css",
+      "on": "The copy <button>",
+      "description": "Copies the text content of that element, so the token markup is left out."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the copy button, then to the code body."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Copies the code (with the JS module)."
+    },
+    {
+      "keys": [
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown"
+      ],
+      "action": "Scrolls the focused code body."
+    }
+  ],
+  "a11y": [
+    "The copy result is announced in a live region (\"Copied to clipboard\"), not only shown in the label.",
+    "If the clipboard is blocked, the code is selected instead and the announcement says to press Ctrl+C.",
+    "Every token colour is a text-safe token, so highlighted code keeps 4.5:1 contrast.",
+    "Line numbers are generated content with user-select: none, so they are not copied."
+  ],
+  "tokens": [
+    "--v-code-max",
+    "--v-card-bg",
+    "--v-card-border",
+    "--v-surface-2",
+    "--v-font-mono",
+    "--v-accent-text",
+    "--v-radius-lg"
+  ],
+  "related": [
+    "copy-button",
+    "prose",
+    "kbd",
+    "button"
+  ],
+  "examples": [
+    {
+      "title": "Numbered CSS",
+      "description": "Line numbers and token classes. The button copies the text of #code-css.",
+      "html": "<div class=\"v-code v-code-numbered\">\n  <div class=\"v-code-header\">\n    <span class=\"v-code-lang\">CSS</span>\n    <button class=\"v-btn v-btn-ghost v-btn-sm v-code-copy\" type=\"button\" data-v-copy data-v-copy-target=\"#code-css\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Copy</button>\n  </div>\n  <pre class=\"v-code-body\" id=\"code-css\" tabindex=\"0\"><code><span class=\"v-code-line\"><span class=\"v-tok-comment\">/* Theme one card without touching the rest */</span></span>\n<span class=\"v-code-line\"><span class=\"v-tok-tag\">.pricing</span> <span class=\"v-tok-punct\">{</span></span>\n<span class=\"v-code-line\">  <span class=\"v-tok-property\">--v-card-bg</span><span class=\"v-tok-punct\">:</span> <span class=\"v-tok-function\">var</span><span class=\"v-tok-punct\">(</span>--v-surface-2<span class=\"v-tok-punct\">);</span></span>\n<span class=\"v-code-line\">  <span class=\"v-tok-property\">--v-density</span><span class=\"v-tok-punct\">:</span> <span class=\"v-tok-number\">0.85</span><span class=\"v-tok-punct\">;</span></span>\n<span class=\"v-code-line\">  <span class=\"v-tok-property\">font-family</span><span class=\"v-tok-punct\">:</span> <span class=\"v-tok-string\">\"Inter Var\"</span><span class=\"v-tok-punct\">;</span></span>\n<span class=\"v-code-line\"><span class=\"v-tok-punct\">}</span></span></code></pre>\n</div>",
+      "layout": "stack",
+      "height": 240,
+      "source": "examples/content/#code"
+    },
+    {
+      "title": "HTML with a file name",
+      "description": "Angle brackets inside the code are written as &lt; and &gt;.",
+      "html": "<div class=\"v-code\">\n  <div class=\"v-code-header\">\n    <span class=\"v-code-title\">partials/call-button.html</span>\n    <button class=\"v-btn v-btn-ghost v-btn-sm v-code-copy\" type=\"button\" data-v-copy data-v-copy-target=\"#code-html\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Copy</button>\n  </div>\n  <pre class=\"v-code-body\" id=\"code-html\" tabindex=\"0\"><code><span class=\"v-tok-tag\">&lt;a</span> <span class=\"v-tok-attr\">class</span><span class=\"v-tok-punct\">=</span><span class=\"v-tok-string\">\"v-btn v-btn-primary\"</span> <span class=\"v-tok-attr\">href</span><span class=\"v-tok-punct\">=</span><span class=\"v-tok-string\">\"tel:+35391000000\"</span><span class=\"v-tok-tag\">&gt;</span>\n  Call us\n<span class=\"v-tok-tag\">&lt;/a&gt;</span></code></pre>\n</div>",
+      "layout": "stack",
+      "height": 170
+    },
+    {
+      "title": "JavaScript",
+      "html": "<div class=\"v-code\">\n  <div class=\"v-code-header\">\n    <span class=\"v-code-title\">src/js/menu.js</span>\n    <button class=\"v-btn v-btn-ghost v-btn-sm v-code-copy\" type=\"button\" data-v-copy data-v-copy-target=\"#code-js\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Copy</button>\n  </div>\n  <pre class=\"v-code-body\" id=\"code-js\" tabindex=\"0\"><code><span class=\"v-tok-keyword\">export function</span> <span class=\"v-tok-function\">open</span><span class=\"v-tok-punct\">(</span>menu<span class=\"v-tok-punct\">) {</span>\n  menu<span class=\"v-tok-punct\">.</span><span class=\"v-tok-function\">showPopover</span><span class=\"v-tok-punct\">();</span>\n  menu<span class=\"v-tok-punct\">.</span><span class=\"v-tok-function\">querySelector</span><span class=\"v-tok-punct\">(</span><span class=\"v-tok-string\">'[role=\"menuitem\"]'</span><span class=\"v-tok-punct\">)?.</span><span class=\"v-tok-function\">focus</span><span class=\"v-tok-punct\">();</span>\n  <span class=\"v-tok-keyword\">return</span> <span class=\"v-tok-number\">true</span><span class=\"v-tok-punct\">;</span>\n<span class=\"v-tok-punct\">}</span></code></pre>\n</div>",
+      "layout": "stack",
+      "height": 200,
+      "source": "examples/content/#code"
+    },
+    {
+      "title": "Wrapped shell command",
+      "html": "<div class=\"v-code v-code-wrap\">\n  <div class=\"v-code-header\">\n    <span class=\"v-code-lang\">Shell</span>\n    <button class=\"v-btn v-btn-ghost v-btn-sm v-code-copy\" type=\"button\" data-v-copy data-v-copy-target=\"#code-shell\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Copy</button>\n  </div>\n  <pre class=\"v-code-body\" id=\"code-shell\" tabindex=\"0\"><code>npx playwright test --project=chromium tests/rendered.spec.js --grep content --reporter=list</code></pre>\n</div>",
+      "layout": "stack",
+      "height": 140,
+      "source": "examples/content/#code"
+    }
+  ]
+}

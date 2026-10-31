@@ -20,6 +20,8 @@ export const PAGES = [
   { name: 'icons', path: '/examples/icons/', storage: 'vectra', visual: 'basic' },
   { name: 'theming', path: '/examples/theming/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'auth', path: '/examples/auth/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'site-home', path: '/site/dist/', storage: 'vectra', visual: 'basic' },
+  { name: 'site-button', path: '/site/dist/components/button/', storage: 'vectra', visual: 'basic' },
   { name: 'sections-chrome', path: '/examples/sections/chrome.html', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'sections-marketing', path: '/examples/sections/marketing.html', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'sections-app', path: '/examples/sections/app.html', storage: 'vectra', visual: 'full', rendered: true },

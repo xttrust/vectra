@@ -1,0 +1,83 @@
+{
+  "name": "Figure",
+  "slug": "figure",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "An image, video or embed with an optional caption, cropped to a fixed aspect ratio by a frame.",
+  "description": "Use .v-figure for any picture with a caption. Use .v-frame when a set of images must line up at the same shape, such as a gallery or card media, whatever size the source files are.",
+  "native": "<figure>, <figcaption>",
+  "catalogue": [
+    "Figure / image with caption, aspect-ratio frame"
+  ],
+  "css": [
+    "figure.css"
+  ],
+  "classes": [
+    {
+      "name": "v-figure",
+      "kind": "base",
+      "description": "On a <figure>: an image or frame with a small muted caption under it."
+    },
+    {
+      "name": "v-frame",
+      "kind": "base",
+      "description": "Crops its img, video, iframe, svg or picture to 16:9 with object-fit: cover and rounded corners."
+    },
+    {
+      "name": "v-frame-1x1",
+      "kind": "modifier",
+      "description": "Square."
+    },
+    {
+      "name": "v-frame-4x3",
+      "kind": "modifier",
+      "description": "4:3."
+    },
+    {
+      "name": "v-frame-16x9",
+      "kind": "modifier",
+      "description": "16:9, the default, written out."
+    },
+    {
+      "name": "v-frame-21x9",
+      "kind": "modifier",
+      "description": "21:9, for wide banners."
+    }
+  ],
+  "a11y": [
+    "Give every meaningful image an alt that says what it shows; the caption adds context and does not replace alt.",
+    "If the caption already describes the picture fully, alt=\"\" avoids reading it twice.",
+    "Cropping hides the edges of the image, so keep the important part in the middle.",
+    "An embedded iframe in a frame needs a title attribute."
+  ],
+  "tokens": [
+    "--v-radius-lg",
+    "--v-surface-2",
+    "--v-text-3",
+    "--v-space-2"
+  ],
+  "related": [
+    "card",
+    "prose",
+    "testimonial",
+    "logo-cloud"
+  ],
+  "examples": [
+    {
+      "title": "Aspect-ratio frames",
+      "description": "In real use the frame holds an <img>; inline SVGs stand in here.",
+      "html": "<div class=\"v-grid\" style=\"--v-min: 11rem\">\n  <figure class=\"v-figure\">\n    <div class=\"v-frame v-frame-1x1\"><svg viewBox=\"0 0 400 400\" preserveAspectRatio=\"xMidYMid slice\" role=\"img\" aria-label=\"A slate roof under an evening sky\"><defs><linearGradient id=\"sky\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#f2a65a\"/><stop offset=\"1\" stop-color=\"#6b5ca5\"/></linearGradient></defs><rect width=\"400\" height=\"400\" fill=\"url(#sky)\"/><path d=\"M0 260 200 120 400 260V400H0z\" fill=\"#2f3542\"/></svg></div>\n    <figcaption>1:1. Slate re-roof.</figcaption>\n  </figure>\n  <figure class=\"v-figure\">\n    <div class=\"v-frame v-frame-4x3\"><svg viewBox=\"0 0 400 300\" preserveAspectRatio=\"xMidYMid slice\" role=\"img\" aria-label=\"Green lawn and a hedge\"><rect width=\"400\" height=\"300\" fill=\"#a8d8ea\"/><path d=\"M0 170q100-40 200 0t200 0V300H0z\" fill=\"#3c8d5a\"/><rect y=\"230\" width=\"400\" height=\"70\" fill=\"#5fae6f\"/></svg></div>\n    <figcaption>4:3. Spring garden clean-up.</figcaption>\n  </figure>\n  <figure class=\"v-figure\">\n    <div class=\"v-frame\"><svg viewBox=\"0 0 480 270\" preserveAspectRatio=\"xMidYMid slice\" role=\"img\" aria-label=\"A DJ booth lit in purple\"><rect width=\"480\" height=\"270\" fill=\"#1e1b3a\"/><circle cx=\"160\" cy=\"80\" r=\"70\" fill=\"#7f5af0\" opacity=\".55\"/><circle cx=\"330\" cy=\"70\" r=\"60\" fill=\"#2cb67d\" opacity=\".4\"/><rect x=\"120\" y=\"180\" width=\"240\" height=\"60\" rx=\"6\" fill=\"#0f0e17\"/></svg></div>\n    <figcaption>16:9. Release night.</figcaption>\n  </figure>\n</div>",
+      "layout": "fill",
+      "height": 280,
+      "source": "examples/elements/#figures"
+    },
+    {
+      "title": "Wide banner",
+      "html": "<figure class=\"v-figure\">\n  <div class=\"v-frame v-frame-21x9\"><svg viewBox=\"0 0 630 270\" preserveAspectRatio=\"xMidYMid slice\" role=\"img\" aria-label=\"Atlantic coastline at dusk\"><rect width=\"630\" height=\"270\" fill=\"#ffd3a5\"/><rect y=\"150\" width=\"630\" height=\"120\" fill=\"#3d5a80\"/><path d=\"M0 150 120 90 220 150z\" fill=\"#293241\"/></svg></div>\n  <figcaption>21:9. Wild Atlantic Way banner.</figcaption>\n</figure>",
+      "layout": "stack",
+      "height": 260,
+      "source": "examples/elements/#figures"
+    }
+  ]
+}

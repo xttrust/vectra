@@ -1,0 +1,103 @@
+{
+  "name": "Tooltip",
+  "slug": "tooltip",
+  "group": "Overlays",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A short, high-contrast label for a control, shown on hover and focus or opened as a hint popover.",
+  "description": "Use a tooltip to name an icon-only control or add a few words of help. Never put the only copy of important information, or anything interactive, in a tooltip.\n\nThere are two forms: wrap the trigger and tooltip in .v-tooltip-wrap for a CSS tooltip on hover and focus, or use popover=\"hint\". Put data-v-tooltip on the trigger of either form for Escape to hide, and for the popover form to show on hover and focus.",
+  "native": "popover=\"hint\", :hover, :focus-within",
+  "catalogue": [
+    "Tooltip"
+  ],
+  "css": [
+    "tooltip.css"
+  ],
+  "js": [
+    "components/tooltip.js",
+    "components/anchor.js"
+  ],
+  "classes": [
+    {
+      "name": "v-tooltip",
+      "kind": "base",
+      "description": "The label, with role=\"tooltip\". Above its trigger by default."
+    },
+    {
+      "name": "v-tooltip-bottom",
+      "kind": "modifier",
+      "description": "Popover form: places it below the trigger."
+    },
+    {
+      "name": "v-tooltip-wrap",
+      "kind": "helper",
+      "description": "No-popover form: wraps the trigger and the tooltip, which shows on hover and keyboard focus."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "popover=\"hint\"",
+      "description": "Popover form: shown in the top layer without closing other popovers. Browsers without hint treat it as a manual popover."
+    },
+    {
+      "attribute": "aria-describedby",
+      "description": "On the trigger: the tooltip id, so the text is read as the control's description."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-tooltip",
+      "value": "",
+      "on": "The trigger, which names the tooltip in aria-describedby",
+      "description": "Popover form: shows the tooltip after a short hover or at once on focus, keeps it while the pointer is over it and hides it on leave or blur. Both forms: Escape hides it without moving focus."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Focusing the trigger shows the tooltip; moving focus away hides it."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Hides the tooltip and leaves focus on the trigger (with data-v-tooltip)."
+    }
+  ],
+  "a11y": [
+    "Point the trigger's aria-describedby at the tooltip; for an icon-only button the name still goes in aria-label.",
+    "With data-v-tooltip, Escape dismisses the tooltip without moving focus, and the pointer can move onto it without it closing (WCAG 1.4.13).",
+    "The text uses the page text colour on the page background, reversed, so it keeps strong contrast in both themes."
+  ],
+  "tokens": [
+    "--v-text",
+    "--v-bg",
+    "--v-radius-sm",
+    "--v-shadow-2",
+    "--v-dur-1"
+  ],
+  "related": [
+    "popover",
+    "icon-button"
+  ],
+  "examples": [
+    {
+      "title": "On hover and focus",
+      "description": "Hover the button or Tab to it. Escape hides it.",
+      "html": "<span class=\"v-tooltip-wrap\">\n  <button class=\"v-btn v-btn-secondary\" type=\"button\" aria-describedby=\"tip-help\" data-v-tooltip><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#info\"/></svg>Help</button>\n  <span class=\"v-tooltip\" role=\"tooltip\" id=\"tip-help\">No popover needed</span>\n</span>",
+      "height": 140,
+      "layout": "center",
+      "source": "examples/overlays/#tooltip"
+    },
+    {
+      "title": "Hint popover",
+      "description": "Shows after a short hover or on focus, placed above its trigger. popovertarget keeps it working without JS.",
+      "html": "<button class=\"v-btn v-btn-secondary\" type=\"button\" popovertarget=\"tip-copy\" aria-describedby=\"tip-copy\" data-v-tooltip>Click for a popover tooltip</button>\n<span class=\"v-tooltip\" id=\"tip-copy\" popover=\"hint\" role=\"tooltip\">Placed above its trigger</span>",
+      "height": 140,
+      "layout": "center",
+      "source": "examples/overlays/#tooltip"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<!--meta {"description": "How Vectra keeps WCAG 2.2 AA contrast in every direction, theme and accent hue: OKLCH lightness, light-dark() and the cos() hue correction."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Foundations</p>
+  <h1>{{title}}</h1>
+  <p class="v-lead">Contrast is built into the colour maths rather than checked afterwards. Pick any accent hue and text, borders and focus rings still pass AA.</p>
+</header>
+<h2>OKLCH, fixed lightness</h2>
+<p>Every colour is written in OKLCH, where lightness is perceptual. Each direction fixes the lightness and chroma of its accent per theme and exposes only the hue, <code>--v-accent-h</code>. Changing the hue keeps the lightness, and with it the contrast against the page.</p>
+<pre data-code="css">--v-accent: light-dark(
+  oklch(calc(0.52 - 0.05 * var(--v-accent-dim)) 0.16 var(--v-accent-h)),
+  oklch(74% 0.14 var(--v-accent-h))
+);</pre>
+<h2>The hue correction</h2>
+<p>Green and cyan read brighter than other hues at the same OKLCH lightness, so a lightness that passes for blue can fail for teal in a light theme. <code>--v-accent-dim</code> peaks for that band, and each direction subtracts a little light-theme lightness with it:</p>
+<pre data-code="css">--v-accent-dim: max(0, cos((var(--v-accent-h) - 180) * 1deg));</pre>
+<h2>Light and dark</h2>
+<p>Tokens use <code>light-dark()</code>, so one declaration holds both themes. Without <code>data-theme</code> on <code>&lt;html&gt;</code> the OS decides, live; <code>data-theme="light"</code> or <code>"dark"</code> forces one by setting <code>color-scheme</code>.</p>
+<h2>What is checked</h2>
+<ul class="site-list">
+  <li><strong>Token sweep.</strong> <code>tests/tokens.spec.js</code> resolves every token in 4 directions, 2 themes and 13 hues and checks about 4,900 pairings: text at 4.5:1, control borders and the focus ring at 3:1.</li>
+  <li><strong>Rendered contrast.</strong> On the gallery pages each text element is checked against what is actually painted behind it, including glass and gradients.</li>
+  <li><strong>axe.</strong> Every gallery and this site run axe in every direction and theme.</li>
+</ul>
+<p>Status colours (<code>--v-success</code>, <code>--v-warning</code>, <code>--v-danger</code>, <code>--v-info</code>) are shared by every direction and tuned the same way. Meaning never rests on colour alone: alerts have titles, badges have words, selected tags gain a check mark.</p>

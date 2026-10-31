@@ -1,0 +1,99 @@
+{
+  "name": "Theme toggle",
+  "slug": "theme-toggle",
+  "group": "Theming",
+  "tier": "P0",
+  "status": "done",
+  "summary": "An icon button that cycles light, dark and system mode, showing the icon for the mode in use.",
+  "description": "System mode follows the operating system as it changes. It changes the theme of this whole docs site too, and the choice is saved in this browser.",
+  "native": "<button>",
+  "catalogue": [
+    "Theme toggle"
+  ],
+  "css": [
+    "theming.css",
+    "button.css"
+  ],
+  "js": [
+    "theme.js",
+    "components/theme-toggle.js"
+  ],
+  "classes": [
+    {
+      "name": "v-theme-toggle",
+      "kind": "base",
+      "description": "On an icon button holding three icons marked data-for=\"light|dark|system\"; only the current one shows. Hidden until the JS sets data-mode."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-mode=\"light\" | \"dark\" | \"system\"",
+      "description": "Set by the JS; picks the visible icon."
+    },
+    {
+      "attribute": "aria-label",
+      "description": "Kept up to date by the JS, for example \"Theme: system (dark). Switch to light\"."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-theme-toggle",
+      "value": "",
+      "on": "The button",
+      "description": "Cycles light, dark, system on click and keeps the icon and the label in sync."
+    }
+  ],
+  "api": [
+    {
+      "signature": "Vectra.theme.set({ mode: 'light' | 'dark' | 'system' })",
+      "description": "Sets the mode from code. System removes data-theme so the OS setting applies live."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:theme",
+      "on": "<html>",
+      "detail": "theme.get()",
+      "description": "Fires after every change, and when the OS switches while in system mode."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the toggle."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Switches to the next mode."
+    }
+  ],
+  "a11y": [
+    "The accessible name says the current mode and the next one, so people know what pressing it will do.",
+    "The new mode is announced through the shared live region.",
+    "Without JS the button would do nothing, so it stays hidden until data-mode is set."
+  ],
+  "tokens": [
+    "--v-control-h",
+    "--v-dur-3"
+  ],
+  "related": [
+    "direction-switcher",
+    "customizer",
+    "icon-button"
+  ],
+  "examples": [
+    {
+      "title": "Toggle the mode",
+      "description": "It changes the theme of this whole docs site too, and the choice is saved in this browser.",
+      "html": "<button class=\"v-btn v-btn-icon v-btn-ghost v-theme-toggle\" type=\"button\" data-v-theme-toggle aria-label=\"Theme\"><svg class=\"v-icon\" data-for=\"light\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#sun\"/></svg><svg class=\"v-icon\" data-for=\"dark\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#moon\"/></svg><svg class=\"v-icon\" data-for=\"system\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#monitor\"/></svg></button>",
+      "height": 100,
+      "layout": "center",
+      "source": "examples/theming/#switcher"
+    }
+  ]
+}

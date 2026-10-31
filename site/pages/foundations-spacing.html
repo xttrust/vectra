@@ -1,0 +1,34 @@
+<!--meta {"description": "The Vectra space scale, control height and the density presets."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Foundations</p>
+  <h1>{{title}}</h1>
+  <p class="v-lead">Eight space steps, all multiplied by <code>--v-density</code>. Change one number and every gap, padding and control height follows.</p>
+</header>
+<h2>The scale</h2>
+<div class="site-scale">
+  <div><code>--v-space-1</code><span class="site-space-bar" style="inline-size: var(--v-space-1)"></span></div>
+  <div><code>--v-space-2</code><span class="site-space-bar" style="inline-size: var(--v-space-2)"></span></div>
+  <div><code>--v-space-3</code><span class="site-space-bar" style="inline-size: var(--v-space-3)"></span></div>
+  <div><code>--v-space-4</code><span class="site-space-bar" style="inline-size: var(--v-space-4)"></span></div>
+  <div><code>--v-space-5</code><span class="site-space-bar" style="inline-size: var(--v-space-5)"></span></div>
+  <div><code>--v-space-6</code><span class="site-space-bar" style="inline-size: var(--v-space-6)"></span></div>
+  <div><code>--v-space-7</code><span class="site-space-bar" style="inline-size: var(--v-space-7)"></span></div>
+  <div><code>--v-space-8</code><span class="site-space-bar" style="inline-size: var(--v-space-8)"></span></div>
+</div>
+<p>From 0.25rem to 4.5rem at the default density. <code>--v-control-h</code> (buttons, inputs) scales by half as much, so compact forms stay easy to tap.</p>
+<h2>Density</h2>
+<p><code>data-density="compact"</code> on <code>&lt;html&gt;</code> sets <code>--v-density: 0.85</code>, <code>"spacious"</code> sets 1.15. Set the property yourself on any element to tighten one area, such as a data-heavy panel.</p>
+<template data-demo="Density on one area" data-layout="stack" data-height="230">
+  <div class="v-cluster" style="--v-density: 0.85">
+    <button class="v-btn v-btn-secondary" type="button">Compact</button>
+    <span class="v-badge">0.85</span>
+  </div>
+  <div class="v-cluster">
+    <button class="v-btn v-btn-secondary" type="button">Default</button>
+    <span class="v-badge">1</span>
+  </div>
+  <div class="v-cluster" style="--v-density: 1.15">
+    <button class="v-btn v-btn-secondary" type="button">Spacious</button>
+    <span class="v-badge">1.15</span>
+  </div>
+</template>

@@ -1,0 +1,95 @@
+{
+  "name": "Testimonial",
+  "slug": "testimonial",
+  "group": "Content",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A customer quote with the author, their avatar and role, and an optional star rating.",
+  "description": "Combine it with .v-card for a surface in a grid, or use the large modifier for a single centred pull-quote. Only quote real people, with their permission.",
+  "native": "<figure>, <blockquote>, <figcaption>",
+  "catalogue": [
+    "Blockquote / testimonial"
+  ],
+  "css": [
+    "testimonial.css"
+  ],
+  "classes": [
+    {
+      "name": "v-testimonial",
+      "kind": "base",
+      "description": "The <figure>: stacks rating, quote and author."
+    },
+    {
+      "name": "v-testimonial-lg",
+      "kind": "modifier",
+      "description": "A centred pull-quote with a large opening mark and display type."
+    },
+    {
+      "name": "v-testimonial-quote",
+      "kind": "part",
+      "description": "The <blockquote>."
+    },
+    {
+      "name": "v-testimonial-author",
+      "kind": "part",
+      "description": "The <figcaption>: avatar, name and role in a row, pushed to the bottom of the card."
+    },
+    {
+      "name": "v-testimonial-name",
+      "kind": "part",
+      "description": "The person's name."
+    },
+    {
+      "name": "v-testimonial-role",
+      "kind": "part",
+      "description": "Their role and company, in secondary text."
+    },
+    {
+      "name": "v-rating",
+      "kind": "part",
+      "description": "Five stars, display only. Set --v-rating from 0 to 5; halves are allowed."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "role=\"img\" aria-label",
+      "description": "On .v-rating: the stars are painted with CSS, so the label carries the score, e.g. \"Rated 4 out of 5\"."
+    }
+  ],
+  "a11y": [
+    "A <figure> with a <blockquote> and a <figcaption> ties the quote to its author for screen readers.",
+    "The rating has no text of its own: always give it role=\"img\" and an aria-label with the score.",
+    "Mark the initials avatar aria-hidden=\"true\", the name follows straight after it.",
+    "The large opening quote mark is generated with an empty alternative, so it is not read out."
+  ],
+  "tokens": [
+    "--v-rating",
+    "--v-rating-size",
+    "--v-warning",
+    "--v-border-strong",
+    "--v-accent",
+    "--v-font-serif"
+  ],
+  "related": [
+    "avatar",
+    "card",
+    "figure",
+    "logo-cloud"
+  ],
+  "examples": [
+    {
+      "title": "Cards with ratings",
+      "html": "<div class=\"v-grid\" style=\"--v-min: 16rem\">\n  <figure class=\"v-card v-testimonial\">\n    <span class=\"v-rating\" role=\"img\" aria-label=\"Rated 5 out of 5\"></span>\n    <blockquote class=\"v-testimonial-quote\"><p>The new site paid for itself in the first month. Half our calls now say they found us on Google.</p></blockquote>\n    <figcaption class=\"v-testimonial-author\">\n      <span class=\"v-avatar\" aria-hidden=\"true\">SM</span>\n      <span><span class=\"v-testimonial-name\">Seán Murphy</span><span class=\"v-testimonial-role\">Owner, Harbour Roofing</span></span>\n    </figcaption>\n  </figure>\n  <figure class=\"v-card v-testimonial\">\n    <span class=\"v-rating\" role=\"img\" aria-label=\"Rated 4.5 out of 5\" style=\"--v-rating: 4.5\"></span>\n    <blockquote class=\"v-testimonial-quote\"><p>Clear prices, no surprises, and I can change the opening hours myself.</p></blockquote>\n    <figcaption class=\"v-testimonial-author\">\n      <span class=\"v-avatar\" aria-hidden=\"true\">NB</span>\n      <span><span class=\"v-testimonial-name\">Niamh Brennan</span><span class=\"v-testimonial-role\">Manager, The Quay Bar</span></span>\n    </figcaption>\n  </figure>\n  <figure class=\"v-card v-testimonial\">\n    <span class=\"v-rating\" role=\"img\" aria-label=\"Rated 4 out of 5\" style=\"--v-rating: 4\"></span>\n    <blockquote class=\"v-testimonial-quote\"><p>Promos go out to the right DJs and the splits are paid the same day.</p></blockquote>\n    <figcaption class=\"v-testimonial-author\">\n      <span class=\"v-avatar\" aria-hidden=\"true\">LV</span>\n      <span><span class=\"v-testimonial-name\">Luca Valenti</span><span class=\"v-testimonial-role\">A&amp;R, independent label</span></span>\n    </figcaption>\n  </figure>\n</div>",
+      "layout": "fill",
+      "height": 300,
+      "source": "examples/content/#testimonials"
+    },
+    {
+      "title": "Large pull-quote",
+      "html": "<figure class=\"v-testimonial v-testimonial-lg\">\n  <blockquote class=\"v-testimonial-quote\"><p>We stopped apologising for our website. Now we send people to it.</p></blockquote>\n  <figcaption class=\"v-testimonial-author\">\n    <span class=\"v-avatar v-avatar-lg\" aria-hidden=\"true\">RM</span>\n    <span><span class=\"v-testimonial-name\">Róisín Moran</span><span class=\"v-testimonial-role\">Director, Westshore Cleaning</span></span>\n  </figcaption>\n</figure>",
+      "layout": "center",
+      "height": 300,
+      "source": "examples/content/#testimonials"
+    }
+  ]
+}

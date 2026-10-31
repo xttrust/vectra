@@ -31,11 +31,24 @@ npm run serve
 
 Then open http://127.0.0.1:4173/prototype/. Use the switcher or the **Customize** panel to change direction, mode, accent, corners, density and typeface.
 
+## Docs site
+
+The docs site is generated from `site/` by `build/site.mjs` (plain Node, no dependencies) into `site/dist/`, using the built kit itself. Component pages come from one data file per component in `site/data/components/`, checked against `site/data/component.schema.json`, the catalogue, the built CSS and the JS hooks by `npm run site:check`.
+
+```sh
+npm run build        # the kit, into dist/
+npm run site         # the site, into site/dist/
+npm run serve        # then open http://127.0.0.1:4173/site/dist/
+```
+
+Every URL in the site is relative, so it works under any base path. It is deployed to GitHub Pages (https://xttrust.github.io/vectra/) by `.github/workflows/pages.yml`, only when a release is published or the workflow is run by hand.
+
 ## Development
 
 | Command | What it does |
 |---|---|
 | `npm run check` | Lint, build, size budgets, external-URL check, browser floor check |
+| `npm run site:check` | Validate the component data, build the docs site and check every page (one h1, landmarks, links, no external URLs) |
 | `npm test` | Accessibility, contrast sweep and keyboard tests in Chromium |
 | `npm run build:icons` | Copy the icons listed in `src/icons/icons.json` from Lucide into `src/icons/svg/`, then build the sprite |
 | `npm run build:fonts` | Re-make the Inter subsets in `src/fonts/` (only needed when the ranges or features change) |

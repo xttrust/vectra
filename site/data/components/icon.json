@@ -1,0 +1,54 @@
+{
+  "name": "Icon",
+  "slug": "icon",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "An SVG icon from the Vectra sprite, drawn with <use>, that takes the text colour and scales with the font size.",
+  "description": "About 150 icons ship in dist/icons/sprite.svg, drawn from Lucide (ISC). Reference one by name; to ship only the ones a site uses, run npx vectra-icons \"pages/**/*.html\" --out icons.subset.svg. There is no icon font and no CDN.",
+  "native": "<svg><use href>",
+  "catalogue": [
+    "Icon"
+  ],
+  "css": [],
+  "classes": [
+    {
+      "name": "v-icon",
+      "kind": "base",
+      "description": "Sizes the svg to 1.15em, strokes it in currentcolor and stops it shrinking in flex rows. Components such as buttons and badges resize it to fit."
+    }
+  ],
+  "a11y": [
+    "Mark an icon next to text aria-hidden=\"true\", so it is not read.",
+    "An icon that is the only content of a button needs an aria-label on the button.",
+    "A standalone icon that carries meaning needs role=\"img\" and an aria-label on the svg.",
+    "Icons use currentcolor, so they follow the text colour and switch with forced colours mode."
+  ],
+  "tokens": [],
+  "related": [
+    "icon-button",
+    "button",
+    "empty-state",
+    "badge"
+  ],
+  "examples": [
+    {
+      "title": "Usage",
+      "html": "<svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg>\n<svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#settings\"/></svg>\n<svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#download\"/></svg>\n<svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#heart\"/></svg>\n<svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#warning\"/></svg>\n<svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>",
+      "height": 90,
+      "source": "examples/icons/#usage"
+    },
+    {
+      "title": "In buttons",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg>Search</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#download\"/></svg>Download</button>\n<button class=\"v-btn v-btn-ghost v-btn-icon\" type=\"button\" aria-label=\"Settings\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#settings\"/></svg></button>",
+      "height": 100,
+      "source": "examples/icons/#usage"
+    },
+    {
+      "title": "Size and colour",
+      "description": "An icon is 1.15em, so set font-size to resize it and color to recolour it.",
+      "html": "<span style=\"font-size: 2rem\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg></span>\n<span style=\"font-size: 2rem; color: var(--v-success)\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#success\"/></svg></span>\n<span style=\"font-size: 2rem; color: var(--v-danger)\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#error\"/></svg></span>\n<svg class=\"v-icon\" role=\"img\" aria-label=\"Warning\" style=\"font-size: 2rem; color: var(--v-warning)\"><use href=\"/icons/sprite.svg#warning\"/></svg>",
+      "height": 110
+    }
+  ]
+}
