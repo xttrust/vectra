@@ -10,8 +10,14 @@
   "engines": {
     "node": ">=22"
   },
+  "bin": {
+    "vectra-icons": "build/icons-subset.mjs"
+  },
   "scripts": {
-    "build": "node build/build.mjs",
+    "build": "node build/build.mjs && node build/icons.mjs",
+    "build:icons": "node build/icons.mjs --sync",
+    "build:fonts": "node build/fonts.mjs",
+    "icons": "node build/icons-subset.mjs",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:js": "eslint .",
     "lint": "npm run lint:css && npm run lint:js",
@@ -38,9 +44,12 @@
     "esbuild": "0.28.2",
     "eslint": "10.13.0",
     "globals": "17.13.0",
+    "inter-ui": "4.1.1",
     "lightningcss": "1.33.0",
+    "lucide-static": "1.65.0",
     "stylelint": "17.16.0",
-    "stylelint-config-standard": "40.0.0"
+    "stylelint-config-standard": "40.0.0",
+    "subset-font": "2.9.0"
   },
   "homepage": "https://xttrust.github.io/vectra/"
 }

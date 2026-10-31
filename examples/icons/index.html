@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Icons</title>
+  <meta name="description" content="The Vectra icon sprite: every icon, its name and how to use it.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+  <style>
+    .ex-icons {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+      gap: var(--v-space-3);
+      padding: 0;
+      list-style: none;
+    }
+
+    .ex-icons li {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: var(--v-space-2) var(--v-space-3);
+      align-items: center;
+      justify-content: start;
+      padding: var(--v-space-3);
+      border: var(--v-border-w) solid var(--v-card-border);
+      border-radius: var(--v-radius-md);
+      background: var(--v-card-bg);
+    }
+
+    .ex-icons code { grid-column: 1 / -1; color: var(--v-text-2); font-size: 0.75rem; }
+    .ex-icon-lg { inline-size: 2rem; block-size: 2rem; }
+  </style>
+</head>
+<body>
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../components/">Vectra <span>icons</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">Icons</p>
+      <h1 class="v-display">One sprite, no icon font.</h1>
+      <p class="v-lead">Every icon in <code>dist/icons/sprite.svg</code>, drawn from Lucide (ISC). Icons take the text colour and scale with the font size.</p>
+    </section>
+
+    <section id="usage">
+      <h2>Usage</h2>
+      <div class="v-stack">
+        <p>Reference a symbol by name. Add <code>aria-hidden="true"</code> when the icon sits next to text, or give the button an <code>aria-label</code> when it is the only content.</p>
+        <div class="v-code">
+          <div class="v-code-header"><span class="v-code-lang">HTML</span></div>
+          <pre class="v-code-body" tabindex="0"><code>&lt;svg class="v-icon" aria-hidden="true"&gt;&lt;use href="/icons/sprite.svg#search"/&gt;&lt;/svg&gt;</code></pre>
+        </div>
+        <p>Ship only the icons a site uses: <code>npx vectra-icons "pages/**/*.html" --out icons.subset.svg</code> writes a sprite with the symbols those pages reference.</p>
+        <div class="v-cluster">
+          <button class="v-btn v-btn-primary" type="button"><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#search"/></svg>Search</button>
+          <button class="v-btn v-btn-secondary" type="button"><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#download"/></svg>Download</button>
+          <button class="v-btn v-btn-ghost v-btn-icon" type="button" aria-label="Settings"><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#settings"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="all">
+      <h2>All icons</h2>
+      <ul class="ex-icons">
+        <!-- icons:start -->
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#accessibility"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#accessibility"/></svg><code>accessibility</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#activity"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#activity"/></svg><code>activity</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#alert"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#alert"/></svg><code>alert</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#archive"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#archive"/></svg><code>archive</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#arrow-down"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#arrow-down"/></svg><code>arrow-down</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#arrow-left"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#arrow-left"/></svg><code>arrow-left</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#arrow-right"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#arrow-right"/></svg><code>arrow-right</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#arrow-up"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#arrow-up"/></svg><code>arrow-up</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#arrow-up-right"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#arrow-up-right"/></svg><code>arrow-up-right</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#at-sign"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#at-sign"/></svg><code>at-sign</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#award"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#award"/></svg><code>award</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#bag"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#bag"/></svg><code>bag</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#ban"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#ban"/></svg><code>ban</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#bell"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#bell"/></svg><code>bell</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#bell-off"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#bell-off"/></svg><code>bell-off</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#bold"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#bold"/></svg><code>bold</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#book-open"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#book-open"/></svg><code>book-open</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#bookmark"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#bookmark"/></svg><code>bookmark</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#building"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#building"/></svg><code>building</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#calendar"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#calendar"/></svg><code>calendar</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#camera"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#camera"/></svg><code>camera</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#cart"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#cart"/></svg><code>cart</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chart-bar"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chart-bar"/></svg><code>chart-bar</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chart-line"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chart-line"/></svg><code>chart-line</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chat"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chat"/></svg><code>chat</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#check"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#check"/></svg><code>check</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#checkbox"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#checkbox"/></svg><code>checkbox</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chevron-down"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chevron-down"/></svg><code>chevron-down</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chevron-left"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chevron-left"/></svg><code>chevron-left</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chevron-right"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chevron-right"/></svg><code>chevron-right</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chevron-up"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chevron-up"/></svg><code>chevron-up</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chevrons-left"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chevrons-left"/></svg><code>chevrons-left</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chevrons-right"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chevrons-right"/></svg><code>chevrons-right</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#chevrons-up-down"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#chevrons-up-down"/></svg><code>chevrons-up-down</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#clipboard"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#clipboard"/></svg><code>clipboard</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#clipboard-check"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#clipboard-check"/></svg><code>clipboard-check</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#clock"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#clock"/></svg><code>clock</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#close"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#close"/></svg><code>close</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#code"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#code"/></svg><code>code</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#compass"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#compass"/></svg><code>compass</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#copy"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#copy"/></svg><code>copy</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#credit-card"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#credit-card"/></svg><code>credit-card</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#dashboard"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#dashboard"/></svg><code>dashboard</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#database"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#database"/></svg><code>database</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#disc"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#disc"/></svg><code>disc</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#dollar"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#dollar"/></svg><code>dollar</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#download"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#download"/></svg><code>download</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#drag"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#drag"/></svg><code>drag</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#edit"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#edit"/></svg><code>edit</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#edit-square"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#edit-square"/></svg><code>edit-square</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#enter"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#enter"/></svg><code>enter</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#error"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#error"/></svg><code>error</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#euro"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#euro"/></svg><code>euro</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#external"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#external"/></svg><code>external</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#eye"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#eye"/></svg><code>eye</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#eye-off"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#eye-off"/></svg><code>eye-off</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#file"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#file"/></svg><code>file</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#file-text"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#file-text"/></svg><code>file-text</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#filter"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#filter"/></svg><code>filter</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#flag"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#flag"/></svg><code>flag</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#folder"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#folder"/></svg><code>folder</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#folder-open"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#folder-open"/></svg><code>folder-open</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#gift"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#gift"/></svg><code>gift</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#globe"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#globe"/></svg><code>globe</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#grid"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#grid"/></svg><code>grid</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#hash"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#hash"/></svg><code>hash</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#headphones"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#headphones"/></svg><code>headphones</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#heart"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#heart"/></svg><code>heart</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#help"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#help"/></svg><code>help</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#history"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#history"/></svg><code>history</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#home"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#home"/></svg><code>home</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#image"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#image"/></svg><code>image</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#inbox"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#inbox"/></svg><code>inbox</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#info"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#info"/></svg><code>info</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#italic"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#italic"/></svg><code>italic</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#key"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#key"/></svg><code>key</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#languages"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#languages"/></svg><code>languages</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#laptop"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#laptop"/></svg><code>laptop</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#layers"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#layers"/></svg><code>layers</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#lightbulb"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#lightbulb"/></svg><code>lightbulb</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#link"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#link"/></svg><code>link</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#list"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#list"/></svg><code>list</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#list-ordered"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#list-ordered"/></svg><code>list-ordered</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#loader"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#loader"/></svg><code>loader</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#lock"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#lock"/></svg><code>lock</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#log-in"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#log-in"/></svg><code>log-in</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#log-out"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#log-out"/></svg><code>log-out</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#mail"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#mail"/></svg><code>mail</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#map"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#map"/></svg><code>map</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#map-pin"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#map-pin"/></svg><code>map-pin</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#maximize"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#maximize"/></svg><code>maximize</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#menu"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#menu"/></svg><code>menu</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#message"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#message"/></svg><code>message</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#mic"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#mic"/></svg><code>mic</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#mic-off"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#mic-off"/></svg><code>mic-off</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#minimize"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#minimize"/></svg><code>minimize</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#minus"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#minus"/></svg><code>minus</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#monitor"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#monitor"/></svg><code>monitor</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#moon"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#moon"/></svg><code>moon</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#more"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#more"/></svg><code>more</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#more-vertical"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#more-vertical"/></svg><code>more-vertical</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#music"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#music"/></svg><code>music</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#package"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#package"/></svg><code>package</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#palette"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#palette"/></svg><code>palette</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#paperclip"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#paperclip"/></svg><code>paperclip</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#pause"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#pause"/></svg><code>pause</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#percent"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#percent"/></svg><code>percent</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#phone"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#phone"/></svg><code>phone</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#play"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#play"/></svg><code>play</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#plus"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#plus"/></svg><code>plus</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#plus-circle"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#plus-circle"/></svg><code>plus-circle</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#power"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#power"/></svg><code>power</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#qr-code"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#qr-code"/></svg><code>qr-code</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#quote"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#quote"/></svg><code>quote</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#redo"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#redo"/></svg><code>redo</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#refresh"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#refresh"/></svg><code>refresh</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#reset"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#reset"/></svg><code>reset</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#save"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#save"/></svg><code>save</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#search"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#search"/></svg><code>search</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#send"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#send"/></svg><code>send</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#settings"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#settings"/></svg><code>settings</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#share"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#share"/></svg><code>share</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#shield"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#shield"/></svg><code>shield</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#shield-check"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#shield-check"/></svg><code>shield-check</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#sidebar"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#sidebar"/></svg><code>sidebar</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#sliders"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#sliders"/></svg><code>sliders</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#smartphone"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#smartphone"/></svg><code>smartphone</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#sort"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#sort"/></svg><code>sort</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#sort-asc"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#sort-asc"/></svg><code>sort-asc</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#sort-desc"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#sort-desc"/></svg><code>sort-desc</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#sparkles"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#sparkles"/></svg><code>sparkles</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#spinner"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#spinner"/></svg><code>spinner</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#star"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#star"/></svg><code>star</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#store"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#store"/></svg><code>store</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#success"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#success"/></svg><code>success</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#sun"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#sun"/></svg><code>sun</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#table"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#table"/></svg><code>table</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#tag"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#tag"/></svg><code>tag</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#terminal"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#terminal"/></svg><code>terminal</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#theme"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#theme"/></svg><code>theme</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#thumbs-down"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#thumbs-down"/></svg><code>thumbs-down</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#thumbs-up"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#thumbs-up"/></svg><code>thumbs-up</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#trash"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#trash"/></svg><code>trash</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#trending-up"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#trending-up"/></svg><code>trending-up</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#truck"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#truck"/></svg><code>truck</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#undo"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#undo"/></svg><code>undo</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#unlock"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#unlock"/></svg><code>unlock</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#upload"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#upload"/></svg><code>upload</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#upload-cloud"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#upload-cloud"/></svg><code>upload-cloud</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#user"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#user"/></svg><code>user</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#user-check"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#user-check"/></svg><code>user-check</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#user-circle"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#user-circle"/></svg><code>user-circle</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#user-plus"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#user-plus"/></svg><code>user-plus</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#users"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#users"/></svg><code>users</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#video"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#video"/></svg><code>video</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#volume"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#volume"/></svg><code>volume</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#volume-off"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#volume-off"/></svg><code>volume-off</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#wallet"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#wallet"/></svg><code>wallet</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#warning"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#warning"/></svg><code>warning</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#wifi"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#wifi"/></svg><code>wifi</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#wifi-off"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#wifi-off"/></svg><code>wifi-off</code></li>
+        <li><svg class="v-icon" aria-hidden="true"><use href="sprite.svg#zap"/></svg><svg class="v-icon ex-icon-lg" aria-hidden="true"><use href="sprite.svg#zap"/></svg><code>zap</code></li>
+        <!-- icons:end -->
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
