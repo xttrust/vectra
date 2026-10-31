@@ -1,0 +1,66 @@
+/* Status indicator: a dot with a label (online, busy, away, offline). The label carries the meaning;
+   offline is a hollow ring so it differs by shape too. .v-status-pulse adds a slow ring, which stops
+   under prefers-reduced-motion (base.css). On an avatar: wrap both in .v-status-avatar and keep the
+   label as .v-sr-only text inside the .v-status. */
+@layer components {
+  .v-status {
+    --v-status-color: var(--v-success);
+    --v-status-size: 0.55rem;
+
+    display: inline-flex;
+    gap: 0.45em;
+    align-items: center;
+    color: var(--v-text-2);
+    font-size: 0.875rem;
+  }
+
+  .v-status::before {
+    content: "";
+    flex: none;
+    inline-size: var(--v-status-size);
+    block-size: var(--v-status-size);
+    border: 2px solid var(--v-status-color);
+    border-radius: 50%;
+    background-color: var(--v-status-color);
+  }
+
+  .v-status-busy { --v-status-color: var(--v-danger); }
+  .v-status-away { --v-status-color: var(--v-warning); }
+  .v-status-offline { --v-status-color: var(--v-text-3); }
+  .v-status-offline::before { background-color: transparent; }
+  .v-status-pulse::before { animation: v-status-pulse 2s var(--v-ease-out) infinite; }
+
+  @keyframes v-status-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--v-status-color) 55%, transparent); }
+    70%, 100% { box-shadow: 0 0 0 0.45rem transparent; }
+  }
+
+  /* On an avatar: the dot sits on the end corner with a ring in the surface colour. */
+  .v-status-avatar {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+  }
+
+  .v-status-avatar > .v-status {
+    --v-status-size: 0.75rem;
+
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+  }
+
+  .v-status-avatar > .v-status::before { outline: 2px solid var(--v-surface); }
+  .v-status-avatar > .v-status-offline::before { background-color: var(--v-surface); }
+
+  @media (forced-colors: active) {
+    .v-status::before {
+      border-color: CanvasText;
+      background-color: CanvasText;
+      forced-color-adjust: none;
+    }
+
+    .v-status-offline::before,
+    .v-status-avatar > .v-status-offline::before { background-color: Canvas; }
+  }
+}

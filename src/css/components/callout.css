@@ -1,0 +1,54 @@
+/* Callout: a docs-style aside inside long-form content. Types: note (default), tip, warning, danger.
+   Markup: <aside class="v-callout v-callout-tip"><p class="v-callout-title"><svg class="v-icon">..</svg>Tip</p>
+   <p>Body text</p></aside>. The title names the type, so it never rests on colour. */
+@layer components {
+  .v-callout {
+    --v-tone: var(--v-info);
+    --v-tone-soft: var(--v-info-soft);
+
+    display: grid;
+    gap: var(--v-space-2);
+    padding: var(--v-space-4) var(--v-space-5);
+    border-inline-start: 4px solid var(--v-tone);
+    border-start-end-radius: var(--v-radius-md);
+    border-end-end-radius: var(--v-radius-md);
+    background-color: var(--v-tone-soft);
+    color: var(--v-text-2);
+    font-size: 0.9375rem;
+  }
+
+  .v-callout > * { margin: 0; }
+
+  .v-callout-title {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    color: var(--v-tone);
+    font-weight: 650;
+  }
+
+  .v-callout-tip {
+    --v-tone: var(--v-success);
+    --v-tone-soft: var(--v-success-soft);
+  }
+
+  .v-callout-warning {
+    --v-tone: var(--v-warning);
+    --v-tone-soft: var(--v-warning-soft);
+  }
+
+  .v-callout-danger {
+    --v-tone: var(--v-danger);
+    --v-tone-soft: var(--v-danger-soft);
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-callout { background-color: transparent; }
+
+  :root[data-direction="editorial"] .v-callout-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+}

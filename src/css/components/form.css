@@ -1,0 +1,95 @@
+/* Form layouts. .v-form stacks fields and is a size container, so the layouts inside respond to the
+   space the form actually has (a sidebar, a card, a dialog), not to the window.
+   - .v-form-grid: two columns from 36rem, one below; .v-form-full spans both.
+   - .v-form-section: settings rows, the section's title and description beside its fields from 48rem.
+   - .v-form-inline: fields and buttons on one wrapping row, aligned on the control baseline.
+   - .v-form-actions: the submit row, buttons at the end. */
+@layer components {
+  .v-form {
+    display: grid;
+    gap: var(--v-space-5);
+    container-type: inline-size;
+  }
+
+  .v-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--v-space-4) var(--v-space-5);
+  }
+
+  .v-form-section {
+    display: grid;
+    gap: var(--v-space-4) var(--v-space-7);
+    padding-block-start: var(--v-space-5);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  .v-form-section:first-child {
+    padding-block-start: 0;
+    border-block-start: 0;
+  }
+
+  .v-form-section-header {
+    display: grid;
+    gap: var(--v-space-1);
+    align-content: start;
+  }
+
+  .v-form-section-title {
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+    line-height: 1.25;
+  }
+
+  .v-form-section-text {
+    color: var(--v-text-2);
+    font-size: 0.875rem;
+  }
+
+  /* Also a container, so a .v-form-grid inside a section responds to the section's own column. */
+  .v-form-section-body {
+    display: grid;
+    gap: var(--v-space-4);
+    min-inline-size: 0;
+    container-type: inline-size;
+  }
+
+  @container (width >= 36rem) {
+    .v-form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .v-form-full { grid-column: 1 / -1; }
+  }
+
+  @container (width >= 48rem) {
+    .v-form-section { grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr); }
+  }
+
+  .v-form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3);
+    align-items: flex-end;
+  }
+
+  .v-form-inline > .v-field { flex: 1 1 12rem; }
+  .v-form-inline > :is(.v-btn, .v-choice) { flex: none; }
+  .v-form-inline > .v-choice { align-self: center; }
+
+  .v-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-3);
+    align-items: center;
+    justify-content: flex-end;
+    padding-block-start: var(--v-space-4);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  /* A leading note or secondary action sits at the start of the row. */
+  .v-form-actions > .v-form-actions-start { margin-inline-end: auto; }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-form-section-title { font-size: var(--v-step-2); }
+}

@@ -1,0 +1,33 @@
+/* Search field, built on the input group: <div class="v-input-group v-search"> with a leading icon
+   addon, an <input class="v-input" type="search" placeholder="..">, an optional clear button
+   (.v-search-clear) and an optional shortcut hint (.v-search-hint holding a .v-kbd).
+   The input needs a placeholder: the clear button shows only once there is text, and the hint
+   hides while the field is focused or filled. M4 adds the clear and shortcut behaviour. */
+@layer components {
+  .v-search > .v-input::-webkit-search-cancel-button { display: none; }
+  .v-search > .v-input-addon { color: var(--v-text-3); }
+
+  .v-search > .v-search-clear { color: var(--v-text-2); }
+
+  .v-search-hint {
+    display: flex;
+    flex: none;
+    gap: 0.25rem;
+    align-items: center;
+    padding-inline: 0.25rem 0.6rem;
+    pointer-events: none;
+  }
+
+  .v-search:has(> .v-input:placeholder-shown) > .v-search-clear,
+  .v-search:has(> .v-input:is(:focus, :not(:placeholder-shown))) > .v-search-hint {
+    display: none;
+  }
+
+  /* Pill-shaped search, common in headers. */
+  .v-search-pill { border-radius: var(--v-radius-pill); }
+  .v-search-pill > .v-input-addon:first-child { padding-inline-start: 1rem; }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-search-pill { border-radius: 0; }
+}

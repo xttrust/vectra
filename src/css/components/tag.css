@@ -1,0 +1,147 @@
+/* Tags (chips): short labels that can be removed or selected.
+   Removable: put a <button class="v-tag-remove" aria-label="Remove Galway"> inside (M4 wires removal).
+   Selectable: <label class="v-tag"> around a checkbox, or <button class="v-tag" aria-pressed>.
+   A selected tag fills with the accent and gains a check mark, so the state never rests on colour. */
+@layer components {
+  .v-tag {
+    --v-tag-border: var(--v-border-strong);
+
+    position: relative;
+    display: inline-flex;
+    gap: 0.35em;
+    align-items: center;
+    min-block-size: 1.75rem;
+    padding: 0.15rem 0.7rem;
+    border: var(--v-border-w) solid var(--v-tag-border);
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-surface-2);
+    color: var(--v-text-2);
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 540;
+    line-height: 1.3;
+    white-space: nowrap;
+    transition: background-color var(--v-dur-1), border-color var(--v-dur-1), color var(--v-dur-1);
+  }
+
+  .v-tag .v-icon {
+    inline-size: 1.05em;
+    block-size: 1.05em;
+  }
+
+  .v-tag-accent {
+    --v-tag-border: color-mix(in oklch, var(--v-accent) 35%, transparent);
+
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+  }
+
+  .v-tag-success {
+    --v-tag-border: color-mix(in oklch, var(--v-success) 35%, transparent);
+
+    background-color: var(--v-success-soft);
+    color: var(--v-success);
+  }
+
+  .v-tag-warning {
+    --v-tag-border: color-mix(in oklch, var(--v-warning) 35%, transparent);
+
+    background-color: var(--v-warning-soft);
+    color: var(--v-warning);
+  }
+
+  .v-tag-danger {
+    --v-tag-border: color-mix(in oklch, var(--v-danger) 35%, transparent);
+
+    background-color: var(--v-danger-soft);
+    color: var(--v-danger);
+  }
+
+  .v-tag-info {
+    --v-tag-border: color-mix(in oklch, var(--v-info) 35%, transparent);
+
+    background-color: var(--v-info-soft);
+    color: var(--v-info);
+  }
+
+  /* Remove button: a 24px target that hangs into the tag's end padding. */
+  .v-tag-remove {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    margin-block: -0.25rem;
+    margin-inline: -0.1rem -0.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .v-tag-remove:hover { background-color: color-mix(in oklch, currentcolor 14%, transparent); }
+  .v-tag-remove:focus-visible { outline-offset: 0; }
+
+  /* Selectable tags are controls, so their border meets 3:1. */
+  :is(label.v-tag, button.v-tag) {
+    --v-tag-border: var(--v-border-control);
+
+    cursor: pointer;
+  }
+
+  :where(label.v-tag, button.v-tag):hover { color: var(--v-text); }
+
+  label.v-tag input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  .v-tag:is(:has(:checked), [aria-pressed="true"]) {
+    --v-tag-border: var(--v-accent);
+
+    background-color: var(--v-accent);
+    color: var(--v-on-accent);
+  }
+
+  .v-tag:is(:has(:checked), [aria-pressed="true"])::before {
+    content: "";
+    flex: none;
+    inline-size: 0.9em;
+    block-size: 0.9em;
+    margin-inline-start: -0.15em;
+    background-color: currentcolor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .v-tag:has(:focus-visible) {
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 2px;
+  }
+
+  .v-tag:has(:disabled),
+  button.v-tag:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  @media (forced-colors: active) {
+    .v-tag:is(:has(:checked), [aria-pressed="true"]) {
+      border-color: Highlight;
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
+    }
+
+    .v-tag:is(:has(:checked), [aria-pressed="true"])::before { background-color: HighlightText; }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-tag { letter-spacing: 0.03em; }
+  :root[data-direction="glass"] .v-tag { backdrop-filter: blur(12px); }
+}

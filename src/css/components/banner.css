@@ -1,0 +1,76 @@
+/* Banner: a page-level, full-width message strip (maintenance, trial ending, new feature).
+   Tones: info (default), success, warning, danger, accent. Parts: an icon, .v-banner-body,
+   .v-banner-actions, and a dismiss button slot (.v-banner-dismiss, wired up in M4).
+   Use role="status" for news; role="alert" only when the message must interrupt. */
+@layer components {
+  .v-banner {
+    --v-tone: var(--v-info);
+    --v-tone-soft: var(--v-info-soft);
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2) var(--v-space-4);
+    align-items: center;
+    padding: var(--v-space-3) var(--v-space-4);
+    border-block: var(--v-border-w) solid color-mix(in oklch, var(--v-tone) 28%, transparent);
+    background: linear-gradient(var(--v-tone-soft), var(--v-tone-soft)), var(--v-surface);
+    color: var(--v-text);
+    font-size: 0.9375rem;
+  }
+
+  .v-banner > .v-icon { color: var(--v-tone); }
+
+  .v-banner-body {
+    flex: 1 1 12rem;
+    min-inline-size: 0;
+  }
+
+  .v-banner-body strong { font-weight: 620; }
+
+  .v-banner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2);
+    align-items: center;
+  }
+
+  /* The dismiss button stays in the top end corner, however the rest wraps. */
+  .v-banner:has(> .v-banner-dismiss) {
+    position: relative;
+    padding-inline-end: 3.25rem;
+  }
+
+  .v-banner > .v-banner-dismiss {
+    position: absolute;
+    inset-block-start: calc(var(--v-space-3) - 0.3rem);
+    inset-inline-end: var(--v-space-3);
+  }
+
+  .v-banner-success {
+    --v-tone: var(--v-success);
+    --v-tone-soft: var(--v-success-soft);
+  }
+
+  .v-banner-warning {
+    --v-tone: var(--v-warning);
+    --v-tone-soft: var(--v-warning-soft);
+  }
+
+  .v-banner-danger {
+    --v-tone: var(--v-danger);
+    --v-tone-soft: var(--v-danger-soft);
+  }
+
+  .v-banner-accent {
+    --v-tone: var(--v-accent-text);
+    --v-tone-soft: var(--v-accent-soft);
+  }
+}
+
+@layer directions {
+  /* Editorial: a single heavy rule under the strip, in the tone. */
+  :root[data-direction="editorial"] .v-banner {
+    border-block-width: 0 2px;
+    border-block-end-color: var(--v-tone);
+  }
+}

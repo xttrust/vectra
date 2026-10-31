@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · Elements</title>
+  <meta name="description" content="Vectra display, feedback and form additions in every direction and theme.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.8"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-octagon" viewBox="0 0 24 24"><path d="M8 3h8l5 5v8l-5 5H8l-5-5V8z"/><path d="M12 8v5M12 16h.01"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-bold" viewBox="0 0 24 24"><path d="M7 4h6a4 4 0 0 1 0 8H7zM7 12h7a4 4 0 0 1 0 8H7z"/></symbol>
+    <symbol id="i-italic" viewBox="0 0 24 24"><path d="M14 4h-4M14 20h-4M14 4l-4 16"/></symbol>
+    <symbol id="i-underline" viewBox="0 0 24 24"><path d="M7 4v7a5 5 0 0 0 10 0V4M5 20h14"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 9.5V20h14V9.5"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2M9 15l-3-3c1-4 5-9 13-9 0 8-5 12-9 13z"/><circle cx="14.5" cy="9.5" r="1.5"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9h16M9 20v-6h6v6"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../components/">Vectra <span>elements</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">Components · part 3</p>
+      <h1 class="v-display">Elements.</h1>
+      <p class="v-lead" data-contrast>Panels, lists, tags, keys and status, plus the form patterns real settings pages need. Static CSS; the behaviour arrives with the JS in M4.</p>
+    </section>
+
+    <section id="banners">
+      <h2>Banners</h2>
+      <div class="v-stack" style="--v-gap: var(--v-space-3)">
+        <div class="v-banner" role="status">
+          <svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>
+          <p class="v-banner-body" data-contrast><strong>Scheduled maintenance</strong> on Sunday 8 November from 02:00 to 03:00 GMT.</p>
+          <button class="v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss" type="button" aria-label="Dismiss"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+        </div>
+        <div class="v-banner v-banner-accent" role="status">
+          <svg class="v-icon" aria-hidden="true"><use href="#i-rocket"/></svg>
+          <p class="v-banner-body" data-contrast><strong>New:</strong> live QR tips are here for every artist page.</p>
+          <div class="v-banner-actions">
+            <a class="v-btn v-btn-primary v-btn-sm" href="#banners" data-contrast>See how it works</a>
+          </div>
+          <button class="v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss" type="button" aria-label="Dismiss"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+        </div>
+        <div class="v-banner v-banner-warning" role="status">
+          <svg class="v-icon" aria-hidden="true"><use href="#i-alert"/></svg>
+          <p class="v-banner-body" data-contrast>Your trial ends in 3 days. Add a card to keep your sites online.</p>
+          <div class="v-banner-actions">
+            <a class="v-btn v-btn-secondary v-btn-sm" href="#banners" data-contrast>Add a card</a>
+          </div>
+        </div>
+        <div class="v-banner v-banner-success" role="status">
+          <svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg>
+          <p class="v-banner-body" data-contrast>Migration complete. All 12 accounts moved to the new server.</p>
+        </div>
+        <div class="v-banner v-banner-danger" role="alert">
+          <svg class="v-icon" aria-hidden="true"><use href="#i-octagon"/></svg>
+          <p class="v-banner-body" data-contrast>Payments are failing for some cards. We are on it.</p>
+          <div class="v-banner-actions">
+            <a class="v-btn v-btn-ghost v-btn-sm" href="#banners" data-contrast>Status page</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="callouts">
+      <h2>Callouts</h2>
+      <div class="v-grid" style="--v-min: 18rem">
+        <aside class="v-callout" aria-label="Note">
+          <p class="v-callout-title" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>Note</p>
+          <p data-contrast>Directions ship as separate files. Load one with the core for production.</p>
+        </aside>
+        <aside class="v-callout v-callout-tip" aria-label="Tip">
+          <p class="v-callout-title" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-bulb"/></svg>Tip</p>
+          <p data-contrast>Every docs page has a search shortcut.</p>
+          <p><span data-contrast>Press</span> <kbd class="v-kbd" data-contrast>/</kbd> <span data-contrast>to use it.</span></p>
+        </aside>
+        <aside class="v-callout v-callout-warning" aria-label="Warning">
+          <p class="v-callout-title" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-alert"/></svg>Warning</p>
+          <p data-contrast>Changing the accent hue rebuilds every tint. Check custom colours afterwards.</p>
+        </aside>
+        <aside class="v-callout v-callout-danger" aria-label="Danger">
+          <p class="v-callout-title" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-octagon"/></svg>Danger</p>
+          <p data-contrast>Deleting a site removes its backups too. This cannot be undone.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="toggles">
+      <h2>Toggle buttons and keys</h2>
+      <div class="v-grid" style="--v-min: 26rem">
+        <div class="v-stack" style="--v-gap: var(--v-space-3)">
+          <div class="v-cluster">
+            <button class="v-btn" type="button" aria-pressed="true" data-contrast>Pinned</button>
+            <button class="v-btn" type="button" aria-pressed="false" data-contrast>Pin</button>
+            <button class="v-btn v-btn-secondary" type="button" aria-pressed="true" data-contrast><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg>Starred</button>
+            <button class="v-btn v-btn-ghost v-btn-icon" type="button" aria-pressed="false" aria-label="Favourite"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg></button>
+          </div>
+          <div class="v-cluster"><div class="v-toggle-group" role="group" aria-label="Text style">
+            <button class="v-btn v-btn-sm v-btn-icon" type="button" aria-pressed="true" aria-label="Bold"><svg class="v-icon" aria-hidden="true"><use href="#i-bold"/></svg></button>
+            <button class="v-btn v-btn-sm v-btn-icon" type="button" aria-pressed="false" aria-label="Italic"><svg class="v-icon" aria-hidden="true"><use href="#i-italic"/></svg></button>
+            <button class="v-btn v-btn-sm v-btn-icon" type="button" aria-pressed="true" aria-label="Underline"><svg class="v-icon" aria-hidden="true"><use href="#i-underline"/></svg></button>
+          </div></div>
+          <div class="v-cluster"><div class="v-toggle-group" role="group" aria-label="Show columns">
+            <button class="v-btn v-btn-sm" type="button" aria-pressed="true" data-contrast>Client</button>
+            <button class="v-btn v-btn-sm" type="button" aria-pressed="true" data-contrast>Amount</button>
+            <button class="v-btn v-btn-sm" type="button" aria-pressed="false" data-contrast>Due</button>
+            <button class="v-btn v-btn-sm" type="button" aria-pressed="false" disabled>Notes</button>
+          </div></div>
+        </div>
+        <div class="v-stack" style="--v-gap: var(--v-space-3)">
+          <p><span data-contrast>Open the command palette with</span> <kbd class="v-kbd-combo"><kbd class="v-kbd" data-contrast>Ctrl</kbd>+<kbd class="v-kbd" data-contrast>K</kbd></kbd>.</p>
+          <p><span data-contrast>Save with</span> <kbd class="v-kbd-combo"><kbd class="v-kbd" data-contrast>Cmd</kbd>+<kbd class="v-kbd" data-contrast>S</kbd></kbd>, <span data-contrast>close with</span> <kbd class="v-kbd" data-contrast>Esc</kbd>.</p>
+          <p><span data-contrast>Move between rows with</span> <kbd class="v-kbd" data-contrast>↑</kbd> <kbd class="v-kbd" data-contrast>↓</kbd> <span data-contrast>and open one with</span> <kbd class="v-kbd" data-contrast>Enter</kbd>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tags">
+      <h2>Tags and status</h2>
+      <div class="v-grid" style="--v-min: 26rem">
+        <div class="v-stack" style="--v-gap: var(--v-space-4)">
+          <div class="v-cluster" style="--v-gap: var(--v-space-2)">
+            <span class="v-tag" data-contrast>Roofing</span>
+            <span class="v-tag v-tag-accent" data-contrast>Featured</span>
+            <span class="v-tag v-tag-success" data-contrast>Paid</span>
+            <span class="v-tag v-tag-warning" data-contrast>Overdue</span>
+            <span class="v-tag v-tag-danger" data-contrast>Disputed</span>
+            <span class="v-tag v-tag-info" data-contrast>Draft</span>
+          </div>
+          <div class="v-cluster" style="--v-gap: var(--v-space-2)">
+            <span class="v-tag"><span data-contrast>Galway</span><button class="v-tag-remove" type="button" aria-label="Remove Galway"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
+            <span class="v-tag"><span data-contrast>Mayo</span><button class="v-tag-remove" type="button" aria-label="Remove Mayo"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
+            <span class="v-tag v-tag-accent"><span data-contrast>Clare</span><button class="v-tag-remove" type="button" aria-label="Remove Clare"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
+          </div>
+          <fieldset class="v-fieldset v-fieldset-plain">
+            <legend class="v-legend" data-contrast>Services</legend>
+            <div class="v-cluster" style="--v-gap: var(--v-space-2)">
+              <label class="v-tag"><input type="checkbox" name="svc" value="web" checked><span data-contrast>Web design</span></label>
+              <label class="v-tag"><input type="checkbox" name="svc" value="seo"><span data-contrast>SEO</span></label>
+              <label class="v-tag"><input type="checkbox" name="svc" value="ads" checked><span data-contrast>Google Ads</span></label>
+              <label class="v-tag"><input type="checkbox" name="svc" value="care" disabled><span>Website care</span></label>
+              <button class="v-tag" type="button" aria-pressed="false" data-contrast>Hosting</button>
+            </div>
+          </fieldset>
+        </div>
+        <div class="v-stack" style="--v-gap: var(--v-space-4)">
+          <div class="v-cluster" style="--v-gap: var(--v-space-4)">
+            <span class="v-status"><span data-contrast>Online</span></span>
+            <span class="v-status v-status-busy"><span data-contrast>Busy</span></span>
+            <span class="v-status v-status-away"><span data-contrast>Away</span></span>
+            <span class="v-status v-status-offline"><span data-contrast>Offline</span></span>
+            <span class="v-status v-status-pulse"><span data-contrast>Live now</span></span>
+          </div>
+          <div class="v-cluster" style="--v-gap: var(--v-space-4)">
+            <span class="v-status-avatar"><span class="v-avatar">AK</span><span class="v-status"><span class="v-sr-only">Online</span></span></span>
+            <span class="v-status-avatar"><span class="v-avatar">SM</span><span class="v-status v-status-busy"><span class="v-sr-only">Busy</span></span></span>
+            <span class="v-status-avatar"><span class="v-avatar v-avatar-lg">MG</span><span class="v-status v-status-away"><span class="v-sr-only">Away</span></span></span>
+            <span class="v-status-avatar"><span class="v-avatar v-avatar-square">VM</span><span class="v-status v-status-offline"><span class="v-sr-only">Offline</span></span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="panels">
+      <h2>Panels</h2>
+      <div class="v-grid" style="--v-min: 22rem">
+        <div class="v-panel">
+          <div class="v-panel-header">
+            <h3 class="v-panel-title" data-contrast>Domains</h3>
+            <span class="v-badge v-badge-success" data-contrast>3 active</span>
+          </div>
+          <div class="v-panel-body">
+            <p data-contrast>Point your nameservers to us and SSL is issued within the hour.</p>
+          </div>
+          <div class="v-panel-body">
+            <p data-contrast>Renewals are charged 14 days before expiry.</p>
+          </div>
+          <div class="v-panel-footer">
+            <button class="v-btn v-btn-ghost v-btn-sm" type="button" data-contrast>Cancel</button>
+            <button class="v-btn v-btn-primary v-btn-sm" type="button" data-contrast>Add domain</button>
+          </div>
+        </div>
+        <div class="v-panel">
+          <div class="v-panel-header">
+            <h3 class="v-panel-title" data-contrast>Contact details</h3>
+            <a class="v-btn v-btn-ghost v-btn-sm" href="#panels" data-contrast>Edit</a>
+          </div>
+          <div class="v-panel-body">
+            <dl class="v-dl">
+              <div><dt data-contrast>Business</dt><dd data-contrast>Perform Roofing</dd></div>
+              <div><dt data-contrast>Email</dt><dd data-contrast>office@performroofing.example</dd></div>
+              <div><dt data-contrast>Phone</dt><dd data-contrast>+353 93 555 0142</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="lists">
+      <h2>List groups</h2>
+      <div class="v-grid" style="--v-min: 20rem">
+        <ul class="v-list">
+          <li class="v-list-item"><span class="v-list-body"><span class="v-list-title" data-contrast>Invoice INV-0142</span><span class="v-list-meta" data-contrast>Sent 28 Oct · €1,499</span></span><span class="v-list-end"><span class="v-badge v-badge-success" data-contrast>Paid</span></span></li>
+          <li class="v-list-item"><span class="v-list-body"><span class="v-list-title" data-contrast>Invoice INV-0143</span><span class="v-list-meta" data-contrast>Sent 30 Oct · €799</span></span><span class="v-list-end"><span class="v-badge v-badge-warning" data-contrast>Due</span></span></li>
+          <li class="v-list-item"><span class="v-list-body"><span class="v-list-title" data-contrast>Invoice INV-0144</span><span class="v-list-meta" data-contrast>Draft</span></span><span class="v-list-end"><button class="v-btn v-btn-secondary v-btn-sm" type="button" data-contrast>Send</button></span></li>
+        </ul>
+        <ul class="v-list">
+          <li class="v-list-item"><span class="v-status-avatar"><span class="v-avatar v-avatar-sm">AK</span><span class="v-status"><span class="v-sr-only">Online</span></span></span><span class="v-list-body"><span class="v-list-title" data-contrast>Aoife Kelly</span><span class="v-list-meta" data-contrast>Owner · aoife@example.ie</span></span><span class="v-list-end" data-contrast>2 min</span></li>
+          <li class="v-list-item"><span class="v-avatar v-avatar-sm">SM</span><span class="v-list-body"><span class="v-list-title" data-contrast>Sean Murphy</span><span class="v-list-meta" data-contrast>Editor · sean@example.ie</span></span><span class="v-list-end" data-contrast>1 h</span></li>
+          <li class="v-list-item"><span class="v-avatar v-avatar-sm">CR</span><span class="v-list-body"><span class="v-list-title" data-contrast>Ciara Ryan</span><span class="v-list-meta" data-contrast>Viewer · ciara@example.ie</span></span><span class="v-list-end" data-contrast>Yesterday</span></li>
+        </ul>
+        <nav aria-label="Settings">
+          <ul class="v-list">
+            <li><a class="v-list-item" href="#lists" aria-current="page"><span class="v-list-body"><span class="v-list-title" data-contrast>Profile</span><span class="v-list-meta" data-contrast>Name, photo and bio</span></span></a></li>
+            <li><a class="v-list-item" href="#lists"><span class="v-list-body"><span class="v-list-title" data-contrast>Billing</span><span class="v-list-meta" data-contrast>Plan, cards and invoices</span></span></a></li>
+            <li><a class="v-list-item" href="#lists"><span class="v-list-body"><span class="v-list-title" data-contrast>Team</span><span class="v-list-meta" data-contrast>3 members</span></span></a></li>
+          </ul>
+        </nav>
+        <ol class="v-list v-list-plain">
+          <li class="v-list-item"><span class="v-list-body"><span class="v-list-title" data-contrast>Point the domain</span><span class="v-list-meta" data-contrast>Nameservers updated</span></span><span class="v-list-end" data-contrast>Done</span></li>
+          <li class="v-list-item"><span class="v-list-body"><span class="v-list-title" data-contrast>Upload the content</span><span class="v-list-meta" data-contrast>14 of 20 pages</span></span><span class="v-list-end" data-contrast>70%</span></li>
+          <li class="v-list-item"><span class="v-list-body"><span class="v-list-title" data-contrast>Go live</span><span class="v-list-meta" data-contrast>Planned for Monday</span></span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="description">
+      <h2>Description lists</h2>
+      <div class="v-grid" style="--v-min: 28rem">
+        <div class="v-card">
+          <h3 class="v-card-title" data-contrast>Order summary</h3>
+          <dl class="v-dl v-dl-cols" id="dl-order">
+            <div><dt data-contrast>Plan</dt><dd data-contrast>Professional site with client admin</dd></div>
+            <div><dt data-contrast>Billing email</dt><dd data-contrast>accounts.department@bluepeakroofers.example</dd><dd class="v-dl-action"><a class="v-btn v-btn-ghost v-btn-sm" href="#description" data-contrast>Change</a></dd></div>
+            <div><dt data-contrast>Care plan</dt><dd data-contrast>€50 per month</dd><dd class="v-dl-action"><a class="v-btn v-btn-ghost v-btn-sm" href="#description" data-contrast>Change</a></dd></div>
+            <div><dt data-contrast>Total today</dt><dd data-contrast><strong>€1,499</strong></dd></div>
+          </dl>
+        </div>
+        <dl class="v-dl">
+          <div><dt data-contrast>Server</dt><dd data-contrast>amber-ams1, Amsterdam</dd></div>
+          <div><dt data-contrast>PHP</dt><dd data-contrast>8.4</dd></div>
+          <div><dt data-contrast>Backups</dt><dd data-contrast>Daily, kept for 30 days</dd><dd class="v-dl-action"><button class="v-btn v-btn-secondary v-btn-sm" type="button" data-contrast>Restore</button></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="figures">
+      <h2>Figures</h2>
+      <div class="v-grid" style="--v-min: 15rem">
+        <figure class="v-figure">
+          <div class="v-frame v-frame-1x1"><svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A slate roof under an evening sky"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2a65a"/><stop offset="1" stop-color="#6b5ca5"/></linearGradient></defs><rect width="400" height="400" fill="url(#g1)"/><path d="M0 260 200 120 400 260V400H0z" fill="#2f3542"/><path d="M40 260 200 150 360 260" fill="none" stroke="#57606f" stroke-width="6"/></svg></div>
+          <figcaption data-contrast>1:1. Slate re-roof, Tuam.</figcaption>
+        </figure>
+        <figure class="v-figure">
+          <div class="v-frame v-frame-4x3"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Green lawn and a hedge"><rect width="400" height="300" fill="#a8d8ea"/><path d="M0 170q100-40 200 0t200 0V300H0z" fill="#3c8d5a"/><rect x="0" y="230" width="400" height="70" fill="#5fae6f"/></svg></div>
+          <figcaption data-contrast>4:3. Spring garden clean-up.</figcaption>
+        </figure>
+        <figure class="v-figure">
+          <div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A DJ booth lit in purple"><rect width="480" height="270" fill="#1e1b3a"/><circle cx="160" cy="80" r="70" fill="#7f5af0" opacity=".55"/><circle cx="330" cy="70" r="60" fill="#2cb67d" opacity=".4"/><rect x="120" y="180" width="240" height="60" rx="6" fill="#0f0e17"/></svg></div>
+          <figcaption data-contrast>16:9. Release night at the Bridge Bar.</figcaption>
+        </figure>
+        <figure class="v-figure">
+          <div class="v-frame v-frame-21x9"><svg viewBox="0 0 630 270" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Atlantic coastline at dusk"><rect width="630" height="270" fill="#ffd3a5"/><rect y="150" width="630" height="120" fill="#3d5a80"/><path d="M0 150 120 90 220 150z" fill="#293241"/></svg></div>
+          <figcaption data-contrast>21:9. Wild Atlantic Way banner.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="search">
+      <h2>Search fields</h2>
+      <div class="v-grid" style="--v-min: 16rem">
+        <div class="v-field">
+          <label class="v-label" for="s-docs" data-contrast>Search the docs</label>
+          <div class="v-input-group v-search">
+            <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
+            <input class="v-input" id="s-docs" type="search" placeholder="Components, tokens" aria-keyshortcuts="/">
+            <span class="v-search-hint" aria-hidden="true"><kbd class="v-kbd">/</kbd></span>
+          </div>
+        </div>
+        <div class="v-field">
+          <label class="v-label" for="s-clients" data-contrast>Clients</label>
+          <div class="v-input-group v-search">
+            <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
+            <input class="v-input" id="s-clients" type="search" placeholder="Name or email" value="Kelly" data-contrast>
+            <button class="v-btn v-btn-ghost v-btn-icon v-search-clear" type="button" aria-label="Clear search"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+          </div>
+        </div>
+        <div class="v-field">
+          <label class="v-label" for="s-pill" data-contrast>Find a command</label>
+          <div class="v-input-group v-search v-search-pill">
+            <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
+            <input class="v-input" id="s-pill" type="search" placeholder="Type a command" aria-keyshortcuts="Control+K">
+            <button class="v-btn v-btn-ghost v-btn-icon v-search-clear" type="button" aria-label="Clear search"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+            <span class="v-search-hint" aria-hidden="true"><kbd class="v-kbd-combo"><kbd class="v-kbd">Ctrl</kbd><kbd class="v-kbd">K</kbd></kbd></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="choice-cards">
+      <h2>Choice cards</h2>
+      <fieldset class="v-fieldset v-fieldset-plain">
+        <legend class="v-legend" data-contrast>Choose a plan</legend>
+        <div class="v-grid" style="--v-min: 16rem">
+          <label class="v-choice-card">
+            <input class="v-radio" type="radio" name="plan" value="simple" id="cc-simple">
+            <span class="v-choice-card-body"><span class="v-choice-card-title" data-contrast>Simple site</span><span class="v-choice-card-text" data-contrast>Up to five pages, contact form, Google Business Profile set-up.</span></span>
+            <span class="v-choice-card-price" data-contrast>€799<small data-contrast>one-off</small></span>
+          </label>
+          <label class="v-choice-card">
+            <input class="v-radio" type="radio" name="plan" value="pro" checked>
+            <span class="v-choice-card-body"><span class="v-choice-card-title" data-contrast>Professional</span><span class="v-choice-card-text" data-contrast>Everything in Simple, plus a client admin to edit your own content.</span></span>
+            <span class="v-choice-card-price" data-contrast>€1,499<small data-contrast>one-off</small></span>
+          </label>
+          <label class="v-choice-card">
+            <input class="v-radio" type="radio" name="plan" value="shop" disabled>
+            <span class="v-choice-card-body"><span class="v-choice-card-title">Online shop</span><span class="v-choice-card-text">Coming in spring.</span></span>
+            <span class="v-choice-card-price">€2,499</span>
+          </label>
+        </div>
+      </fieldset>
+      <fieldset class="v-fieldset v-fieldset-plain v-mt-6">
+        <legend class="v-legend" data-contrast>What do you need?</legend>
+        <div class="v-grid" style="--v-min: 16rem">
+          <label class="v-choice-card">
+            <input class="v-checkbox" type="checkbox" name="need" value="site" checked>
+            <span class="v-choice-card-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-home"/></svg></span>
+            <span class="v-choice-card-body"><span class="v-choice-card-title" data-contrast>A new website</span><span class="v-choice-card-text" data-contrast>Designed and built for you.</span></span>
+          </label>
+          <label class="v-choice-card">
+            <input class="v-checkbox" type="checkbox" name="need" value="seo" id="cc-seo">
+            <span class="v-choice-card-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
+            <span class="v-choice-card-body"><span class="v-choice-card-title" data-contrast>Get found on Google</span><span class="v-choice-card-text" data-contrast>SEO and a tuned Business Profile.</span></span>
+          </label>
+          <label class="v-choice-card">
+            <input class="v-checkbox" type="checkbox" name="need" value="shop">
+            <span class="v-choice-card-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-store"/></svg></span>
+            <span class="v-choice-card-body"><span class="v-choice-card-title" data-contrast>Sell online</span><span class="v-choice-card-text" data-contrast>Products, payments and delivery zones.</span></span>
+          </label>
+        </div>
+      </fieldset>
+    </section>
+
+    <section id="form-layouts">
+      <h2>Form layouts</h2>
+      <h3 class="v-mb-4">Two columns</h3>
+      <form class="v-form v-card" action="#form-layouts" id="form-two">
+        <div class="v-form-grid">
+          <div class="v-field">
+            <label class="v-label" for="fl-first" data-contrast>First name</label>
+            <input class="v-input" id="fl-first" type="text" autocomplete="given-name" value="Aoife" data-contrast>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="fl-last" data-contrast>Last name</label>
+            <input class="v-input" id="fl-last" type="text" autocomplete="family-name" value="Kelly" data-contrast>
+          </div>
+          <div class="v-field v-form-full">
+            <label class="v-label" for="fl-email" data-contrast>Email</label>
+            <input class="v-input" id="fl-email" type="email" autocomplete="email" value="aoife@example.ie" data-contrast>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="fl-county" data-contrast>County</label>
+            <select class="v-select" id="fl-county" data-contrast><option>Galway</option><option>Mayo</option><option>Clare</option><option>Roscommon</option></select>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="fl-eircode" data-contrast>Eircode</label>
+            <input class="v-input" id="fl-eircode" type="text" autocomplete="postal-code" value="H54 R2X4" data-contrast>
+          </div>
+        </div>
+        <div class="v-form-actions">
+          <button class="v-btn v-btn-ghost" type="reset" data-contrast>Cancel</button>
+          <button class="v-btn v-btn-primary" type="submit" data-contrast>Save</button>
+        </div>
+      </form>
+
+      <h3 class="v-mt-8 v-mb-4">Inline</h3>
+      <form class="v-form-inline" action="#form-layouts">
+        <div class="v-field">
+          <label class="v-label" for="fi-email" data-contrast>Email</label>
+          <input class="v-input" id="fi-email" type="email" autocomplete="email" placeholder="you@example.com">
+        </div>
+        <div class="v-field">
+          <label class="v-label" for="fi-genre" data-contrast>Genre</label>
+          <select class="v-select" id="fi-genre" data-contrast><option>Melodic house</option><option>Progressive house</option><option>Techno</option></select>
+        </div>
+        <button class="v-btn v-btn-primary" type="submit" data-contrast>Get promos</button>
+      </form>
+
+      <h3 class="v-mt-8 v-mb-4">Settings, sectioned</h3>
+      <form class="v-form" action="#form-layouts">
+        <div class="v-form-section">
+          <div class="v-form-section-header">
+            <h4 class="v-form-section-title" data-contrast>Profile</h4>
+            <p class="v-form-section-text" data-contrast>Shown on your artist page and in promo emails.</p>
+          </div>
+          <div class="v-form-section-body">
+            <div class="v-form-grid">
+              <div class="v-field">
+                <label class="v-label" for="fs-name" data-contrast>Artist name</label>
+                <input class="v-input" id="fs-name" type="text" value="Martin Graff" data-contrast>
+              </div>
+              <div class="v-field">
+                <label class="v-label" for="fs-label" data-contrast>Label</label>
+                <input class="v-input" id="fs-label" type="text" value="Contrasts Records" data-contrast>
+              </div>
+              <div class="v-field v-form-full">
+                <label class="v-label" for="fs-bio" data-contrast>Bio</label>
+                <textarea class="v-input" id="fs-bio" rows="3" data-contrast>Melodic and progressive house from Berlin.</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="v-form-section">
+          <div class="v-form-section-header">
+            <h4 class="v-form-section-title" data-contrast>Notifications</h4>
+            <p class="v-form-section-text" data-contrast>Choose what lands in your inbox.</p>
+          </div>
+          <div class="v-form-section-body">
+            <label class="v-choice"><input class="v-switch" type="checkbox" role="switch" checked><span data-contrast>New tips</span></label>
+            <label class="v-choice"><input class="v-switch" type="checkbox" role="switch"><span data-contrast>Weekly sales summary</span></label>
+          </div>
+        </div>
+        <div class="v-form-actions">
+          <p class="v-hint v-form-actions-start" data-contrast>Last saved 2 minutes ago</p>
+          <button class="v-btn v-btn-primary" type="submit" data-contrast>Save changes</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

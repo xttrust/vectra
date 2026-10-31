@@ -31,6 +31,23 @@
       translate var(--v-dur-2) var(--v-ease-spring);
   }
 
+  /* Toggle group: a row of toggle buttons (aria-pressed) that switch on and off independently. */
+  .v-toggle-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 3px;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: calc(var(--v-btn-radius) + 3px);
+    background-color: var(--v-surface-2);
+  }
+
+  .v-toggle-group > .v-btn {
+    border-color: transparent;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
   .v-btn:hover { background-color: color-mix(in oklch, var(--v-surface-2) 88%, var(--v-text)); }
 
   .v-btn:disabled,
@@ -188,6 +205,29 @@
   .v-segmented input:focus-visible + span {
     outline: var(--v-focus-w) solid var(--v-accent);
     outline-offset: 1px;
+  }
+
+  /* Toggle button: aria-pressed="true" reads as switched on, by fill and by a doubled accent border.
+     Password toggles show their state with the icon instead, so they are left alone. */
+  .v-btn[aria-pressed="true"]:where(:not(.v-password-toggle)) {
+    border-color: var(--v-accent);
+    background-color: var(--v-accent-soft);
+    background-image: none;
+    box-shadow: inset 0 0 0 var(--v-border-w) var(--v-accent);
+    color: var(--v-accent-text);
+  }
+
+  .v-btn[aria-pressed="true"]:where(:not(.v-password-toggle)):hover:not(:disabled) {
+    background-color: color-mix(in oklch, var(--v-accent-soft) 70%, var(--v-accent) 12%);
+  }
+
+  @media (forced-colors: active) {
+    .v-btn[aria-pressed="true"]:where(:not(.v-password-toggle)) {
+      border-color: Highlight;
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
+    }
   }
 
   @keyframes v-spin { to { rotate: 1turn; } }
