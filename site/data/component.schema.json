@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "vectra-component",
+  "title": "Vectra component",
+  "description": "One file per component in site/data/components/. The single source of truth for the docs site and, later, the AI manifest (M8b). Markup strings are what a person copies: icons use the README form <use href=\"/icons/sprite.svg#name\"/>.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "slug", "group", "tier", "status", "summary", "catalogue", "css", "classes", "a11y", "tokens", "examples"],
+  "properties": {
+    "name": { "type": "string", "description": "Display name, sentence case." },
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Equals the file name; the page lives at components/<slug>/." },
+    "group": { "enum": ["Actions", "Display", "Feedback", "Forms", "Overlays", "Navigation", "Disclosure", "Data", "Content", "Theming"] },
+    "tier": { "enum": ["P0", "P1", "P2"] },
+    "status": { "enum": ["done", "partial", "planned"], "description": "done: CSS and any JS shipped. partial: CSS shipped, behaviour still to come." },
+    "summary": { "type": "string", "description": "One sentence: what it is and when to use it." },
+    "description": { "type": "string", "description": "Optional longer intro, plain text, one or two short paragraphs separated by a blank line." },
+    "native": { "type": "string", "description": "The native element or attribute it builds on, e.g. <dialog>, popover, <details name>." },
+    "catalogue": { "type": "array", "items": { "type": "string" }, "description": "CATALOGUE.md section 2 row names this entry covers (the text before any bracket)." },
+    "css": { "type": "array", "items": { "type": "string" }, "description": "Files in src/css/components/ (without path) that style it." },
+    "js": { "type": "array", "items": { "type": "string" }, "description": "Files in src/js/ that add behaviour, e.g. components/copy.js." },
+    "classes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "kind", "description"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^v-[a-z0-9-]+$" },
+          "kind": { "enum": ["base", "modifier", "part", "helper"] },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "states": {
+      "type": "array",
+      "description": "Native attributes and ARIA that drive the look or the behaviour.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["attribute", "description"],
+        "properties": { "attribute": { "type": "string" }, "description": { "type": "string" } }
+      }
+    },
+    "hooks": {
+      "type": "array",
+      "description": "data-v-* attributes read by the JS. Every name must exist in src/js.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^data-v-[a-z0-9-]+$" },
+          "value": { "type": "string", "description": "What the attribute value holds, empty when it is a flag." },
+          "on": { "type": "string", "description": "The element it goes on." },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "api": {
+      "type": "array",
+      "description": "JavaScript functions on window.Vectra (or ES exports) that drive it.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["signature", "description"],
+        "properties": { "signature": { "type": "string" }, "description": { "type": "string" } }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^v:[a-z-]+$" },
+          "on": { "type": "string" },
+          "detail": { "type": "string" },
+          "cancelable": { "type": "boolean" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "keyboard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["keys", "action"],
+        "properties": {
+          "keys": { "type": "array", "items": { "type": "string" }, "description": "Alternatives, each one key or a combo written Shift+Tab." },
+          "action": { "type": "string" }
+        }
+      }
+    },
+    "a11y": { "type": "array", "items": { "type": "string" }, "description": "Accessibility notes, one sentence or two each." },
+    "tokens": { "type": "array", "items": { "type": "string", "pattern": "^--v-[a-z0-9-]+$" }, "description": "Custom properties it reads that a person may want to set; component tokens first." },
+    "related": { "type": "array", "items": { "type": "string" }, "description": "Slugs of other entries." },
+    "examples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "html"],
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "html": { "type": "string", "description": "The markup, indented with two spaces, no data-contrast or gallery-only classes (ex-*)." },
+          "js": { "type": "string", "description": "Optional script run in the demo (an ES module with window.Vectra available) and shown under the markup." },
+          "height": { "type": "integer", "description": "Demo frame height in px before JS sizes it (and the size without JS). Default 160." },
+          "layout": { "enum": ["row", "stack", "center", "fill"], "description": "How the demo body arranges the markup. Default row (wrapping cluster)." },
+          "source": { "type": "string", "description": "Gallery the markup was verified against, e.g. examples/components/#buttons." }
+        }
+      }
+    }
+  }
+}

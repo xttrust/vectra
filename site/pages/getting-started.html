@@ -1,0 +1,113 @@
+<!--meta {"title": "Getting started", "description": "Add Vectra to plain HTML, Laravel Blade, Vue and Inertia, Livewire or htmx: one CSS file, one JS file, no build step."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Start</p>
+  <h1>Getting started</h1>
+  <p class="v-lead">Vectra needs no build step and no framework. Link the files, set a direction, write HTML. The same markup works in a static page, a Blade view, a Vue component or a Livewire template.</p>
+</header>
+
+<h2>Get the files</h2>
+<p><strong>Release zip.</strong> Each GitHub release has a zip with <code>dist/</code>, the examples and the fonts. Copy <code>dist/</code> into your public folder.</p>
+<p><strong>npm.</strong> The package is <code>@creativeigniter/vectra</code> and ships both <code>dist/</code> and <code>src/</code>. It is published with v2.0; until then, build it from the repository with <code>npm ci &amp;&amp; npm run build</code>.</p>
+<pre data-code="sh">npm install @creativeigniter/vectra</pre>
+<table class="v-table site-table">
+  <caption class="v-sr-only">What is in dist</caption>
+  <thead><tr><th scope="col">File</th><th scope="col">What it is</th></tr></thead>
+  <tbody>
+    <tr><td><code>vectra.css</code>, <code>vectra.min.css</code></td><td>Everything: core, all four directions and every component.</td></tr>
+    <tr><td><code>vectra.core.css</code></td><td>Reset, tokens, base type, layout and utilities.</td></tr>
+    <tr><td><code>directions/*.css</code></td><td>One file per direction: <code>tech</code>, <code>editorial</code>, <code>soft</code>, <code>glass</code>.</td></tr>
+    <tr><td><code>vectra.components.css</code>, <code>components/*.css</code></td><td>All components, or one file each.</td></tr>
+    <tr><td><code>vectra.js</code></td><td>The script-tag build: core plus every module, as <code>window.Vectra</code>.</td></tr>
+    <tr><td><code>vectra.esm.js</code></td><td>The ES module build for bundlers.</td></tr>
+    <tr><td><code>fonts/</code>, <code>icons/</code></td><td>Inter (latin and latin-ext subsets) and the SVG sprite with its manifest.</td></tr>
+  </tbody>
+</table>
+
+<h2>Plain HTML</h2>
+<p>The quickest start is the full bundle. Keep <code>fonts/</code> next to the CSS file, since the CSS points at it with a relative path.</p>
+<pre data-code="html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en" data-direction="tech"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;link rel="stylesheet" href="/vectra/vectra.min.css"&gt;
+  &lt;script src="/vectra/vectra.js" defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main class="v-container v-stack"&gt;
+    &lt;h1&gt;Hello&lt;/h1&gt;
+    &lt;button class="v-btn v-btn-primary" type="button"&gt;It works&lt;/button&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p><strong>In production</strong>, load the core, one direction and only the components you use. Each file is small enough that a handful of links costs less than one large bundle.</p>
+<pre data-code="html">&lt;link rel="stylesheet" href="/vectra/vectra.core.min.css"&gt;
+&lt;link rel="stylesheet" href="/vectra/directions/editorial.min.css"&gt;
+&lt;link rel="stylesheet" href="/vectra/components/button.min.css"&gt;
+&lt;link rel="stylesheet" href="/vectra/components/card.min.css"&gt;</pre>
+
+<h2>Direction, theme and no flash</h2>
+<p><code>data-direction</code> picks the design direction; <code>data-theme="light"</code> or <code>"dark"</code> forces a theme, and leaving it out follows the OS live. If people can switch, <code>Vectra.theme.set()</code> saves the choice in <code>localStorage</code>. Put this small script in the <code>&lt;head&gt;</code>, before the CSS, so a saved choice applies before the first paint:</p>
+<pre data-code="html">&lt;script&gt;
+  (function () {
+    var root = document.documentElement;
+    try {
+      var d = localStorage.getItem('vectra-direction');
+      var t = localStorage.getItem('vectra-theme');
+      if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) &gt; -1) root.dataset.direction = d;
+      if (t === 'light' || t === 'dark') root.dataset.theme = t;
+    } catch (e) {}
+  })();
+&lt;/script&gt;</pre>
+
+<h2>Laravel Blade</h2>
+<p>Copy <code>dist/</code> to <code>public/vectra/</code> (or publish it from <code>node_modules</code> in your deploy script) and link it from the layout. Blade output is plain HTML, so every class and <code>data-v-*</code> hook works as written.</p>
+<pre data-code="blade" data-title="resources/views/layouts/app.blade.php">&lt;html lang="{{ str_replace('_', '-', app()-&gt;getLocale()) }}" data-direction="soft"&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="{{ asset('vectra/vectra.min.css') }}"&gt;
+  &lt;script src="{{ asset('vectra/vectra.js') }}" defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  @if (session('status'))
+    &lt;div class="v-alert v-alert-success" role="status"&gt;&lt;p class="v-alert-body"&gt;{{ session('status') }}&lt;/p&gt;&lt;/div&gt;
+  @endif
+  @yield('content')
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>Server-side validation errors map straight onto the field markup: <code>aria-invalid="true"</code> on the control and the message linked with <code>aria-describedby</code>.</p>
+<pre data-code="blade">&lt;div class="v-field"&gt;
+  &lt;label class="v-label" for="email"&gt;Email&lt;/label&gt;
+  &lt;input class="v-input" id="email" name="email" type="email" value="{{ old('email') }}"
+    @error('email') aria-invalid="true" aria-describedby="email-error" @enderror&gt;
+  @error('email')&lt;p class="v-field-error" id="email-error"&gt;{{ $message }}&lt;/p&gt;@enderror
+&lt;/div&gt;</pre>
+
+<h2>Vue and Inertia</h2>
+<p>With Vite, import the CSS once and the ES module build for the API. Templates use the same classes. There are no wrapper components to learn: a Vectra button in Vue is a <code>&lt;button class="v-btn"&gt;</code>.</p>
+<pre data-code="js" data-title="resources/js/app.js">import '@creativeigniter/vectra/dist/vectra.css';
+import { toast, theme } from '@creativeigniter/vectra/dist/vectra.esm.js';
+
+// Anywhere in the app:
+toast('Settings saved', { tone: 'success' });
+theme.set({ direction: 'glass', mode: 'dark' });</pre>
+<pre data-code="vue" data-title="Invite.vue">&lt;template&gt;
+  &lt;form class="v-form" data-v-validate @submit.prevent="send"&gt;
+    &lt;div class="v-field"&gt;
+      &lt;label class="v-label" for="invite-email"&gt;Email&lt;/label&gt;
+      &lt;input class="v-input" id="invite-email" v-model="email" type="email" required&gt;
+    &lt;/div&gt;
+    &lt;button class="v-btn v-btn-primary" :aria-busy="sending" :disabled="sending"&gt;Send invite&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/template&gt;</pre>
+
+<h2>Livewire, htmx and other late content</h2>
+<p>The Vectra core watches the page with a <code>MutationObserver</code>. Any element with a <code>data-v-*</code> hook that Livewire morphs in, htmx swaps in, or Vue mounts later starts on its own, and stops cleanly when it is removed. There is nothing to call after a swap.</p>
+<ul class="site-list">
+  <li><strong>Livewire.</strong> Hooks survive morphing. Keep <code>wire:key</code> on repeated items so an element and its module stay paired.</li>
+  <li><strong>htmx.</strong> Swapped fragments initialise themselves; no <code>htmx:afterSwap</code> handler is needed.</li>
+  <li><strong>By hand.</strong> <code>Vectra.init(element)</code> starts every hook inside an element straight away, and is safe to call more than once.</li>
+</ul>
+
+<h2>Icons and fonts</h2>
+<p>Icons are an SVG sprite: <code>&lt;svg class="v-icon" aria-hidden="true"&gt;&lt;use href="/icons/sprite.svg#search"/&gt;&lt;/svg&gt;</code>. They inherit the text colour and size. To ship only the icons a site uses, run <code>npx vectra-icons "pages/*.html" --out icons.svg</code>. See <a href="{{root}}foundations/icons/">Icons</a> for the full set.</p>
+<p>Inter is self-hosted with <code>font-display: swap</code>. A browser only downloads a font a page uses, so if you set your own <code>--v-font-sans</code>, Inter is never fetched.</p>

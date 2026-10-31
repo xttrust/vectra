@@ -1,0 +1,86 @@
+{
+  "name": "Accordion",
+  "slug": "accordion",
+  "group": "Disclosure",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A stack of questions or sections that open one at a time, built on native details elements.",
+  "description": "Use it for FAQs and long settings pages where people only need one answer at a time. Give every item the same name to make the group exclusive; leave the name out to let several open at once. Do not hide content that most people need to read.",
+  "native": "<details name>",
+  "catalogue": [
+    "Accordion"
+  ],
+  "css": [
+    "accordion.css"
+  ],
+  "classes": [
+    {
+      "name": "v-accordion",
+      "kind": "base",
+      "description": "The group. Put <details> items with a <summary> inside; it draws the dividers and the chevron."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "open",
+      "description": "On a <details>: the item is open and its chevron points up in the accent colour."
+    },
+    {
+      "attribute": "name",
+      "description": "The same name on every <details> makes the group exclusive: opening one closes the others. Browsers without support let items open independently."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Moves focus between the item headers."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Opens or closes the focused item."
+    }
+  ],
+  "a11y": [
+    "The <summary> is the button: browsers expose it with its expanded state, so no ARIA is needed.",
+    "Keep the summary text short and specific, it is all a screen reader hears before opening.",
+    "The height animation runs only where ::details-content is supported and is off with reduced motion.",
+    "Content inside a closed item is still found by the browser find-in-page, which opens the item."
+  ],
+  "tokens": [
+    "--v-border",
+    "--v-border-w",
+    "--v-text-3",
+    "--v-accent-text",
+    "--v-radius-sm",
+    "--v-dur-3",
+    "--v-ease-spring"
+  ],
+  "related": [
+    "collapsible",
+    "tabs",
+    "sidenav"
+  ],
+  "examples": [
+    {
+      "title": "Exclusive FAQ",
+      "description": "All items share name=\"faq\", so one opens at a time.",
+      "html": "<div class=\"v-accordion\">\n  <details name=\"faq\" open>\n    <summary>Do I need JavaScript for this?</summary>\n    <p>No. The accordion is native details elements sharing one name, so opening one closes the others.</p>\n  </details>\n  <details name=\"faq\">\n    <summary>Can several items be open at once?</summary>\n    <p>Leave out the name attribute and every item opens on its own.</p>\n  </details>\n  <details name=\"faq\">\n    <summary>Does it animate?</summary>\n    <p>Where the browser supports it, the height eases open. With reduced motion it opens at once.</p>\n  </details>\n</div>",
+      "layout": "stack",
+      "height": 240,
+      "source": "examples/navigation/#disclosure"
+    },
+    {
+      "title": "Independent items",
+      "description": "Without a name, each item opens and closes on its own.",
+      "html": "<div class=\"v-accordion\">\n  <details open>\n    <summary>Billing address</summary>\n    <p>Used on invoices and receipts.</p>\n  </details>\n  <details open>\n    <summary>Shipping address</summary>\n    <p>Where we send printed material.</p>\n  </details>\n  <details>\n    <summary>Tax number</summary>\n    <p>Shown on invoices for business customers.</p>\n  </details>\n</div>",
+      "layout": "stack",
+      "height": 260
+    }
+  ]
+}

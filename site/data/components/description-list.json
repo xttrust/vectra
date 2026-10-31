@@ -1,0 +1,67 @@
+{
+  "name": "Description list",
+  "slug": "description-list",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Label and value pairs on a <dl>, stacked or in two columns, with an optional action per row.",
+  "description": "Use it for detail views and summaries: an order, an account, a server. Stacked suits narrow spaces; .v-dl-cols puts term and value side by side once the list is wide enough.",
+  "native": "<dl>",
+  "catalogue": [
+    "Description list"
+  ],
+  "css": [
+    "dl.css"
+  ],
+  "classes": [
+    {
+      "name": "v-dl",
+      "kind": "base",
+      "description": "On a <dl> whose rows are <div>s holding a <dt> and its <dd>, with a rule between rows. Stacked by default."
+    },
+    {
+      "name": "v-dl-cols",
+      "kind": "modifier",
+      "description": "Term and value side by side once the list is at least 32rem wide (a container query)."
+    },
+    {
+      "name": "v-dl-action",
+      "kind": "part",
+      "description": "A last <dd> in a row for an edit link or copy button, aligned to the end."
+    }
+  ],
+  "a11y": [
+    "Wrapping each <dt>/<dd> pair in a <div> is valid HTML and keeps the pairs together for screen readers.",
+    "Name actions with their row, e.g. a .v-sr-only \"billing email\" after \"Change\", when several rows have the same action.",
+    "Terms are smaller muted text but still meet 4.5:1 contrast."
+  ],
+  "tokens": [
+    "--v-border",
+    "--v-border-w",
+    "--v-text-3",
+    "--v-space-3",
+    "--v-space-4"
+  ],
+  "related": [
+    "panel",
+    "card",
+    "table",
+    "copy-button"
+  ],
+  "examples": [
+    {
+      "title": "Two columns in a card",
+      "html": "<div class=\"v-card\">\n  <h3 class=\"v-card-title\">Order summary</h3>\n  <dl class=\"v-dl v-dl-cols\">\n    <div><dt>Plan</dt><dd>Professional site with client admin</dd></div>\n    <div><dt>Billing email</dt><dd>accounts@roofing.example</dd><dd class=\"v-dl-action\"><a class=\"v-btn v-btn-ghost v-btn-sm\" href=\"#\">Change<span class=\"v-sr-only\"> billing email</span></a></dd></div>\n    <div><dt>Care plan</dt><dd>€50 per month</dd><dd class=\"v-dl-action\"><a class=\"v-btn v-btn-ghost v-btn-sm\" href=\"#\">Change<span class=\"v-sr-only\"> care plan</span></a></dd></div>\n    <div><dt>Total today</dt><dd><strong>€1,499</strong></dd></div>\n  </dl>\n</div>",
+      "layout": "stack",
+      "height": 320,
+      "source": "examples/elements/#description"
+    },
+    {
+      "title": "Stacked",
+      "html": "<dl class=\"v-dl\">\n  <div><dt>Server</dt><dd>ams1, Amsterdam</dd></div>\n  <div><dt>PHP</dt><dd>8.4</dd></div>\n  <div><dt>Backups</dt><dd>Daily, kept for 30 days</dd><dd class=\"v-dl-action\"><button class=\"v-btn v-btn-secondary v-btn-sm\" type=\"button\">Restore</button></dd></div>\n</dl>",
+      "layout": "stack",
+      "height": 220,
+      "source": "examples/elements/#description"
+    }
+  ]
+}

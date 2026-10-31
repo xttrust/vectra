@@ -1,0 +1,80 @@
+{
+  "name": "Button group",
+  "slug": "button-group",
+  "group": "Actions",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Buttons joined edge to edge into one bar, for a small set of related actions.",
+  "description": "Use it for actions that belong together, such as previous and next, or a set of formatting commands. When only one option can be chosen at a time, use a segmented control; when each one switches on and off, use a toggle group.",
+  "native": "<div role=\"group\">",
+  "catalogue": [
+    "Button group"
+  ],
+  "css": [
+    "button.css"
+  ],
+  "classes": [
+    {
+      "name": "v-btn-group",
+      "kind": "base",
+      "description": "Joins its .v-btn children: inner corners go square and borders overlap so there is one line between buttons."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "role=\"group\"",
+      "description": "Groups the buttons for assistive technology. Pair it with aria-label."
+    },
+    {
+      "attribute": "disabled",
+      "description": "On one button, disables just that button."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Moves between the buttons, one at a time."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Presses the focused button."
+    }
+  ],
+  "a11y": [
+    "Put role=\"group\" and an aria-label on the wrapper so screen readers announce what the buttons are for.",
+    "The focused button is lifted above its neighbours, so the whole focus ring stays visible.",
+    "Each button is its own tab stop. Keep groups short; a long row of tab stops is slow to move through."
+  ],
+  "tokens": [
+    "--v-btn-radius",
+    "--v-btn-border",
+    "--v-border-w",
+    "--v-control-h"
+  ],
+  "related": [
+    "button",
+    "segmented-control",
+    "toggle-button",
+    "icon-button"
+  ],
+  "examples": [
+    {
+      "title": "Text buttons",
+      "html": "<div class=\"v-btn-group\" role=\"group\" aria-label=\"Text alignment\">\n  <button class=\"v-btn v-btn-secondary\" type=\"button\">Left</button>\n  <button class=\"v-btn v-btn-secondary\" type=\"button\">Centre</button>\n  <button class=\"v-btn v-btn-secondary\" type=\"button\">Right</button>\n</div>",
+      "height": 100,
+      "source": "examples/components/#buttons"
+    },
+    {
+      "title": "Icon buttons",
+      "html": "<div class=\"v-btn-group\" role=\"group\" aria-label=\"Pages\">\n  <button class=\"v-btn v-btn-secondary v-btn-icon\" type=\"button\" aria-label=\"Previous page\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-left\"/></svg></button>\n  <button class=\"v-btn v-btn-secondary v-btn-icon\" type=\"button\" aria-label=\"Next page\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-right\"/></svg></button>\n</div>",
+      "height": 100,
+      "source": "examples/components/#buttons"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ const CI = Boolean(process.env.CI);
 
 export default defineConfig({
   testDir: 'tests',
+  globalSetup: './tests/global-setup.js',
   fullyParallel: true,
   forbidOnly: CI,
   retries: CI ? 1 : 0,

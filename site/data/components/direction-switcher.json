@@ -1,0 +1,96 @@
+{
+  "name": "Direction switcher",
+  "slug": "direction-switcher",
+  "group": "Theming",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A segmented radio group that switches between the four design directions (Dark tech, Editorial, Soft depth, Glass) live.",
+  "description": "Put data-v-theme-switch on a .v-segmented group. The last part of each input name picks the theme key, so the same hook can drive mode, corners or density too. It changes the theme of this whole docs site too, and the choice is saved in this browser.",
+  "native": "<fieldset> of <input type=\"radio\">",
+  "catalogue": [
+    "Direction switcher"
+  ],
+  "css": [
+    "button.css",
+    "theming.css"
+  ],
+  "js": [
+    "theme.js",
+    "components/theme-switch.js"
+  ],
+  "classes": [],
+  "states": [
+    {
+      "attribute": "checked",
+      "description": "Follows the current direction, including changes made anywhere else on the page."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-theme-switch",
+      "value": "",
+      "on": "A .v-segmented fieldset of radios",
+      "description": "Each radio sets the theme key named by the last part of its name (direction, hdr-direction, cz-mode...) and stays in sync with theme changes."
+    }
+  ],
+  "api": [
+    {
+      "signature": "Vectra.theme.set({ direction: 'tech' | 'editorial' | 'soft' | 'glass' })",
+      "description": "Changes the direction from code, inside a view transition where supported. Saved under the direction storage key."
+    },
+    {
+      "signature": "Vectra.theme.get()",
+      "description": "The current choices: direction, mode, accent, corners, density, font, and resolved (light or dark)."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:theme",
+      "on": "<html>",
+      "detail": "theme.get()",
+      "description": "Fires after every theme change."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the checked direction."
+    },
+    {
+      "keys": [
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowDown"
+      ],
+      "action": "Picks the previous or next direction (native radio group)."
+    }
+  ],
+  "a11y": [
+    "A <fieldset> with a <legend> (visually hidden is fine) names the group, for example Design direction.",
+    "It is a native radio group, so the keys and the checked state are announced with no ARIA.",
+    "The change runs inside a view transition, which is instant under prefers-reduced-motion."
+  ],
+  "tokens": [
+    "--v-accent",
+    "--v-radius-md",
+    "--v-dur-3"
+  ],
+  "related": [
+    "theme-toggle",
+    "customizer",
+    "segmented-control"
+  ],
+  "examples": [
+    {
+      "title": "Switch direction",
+      "description": "It changes the theme of this whole docs site too, and the choice is saved in this browser.",
+      "html": "<fieldset class=\"v-segmented\" data-v-theme-switch><legend class=\"v-sr-only\">Design direction</legend><label><input type=\"radio\" name=\"direction\" value=\"tech\"><span>Dark tech</span></label><label><input type=\"radio\" name=\"direction\" value=\"editorial\"><span>Editorial</span></label><label><input type=\"radio\" name=\"direction\" value=\"soft\"><span>Soft depth</span></label><label><input type=\"radio\" name=\"direction\" value=\"glass\"><span>Glass</span></label></fieldset>",
+      "height": 100,
+      "layout": "center",
+      "source": "examples/theming/#switcher"
+    }
+  ]
+}

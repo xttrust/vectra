@@ -1,0 +1,100 @@
+{
+  "name": "Card",
+  "slug": "card",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "The main surface for grouped content, with optional header, media, footer, link and feature styles.",
+  "description": "Use a card for one self-contained thing: a project, a plan, a summary. For a plain bordered box with sections that run edge to edge, use a panel.",
+  "native": "<article>, <a>",
+  "catalogue": [
+    "Card"
+  ],
+  "css": [
+    "card.css"
+  ],
+  "classes": [
+    {
+      "name": "v-card",
+      "kind": "base",
+      "description": "The card: padded, bordered, with the direction's shadow and sheen. Its children stack with a gap. On an <a> the whole card is a link and lifts on hover."
+    },
+    {
+      "name": "v-card-header",
+      "kind": "part",
+      "description": "A row with the title at the start and a badge or action at the end."
+    },
+    {
+      "name": "v-card-title",
+      "kind": "part",
+      "description": "The card heading, in the display font."
+    },
+    {
+      "name": "v-card-text",
+      "kind": "part",
+      "description": "Body text in the secondary text colour."
+    },
+    {
+      "name": "v-card-footer",
+      "kind": "part",
+      "description": "A row of actions under a rule."
+    },
+    {
+      "name": "v-card-media",
+      "kind": "part",
+      "description": "An image (first child) that bleeds to the card's top and side edges."
+    },
+    {
+      "name": "v-card-feature",
+      "kind": "modifier",
+      "description": "The direction's emphasis surface, for the one card that should stand out. Text and border tokens are remapped inside."
+    }
+  ],
+  "a11y": [
+    "Use a real heading (h2, h3) for .v-card-title so cards show up in the page outline.",
+    "A link card is one link: keep buttons and other links out of it, or they nest inside the link.",
+    "The link card shows the focus ring around the whole card.",
+    "Text inside the feature card is checked for contrast against the feature surface in every direction and theme."
+  ],
+  "tokens": [
+    "--v-card-pad",
+    "--v-card-bg",
+    "--v-card-border",
+    "--v-card-shadow",
+    "--v-card-sheen",
+    "--v-radius-lg",
+    "--v-feature-bg",
+    "--v-feature-fg",
+    "--v-density"
+  ],
+  "related": [
+    "panel",
+    "stat-card",
+    "pricing-card",
+    "description-list",
+    "figure"
+  ],
+  "examples": [
+    {
+      "title": "Header, text and footer",
+      "html": "<article class=\"v-card\">\n  <header class=\"v-card-header\">\n    <h3 class=\"v-card-title\">Project Atlas</h3>\n    <span class=\"v-badge v-badge-success\">Live</span>\n  </header>\n  <p class=\"v-card-text\">Marketing site for a roofing company. Launched last week, already ranking for local searches.</p>\n  <footer class=\"v-card-footer\">\n    <button class=\"v-btn v-btn-primary v-btn-sm\" type=\"button\">Open</button>\n    <button class=\"v-btn v-btn-ghost v-btn-sm\" type=\"button\">Share</button>\n  </footer>\n</article>",
+      "layout": "stack",
+      "height": 240,
+      "source": "examples/components/#cards"
+    },
+    {
+      "title": "Link and feature cards",
+      "html": "<div class=\"v-grid\" style=\"--v-min: 15rem\">\n  <a class=\"v-card\" href=\"#\">\n    <h3 class=\"v-card-title\">Link card</h3>\n    <p class=\"v-card-text\">The whole card is one link, so it lifts on hover and shows a focus ring.</p>\n  </a>\n  <article class=\"v-card v-card-feature\">\n    <h3 class=\"v-card-title\">Team plan</h3>\n    <p class=\"v-card-text\">Everything in Starter, plus shared tokens and priority support.</p>\n    <button class=\"v-btn v-btn-primary v-btn-block\" type=\"button\">Start free trial</button>\n  </article>\n</div>",
+      "layout": "fill",
+      "height": 240,
+      "source": "examples/components/#cards"
+    },
+    {
+      "title": "Media",
+      "description": "In real use the media is an <img>; it bleeds to the top and side edges.",
+      "html": "<article class=\"v-card\" style=\"max-inline-size: 22rem\">\n  <div class=\"v-card-media\"><svg viewBox=\"0 0 480 200\" width=\"100%\" style=\"display: block\" role=\"img\" aria-label=\"Slate roof under an evening sky\"><rect width=\"480\" height=\"200\" fill=\"#f2a65a\"/><path d=\"M0 150 240 50 480 150V200H0z\" fill=\"#2f3542\"/></svg></div>\n  <h3 class=\"v-card-title\">Slate re-roof</h3>\n  <p class=\"v-card-text\">Finished in four days, with the old slates reused on the porch.</p>\n</article>",
+      "layout": "center",
+      "height": 320
+    }
+  ]
+}

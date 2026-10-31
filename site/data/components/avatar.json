@@ -1,0 +1,81 @@
+{
+  "name": "Avatar",
+  "slug": "avatar",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A round picture or initials for a person or account, alone or stacked in a group.",
+  "description": "Put an <img> inside for a photo, or two letters of initials when there is none. Use a group to show who is on a project; show a count instead once it gets past four or five faces.",
+  "native": "<span>, <img>",
+  "catalogue": [
+    "Avatar + group"
+  ],
+  "css": [
+    "avatar.css"
+  ],
+  "classes": [
+    {
+      "name": "v-avatar",
+      "kind": "base",
+      "description": "A 2.5rem circle with an accent tint for initials. An <img> inside fills and crops to it."
+    },
+    {
+      "name": "v-avatar-sm",
+      "kind": "modifier",
+      "description": "Small, 2rem."
+    },
+    {
+      "name": "v-avatar-lg",
+      "kind": "modifier",
+      "description": "Large, 3.5rem."
+    },
+    {
+      "name": "v-avatar-square",
+      "kind": "modifier",
+      "description": "Rounded square, for companies and teams rather than people."
+    },
+    {
+      "name": "v-avatar-group",
+      "kind": "base",
+      "description": "A row of overlapping avatars with a ring in the surface colour; type shrinks so initials are never covered."
+    }
+  ],
+  "a11y": [
+    "Give a photo a useful alt (the person's name) unless the name is already written next to it; then use alt=\"\".",
+    "Initials alone are read letter by letter. When the name is not shown nearby, add it with aria-label or a .v-sr-only span.",
+    "Label a group with its meaning, e.g. aria-label=\"3 team members\", on the wrapper."
+  ],
+  "tokens": [
+    "--v-avatar-size",
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-surface",
+    "--v-radius-md"
+  ],
+  "related": [
+    "status-indicator",
+    "list-group",
+    "testimonial",
+    "badge"
+  ],
+  "examples": [
+    {
+      "title": "Sizes and shape",
+      "html": "<span class=\"v-avatar v-avatar-sm\">FP</span>\n<span class=\"v-avatar\">AK</span>\n<span class=\"v-avatar v-avatar-lg\">RM</span>\n<span class=\"v-avatar v-avatar-square\">JS</span>",
+      "height": 100,
+      "source": "examples/components/#badges"
+    },
+    {
+      "title": "Group",
+      "html": "<div class=\"v-avatar-group\" aria-label=\"4 team members\">\n  <span class=\"v-avatar\">AK</span>\n  <span class=\"v-avatar\">RM</span>\n  <span class=\"v-avatar\">JS</span>\n  <span class=\"v-avatar\">+2</span>\n</div>",
+      "height": 100,
+      "source": "examples/components/#badges"
+    },
+    {
+      "title": "Custom size",
+      "description": "Set --v-avatar-size for any other size; the initials scale with it.",
+      "html": "<span class=\"v-avatar\" style=\"--v-avatar-size: 5rem\">MG</span>",
+      "height": 120
+    }
+  ]
+}

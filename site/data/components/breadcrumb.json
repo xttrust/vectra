@@ -1,0 +1,60 @@
+{
+  "name": "Breadcrumb",
+  "slug": "breadcrumb",
+  "group": "Navigation",
+  "tier": "P0",
+  "status": "done",
+  "summary": "The path from the home page to the current page, as a row of links with drawn separators.",
+  "description": "Use it on pages more than one level deep so people can see where they are and step back up. It does not replace the main navigation.",
+  "native": "<nav>, <ol>, aria-current",
+  "catalogue": [
+    "Breadcrumb"
+  ],
+  "css": [
+    "breadcrumb.css"
+  ],
+  "classes": [
+    {
+      "name": "v-breadcrumb",
+      "kind": "base",
+      "description": "On the <nav> around an <ol>. Draws chevron separators that point the other way in right-to-left text."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-current=\"page\"",
+      "description": "On the last item, a <span>: bold, not a link, cut with an ellipsis if it is too long."
+    }
+  ],
+  "a11y": [
+    "Wrap it in <nav aria-label=\"Breadcrumb\"> so it is listed as its own landmark.",
+    "Use an ordered list, so screen readers announce how many levels there are.",
+    "The separators are drawn in CSS, so they are not read out."
+  ],
+  "tokens": [
+    "--v-text",
+    "--v-text-2",
+    "--v-text-3",
+    "--v-step-minus-1",
+    "--v-space-2"
+  ],
+  "related": [
+    "navbar",
+    "pagination"
+  ],
+  "examples": [
+    {
+      "title": "Breadcrumb",
+      "html": "<nav class=\"v-breadcrumb\" aria-label=\"Breadcrumb\">\n  <ol>\n    <li><a href=\"#\">Home</a></li>\n    <li><a href=\"#\">Projects</a></li>\n    <li><a href=\"#\">Website redesign</a></li>\n    <li><span aria-current=\"page\">Homepage copy</span></li>\n  </ol>\n</nav>",
+      "height": 80,
+      "source": "examples/navigation/#paging"
+    },
+    {
+      "title": "Right to left",
+      "description": "The separators turn round with the text direction.",
+      "html": "<nav class=\"v-breadcrumb\" aria-label=\"Breadcrumb, right to left\" dir=\"rtl\">\n  <ol>\n    <li><a href=\"#\">Home</a></li>\n    <li><a href=\"#\">Projects</a></li>\n    <li><span aria-current=\"page\">Homepage copy</span></li>\n  </ol>\n</nav>",
+      "height": 80,
+      "source": "examples/navigation/#rtl"
+    }
+  ]
+}

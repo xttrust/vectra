@@ -1,0 +1,59 @@
+{
+  "name": "Prose",
+  "slug": "prose",
+  "group": "Content",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Long-form typography for CMS and markdown output, where the HTML inside carries no classes.",
+  "description": "Put .v-prose on the element that holds articles, help pages or blog posts. It sets the measure, rhythm, headings, lists, quotes, code, tables and figures. Do not use it around app UI: element rules there would fight the components.",
+  "catalogue": [
+    "Prose"
+  ],
+  "css": [
+    "prose.css"
+  ],
+  "classes": [
+    {
+      "name": "v-prose",
+      "kind": "base",
+      "description": "Styles the plain elements inside it. Vectra classes used inside still win, and classed tables, pre, figures and blockquotes are left alone."
+    }
+  ],
+  "a11y": [
+    "The default measure of 68ch keeps lines short enough to read comfortably.",
+    "Give a scrolling <pre> tabindex=\"0\" so keyboard users can scroll long lines.",
+    "Body text uses --v-text-2 and headings --v-text, both at 4.5:1 or better in every direction.",
+    "Keep the heading levels in order inside the article; prose sizes them, it does not fix the outline."
+  ],
+  "tokens": [
+    "--v-prose-measure",
+    "--v-prose-size",
+    "--v-prose-flow",
+    "--v-text-2",
+    "--v-accent",
+    "--v-font-serif"
+  ],
+  "related": [
+    "code-block",
+    "figure",
+    "testimonial",
+    "table"
+  ],
+  "examples": [
+    {
+      "title": "Article",
+      "description": "Headings, a link, lists, a quote and inline code, with no classes inside.",
+      "html": "<article class=\"v-prose\">\n  <p>Most small business websites fail in the same quiet way. Nobody updates them. The opening hours drift, the gallery shows a van that was sold two years ago, and the contact form forwards to an inbox nobody reads.</p>\n  <p>A site that stays useful is built around the few things that change, and makes those things easy to change. Read the <a href=\"#\">full checklist</a> before your next build.</p>\n  <h2>What changes, and how often</h2>\n  <p>Start by listing what a customer actually needs to know before they call. For a roofer, that is usually short:</p>\n  <ul>\n    <li>Which towns you cover, and how quickly you can come out.</li>\n    <li>Recent jobs, with real photos and a line about each one.</li>\n    <li>A phone number that works on a phone, as a link.</li>\n  </ul>\n  <blockquote>\n    <p>The best website I ever had was the one I could update from the van between jobs.</p>\n  </blockquote>\n  <h3>A three-step update routine</h3>\n  <ol>\n    <li>Take two photos at the end of every job.</li>\n    <li>Upload the better one on Friday, with the town name.</li>\n    <li>Check the <code>opening-hours</code> line once a month.</li>\n  </ol>\n</article>",
+      "layout": "stack",
+      "height": 860,
+      "source": "examples/content/#prose"
+    },
+    {
+      "title": "Code, table, figure and rule",
+      "html": "<article class=\"v-prose\">\n  <p>If the site has a feed for recent work, the markup can be as plain as this:</p>\n  <pre tabindex=\"0\"><code>&lt;li class=\"job\"&gt;\n  &lt;img src=\"slate-roof-tuam.jpg\" alt=\"Slate roof, Tuam\"&gt;\n  &lt;p&gt;Full re-slate, finished in four days.&lt;/p&gt;\n&lt;/li&gt;</code></pre>\n  <table>\n    <thead>\n      <tr><th scope=\"col\">Task</th><th scope=\"col\">How often</th><th scope=\"col\">Time</th></tr>\n    </thead>\n    <tbody>\n      <tr><td>New job photo</td><td>Weekly</td><td>5 min</td></tr>\n      <tr><td>Hours and holidays</td><td>Monthly</td><td>2 min</td></tr>\n      <tr><td>Prices and services</td><td>Twice a year</td><td>20 min</td></tr>\n    </tbody>\n  </table>\n  <figure>\n    <svg viewBox=\"0 0 640 220\" role=\"img\" aria-label=\"Bar chart: enquiries rose each month after weekly updates began\" style=\"inline-size: 100%; block-size: auto; color: var(--v-accent)\">\n      <rect width=\"640\" height=\"220\" rx=\"6\" fill=\"currentColor\" opacity=\"0.08\"/>\n      <g fill=\"currentColor\">\n        <rect x=\"60\" y=\"150\" width=\"60\" height=\"50\" rx=\"3\" opacity=\"0.45\"/>\n        <rect x=\"160\" y=\"130\" width=\"60\" height=\"70\" rx=\"3\" opacity=\"0.55\"/>\n        <rect x=\"260\" y=\"105\" width=\"60\" height=\"95\" rx=\"3\" opacity=\"0.65\"/>\n        <rect x=\"360\" y=\"85\" width=\"60\" height=\"115\" rx=\"3\" opacity=\"0.75\"/>\n        <rect x=\"460\" y=\"50\" width=\"60\" height=\"150\" rx=\"3\" opacity=\"0.9\"/>\n      </g>\n    </svg>\n    <figcaption>Enquiries per month after weekly photo updates began.</figcaption>\n  </figure>\n  <hr>\n  <p>None of this needs a redesign. It needs a site that was built to be <strong>looked after</strong>, and ten minutes a week.</p>\n</article>",
+      "layout": "stack",
+      "height": 820,
+      "source": "examples/content/#prose"
+    }
+  ]
+}

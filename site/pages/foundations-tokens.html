@@ -1,0 +1,18 @@
+<!--meta {"description": "The Vectra token contract: the semantic custom properties every direction fills, with live values."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Foundations</p>
+  <h1>{{title}}</h1>
+  <p class="v-lead">Every colour, radius, shadow and font in Vectra is a custom property. Components read tokens and never hard-code a value, so a direction is just a token set.</p>
+</header>
+<h2>Three tiers</h2>
+<ul class="site-list">
+  <li><strong>Primitives</strong> are shared by every direction: the type scale, the space scale times <code>--v-density</code>, motion, status colours. See <a href="{{root}}foundations/typography/">Typography</a> and <a href="{{root}}foundations/spacing/">Spacing</a>.</li>
+  <li><strong>Semantic tokens</strong> are the contract below: surfaces, borders, text, accent, radii and shadows. Each direction defines them for light and dark with <code>light-dark()</code>.</li>
+  <li><strong>Component tokens</strong> default to semantic ones, for example <code>--v-btn-radius: var(--v-radius-md)</code>. Set one on a selector to restyle that component alone.</li>
+</ul>
+<pre data-code="css" data-title="Theme one area without touching the rest">.pricing {
+  --v-card-bg: var(--v-surface-2);
+  --v-btn-radius: var(--v-radius-pill);
+  --v-density: 0.9;
+}</pre>
+{{tokens}}

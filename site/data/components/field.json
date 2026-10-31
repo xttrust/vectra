@@ -1,0 +1,130 @@
+{
+  "name": "Field",
+  "slug": "field",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "The wrapper that stacks a label, a control, a hint and an error message, plus fieldset and legend for groups.",
+  "description": "Every form control sits in a .v-field so the label, help text and error line up the same way everywhere. Client-side errors show only after the person has used the field (:user-invalid), so a fresh form never opens in red.\n\nUse a .v-fieldset with a .v-legend for a group of related fields or choices, and .v-fieldset-plain when the group should not draw a box.",
+  "native": "<label>, <fieldset>, <legend>",
+  "catalogue": [
+    "Field"
+  ],
+  "css": [
+    "field.css"
+  ],
+  "classes": [
+    {
+      "name": "v-field",
+      "kind": "base",
+      "description": "Stacks label, control, hint and error with an even gap."
+    },
+    {
+      "name": "v-label",
+      "kind": "part",
+      "description": "The field label. Use a real <label for> so clicking it focuses the control."
+    },
+    {
+      "name": "v-required",
+      "kind": "part",
+      "description": "The red asterisk in a label. Decoration only, mark it aria-hidden and put required on the control."
+    },
+    {
+      "name": "v-optional",
+      "kind": "part",
+      "description": "A quiet \"Optional\" note pushed to the end of the label row."
+    },
+    {
+      "name": "v-hint",
+      "kind": "part",
+      "description": "Help text under the control, linked with aria-describedby."
+    },
+    {
+      "name": "v-field-error",
+      "kind": "part",
+      "description": "The error message, hidden until the control is invalid. Always shows an icon, never colour alone."
+    },
+    {
+      "name": "v-fieldset",
+      "kind": "base",
+      "description": "A boxed group of fields with a legend."
+    },
+    {
+      "name": "v-legend",
+      "kind": "part",
+      "description": "The title of a fieldset."
+    },
+    {
+      "name": "v-fieldset-plain",
+      "kind": "modifier",
+      "description": "A fieldset that only groups (checkboxes, radios) and draws no box."
+    }
+  ],
+  "states": [
+    {
+      "attribute": ":user-invalid",
+      "description": "After the person has interacted with an invalid control, its .v-field-error shows. Nothing shows on a fresh form."
+    },
+    {
+      "attribute": "aria-invalid=\"true\"",
+      "description": "Server-side error: the message is always visible. Link it with aria-describedby on the control."
+    },
+    {
+      "attribute": "required",
+      "description": "What assistive tech reads as required. The asterisk is only a visual cue."
+    },
+    {
+      "attribute": "aria-describedby",
+      "description": "Points the control at its hint (and at a server error), so they are read after the label."
+    }
+  ],
+  "a11y": [
+    "Every control needs a visible <label for>, placeholder text is not a label.",
+    "For client-side errors keep the message out of aria-describedby: the browser already announces the invalid state. For server errors, set aria-invalid=\"true\" and link the message.",
+    "Error messages carry an icon and the invalid control gets a doubled border, so state never depends on colour alone.",
+    "Group checkboxes and radios in a <fieldset> with a <legend>, so the question is read with each option."
+  ],
+  "tokens": [
+    "--v-danger",
+    "--v-text",
+    "--v-text-3",
+    "--v-border",
+    "--v-border-w",
+    "--v-radius-lg",
+    "--v-space-4",
+    "--v-space-5"
+  ],
+  "related": [
+    "input",
+    "choice",
+    "input-group",
+    "error-summary",
+    "form-layouts",
+    "character-counter"
+  ],
+  "examples": [
+    {
+      "title": "Label, hint and error",
+      "description": "Type something that is not an email and leave the field: the error appears. Optional fields say so in the label.",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"f-name\">Full name <span class=\"v-required\" aria-hidden=\"true\">*</span></label>\n  <input class=\"v-input\" id=\"f-name\" name=\"name\" type=\"text\" autocomplete=\"name\" required value=\"Aoife Kelly\">\n</div>\n<div class=\"v-field\">\n  <label class=\"v-label\" for=\"f-email\">Email <span class=\"v-required\" aria-hidden=\"true\">*</span></label>\n  <input class=\"v-input\" id=\"f-email\" name=\"email\" type=\"email\" autocomplete=\"email\" required placeholder=\"you@example.com\" aria-describedby=\"f-email-hint\">\n  <p class=\"v-hint\" id=\"f-email-hint\">We only use it for receipts.</p>\n  <p class=\"v-field-error\" id=\"f-email-error\">Enter an email address like name@example.com.</p>\n</div>\n<div class=\"v-field\">\n  <label class=\"v-label\" for=\"f-company\">Company <span class=\"v-optional\">Optional</span></label>\n  <input class=\"v-input\" id=\"f-company\" name=\"company\" type=\"text\" autocomplete=\"organization\" placeholder=\"Kelly Roofing Ltd\">\n</div>",
+      "layout": "stack",
+      "height": 330,
+      "source": "examples/forms/#inputs"
+    },
+    {
+      "title": "Server-side error",
+      "description": "aria-invalid keeps the message visible and aria-describedby reads it with the field.",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"s-invalid\">VAT number</label>\n  <input class=\"v-input\" id=\"s-invalid\" type=\"text\" value=\"IE12\" aria-invalid=\"true\" aria-describedby=\"s-invalid-error\">\n  <p class=\"v-field-error\" id=\"s-invalid-error\">That VAT number is too short.</p>\n</div>",
+      "layout": "stack",
+      "height": 130,
+      "source": "examples/forms/#inputs"
+    },
+    {
+      "title": "Fieldset",
+      "html": "<fieldset class=\"v-fieldset\">\n  <legend class=\"v-legend\">Billing address</legend>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"x-line1\">Address line 1 <span class=\"v-required\" aria-hidden=\"true\">*</span></label>\n    <input class=\"v-input\" id=\"x-line1\" type=\"text\" autocomplete=\"address-line1\" required>\n  </div>\n  <div class=\"v-grid\" style=\"--v-min: 10rem\">\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"x-town\">Town</label>\n      <input class=\"v-input\" id=\"x-town\" type=\"text\" autocomplete=\"address-level2\" value=\"Tuam\">\n    </div>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"x-eircode\">Eircode</label>\n      <input class=\"v-input\" id=\"x-eircode\" type=\"text\" autocomplete=\"postal-code\" placeholder=\"H54 XXXX\">\n    </div>\n  </div>\n</fieldset>",
+      "layout": "stack",
+      "height": 280,
+      "source": "examples/forms/#example"
+    }
+  ]
+}

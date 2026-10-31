@@ -1,0 +1,56 @@
+{
+  "name": "Spinner",
+  "slug": "spinner",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A small spinning ring for a short wait of unknown length.",
+  "description": "Use it next to a text label inside a role=\"status\" element. For work with a known length, use a progress bar; for a loading button, use aria-busy on the button instead.",
+  "native": "<span>",
+  "catalogue": [
+    "Spinner"
+  ],
+  "css": [
+    "feedback.css"
+  ],
+  "classes": [
+    {
+      "name": "v-spinner",
+      "kind": "base",
+      "description": "The ring, 1.25rem by default, in the accent colour. Set --v-spinner-size or color to change it."
+    },
+    {
+      "name": "v-spinner-lg",
+      "kind": "modifier",
+      "description": "Large, 2.25rem, for a whole panel or page loading."
+    }
+  ],
+  "a11y": [
+    "Mark the spinner aria-hidden=\"true\" and put a text label next to it in a role=\"status\" element, so the wait is announced.",
+    "Under prefers-reduced-motion the ring stops turning; the text label still tells people something is happening.",
+    "Remove the spinner (and the status text) when loading ends, or change the text to say it is done."
+  ],
+  "tokens": [
+    "--v-spinner-size",
+    "--v-accent"
+  ],
+  "related": [
+    "skeleton",
+    "progress",
+    "button",
+    "save-status"
+  ],
+  "examples": [
+    {
+      "title": "With a label",
+      "html": "<div class=\"v-cluster\" role=\"status\">\n  <span class=\"v-spinner\" aria-hidden=\"true\"></span>\n  <span>Loading projects…</span>\n</div>",
+      "height": 90,
+      "source": "examples/components/#feedback"
+    },
+    {
+      "title": "Sizes and colour",
+      "html": "<span class=\"v-spinner\" aria-hidden=\"true\"></span>\n<span class=\"v-spinner v-spinner-lg\" aria-hidden=\"true\"></span>\n<span class=\"v-spinner\" style=\"--v-spinner-size: 3rem; color: var(--v-text-3)\" aria-hidden=\"true\"></span>\n<span class=\"v-sr-only\" role=\"status\">Loading</span>",
+      "height": 110
+    }
+  ]
+}

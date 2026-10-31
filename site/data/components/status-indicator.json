@@ -1,0 +1,82 @@
+{
+  "name": "Status indicator",
+  "slug": "status-indicator",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A coloured dot with a label for presence or state: online, busy, away, offline, with an optional pulse.",
+  "description": "Use it for people's presence and for live states such as a stream or a service. It can sit on an avatar's corner. For a status that is a word on its own, a badge may read better.",
+  "native": "<span>",
+  "catalogue": [
+    "Status indicator"
+  ],
+  "css": [
+    "status.css"
+  ],
+  "classes": [
+    {
+      "name": "v-status",
+      "kind": "base",
+      "description": "A dot before its label. Online (success colour) by default."
+    },
+    {
+      "name": "v-status-busy",
+      "kind": "modifier",
+      "description": "Busy: danger colour."
+    },
+    {
+      "name": "v-status-away",
+      "kind": "modifier",
+      "description": "Away: warning colour."
+    },
+    {
+      "name": "v-status-offline",
+      "kind": "modifier",
+      "description": "Offline: a hollow ring in the muted colour, so it differs by shape too."
+    },
+    {
+      "name": "v-status-pulse",
+      "kind": "modifier",
+      "description": "Adds a slow ring around the dot, for live states."
+    },
+    {
+      "name": "v-status-avatar",
+      "kind": "base",
+      "description": "Wraps an avatar and a .v-status; the dot sits on the end corner with a ring in the surface colour."
+    }
+  ],
+  "a11y": [
+    "The label carries the meaning; on an avatar keep it as .v-sr-only text inside the .v-status.",
+    "Offline is a hollow ring, not just a grey dot, so the states differ by shape as well as colour.",
+    "The pulse stops under prefers-reduced-motion.",
+    "If the status changes live, announce the change in a role=\"status\" region rather than making every dot a live region."
+  ],
+  "tokens": [
+    "--v-status-color",
+    "--v-status-size",
+    "--v-success",
+    "--v-danger",
+    "--v-warning",
+    "--v-text-3"
+  ],
+  "related": [
+    "avatar",
+    "badge",
+    "list-group",
+    "connection-banner"
+  ],
+  "examples": [
+    {
+      "title": "States",
+      "html": "<span class=\"v-status\"><span>Online</span></span>\n<span class=\"v-status v-status-busy\"><span>Busy</span></span>\n<span class=\"v-status v-status-away\"><span>Away</span></span>\n<span class=\"v-status v-status-offline\"><span>Offline</span></span>\n<span class=\"v-status v-status-pulse\"><span>Live now</span></span>",
+      "height": 90,
+      "source": "examples/elements/#tags"
+    },
+    {
+      "title": "On an avatar",
+      "html": "<span class=\"v-status-avatar\"><span class=\"v-avatar\">AK</span><span class=\"v-status\"><span class=\"v-sr-only\">Online</span></span></span>\n<span class=\"v-status-avatar\"><span class=\"v-avatar\">SM</span><span class=\"v-status v-status-busy\"><span class=\"v-sr-only\">Busy</span></span></span>\n<span class=\"v-status-avatar\"><span class=\"v-avatar v-avatar-lg\">MG</span><span class=\"v-status v-status-away\"><span class=\"v-sr-only\">Away</span></span></span>\n<span class=\"v-status-avatar\"><span class=\"v-avatar v-avatar-square\">VM</span><span class=\"v-status v-status-offline\"><span class=\"v-sr-only\">Offline</span></span></span>",
+      "height": 110,
+      "source": "examples/elements/#tags"
+    }
+  ]
+}

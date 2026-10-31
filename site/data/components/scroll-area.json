@@ -1,0 +1,88 @@
+{
+  "name": "Scroll area",
+  "slug": "scroll-area",
+  "group": "Theming",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A box with thin themed scrollbars whose edges fade where more content waits, vertically or sideways.",
+  "description": "Use it for a long list inside a card or a row of chips that would not fit. Do not wrap whole pages in it; let the page scroll normally.",
+  "catalogue": [
+    "Scroll area"
+  ],
+  "css": [
+    "scroll.css"
+  ],
+  "classes": [
+    {
+      "name": "v-scroll",
+      "kind": "base",
+      "description": "Scrolls vertically up to --v-scroll-max (default 20rem), with fading top and bottom edges."
+    },
+    {
+      "name": "v-scroll-x",
+      "kind": "modifier",
+      "description": "Scrolls sideways instead, fading the start and end edges (mirrored in right-to-left)."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "tabindex=\"0\"",
+      "description": "Lets keyboard users focus the area and scroll it with the arrow keys. The fade drops while focused so the ring is never masked."
+    },
+    {
+      "attribute": "role=\"region\"",
+      "description": "With aria-label or aria-labelledby, names the area for screen readers."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the area when it has tabindex=\"0\"."
+    },
+    {
+      "keys": [
+        "ArrowUp",
+        "ArrowDown",
+        "ArrowLeft",
+        "ArrowRight",
+        "PageUp",
+        "PageDown"
+      ],
+      "action": "Scrolls the focused area (native)."
+    }
+  ],
+  "a11y": [
+    "An area that overflows needs tabindex=\"0\", role=\"region\" and a label, or keyboard users cannot reach the hidden part.",
+    "The fade is a scroll-driven enhancement; without support the area simply scrolls.",
+    "overscroll-behavior: contain stops the page from scrolling when the area reaches its end."
+  ],
+  "tokens": [
+    "--v-scroll-max",
+    "--v-scroll-fade",
+    "--v-border-strong"
+  ],
+  "related": [
+    "card",
+    "table",
+    "tag",
+    "list-group"
+  ],
+  "examples": [
+    {
+      "title": "Vertical",
+      "html": "<h3 class=\"v-card-title\" id=\"notes-title\">Release notes</h3>\n<div class=\"v-scroll\" role=\"region\" aria-labelledby=\"notes-title\" tabindex=\"0\" style=\"--v-scroll-max: 13rem\">\n  <ul class=\"v-stack\" style=\"--v-gap: var(--v-space-3)\">\n    <li>Tables gain a sticky header and a dense variant.</li>\n    <li>Timeline markers take an icon, an avatar or a dot.</li>\n    <li>Prose styles CMS output with no classes at all.</li>\n    <li>Code blocks number their lines with CSS counters.</li>\n    <li>Testimonials show a rating that screen readers announce.</li>\n    <li>Pricing cards line their buttons up across a row.</li>\n    <li>Logo clouds stay monochrome until you hover them.</li>\n    <li>Scroll areas fade their edges where more content waits.</li>\n    <li>Every component reads its colours from tokens.</li>\n    <li>Right-to-left layouts work through logical properties.</li>\n  </ul>\n</div>",
+      "layout": "stack",
+      "height": 280,
+      "source": "examples/content/#scroll"
+    },
+    {
+      "title": "Sideways",
+      "html": "<h3 class=\"v-card-title\" id=\"genres-title\">Browse by genre</h3>\n<div class=\"v-scroll v-scroll-x\" role=\"region\" aria-labelledby=\"genres-title\" tabindex=\"0\">\n  <div class=\"v-flex v-gap-2\" style=\"inline-size: max-content; padding-block-end: var(--v-space-2)\">\n    <span class=\"v-badge v-badge-outline\">Melodic house</span>\n    <span class=\"v-badge v-badge-outline\">Progressive</span>\n    <span class=\"v-badge v-badge-outline\">Deep house</span>\n    <span class=\"v-badge v-badge-outline\">Organic</span>\n    <span class=\"v-badge v-badge-outline\">Indie dance</span>\n    <span class=\"v-badge v-badge-outline\">Downtempo</span>\n    <span class=\"v-badge v-badge-outline\">Breaks</span>\n    <span class=\"v-badge v-badge-outline\">Ambient</span>\n    <span class=\"v-badge v-badge-outline\">Techno</span>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 120,
+      "source": "examples/content/#scroll"
+    }
+  ]
+}

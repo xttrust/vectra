@@ -1,0 +1,130 @@
+{
+  "name": "Search field",
+  "slug": "search-field",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A search input with a leading icon, an optional clear button and an optional keyboard shortcut hint.",
+  "description": "Built on the input group. The clear button shows only while there is text, and the shortcut hint hides while the field is focused or filled. The hint is a visual cue: binding the shortcut key is up to the page.",
+  "native": "<input type=\"search\">",
+  "catalogue": [
+    "Search field"
+  ],
+  "css": [
+    "search.css",
+    "input.css"
+  ],
+  "js": [
+    "components/clear.js"
+  ],
+  "classes": [
+    {
+      "name": "v-search",
+      "kind": "base",
+      "description": "Goes on the .v-input-group. Hides the browser's own clear button and quietens the icon."
+    },
+    {
+      "name": "v-search-clear",
+      "kind": "part",
+      "description": "The clear button at the end. Hidden while the input is empty."
+    },
+    {
+      "name": "v-search-hint",
+      "kind": "part",
+      "description": "A shortcut hint holding a .v-kbd. Hidden while the field is focused or filled."
+    },
+    {
+      "name": "v-search-pill",
+      "kind": "modifier",
+      "description": "A fully rounded field, common in headers."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "placeholder",
+      "description": "Required: the clear button and hint use :placeholder-shown to know whether the field is empty."
+    },
+    {
+      "attribute": "aria-keyshortcuts",
+      "description": "Tells assistive tech which shortcut focuses the field, matching the visible hint."
+    },
+    {
+      "attribute": "hidden",
+      "description": "Set on the clear button by the JS while there is nothing to clear."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-clear",
+      "value": "",
+      "on": ".v-search",
+      "description": "Its first button empties the input, returns focus to it and fires input so live filters update."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves to the input, then to the clear button when there is text."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On the clear button: empties the field and puts focus back in it."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Clears a search input in most browsers (native behaviour)."
+    }
+  ],
+  "a11y": [
+    "Keep a visible label, or at least an aria-label on the input; the icon is decoration and is aria-hidden.",
+    "The clear button needs a name (aria-label=\"Clear search\").",
+    "The shortcut hint is aria-hidden; put the same key in aria-keyshortcuts on the input, and bind it in your own script.",
+    "Put the field in a role=\"search\" landmark (or a <search> element) when it searches the whole site."
+  ],
+  "tokens": [
+    "--v-input-h",
+    "--v-input-border",
+    "--v-input-radius",
+    "--v-radius-pill",
+    "--v-text-3",
+    "--v-focus-w"
+  ],
+  "related": [
+    "input-group",
+    "input",
+    "kbd",
+    "navbar"
+  ],
+  "examples": [
+    {
+      "title": "With a clear button",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"s-clients\">Clients</label>\n  <div class=\"v-input-group v-search\" data-v-clear>\n    <span class=\"v-input-addon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></span>\n    <input class=\"v-input\" id=\"s-clients\" type=\"search\" placeholder=\"Name or email\" value=\"Kelly\">\n    <button class=\"v-btn v-btn-ghost v-btn-icon v-search-clear\" type=\"button\" aria-label=\"Clear search\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 100,
+      "source": "examples/elements/#search"
+    },
+    {
+      "title": "With a shortcut hint",
+      "description": "The hint is only visual, so the page binds the key. Press / to focus the field.",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"s-docs\">Search the docs</label>\n  <div class=\"v-input-group v-search\">\n    <span class=\"v-input-addon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></span>\n    <input class=\"v-input\" id=\"s-docs\" type=\"search\" placeholder=\"Components, tokens\" aria-keyshortcuts=\"/\">\n    <span class=\"v-search-hint\" aria-hidden=\"true\"><kbd class=\"v-kbd\">/</kbd></span>\n  </div>\n</div>",
+      "js": "const search = document.getElementById('s-docs');\ndocument.addEventListener('keydown', (e) => {\n  if (e.key !== '/' || e.target.closest('input, textarea, select, [contenteditable]')) return;\n  e.preventDefault();\n  search.focus();\n});",
+      "layout": "stack",
+      "height": 100,
+      "source": "examples/elements/#search"
+    },
+    {
+      "title": "Pill",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"s-pill\">Find a command</label>\n  <div class=\"v-input-group v-search v-search-pill\" data-v-clear>\n    <span class=\"v-input-addon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></span>\n    <input class=\"v-input\" id=\"s-pill\" type=\"search\" placeholder=\"Type a command\" aria-keyshortcuts=\"Control+K\">\n    <button class=\"v-btn v-btn-ghost v-btn-icon v-search-clear\" type=\"button\" aria-label=\"Clear search\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n    <span class=\"v-search-hint\" aria-hidden=\"true\"><kbd class=\"v-kbd-combo\"><kbd class=\"v-kbd\">Ctrl</kbd><kbd class=\"v-kbd\">K</kbd></kbd></span>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 100,
+      "source": "examples/elements/#search"
+    }
+  ]
+}

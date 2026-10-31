@@ -1,0 +1,72 @@
+{
+  "name": "Callout",
+  "slug": "callout",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A docs-style aside inside long-form content: note, tip, warning or danger, with a titled type.",
+  "description": "Use a callout in articles and documentation to set a point apart from the text around it. For messages about the state of the app use an alert.",
+  "native": "<aside>",
+  "catalogue": [
+    "Callout"
+  ],
+  "css": [
+    "callout.css"
+  ],
+  "classes": [
+    {
+      "name": "v-callout",
+      "kind": "base",
+      "description": "The aside, with a tone rule on the start side. Note (info) tone by default."
+    },
+    {
+      "name": "v-callout-title",
+      "kind": "part",
+      "description": "The first line: an icon and the type name."
+    },
+    {
+      "name": "v-callout-tip",
+      "kind": "modifier",
+      "description": "Tip, in the success tone."
+    },
+    {
+      "name": "v-callout-warning",
+      "kind": "modifier",
+      "description": "Warning tone."
+    },
+    {
+      "name": "v-callout-danger",
+      "kind": "modifier",
+      "description": "Danger tone, for things that cannot be undone."
+    }
+  ],
+  "a11y": [
+    "The title names the type (Note, Tip, Warning), so the meaning never rests on colour.",
+    "An <aside> with aria-label is a complementary landmark; label it with the type so it is easy to find.",
+    "Callouts are static content; give them no live role."
+  ],
+  "tokens": [
+    "--v-tone",
+    "--v-tone-soft",
+    "--v-info",
+    "--v-success",
+    "--v-warning",
+    "--v-danger",
+    "--v-radius-md"
+  ],
+  "related": [
+    "alert",
+    "prose",
+    "code-block",
+    "kbd"
+  ],
+  "examples": [
+    {
+      "title": "Four types",
+      "html": "<aside class=\"v-callout\" aria-label=\"Note\">\n  <p class=\"v-callout-title\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#info\"/></svg>Note</p>\n  <p>Directions ship as separate files. Load one with the core for production.</p>\n</aside>\n<aside class=\"v-callout v-callout-tip\" aria-label=\"Tip\">\n  <p class=\"v-callout-title\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#lightbulb\"/></svg>Tip</p>\n  <p>Every docs page has a search shortcut. Press <kbd class=\"v-kbd\">/</kbd> to use it.</p>\n</aside>\n<aside class=\"v-callout v-callout-warning\" aria-label=\"Warning\">\n  <p class=\"v-callout-title\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#warning\"/></svg>Warning</p>\n  <p>Changing the accent hue rebuilds every tint. Check custom colours afterwards.</p>\n</aside>\n<aside class=\"v-callout v-callout-danger\" aria-label=\"Danger\">\n  <p class=\"v-callout-title\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#error\"/></svg>Danger</p>\n  <p>Deleting a site removes its backups too. This cannot be undone.</p>\n</aside>",
+      "layout": "stack",
+      "height": 460,
+      "source": "examples/elements/#callouts"
+    }
+  ]
+}

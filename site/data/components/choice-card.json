@@ -1,0 +1,123 @@
+{
+  "name": "Checkbox and radio cards",
+  "slug": "choice-card",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Rich selectable tiles with a title, text and an optional icon or price, built on a native checkbox or radio.",
+  "description": "Use them for plans, onboarding questions and other choices that need a line of explanation. For plain lists of options, ordinary checkboxes and radios are quicker to scan.",
+  "native": "<label>, <input type=\"checkbox\">, <input type=\"radio\">",
+  "catalogue": [
+    "Checkbox / radio cards"
+  ],
+  "css": [
+    "choice-card.css",
+    "choice.css"
+  ],
+  "classes": [
+    {
+      "name": "v-choice-card",
+      "kind": "base",
+      "description": "The <label> tile. The whole tile is the click target."
+    },
+    {
+      "name": "v-choice-card-body",
+      "kind": "part",
+      "description": "Holds the title and the text."
+    },
+    {
+      "name": "v-choice-card-title",
+      "kind": "part",
+      "description": "The option name."
+    },
+    {
+      "name": "v-choice-card-text",
+      "kind": "part",
+      "description": "One line of detail under the title."
+    },
+    {
+      "name": "v-choice-card-icon",
+      "kind": "part",
+      "description": "An icon in a tinted square; it takes the accent when checked."
+    },
+    {
+      "name": "v-choice-card-price",
+      "kind": "part",
+      "description": "A price at the end, with an optional <small> for the period."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "checked",
+      "description": "Accent border, doubled in width, plus a light tint."
+    },
+    {
+      "attribute": "disabled",
+      "description": "The tile is dimmed and does not react to hover."
+    },
+    {
+      "attribute": ":focus-visible",
+      "description": "The focus ring goes round the whole tile, not the small box inside it."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves to a checkbox card, or to the checked card of a radio group."
+    },
+    {
+      "keys": [
+        "Space"
+      ],
+      "action": "Toggles a checkbox card or checks the focused radio card."
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "ArrowRight",
+        "ArrowUp",
+        "ArrowLeft"
+      ],
+      "action": "Moves the choice between radio cards in the same group."
+    }
+  ],
+  "a11y": [
+    "The native input stays visible as the state mark and keeps keyboard and form behaviour.",
+    "All text in the tile is inside the <label>, so the title, text and price are read as the control's name. Keep it short.",
+    "Wrap the cards in a <fieldset> with a <legend> that asks the question.",
+    "The checked state is shown by the mark and a thicker border, not by colour alone."
+  ],
+  "tokens": [
+    "--v-input-border",
+    "--v-accent",
+    "--v-accent-soft",
+    "--v-card-bg",
+    "--v-radius-lg",
+    "--v-border-w",
+    "--v-focus-w"
+  ],
+  "related": [
+    "choice",
+    "pricing-card",
+    "field",
+    "form-layouts"
+  ],
+  "examples": [
+    {
+      "title": "Radio cards with prices",
+      "html": "<fieldset class=\"v-fieldset v-fieldset-plain\">\n  <legend class=\"v-legend\">Choose a plan</legend>\n  <div class=\"v-grid\" style=\"--v-min: 14rem\">\n    <label class=\"v-choice-card\">\n      <input class=\"v-radio\" type=\"radio\" name=\"plan\" value=\"simple\" id=\"cc-simple\">\n      <span class=\"v-choice-card-body\"><span class=\"v-choice-card-title\">Simple site</span><span class=\"v-choice-card-text\">Up to five pages, contact form, Google Business Profile set-up.</span></span>\n      <span class=\"v-choice-card-price\">€799<small>one-off</small></span>\n    </label>\n    <label class=\"v-choice-card\">\n      <input class=\"v-radio\" type=\"radio\" name=\"plan\" value=\"pro\" checked>\n      <span class=\"v-choice-card-body\"><span class=\"v-choice-card-title\">Professional</span><span class=\"v-choice-card-text\">Everything in Simple, plus a client admin to edit your own content.</span></span>\n      <span class=\"v-choice-card-price\">€1,499<small>one-off</small></span>\n    </label>\n    <label class=\"v-choice-card\">\n      <input class=\"v-radio\" type=\"radio\" name=\"plan\" value=\"shop\" disabled>\n      <span class=\"v-choice-card-body\"><span class=\"v-choice-card-title\">Online shop</span><span class=\"v-choice-card-text\">Coming in spring.</span></span>\n      <span class=\"v-choice-card-price\">€2,499</span>\n    </label>\n  </div>\n</fieldset>",
+      "layout": "fill",
+      "height": 340,
+      "source": "examples/elements/#choice-cards"
+    },
+    {
+      "title": "Checkbox cards with icons",
+      "html": "<fieldset class=\"v-fieldset v-fieldset-plain\">\n  <legend class=\"v-legend\">What do you need?</legend>\n  <div class=\"v-grid\" style=\"--v-min: 14rem\">\n    <label class=\"v-choice-card\">\n      <input class=\"v-checkbox\" type=\"checkbox\" name=\"need\" value=\"site\" checked>\n      <span class=\"v-choice-card-icon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#home\"/></svg></span>\n      <span class=\"v-choice-card-body\"><span class=\"v-choice-card-title\">A new website</span><span class=\"v-choice-card-text\">Designed and built for you.</span></span>\n    </label>\n    <label class=\"v-choice-card\">\n      <input class=\"v-checkbox\" type=\"checkbox\" name=\"need\" value=\"seo\" id=\"cc-seo\">\n      <span class=\"v-choice-card-icon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></span>\n      <span class=\"v-choice-card-body\"><span class=\"v-choice-card-title\">Get found on Google</span><span class=\"v-choice-card-text\">SEO and a tuned Business Profile.</span></span>\n    </label>\n    <label class=\"v-choice-card\">\n      <input class=\"v-checkbox\" type=\"checkbox\" name=\"need\" value=\"shop\">\n      <span class=\"v-choice-card-icon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#store\"/></svg></span>\n      <span class=\"v-choice-card-body\"><span class=\"v-choice-card-title\">Sell online</span><span class=\"v-choice-card-text\">Products, payments and delivery zones.</span></span>\n    </label>\n  </div>\n</fieldset>",
+      "layout": "fill",
+      "height": 300,
+      "source": "examples/elements/#choice-cards"
+    }
+  ]
+}

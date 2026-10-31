@@ -1,0 +1,100 @@
+{
+  "name": "Pricing card",
+  "slug": "pricing-card",
+  "group": "Content",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A plan card with name, price, description, feature list and a call to action, used on .v-card.",
+  "description": "Put two to four cards in a grid. The feature list grows, so the buttons line up across a row. Mark one plan with .v-pricing-featured and a badge, not several.",
+  "native": "<article>",
+  "catalogue": [
+    "Pricing card"
+  ],
+  "css": [
+    "pricing.css"
+  ],
+  "classes": [
+    {
+      "name": "v-pricing",
+      "kind": "base",
+      "description": "Goes with .v-card on an <article>: sets the gap between the parts."
+    },
+    {
+      "name": "v-pricing-featured",
+      "kind": "modifier",
+      "description": "The recommended plan: an accent ring and a stronger shadow."
+    },
+    {
+      "name": "v-pricing-header",
+      "kind": "part",
+      "description": "Plan name and an optional badge in a row."
+    },
+    {
+      "name": "v-pricing-name",
+      "kind": "part",
+      "description": "The plan name, in display type."
+    },
+    {
+      "name": "v-pricing-price",
+      "kind": "part",
+      "description": "Amount and period on one baseline."
+    },
+    {
+      "name": "v-pricing-amount",
+      "kind": "part",
+      "description": "The price, large with tabular figures."
+    },
+    {
+      "name": "v-pricing-period",
+      "kind": "part",
+      "description": "What the price covers: per month, forever."
+    },
+    {
+      "name": "v-pricing-desc",
+      "kind": "part",
+      "description": "One line on who the plan is for."
+    },
+    {
+      "name": "v-pricing-features",
+      "kind": "part",
+      "description": "The feature <ul>. Icons in the items take the accent colour."
+    }
+  ],
+  "a11y": [
+    "Use a heading for the plan name, so people can jump between plans by heading.",
+    "Write the period as words (\"per month\") next to the amount, so the price reads as a whole.",
+    "The featured plan is marked by its badge text, not only by the accent ring.",
+    "Name each button for its plan (\"Choose Pro\") rather than repeating \"Buy\"."
+  ],
+  "tokens": [
+    "--v-card-bg",
+    "--v-card-border",
+    "--v-accent",
+    "--v-accent-text",
+    "--v-shadow-2",
+    "--v-font-display"
+  ],
+  "related": [
+    "card",
+    "badge",
+    "button",
+    "choice-card",
+    "segmented-control"
+  ],
+  "examples": [
+    {
+      "title": "Three plans",
+      "description": "The middle plan is featured. The last card uses .v-card-feature, the filled card variant.",
+      "html": "<div class=\"v-grid\" style=\"--v-min: 16rem\">\n  <article class=\"v-card v-pricing\">\n    <header class=\"v-pricing-header\"><h3 class=\"v-pricing-name\">Starter</h3></header>\n    <p class=\"v-pricing-price\"><span class=\"v-pricing-amount\">€0</span><span class=\"v-pricing-period\">forever</span></p>\n    <p class=\"v-pricing-desc\">For a first site and a single person running it.</p>\n    <ul class=\"v-pricing-features\">\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>One site, five pages</li>\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>All four directions</li>\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Community support</li>\n    </ul>\n    <a class=\"v-btn v-btn-secondary v-btn-block\" href=\"#\">Start free</a>\n  </article>\n  <article class=\"v-card v-pricing v-pricing-featured\">\n    <header class=\"v-pricing-header\"><h3 class=\"v-pricing-name\">Pro</h3><span class=\"v-badge v-badge-solid\">Recommended</span></header>\n    <p class=\"v-pricing-price\"><span class=\"v-pricing-amount\">€24</span><span class=\"v-pricing-period\">per month</span></p>\n    <p class=\"v-pricing-desc\">For a business that updates its site every week.</p>\n    <ul class=\"v-pricing-features\">\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Unlimited pages</li>\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Client admin and forms</li>\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Priority email support</li>\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Monthly SEO report</li>\n    </ul>\n    <a class=\"v-btn v-btn-primary v-btn-block\" href=\"#\">Choose Pro</a>\n  </article>\n  <article class=\"v-card v-card-feature v-pricing\">\n    <header class=\"v-pricing-header\"><h3 class=\"v-pricing-name\">Team</h3></header>\n    <p class=\"v-pricing-price\"><span class=\"v-pricing-amount\">€79</span><span class=\"v-pricing-period\">per month</span></p>\n    <p class=\"v-pricing-desc\">For agencies and labels with several people and sites.</p>\n    <ul class=\"v-pricing-features\">\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Ten sites, shared tokens</li>\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Roles and audit log</li>\n      <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Onboarding call</li>\n    </ul>\n    <a class=\"v-btn v-btn-primary v-btn-block\" href=\"#\">Talk to us</a>\n  </article>\n</div>",
+      "layout": "fill",
+      "height": 470,
+      "source": "examples/content/#pricing"
+    },
+    {
+      "title": "Single featured plan",
+      "html": "<article style=\"max-inline-size: 22rem\" class=\"v-card v-pricing v-pricing-featured\">\n  <header class=\"v-pricing-header\"><h3 class=\"v-pricing-name\">Pro</h3><span class=\"v-badge v-badge-solid\">Recommended</span></header>\n  <p class=\"v-pricing-price\"><span class=\"v-pricing-amount\">€24</span><span class=\"v-pricing-period\">per month</span></p>\n  <p class=\"v-pricing-desc\">For a business that updates its site every week.</p>\n  <ul class=\"v-pricing-features\">\n    <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Unlimited pages</li>\n    <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Client admin and forms</li>\n    <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Priority email support</li>\n    <li><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg>Monthly SEO report</li>\n  </ul>\n  <a class=\"v-btn v-btn-primary v-btn-block\" href=\"#\">Choose Pro</a>\n</article>",
+      "layout": "center",
+      "height": 470
+    }
+  ]
+}

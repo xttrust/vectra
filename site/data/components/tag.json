@@ -1,0 +1,158 @@
+{
+  "name": "Tag",
+  "slug": "tag",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A pill label that can be plain, removed with a close button, or selected like a checkbox.",
+  "description": "Use tags for filters, chosen options and keywords people manage. For read-only status, use a badge, which is smaller and quieter.",
+  "native": "<span>, <label> with <input type=\"checkbox\">, <button aria-pressed>",
+  "catalogue": [
+    "Tag / chip"
+  ],
+  "css": [
+    "tag.css"
+  ],
+  "js": [
+    "components/dismiss.js"
+  ],
+  "classes": [
+    {
+      "name": "v-tag",
+      "kind": "base",
+      "description": "The tag. On a <label> around a checkbox, or a <button aria-pressed>, it becomes selectable with a control-strength border."
+    },
+    {
+      "name": "v-tag-accent",
+      "kind": "modifier",
+      "description": "Accent tone."
+    },
+    {
+      "name": "v-tag-success",
+      "kind": "modifier",
+      "description": "Success tone."
+    },
+    {
+      "name": "v-tag-warning",
+      "kind": "modifier",
+      "description": "Warning tone."
+    },
+    {
+      "name": "v-tag-danger",
+      "kind": "modifier",
+      "description": "Danger tone."
+    },
+    {
+      "name": "v-tag-info",
+      "kind": "modifier",
+      "description": "Info tone."
+    },
+    {
+      "name": "v-tag-remove",
+      "kind": "part",
+      "description": "The close button inside a removable tag: a 24px round target at the end."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "checked",
+      "description": "On the checkbox inside a label tag: fills with the accent and adds a check mark."
+    },
+    {
+      "attribute": "aria-pressed=\"true\"",
+      "description": "On a button tag: the same selected look. Your script flips it."
+    },
+    {
+      "attribute": "disabled",
+      "description": "On the checkbox or button: dimmed and not clickable."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-dismissable",
+      "value": "",
+      "on": "The .v-tag.",
+      "description": "Marks the tag as the thing a close button inside removes."
+    },
+    {
+      "name": "data-v-dismiss",
+      "value": "",
+      "on": "The .v-tag-remove button.",
+      "description": "Removes the closest [data-v-dismissable] on click and moves focus to the next control."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:dismiss",
+      "on": "The [data-v-dismissable] tag.",
+      "detail": "{ key }",
+      "cancelable": true,
+      "description": "Fires before the tag is removed. Call preventDefault() to keep it, e.g. to remove it yourself after a server call."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves to each selectable tag and each remove button."
+    },
+    {
+      "keys": [
+        "Space"
+      ],
+      "action": "Selects or clears a checkbox or button tag."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On a remove button, removes the tag; focus moves to the next control."
+    }
+  ],
+  "a11y": [
+    "Give each remove button an aria-label that names the tag, such as \"Remove Galway\", not just \"Remove\".",
+    "A selected tag gains a check mark as well as the fill, so the state never rests on colour.",
+    "Group selectable tags in a <fieldset> with a <legend> so screen readers know what is being chosen.",
+    "After a tag is removed focus moves to the next control (or the previous one), not to the top of the page."
+  ],
+  "tokens": [
+    "--v-tag-border",
+    "--v-border-control",
+    "--v-radius-pill",
+    "--v-surface-2",
+    "--v-accent",
+    "--v-on-accent",
+    "--v-accent-soft"
+  ],
+  "related": [
+    "badge",
+    "choice",
+    "search-field",
+    "choice-card"
+  ],
+  "examples": [
+    {
+      "title": "Tones",
+      "html": "<span class=\"v-tag\">Roofing</span>\n<span class=\"v-tag v-tag-accent\">Featured</span>\n<span class=\"v-tag v-tag-success\">Paid</span>\n<span class=\"v-tag v-tag-warning\">Overdue</span>\n<span class=\"v-tag v-tag-danger\">Disputed</span>\n<span class=\"v-tag v-tag-info\">Draft</span>",
+      "height": 100,
+      "source": "examples/elements/#tags"
+    },
+    {
+      "title": "Removable",
+      "description": "data-v-dismiss on the button removes the closest data-v-dismissable tag.",
+      "html": "<span class=\"v-tag\" data-v-dismissable><span>Galway</span><button class=\"v-tag-remove\" type=\"button\" data-v-dismiss aria-label=\"Remove Galway\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></span>\n<span class=\"v-tag\" data-v-dismissable><span>Mayo</span><button class=\"v-tag-remove\" type=\"button\" data-v-dismiss aria-label=\"Remove Mayo\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></span>\n<span class=\"v-tag v-tag-accent\" data-v-dismissable><span>Clare</span><button class=\"v-tag-remove\" type=\"button\" data-v-dismiss aria-label=\"Remove Clare\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></span>",
+      "height": 100,
+      "source": "examples/elements/#tags"
+    },
+    {
+      "title": "Selectable",
+      "html": "<fieldset class=\"v-fieldset v-fieldset-plain\">\n  <legend class=\"v-legend\">Services</legend>\n  <div class=\"v-cluster\" style=\"--v-gap: var(--v-space-2)\">\n    <label class=\"v-tag\"><input type=\"checkbox\" name=\"svc\" value=\"web\" checked><span>Web design</span></label>\n    <label class=\"v-tag\"><input type=\"checkbox\" name=\"svc\" value=\"seo\"><span>SEO</span></label>\n    <label class=\"v-tag\"><input type=\"checkbox\" name=\"svc\" value=\"ads\" checked><span>Google Ads</span></label>\n    <label class=\"v-tag\"><input type=\"checkbox\" name=\"svc\" value=\"care\" disabled><span>Website care</span></label>\n    <button class=\"v-tag\" type=\"button\" aria-pressed=\"false\">Hosting</button>\n  </div>\n</fieldset>",
+      "js": "const hosting = document.querySelector('button.v-tag');\nhosting.addEventListener('click', () => {\n  hosting.setAttribute('aria-pressed', hosting.getAttribute('aria-pressed') !== 'true');\n});",
+      "layout": "stack",
+      "height": 140,
+      "source": "examples/elements/#tags"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "name": "Banner",
+  "slug": "banner",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A full-width message strip at the top of a page or app, for maintenance, a trial ending or a new feature, with optional actions and a dismiss button.",
+  "description": "Use a banner for news about the whole site or account. For a message about one form or card use an alert, and for a quick confirmation use a toast.",
+  "catalogue": [
+    "Banner"
+  ],
+  "css": [
+    "banner.css"
+  ],
+  "js": [
+    "components/dismiss.js"
+  ],
+  "classes": [
+    {
+      "name": "v-banner",
+      "kind": "base",
+      "description": "The strip: an icon, the body, optional actions and an optional dismiss button. Info tone by default."
+    },
+    {
+      "name": "v-banner-body",
+      "kind": "part",
+      "description": "The message; a <strong> inside leads it."
+    },
+    {
+      "name": "v-banner-actions",
+      "kind": "part",
+      "description": "A row of small buttons or links."
+    },
+    {
+      "name": "v-banner-dismiss",
+      "kind": "part",
+      "description": "The close button, kept in the top end corner however the rest wraps."
+    },
+    {
+      "name": "v-banner-success",
+      "kind": "modifier",
+      "description": "Success tone."
+    },
+    {
+      "name": "v-banner-warning",
+      "kind": "modifier",
+      "description": "Warning tone."
+    },
+    {
+      "name": "v-banner-danger",
+      "kind": "modifier",
+      "description": "Danger tone."
+    },
+    {
+      "name": "v-banner-accent",
+      "kind": "modifier",
+      "description": "Accent tone, for product news."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "role=\"status\"",
+      "description": "Polite announcement, for news."
+    },
+    {
+      "attribute": "role=\"alert\"",
+      "description": "Interrupts, only when the message is urgent."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-dismissable",
+      "value": "",
+      "on": "The .v-banner",
+      "description": "Marks the container that a dismiss button removes."
+    },
+    {
+      "name": "data-v-dismiss",
+      "value": "",
+      "on": "The close button inside it",
+      "description": "Removes the container on click and moves focus to the next control."
+    },
+    {
+      "name": "data-v-dismiss-key",
+      "value": "A name, e.g. maintenance-nov",
+      "on": "The close button",
+      "description": "Remembers the dismissal in storage, so the banner is removed on later visits too."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:dismiss",
+      "on": "The container",
+      "detail": "{ key }",
+      "cancelable": true,
+      "description": "Fires before the banner is removed. Call preventDefault() to keep it."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves to the actions and the dismiss button."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Dismisses the banner when the close button has focus; focus moves on to the next control."
+    }
+  ],
+  "a11y": [
+    "The dismiss button is an icon button, so it needs aria-label=\"Dismiss\".",
+    "After a dismissal focus goes to the next control on the page, not back to the top.",
+    "The tone is backed by the icon and the words; never rely on the colour alone.",
+    "Use role=\"alert\" sparingly; most banners are role=\"status\" or no role at all when they load with the page."
+  ],
+  "tokens": [
+    "--v-tone",
+    "--v-tone-soft",
+    "--v-info",
+    "--v-accent-soft",
+    "--v-warning",
+    "--v-danger"
+  ],
+  "related": [
+    "alert",
+    "connection-banner",
+    "callout",
+    "toast"
+  ],
+  "examples": [
+    {
+      "title": "Dismissible",
+      "description": "Press the cross: the banner goes and focus moves on.",
+      "html": "<div class=\"v-banner\" role=\"status\" data-v-dismissable>\n  <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#info\"/></svg>\n  <p class=\"v-banner-body\"><strong>Scheduled maintenance</strong> on Sunday 8 November from 02:00 to 03:00 GMT.</p>\n  <button class=\"v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss\" type=\"button\" data-v-dismiss aria-label=\"Dismiss\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n</div>\n<div class=\"v-banner v-banner-accent\" role=\"status\" data-v-dismissable>\n  <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#sparkles\"/></svg>\n  <p class=\"v-banner-body\"><strong>New:</strong> live QR tips are here for every artist page.</p>\n  <div class=\"v-banner-actions\">\n    <a class=\"v-btn v-btn-primary v-btn-sm\" href=\"#\">See how it works</a>\n  </div>\n  <button class=\"v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss\" type=\"button\" data-v-dismiss aria-label=\"Dismiss\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n</div>",
+      "layout": "stack",
+      "height": 180,
+      "source": "examples/elements/#banners"
+    },
+    {
+      "title": "Tones",
+      "html": "<div class=\"v-banner v-banner-warning\" role=\"status\">\n  <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#warning\"/></svg>\n  <p class=\"v-banner-body\">Your trial ends in 3 days. Add a card to keep your sites online.</p>\n  <div class=\"v-banner-actions\">\n    <a class=\"v-btn v-btn-secondary v-btn-sm\" href=\"#\">Add a card</a>\n  </div>\n</div>\n<div class=\"v-banner v-banner-success\" role=\"status\">\n  <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#success\"/></svg>\n  <p class=\"v-banner-body\">Migration complete. All 12 accounts moved to the new server.</p>\n</div>\n<div class=\"v-banner v-banner-danger\" role=\"alert\">\n  <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#error\"/></svg>\n  <p class=\"v-banner-body\">Payments are failing for some cards. We are on it.</p>\n  <div class=\"v-banner-actions\">\n    <a class=\"v-btn v-btn-ghost v-btn-sm\" href=\"#\">Status page</a>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 220,
+      "source": "examples/elements/#banners"
+    }
+  ]
+}
