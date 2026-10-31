@@ -1,0 +1,81 @@
+{
+  "name": "Character counter",
+  "slug": "character-counter",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "An \"n of max\" line under a text field that gets louder near and past the limit.",
+  "description": "Use maxlength for a hard limit the browser enforces, or data-v-max for a soft limit people can go over (and then fix). Screen readers hear it only on entering the last 10%, at the limit and when going over, not on every key.",
+  "catalogue": [
+    "Character counter"
+  ],
+  "css": [
+    "field.css"
+  ],
+  "js": [
+    "components/counter.js"
+  ],
+  "classes": [
+    {
+      "name": "v-counter",
+      "kind": "base",
+      "description": "The counter line. Write it in the markup to place it yourself; otherwise the JS adds it at the end of the field."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-v-level",
+      "description": "Set by the JS: \"near\" (last 10%) and \"full\" in the warning colour, \"over\" in the danger colour."
+    },
+    {
+      "attribute": "maxlength",
+      "description": "A hard limit on the input or textarea. The counter reads it as max."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-counter",
+      "value": "",
+      "on": ".v-field",
+      "description": "Counts the characters in the field's input or textarea. Needs maxlength or data-v-max."
+    },
+    {
+      "name": "data-v-max",
+      "value": "number",
+      "on": ".v-field",
+      "description": "A soft limit, used when the control has no maxlength."
+    }
+  ],
+  "a11y": [
+    "The counter is added to the control's aria-describedby, so it is read with the field.",
+    "Announcements are polite and only at the 90%, full and over thresholds, so typing is not interrupted.",
+    "Past the limit the colour changes and the text says so (\"Over the limit by 4\" is announced), never colour alone."
+  ],
+  "tokens": [
+    "--v-text-3",
+    "--v-warning",
+    "--v-danger"
+  ],
+  "related": [
+    "field",
+    "input",
+    "error-summary"
+  ],
+  "examples": [
+    {
+      "title": "Hard limit",
+      "description": "maxlength stops typing at 280.",
+      "html": "<div class=\"v-field\" data-v-counter>\n  <label class=\"v-label\" for=\"t-msg\">Message</label>\n  <textarea class=\"v-input\" id=\"t-msg\" name=\"message\" rows=\"3\" maxlength=\"280\" placeholder=\"Tell us about the job\" aria-describedby=\"t-msg-hint\"></textarea>\n  <p class=\"v-hint\" id=\"t-msg-hint\">Grows as you type, where the browser supports it.</p>\n  <p class=\"v-counter\" id=\"t-msg-count\"></p>\n</div>",
+      "layout": "stack",
+      "height": 190,
+      "source": "examples/forms/#textarea-select"
+    },
+    {
+      "title": "Soft limit",
+      "description": "data-v-max lets people type past 60 and shows how far over they are.",
+      "html": "<div class=\"v-field\" data-v-counter data-v-max=\"60\">\n  <label class=\"v-label\" for=\"t-title\">Page title</label>\n  <input class=\"v-input\" id=\"t-title\" type=\"text\" value=\"Roofing repairs and new roofs in Tuam, Co. Galway\">\n</div>",
+      "layout": "stack",
+      "height": 120
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "name": "Kbd",
+  "slug": "kbd",
+  "group": "Display",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A keyboard key, or a combination of keys, shown inline in text.",
+  "description": "Use it in help text, menus and shortcut lists. A combination nests the keys in an outer <kbd>, as HTML intends.",
+  "native": "<kbd>",
+  "catalogue": [
+    "Kbd"
+  ],
+  "css": [
+    "kbd.css"
+  ],
+  "classes": [
+    {
+      "name": "v-kbd",
+      "kind": "base",
+      "description": "One key: a small keycap in the mono font with a thicker bottom edge."
+    },
+    {
+      "name": "v-kbd-combo",
+      "kind": "base",
+      "description": "An outer <kbd> around several .v-kbd keys and the + between them."
+    }
+  ],
+  "a11y": [
+    "<kbd> is read as plain text, so write the key names in full where symbols are ambiguous, or add an aria-label (e.g. \"Up arrow\").",
+    "Show the shortcut for the platform people are on (Ctrl or Cmd) when you know it."
+  ],
+  "tokens": [
+    "--v-font-mono",
+    "--v-border-strong",
+    "--v-radius-sm",
+    "--v-surface",
+    "--v-text-2"
+  ],
+  "related": [
+    "dropdown-menu",
+    "tooltip",
+    "prose",
+    "code-block"
+  ],
+  "examples": [
+    {
+      "title": "Keys and combinations",
+      "html": "<p>Open the command palette with <kbd class=\"v-kbd-combo\"><kbd class=\"v-kbd\">Ctrl</kbd>+<kbd class=\"v-kbd\">K</kbd></kbd>.</p>\n<p>Save with <kbd class=\"v-kbd-combo\"><kbd class=\"v-kbd\">Cmd</kbd>+<kbd class=\"v-kbd\">S</kbd></kbd>, close with <kbd class=\"v-kbd\">Esc</kbd>.</p>\n<p>Move between rows with <kbd class=\"v-kbd\" aria-label=\"Up arrow\">↑</kbd> <kbd class=\"v-kbd\" aria-label=\"Down arrow\">↓</kbd> and open one with <kbd class=\"v-kbd\">Enter</kbd>.</p>",
+      "layout": "stack",
+      "height": 160,
+      "source": "examples/elements/#toggles"
+    }
+  ]
+}

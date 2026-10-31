@@ -1,0 +1,70 @@
+{
+  "name": "Collapsible",
+  "slug": "collapsible",
+  "group": "Disclosure",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A single show-and-hide section with a chevron before its label, built on a native details element.",
+  "description": "Use it for optional detail next to a form or a paragraph: advanced options, a reason we ask, extra help. For a list of several related sections, use an accordion.",
+  "native": "<details>",
+  "catalogue": [
+    "Collapsible"
+  ],
+  "css": [
+    "accordion.css"
+  ],
+  "classes": [
+    {
+      "name": "v-collapsible",
+      "kind": "base",
+      "description": "On the <details> itself. The chevron points at the inline end and turns down when open."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "open",
+      "description": "The section is open and the chevron points down."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the summary."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Opens or closes the section."
+    }
+  ],
+  "a11y": [
+    "The <summary> is announced as a button with its expanded state, with no ARIA added.",
+    "The chevron flips in right-to-left text so it still points the way the text reads.",
+    "Write the summary as what opens (\"Show advanced options\"), not a bare \"More\"."
+  ],
+  "tokens": [
+    "--v-accent-text",
+    "--v-text-2",
+    "--v-dur-3",
+    "--v-ease-spring",
+    "--v-ease-out"
+  ],
+  "related": [
+    "accordion",
+    "field",
+    "form-layouts"
+  ],
+  "examples": [
+    {
+      "title": "Closed and open",
+      "html": "<details class=\"v-collapsible\">\n  <summary>Show advanced options</summary>\n  <p>Retry failed webhooks, custom headers and the request log.</p>\n</details>\n<details class=\"v-collapsible\" open>\n  <summary>Why we ask for your phone number</summary>\n  <p>Only to send a code when you sign in from a new device. We never call or share it.</p>\n</details>",
+      "layout": "stack",
+      "height": 150,
+      "source": "examples/navigation/#disclosure"
+    }
+  ]
+}

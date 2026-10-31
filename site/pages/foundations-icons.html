@@ -1,0 +1,10 @@
+<!--meta {"description": "Search and copy the icons in the Vectra sprite, and ship only the ones a site uses."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Foundations</p>
+  <h1>{{title}}</h1>
+  <p class="v-lead">An SVG sprite drawn from Lucide (ISC licence), self-hosted. Icons inherit the text colour and scale with the font size. Select an icon to copy its markup.</p>
+</header>
+<pre data-code="html">&lt;svg class="v-icon" aria-hidden="true"&gt;&lt;use href="/icons/sprite.svg#search"/&gt;&lt;/svg&gt;</pre>
+<p>Decorative icons take <code>aria-hidden="true"</code>. An icon that is the only content of a button needs a name on the button, such as <code>aria-label="Search"</code>. To ship only what a site uses, run <code>npx vectra-icons "pages/*.html" --out icons.svg</code>; it fails on any name that is not in the set.</p>
+<h2>All icons</h2>
+{{icons}}

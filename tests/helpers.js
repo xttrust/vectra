@@ -16,6 +16,8 @@ export const PAGES = [
   { name: 'elements', path: '/examples/elements/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'icons', path: '/examples/icons/', storage: 'vectra', visual: 'basic' },
   { name: 'theming', path: '/examples/theming/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'site-home', path: '/site/dist/', storage: 'vectra', visual: 'basic' },
+  { name: 'site-button', path: '/site/dist/components/button/', storage: 'vectra', visual: 'basic' },
 ];
 
 export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];

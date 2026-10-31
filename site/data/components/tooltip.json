@@ -1,0 +1,98 @@
+{
+  "name": "Tooltip",
+  "slug": "tooltip",
+  "group": "Overlays",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A short, high-contrast label for a control, shown on hover and focus or opened as a hint popover.",
+  "description": "Use a tooltip to name an icon-only control or add a few words of help. Never put the only copy of important information, or anything interactive, in a tooltip.\n\nThere are two forms: wrap the trigger and tooltip in .v-tooltip-wrap for a pure CSS tooltip on hover and focus, or use popover=\"hint\" opened by its trigger.",
+  "native": "popover=\"hint\", :hover, :focus-within",
+  "catalogue": [
+    "Tooltip"
+  ],
+  "css": [
+    "tooltip.css"
+  ],
+  "classes": [
+    {
+      "name": "v-tooltip",
+      "kind": "base",
+      "description": "The label, with role=\"tooltip\". Above its trigger by default."
+    },
+    {
+      "name": "v-tooltip-bottom",
+      "kind": "modifier",
+      "description": "Popover form: places it below the trigger."
+    },
+    {
+      "name": "v-tooltip-wrap",
+      "kind": "helper",
+      "description": "No-popover form: wraps the trigger and the tooltip, which shows on hover and keyboard focus."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "popover=\"hint\"",
+      "description": "Popover form: shown in the top layer without closing other popovers. Browsers without hint treat it as a manual popover."
+    },
+    {
+      "attribute": "aria-describedby",
+      "description": "On the trigger: the tooltip id, so the text is read as the control's description."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Focuses the trigger. In the wrap form the tooltip shows while the trigger has focus."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Popover form: the trigger opens or closes the tooltip."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Popover form: closes the tooltip."
+    }
+  ],
+  "a11y": [
+    "Point the trigger's aria-describedby at the tooltip; for an icon-only button the name still goes in aria-label.",
+    "The wrap form shows on keyboard focus as well as hover. Escape to dismiss it comes with the JS modules.",
+    "The text uses the page text colour on the page background, reversed, so it keeps strong contrast in both themes."
+  ],
+  "tokens": [
+    "--v-text",
+    "--v-bg",
+    "--v-radius-sm",
+    "--v-shadow-2",
+    "--v-dur-1"
+  ],
+  "related": [
+    "popover",
+    "icon-button"
+  ],
+  "examples": [
+    {
+      "title": "On hover and focus",
+      "description": "No popover and no script: hover the button or Tab to it.",
+      "html": "<span class=\"v-tooltip-wrap\">\n  <button class=\"v-btn v-btn-secondary\" type=\"button\" aria-describedby=\"tip-help\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#info\"/></svg>Help</button>\n  <span class=\"v-tooltip\" role=\"tooltip\" id=\"tip-help\">No popover needed</span>\n</span>",
+      "height": 140,
+      "layout": "center",
+      "source": "examples/overlays/#tooltip"
+    },
+    {
+      "title": "Hint popover",
+      "description": "Opened by its trigger with popovertarget and placed above it where anchor positioning exists.",
+      "html": "<button class=\"v-btn v-btn-secondary\" type=\"button\" popovertarget=\"tip-copy\" aria-describedby=\"tip-copy\">Click for a popover tooltip</button>\n<span class=\"v-tooltip\" id=\"tip-copy\" popover=\"hint\" role=\"tooltip\">Placed above its trigger</span>",
+      "height": 140,
+      "layout": "center",
+      "source": "examples/overlays/#tooltip"
+    }
+  ]
+}

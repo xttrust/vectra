@@ -1,0 +1,82 @@
+{
+  "name": "Input group",
+  "slug": "input-group",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "An input joined with text addons, icons or buttons inside one box, such as a URL prefix, a currency or a search button.",
+  "description": "The group draws the border and focus ring; the input, addons and buttons inside are bare. Keep addons short: a unit or a prefix, not a sentence.",
+  "catalogue": [
+    "Input group"
+  ],
+  "css": [
+    "input.css"
+  ],
+  "classes": [
+    {
+      "name": "v-input-group",
+      "kind": "base",
+      "description": "The box around the parts. It takes the focus ring and the invalid border of the input inside."
+    },
+    {
+      "name": "v-input-addon",
+      "kind": "part",
+      "description": "Text or an icon at the start or end, such as https:// or €."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-invalid=\"true\"",
+      "description": "On the inner input: the whole group gets the danger border."
+    },
+    {
+      "attribute": "disabled",
+      "description": "On the inner input: the whole group is dimmed."
+    }
+  ],
+  "a11y": [
+    "The label points at the input (<label for>), not at the group.",
+    "Addon text is not part of the label; if the unit matters (per site, per month), repeat it in the label or a hint.",
+    "Icon addons are decoration: mark the svg aria-hidden=\"true\".",
+    "A button in the group needs its own visible text or an aria-label."
+  ],
+  "tokens": [
+    "--v-input-h",
+    "--v-input-bg",
+    "--v-input-border",
+    "--v-input-radius",
+    "--v-focus-w",
+    "--v-accent",
+    "--v-danger"
+  ],
+  "related": [
+    "input",
+    "search-field",
+    "password-reveal",
+    "number-stepper",
+    "field"
+  ],
+  "examples": [
+    {
+      "title": "Text addons",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"g-site\">Website</label>\n  <div class=\"v-input-group\">\n    <span class=\"v-input-addon\">https://</span>\n    <input class=\"v-input\" id=\"g-site\" type=\"text\" inputmode=\"url\" placeholder=\"yourbusiness.ie\">\n  </div>\n</div>\n<div class=\"v-field\">\n  <label class=\"v-label\" for=\"g-price\">Price</label>\n  <div class=\"v-input-group\">\n    <span class=\"v-input-addon\">€</span>\n    <input class=\"v-input\" id=\"g-price\" type=\"number\" value=\"799\">\n    <span class=\"v-input-addon\">per site</span>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 190,
+      "source": "examples/forms/#groups"
+    },
+    {
+      "title": "Icon and button",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"g-search\">Find a client</label>\n  <div class=\"v-input-group\">\n    <span class=\"v-input-addon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg></span>\n    <input class=\"v-input\" id=\"g-search\" type=\"search\" placeholder=\"Name or email\">\n    <button class=\"v-btn v-btn-primary\" type=\"button\">Search</button>\n  </div>\n</div>",
+      "layout": "stack",
+      "height": 100,
+      "source": "examples/forms/#groups"
+    },
+    {
+      "title": "Invalid",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"g-mail\">Newsletter</label>\n  <div class=\"v-input-group\">\n    <span class=\"v-input-addon\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#mail\"/></svg></span>\n    <input class=\"v-input\" id=\"g-mail\" type=\"email\" value=\"studio@example\" aria-invalid=\"true\" aria-describedby=\"g-mail-error\">\n  </div>\n  <p class=\"v-field-error\" id=\"g-mail-error\">Add the end of the address, like .com.</p>\n</div>",
+      "layout": "stack",
+      "height": 130,
+      "source": "examples/forms/#groups"
+    }
+  ]
+}

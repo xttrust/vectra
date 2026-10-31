@@ -1,0 +1,55 @@
+<!--meta {"description": "Vectra's layout primitives: container, stack, cluster, grid, sidebar, switcher, bento and section."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Foundations</p>
+  <h1>{{title}}</h1>
+  <p class="v-lead">Seven primitives, each with one job, tuned with a custom property rather than modifier classes. Most respond to the space they have, not to the viewport.</p>
+</header>
+<h2>Stack</h2>
+<p><code>.v-stack</code> spaces its children vertically by <code>--v-gap</code>.</p>
+<template data-demo="Stack" data-layout="fill" data-height="220">
+  <div class="v-stack" style="--v-gap: var(--v-space-3)">
+    <div class="v-card">One</div>
+    <div class="v-card">Two</div>
+    <div class="v-card">Three</div>
+  </div>
+</template>
+<h2>Cluster</h2>
+<p><code>.v-cluster</code> is an inline group that wraps: buttons, tags, toolbars.</p>
+<template data-demo="Cluster" data-layout="fill" data-height="100">
+  <div class="v-cluster">
+    <span class="v-tag">Galway</span><span class="v-tag">Mayo</span><span class="v-tag">Clare</span><span class="v-tag">Roscommon</span>
+    <button class="v-btn v-btn-primary v-btn-sm" type="button">Add county</button>
+  </div>
+</template>
+<h2>Grid</h2>
+<p><code>.v-grid</code> fits as many columns as it can, each at least <code>--v-min</code> wide (16rem by default). No breakpoints.</p>
+<template data-demo="Grid" data-layout="fill" data-height="200">
+  <div class="v-grid" style="--v-min: 10rem">
+    <div class="v-card">A</div><div class="v-card">B</div><div class="v-card">C</div><div class="v-card">D</div>
+  </div>
+</template>
+<h2>Sidebar</h2>
+<p><code>.v-sidebar</code> puts a side panel (<code>--v-side</code>, 16rem) beside the content and stacks them once the content would drop below <code>--v-content-min</code>.</p>
+<template data-demo="Sidebar" data-layout="fill" data-height="160">
+  <div class="v-sidebar" style="--v-side: 12rem">
+    <div class="v-card">Side</div>
+    <div class="v-card">Content takes the rest of the row.</div>
+  </div>
+</template>
+<h2>Switcher</h2>
+<p><code>.v-switcher</code> keeps equal columns in a row and stacks them all at once below <code>--v-switch</code> (36rem).</p>
+<template data-demo="Switcher" data-layout="fill" data-height="160">
+  <div class="v-switcher" style="--v-switch: 30rem">
+    <div class="v-card">One</div><div class="v-card">Two</div><div class="v-card">Three</div>
+  </div>
+</template>
+<h2>Bento</h2>
+<p><code>.v-bento</code> is a 12-column grid. Children span with <code>.v-span-4</code> to <code>.v-span-8</code> from 48rem and are full width below.</p>
+<template data-demo="Bento" data-layout="fill" data-height="260">
+  <div class="v-bento">
+    <div class="v-card v-span-8">Eight</div><div class="v-card v-span-4">Four</div>
+    <div class="v-card v-span-5">Five</div><div class="v-card v-span-7">Seven</div>
+  </div>
+</template>
+<h2>Container and section</h2>
+<p><code>.v-container</code> centres a column with fluid gutters, up to <code>--v-container-max</code> (76rem; <code>.v-container-narrow</code> is 48rem, <code>.v-container-wide</code> 90rem). <code>.v-section</code> gives page sections their vertical rhythm, and <code>.v-cq</code> makes any element a size container for your own <code>@container</code> queries.</p>

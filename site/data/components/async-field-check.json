@@ -1,0 +1,73 @@
+{
+  "name": "Async field check",
+  "slug": "async-field-check",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A status line under a field for checks that need the server, such as \"Checking\", \"Available\" or \"Taken, try ...\".",
+  "description": "Call Vectra.fieldState from your own code as the person types: there is no hook, because only you know what to check and where. An invalid result also blocks the form from submitting until the check passes.",
+  "catalogue": [
+    "Async field check"
+  ],
+  "css": [
+    "field.css"
+  ],
+  "js": [
+    "components/field.js"
+  ],
+  "classes": [
+    {
+      "name": "v-field-status",
+      "kind": "base",
+      "description": "The status line, with a spinner, a tick or an alert mark. Created by fieldState when missing; hidden while empty."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-v-state",
+      "description": "Set by fieldState: \"checking\" (spinner), \"valid\" (success tick) or \"invalid\" (danger mark)."
+    },
+    {
+      "attribute": "aria-invalid=\"true\"",
+      "description": "Set on the input for an invalid result, with a custom validity error so the form will not submit."
+    },
+    {
+      "attribute": "aria-describedby",
+      "description": "The status line is linked while it has a message, and unlinked when cleared."
+    }
+  ],
+  "api": [
+    {
+      "signature": "Vectra.fieldState(input, state, message)",
+      "description": "state is \"checking\", \"valid\", \"invalid\" or \"clear\". Writes the message under the input's .v-field and announces it politely."
+    }
+  ],
+  "a11y": [
+    "Each message is announced politely and linked to the input, so screen readers hear the result without moving focus.",
+    "Every state has its own mark as well as colour, so \"taken\" never relies on red alone.",
+    "Only fieldState undoes its own aria-invalid, so an error from data-v-validate stays until that is fixed.",
+    "Wait for a short pause in typing (a debounce) before checking, so the line does not flicker on every key."
+  ],
+  "tokens": [
+    "--v-success",
+    "--v-danger",
+    "--v-text-2"
+  ],
+  "related": [
+    "field",
+    "error-summary",
+    "input",
+    "spinner"
+  ],
+  "examples": [
+    {
+      "title": "Username",
+      "description": "A pretend server: try \"admin\", \"florin\" or \"vectra\".",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"v-user\">Username</label>\n  <input class=\"v-input\" id=\"v-user\" name=\"username\" type=\"text\" autocomplete=\"username\" required minlength=\"3\" pattern=\"[a-z0-9\\-]+\" aria-describedby=\"v-user-hint\">\n  <p class=\"v-hint\" id=\"v-user-hint\">Lowercase letters, numbers and hyphens.</p>\n</div>",
+      "js": "const user = document.getElementById('v-user');\nlet timer;\nuser.addEventListener('input', () => {\n  clearTimeout(timer);\n  Vectra.fieldState(user, 'clear');\n  if (!user.value || !user.validity.valid) return;\n  Vectra.fieldState(user, 'checking', 'Checking if it is free');\n  timer = setTimeout(() => {\n    const name = user.value;\n    if (['admin', 'florin', 'vectra'].includes(name)) Vectra.fieldState(user, 'invalid', `${name} is taken. Try ${name}-ie or ${name}2026.`);\n    else Vectra.fieldState(user, 'valid', `${name} is free.`);\n  }, 600);\n});",
+      "layout": "stack",
+      "height": 140,
+      "source": "examples/forms/#validation"
+    }
+  ]
+}

@@ -4,11 +4,11 @@ import globals from 'globals';
 export default [
   {
     // Built and generated files are not source.
-    ignores: ['node_modules/', 'dist/', 'test-results/', 'playwright-report/', 'blob-report/'],
+    ignores: ['node_modules/', 'dist/', 'site/dist/', 'test-results/', 'playwright-report/', 'blob-report/'],
   },
   js.configs.recommended,
   {
-    files: ['src/**/*.js', 'prototype/**/*.js', 'examples/**/*.js'],
+    files: ['src/**/*.js', 'prototype/**/*.js', 'examples/**/*.js', 'site/assets/**/*.js'],
     languageOptions: { globals: globals.browser },
   },
   {

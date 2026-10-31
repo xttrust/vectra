@@ -1,0 +1,111 @@
+{
+  "name": "Popover",
+  "slug": "popover",
+  "group": "Overlays",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A small floating panel on the native popover attribute, opened by a button with popovertarget and placed next to it.",
+  "description": "Use a popover for extra detail or a few controls tied to one button, which people can glance at and dismiss. It does not block the page; when the choice must be made first, use a dialog.\n\nWhere CSS anchor positioning exists it opens next to its trigger and flips when it runs out of room. Elsewhere it opens centred in the viewport, which stays usable.",
+  "native": "popover, popovertarget, CSS anchor positioning",
+  "catalogue": [
+    "Popover"
+  ],
+  "css": [
+    "popover.css"
+  ],
+  "classes": [
+    {
+      "name": "v-popover",
+      "kind": "base",
+      "description": "The panel, on an element with the popover attribute. Opens below its trigger, aligned to the start edge."
+    },
+    {
+      "name": "v-popover-title",
+      "kind": "part",
+      "description": "A short bold heading."
+    },
+    {
+      "name": "v-popover-text",
+      "kind": "part",
+      "description": "Body text in the secondary colour."
+    },
+    {
+      "name": "v-popover-top",
+      "kind": "modifier",
+      "description": "Prefers the space above the trigger."
+    },
+    {
+      "name": "v-popover-start",
+      "kind": "modifier",
+      "description": "Opens beside the trigger on the start side."
+    },
+    {
+      "name": "v-popover-end",
+      "kind": "modifier",
+      "description": "Opens beside the trigger on the end side."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "popover",
+      "description": "Makes the element a popover: hidden until opened, then shown in the top layer. The default (auto) closes on Escape and on a click outside."
+    },
+    {
+      "attribute": "popovertarget",
+      "description": "On the trigger button: the id of the popover it toggles. It also makes the trigger the anchor."
+    },
+    {
+      "attribute": ":popover-open",
+      "description": "The open state, used by the CSS for the fade and scale."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On the trigger, opens or closes the popover."
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "From the trigger, moves into the open popover, then on through the page."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the popover and returns focus to the trigger if focus was inside."
+    }
+  ],
+  "a11y": [
+    "Use a real <button> with popovertarget as the trigger, so the browser exposes the expanded state and handles focus.",
+    "The popover follows its trigger in the focus order, so keyboard users reach its content straight after the button.",
+    "Keep it to short content. Anything people must complete belongs in a dialog."
+  ],
+  "tokens": [
+    "--v-popover-gap",
+    "--v-overlay-bg",
+    "--v-radius-lg",
+    "--v-shadow-3",
+    "--v-border",
+    "--v-dur-2"
+  ],
+  "related": [
+    "dropdown-menu",
+    "tooltip",
+    "dialog"
+  ],
+  "examples": [
+    {
+      "title": "Below and above",
+      "description": "Click a button to open its popover. Escape or a click outside closes it.",
+      "html": "<button class=\"v-btn v-btn-secondary\" type=\"button\" popovertarget=\"pop-storage\">Storage details</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\" popovertarget=\"pop-top\">Opens above</button>\n<div class=\"v-popover\" id=\"pop-storage\" popover>\n  <p class=\"v-popover-title\">Storage</p>\n  <p class=\"v-popover-text\">You have used 8.2 GB of 10 GB. Old exports are removed after 30 days.</p>\n</div>\n<div class=\"v-popover v-popover-top\" id=\"pop-top\" popover>\n  <p class=\"v-popover-text\">This one prefers the space above its trigger.</p>\n</div>",
+      "height": 260,
+      "layout": "center",
+      "source": "examples/overlays/#popover"
+    }
+  ]
+}

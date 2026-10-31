@@ -1,0 +1,79 @@
+{
+  "name": "Skip link",
+  "slug": "skip-link",
+  "group": "Navigation",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A link to the main content, hidden off-screen until it gets keyboard focus.",
+  "description": "Put it first in the <body> on every page, so keyboard users can jump past the header and navigation. It slides into view when it receives focus: press Tab in the demo to see it.",
+  "native": "<a href=\"#main\">, tabindex=\"-1\"",
+  "catalogue": [
+    "Skip link"
+  ],
+  "css": [
+    "skip-link.css"
+  ],
+  "classes": [
+    {
+      "name": "v-skip-link",
+      "kind": "base",
+      "description": "The link. Fixed at the top start corner, off-screen until focused."
+    },
+    {
+      "name": "v-skip-target",
+      "kind": "helper",
+      "description": "On the main content: removes the focus ring around the whole region when the skip link moves focus there."
+    }
+  ],
+  "states": [
+    {
+      "attribute": ":focus",
+      "description": "The link slides into view."
+    },
+    {
+      "attribute": "tabindex=\"-1\"",
+      "description": "On the target, so focus really moves there and the next Tab continues from the content."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "The first Tab on the page focuses the skip link and shows it."
+    },
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "Moves focus to the main content."
+    }
+  ],
+  "a11y": [
+    "Make it the first focusable element in the page.",
+    "Point it at the <main> element and give that element tabindex=\"-1\", or focus may stay at the top in some browsers.",
+    "It uses the primary button colours, so it has full contrast when shown."
+  ],
+  "tokens": [
+    "--v-primary-bg",
+    "--v-primary-fg",
+    "--v-btn-radius",
+    "--v-btn-weight",
+    "--v-shadow-2",
+    "--v-dur-2"
+  ],
+  "related": [
+    "navbar",
+    "sidenav"
+  ],
+  "examples": [
+    {
+      "title": "Skip to content",
+      "description": "Click inside the frame, then press Tab: the link appears at the top. Press Enter to move focus to the main content.",
+      "html": "<a class=\"v-skip-link\" href=\"#content\">Skip to content</a>\n<div id=\"content\" class=\"v-skip-target\" tabindex=\"-1\">\n  <p>The main content. The skip link moves focus here.</p>\n</div>",
+      "height": 160,
+      "layout": "stack",
+      "source": "examples/navigation/"
+    }
+  ]
+}

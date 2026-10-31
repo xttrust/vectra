@@ -1,0 +1,92 @@
+{
+  "name": "Alert",
+  "slug": "alert",
+  "group": "Feedback",
+  "tier": "P0",
+  "status": "done",
+  "summary": "An inline message with a tone (info, success, warning, danger), placed next to the content it is about.",
+  "description": "Use an alert for a message about one part of the page, such as a form or a card. For a message about the whole site use a banner, and for a short note that comes and goes use a toast.",
+  "catalogue": [
+    "Alert"
+  ],
+  "css": [
+    "alert.css"
+  ],
+  "classes": [
+    {
+      "name": "v-alert",
+      "kind": "base",
+      "description": "The alert box: an icon, then the body. Info tone by default."
+    },
+    {
+      "name": "v-alert-body",
+      "kind": "part",
+      "description": "The text, which takes the remaining width."
+    },
+    {
+      "name": "v-alert-title",
+      "kind": "part",
+      "description": "A bold lead-in at the start of the body."
+    },
+    {
+      "name": "v-alert-info",
+      "kind": "modifier",
+      "description": "Info tone (the default)."
+    },
+    {
+      "name": "v-alert-success",
+      "kind": "modifier",
+      "description": "Success tone."
+    },
+    {
+      "name": "v-alert-warning",
+      "kind": "modifier",
+      "description": "Warning tone."
+    },
+    {
+      "name": "v-alert-danger",
+      "kind": "modifier",
+      "description": "Danger tone, for errors and failures."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "role=\"alert\"",
+      "description": "Announced at once when it appears. Only for urgent messages added after the page loads."
+    },
+    {
+      "attribute": "role=\"status\"",
+      "description": "Announced politely, for news that can wait."
+    }
+  ],
+  "a11y": [
+    "The tone colour is backed by an icon and the words, so the meaning never rests on colour alone.",
+    "An alert that is in the page from the start needs no role; a live role only matters when it is added later.",
+    "Keep role=\"alert\" for messages that must interrupt, such as a failed payment; overuse makes screen readers noisy.",
+    "Body text holds 4.5:1 contrast on every tone tint in both themes."
+  ],
+  "tokens": [
+    "--v-tone",
+    "--v-tone-soft",
+    "--v-info",
+    "--v-success",
+    "--v-warning",
+    "--v-danger",
+    "--v-radius-md"
+  ],
+  "related": [
+    "banner",
+    "callout",
+    "toast",
+    "error-summary"
+  ],
+  "examples": [
+    {
+      "title": "Tones",
+      "html": "<div class=\"v-alert v-alert-info\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#info\"/></svg><p class=\"v-alert-body\"><strong class=\"v-alert-title\">Heads up.</strong> Maintenance on Sunday from 02:00.</p></div>\n<div class=\"v-alert v-alert-success\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#success\"/></svg><p class=\"v-alert-body\"><strong class=\"v-alert-title\">Payment received.</strong> Your invoice is marked as paid.</p></div>\n<div class=\"v-alert v-alert-warning\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#warning\"/></svg><p class=\"v-alert-body\"><strong class=\"v-alert-title\">Storage at 85%.</strong> Upgrade before it fills up.</p></div>\n<div class=\"v-alert v-alert-danger\" role=\"alert\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#error\"/></svg><p class=\"v-alert-body\"><strong class=\"v-alert-title\">Card declined.</strong> Update your billing details.</p></div>",
+      "layout": "stack",
+      "height": 280,
+      "source": "examples/components/#alerts"
+    }
+  ]
+}

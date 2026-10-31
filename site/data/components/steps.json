@@ -1,0 +1,89 @@
+{
+  "name": "Steps",
+  "slug": "steps",
+  "group": "Navigation",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Shows progress through a flow of steps, horizontal or vertical, with complete, current and upcoming states.",
+  "description": "Use steps above a multi-step form or for an order status. Keep it to a handful of short labels; for a long history use a timeline.",
+  "native": "<ol>, aria-current=\"step\"",
+  "catalogue": [
+    "Steps"
+  ],
+  "css": [
+    "steps.css"
+  ],
+  "classes": [
+    {
+      "name": "v-steps",
+      "kind": "base",
+      "description": "The list, on an <ol>. Markers number themselves."
+    },
+    {
+      "name": "v-steps-vertical",
+      "kind": "modifier",
+      "description": "Markers in a column with the connector running down, room for a description."
+    },
+    {
+      "name": "v-step",
+      "kind": "part",
+      "description": "One step, on an <li>. Upcoming unless marked otherwise."
+    },
+    {
+      "name": "v-step-complete",
+      "kind": "modifier",
+      "description": "A finished step: filled marker with a drawn check, accent connector."
+    },
+    {
+      "name": "v-step-label",
+      "kind": "part",
+      "description": "The step name."
+    },
+    {
+      "name": "v-step-desc",
+      "kind": "part",
+      "description": "A quieter line under the label, such as a date."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-current=\"step\"",
+      "description": "On the current step: accent ring and bold label."
+    }
+  ],
+  "a11y": [
+    "Give the <ol> an aria-label such as Sign-up progress.",
+    "The check mark is drawn in CSS, so add a .v-sr-only \"Completed: \" to each finished label.",
+    "aria-current=\"step\" tells screen readers which step is current."
+  ],
+  "tokens": [
+    "--v-step-size",
+    "--v-accent",
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-on-accent",
+    "--v-border-strong",
+    "--v-border"
+  ],
+  "related": [
+    "timeline",
+    "progress",
+    "tabs"
+  ],
+  "examples": [
+    {
+      "title": "Horizontal",
+      "html": "<ol class=\"v-steps\" aria-label=\"Sign-up progress\">\n  <li class=\"v-step v-step-complete\"><span class=\"v-step-label\"><span class=\"v-sr-only\">Completed: </span>Account</span></li>\n  <li class=\"v-step v-step-complete\"><span class=\"v-step-label\"><span class=\"v-sr-only\">Completed: </span>Workspace</span></li>\n  <li class=\"v-step\" aria-current=\"step\"><span class=\"v-step-label\">Billing</span></li>\n  <li class=\"v-step\"><span class=\"v-step-label\">Launch</span></li>\n</ol>",
+      "height": 100,
+      "layout": "stack",
+      "source": "examples/navigation/#steps"
+    },
+    {
+      "title": "Vertical with descriptions",
+      "html": "<ol class=\"v-steps v-steps-vertical\" aria-label=\"Order progress\">\n  <li class=\"v-step v-step-complete\"><span class=\"v-step-label\"><span class=\"v-sr-only\">Completed: </span>Order placed</span><span class=\"v-step-desc\">12 March, 09:14</span></li>\n  <li class=\"v-step\" aria-current=\"step\"><span class=\"v-step-label\">Packing</span><span class=\"v-step-desc\">Your order is being packed.</span></li>\n  <li class=\"v-step\"><span class=\"v-step-label\">Shipped</span><span class=\"v-step-desc\">Usually within two days.</span></li>\n  <li class=\"v-step\"><span class=\"v-step-label\">Delivered</span></li>\n</ol>",
+      "height": 300,
+      "layout": "stack",
+      "source": "examples/navigation/#steps"
+    }
+  ]
+}

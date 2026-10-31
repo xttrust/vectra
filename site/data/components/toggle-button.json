@@ -1,0 +1,87 @@
+{
+  "name": "Toggle button",
+  "slug": "toggle-button",
+  "group": "Actions",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A button that stays switched on or off, shown by aria-pressed, alone or in a toggle group.",
+  "description": "Use it for an on or off setting that takes effect at once, such as Pin, Bold or a column being shown. Vectra styles the pressed state; your script flips aria-pressed on click. For a setting in a form, use a switch.",
+  "native": "<button aria-pressed>",
+  "catalogue": [
+    "Toggle button"
+  ],
+  "css": [
+    "button.css"
+  ],
+  "classes": [
+    {
+      "name": "v-toggle-group",
+      "kind": "base",
+      "description": "A padded tray for a row of toggle buttons that switch on and off independently. Buttons inside lose their own border and fill."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-pressed=\"true\"",
+      "description": "Switched on: accent tint and a doubled accent border, so it does not rest on colour alone."
+    },
+    {
+      "attribute": "aria-pressed=\"false\"",
+      "description": "Switched off: the normal button style. Set it explicitly so screen readers know it is a toggle."
+    },
+    {
+      "attribute": "disabled",
+      "description": "Native disabled: dimmed, not focusable."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the button."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "Switches it on or off (your click handler flips aria-pressed)."
+    }
+  ],
+  "a11y": [
+    "Keep the label the same in both states; screen readers announce \"pressed\" or \"not pressed\" for you. Changing the label as well reads twice.",
+    "Put role=\"group\" and an aria-label on a .v-toggle-group.",
+    "In forced colours mode the pressed button fills with the system Highlight colour."
+  ],
+  "tokens": [
+    "--v-accent",
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-btn-radius",
+    "--v-border-w"
+  ],
+  "related": [
+    "button",
+    "icon-button",
+    "segmented-control",
+    "button-group",
+    "choice"
+  ],
+  "examples": [
+    {
+      "title": "Single toggles",
+      "html": "<button class=\"v-btn\" type=\"button\" aria-pressed=\"true\">Pinned</button>\n<button class=\"v-btn\" type=\"button\" aria-pressed=\"false\">Pin</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\" aria-pressed=\"true\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg>Starred</button>\n<button class=\"v-btn v-btn-ghost v-btn-icon\" type=\"button\" aria-pressed=\"false\" aria-label=\"Favourite\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#heart\"/></svg></button>",
+      "js": "document.querySelectorAll('[aria-pressed]').forEach((btn) => {\n  btn.addEventListener('click', () => {\n    btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') !== 'true');\n  });\n});",
+      "height": 100,
+      "source": "examples/elements/#toggles"
+    },
+    {
+      "title": "Toggle group",
+      "html": "<div class=\"v-toggle-group\" role=\"group\" aria-label=\"Text style\">\n  <button class=\"v-btn v-btn-sm v-btn-icon\" type=\"button\" aria-pressed=\"true\" aria-label=\"Bold\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#bold\"/></svg></button>\n  <button class=\"v-btn v-btn-sm v-btn-icon\" type=\"button\" aria-pressed=\"false\" aria-label=\"Italic\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#italic\"/></svg></button>\n</div>\n<div class=\"v-toggle-group\" role=\"group\" aria-label=\"Show columns\">\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"true\">Client</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"true\">Amount</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"false\">Due</button>\n  <button class=\"v-btn v-btn-sm\" type=\"button\" aria-pressed=\"false\" disabled>Notes</button>\n</div>",
+      "js": "document.querySelectorAll('[aria-pressed]').forEach((btn) => {\n  btn.addEventListener('click', () => {\n    btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') !== 'true');\n  });\n});",
+      "height": 100,
+      "source": "examples/elements/#toggles"
+    }
+  ]
+}

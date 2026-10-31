@@ -1,0 +1,39 @@
+<!--meta {"title": "Migrating from v1", "description": "Move a Vectra v1 (Bootstrap 5) site to Vectra v2: what changed, and a class map from v1 to v2."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Reference</p>
+  <h1>Migrating from v1</h1>
+  <p class="v-lead">Vectra v1 was a dark, cyan theme on top of Bootstrap 5. v2 is a new kit from scratch on the web platform. Most class names keep the <code>v-</code> prefix and mean the same thing; the Bootstrap layer underneath is gone.</p>
+</header>
+
+<h2>What changed</h2>
+<ul class="site-list">
+  <li><strong>No Bootstrap, no Font Awesome, no CDN.</strong> Remove both stylesheets and the Bootstrap bundle. Icons come from Vectra's own SVG sprite.</li>
+  <li><strong>Native elements instead of Bootstrap JS.</strong> Modals become <code>&lt;dialog&gt;</code>, dropdowns and the mobile menu become <code>popover</code>, accordions become <code>&lt;details name&gt;</code>. Remove every <code>data-bs-*</code> attribute.</li>
+  <li><strong>Four directions.</strong> v1's look lives on as the <code>tech</code> direction, the default. Add <code>data-direction</code> on <code>&lt;html&gt;</code> to choose another.</li>
+  <li><strong>Light and dark everywhere.</strong> v1 was dark first with a light override. In v2 every direction has both, and without <code>data-theme</code> the OS decides.</li>
+  <li><strong>States by attribute.</strong> <code>.active</code>, <code>.show</code> and <code>.disabled</code> give way to <code>aria-current</code>, <code>aria-selected</code>, <code>open</code> and <code>disabled</code>.</li>
+  <li><strong>The grid.</strong> Bootstrap's <code>row</code> and <code>col-*</code> go. Use <code>v-grid</code> (as many columns as fit), <code>v-sidebar</code>, <code>v-switcher</code> or <code>v-bento</code>. See <a href="{{root}}foundations/layout/">Layout primitives</a>.</li>
+</ul>
+
+<h2>A typical swap</h2>
+<p>A v1 modal:</p>
+<pre data-code="html" data-title="v1">&lt;button class="v-btn v-btn-primary" data-bs-toggle="modal" data-bs-target="#invite"&gt;Invite&lt;/button&gt;
+&lt;div class="modal fade" id="invite" tabindex="-1"&gt;
+  &lt;div class="modal-dialog modal-dialog-centered"&gt;&lt;div class="modal-content"&gt;
+    &lt;div class="modal-header"&gt;&lt;h5 class="modal-title"&gt;Invite&lt;/h5&gt;&lt;button class="btn-close" data-bs-dismiss="modal"&gt;&lt;/button&gt;&lt;/div&gt;
+    &lt;div class="modal-body"&gt;...&lt;/div&gt;
+  &lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+<p>The same in v2, on the native dialog. Focus trap, Escape and focus return come from the browser.</p>
+<pre data-code="html" data-title="v2">&lt;button class="v-btn v-btn-primary" type="button" onclick="invite.showModal()"&gt;Invite&lt;/button&gt;
+&lt;dialog class="v-dialog" id="invite" aria-labelledby="invite-title"&gt;
+  &lt;header class="v-dialog-header"&gt;
+    &lt;h2 class="v-dialog-title" id="invite-title"&gt;Invite&lt;/h2&gt;
+    &lt;form method="dialog"&gt;&lt;button class="v-btn v-btn-ghost v-btn-icon v-dialog-close" aria-label="Close"&gt;...&lt;/button&gt;&lt;/form&gt;
+  &lt;/header&gt;
+  &lt;div class="v-dialog-body"&gt;...&lt;/div&gt;
+&lt;/dialog&gt;</pre>
+
+<h2>Class map</h2>
+<p>v1 classes on the left, including the Bootstrap classes v1 pages used, and the v2 replacement on the right. An empty v2 cell means the class has no direct replacement.</p>
+{{class-map}}

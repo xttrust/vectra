@@ -1,0 +1,147 @@
+{
+  "name": "Form layouts",
+  "slug": "form-layouts",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "Layouts for whole forms: two columns, sectioned settings, a single inline row and the submit row, plus a helper that warns before leaving with unsaved edits.",
+  "description": ".v-form is a size container, so the layouts respond to the space the form has (a sidebar, a card, a dialog), not to the window. Two columns start at 36rem of form width and settings sections sit beside their fields from 48rem.\n\nAdd data-v-unsaved to a form to have the browser ask before the page is left with edits.",
+  "native": "<form>, container queries",
+  "catalogue": [
+    "Form layouts"
+  ],
+  "css": [
+    "form.css"
+  ],
+  "js": [
+    "components/unsaved.js"
+  ],
+  "classes": [
+    {
+      "name": "v-form",
+      "kind": "base",
+      "description": "Stacks fields with an even gap and is the size container for the layouts inside."
+    },
+    {
+      "name": "v-form-grid",
+      "kind": "part",
+      "description": "Two columns from 36rem of form width, one below."
+    },
+    {
+      "name": "v-form-full",
+      "kind": "modifier",
+      "description": "On a field in a .v-form-grid: spans both columns."
+    },
+    {
+      "name": "v-form-section",
+      "kind": "part",
+      "description": "A settings row: title and description beside the fields from 48rem, above them below."
+    },
+    {
+      "name": "v-form-section-header",
+      "kind": "part",
+      "description": "Holds the section title and text."
+    },
+    {
+      "name": "v-form-section-title",
+      "kind": "part",
+      "description": "The section heading."
+    },
+    {
+      "name": "v-form-section-text",
+      "kind": "part",
+      "description": "A line describing the section."
+    },
+    {
+      "name": "v-form-section-body",
+      "kind": "part",
+      "description": "The section's fields. Also a container, so a grid inside follows the column width."
+    },
+    {
+      "name": "v-form-inline",
+      "kind": "base",
+      "description": "Fields and buttons on one wrapping row, aligned on the control line."
+    },
+    {
+      "name": "v-form-actions",
+      "kind": "part",
+      "description": "The submit row, buttons at the end."
+    },
+    {
+      "name": "v-form-actions-start",
+      "kind": "part",
+      "description": "A note or secondary action pushed to the start of the actions row."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-unsaved",
+      "value": "",
+      "on": "<form>",
+      "description": "Marks the form dirty on any edit, and the browser asks before the page is left. A submit that goes ahead, or a reset, marks it clean."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:dirty",
+      "on": "<form>",
+      "detail": "{ dirty }",
+      "description": "Fires when the form changes between clean and dirty, from data-v-unsaved."
+    }
+  ],
+  "a11y": [
+    "Keep the visual order and the source order the same, so Tab moves through the fields as they appear.",
+    "Section titles are real headings (h3 or h4), so screen reader users can jump between sections of a long settings page.",
+    "An inline form still needs a visible label on every field.",
+    "The leave-page warning is the browser's own dialog, so it is accessible and cannot be styled."
+  ],
+  "tokens": [
+    "--v-space-4",
+    "--v-space-5",
+    "--v-space-7",
+    "--v-border",
+    "--v-border-w",
+    "--v-step-1",
+    "--v-text-2"
+  ],
+  "related": [
+    "field",
+    "input",
+    "choice",
+    "error-summary",
+    "card"
+  ],
+  "examples": [
+    {
+      "title": "Two columns",
+      "description": "Make the frame narrower than 36rem and the grid drops to one column.",
+      "html": "<form class=\"v-form v-card\" action=\"#\">\n  <div class=\"v-form-grid\">\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"fl-first\">First name</label>\n      <input class=\"v-input\" id=\"fl-first\" type=\"text\" autocomplete=\"given-name\" value=\"Aoife\">\n    </div>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"fl-last\">Last name</label>\n      <input class=\"v-input\" id=\"fl-last\" type=\"text\" autocomplete=\"family-name\" value=\"Kelly\">\n    </div>\n    <div class=\"v-field v-form-full\">\n      <label class=\"v-label\" for=\"fl-email\">Email</label>\n      <input class=\"v-input\" id=\"fl-email\" type=\"email\" autocomplete=\"email\" value=\"aoife@example.ie\">\n    </div>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"fl-county\">County</label>\n      <select class=\"v-select\" id=\"fl-county\"><option>Galway</option><option>Mayo</option><option>Clare</option><option>Roscommon</option></select>\n    </div>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"fl-eircode\">Eircode</label>\n      <input class=\"v-input\" id=\"fl-eircode\" type=\"text\" autocomplete=\"postal-code\" value=\"H54 R2X4\">\n    </div>\n  </div>\n  <div class=\"v-form-actions\">\n    <button class=\"v-btn v-btn-ghost\" type=\"reset\">Cancel</button>\n    <button class=\"v-btn v-btn-primary\" type=\"submit\">Save</button>\n  </div>\n</form>",
+      "layout": "fill",
+      "height": 380,
+      "source": "examples/elements/#form-layouts"
+    },
+    {
+      "title": "Inline",
+      "html": "<form class=\"v-form-inline\" action=\"#\">\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"fi-email\">Email</label>\n    <input class=\"v-input\" id=\"fi-email\" type=\"email\" autocomplete=\"email\" placeholder=\"you@example.com\">\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"fi-genre\">Genre</label>\n    <select class=\"v-select\" id=\"fi-genre\"><option>Melodic house</option><option>Progressive house</option><option>Techno</option></select>\n  </div>\n  <button class=\"v-btn v-btn-primary\" type=\"submit\">Get promos</button>\n</form>",
+      "layout": "fill",
+      "height": 120,
+      "source": "examples/elements/#form-layouts"
+    },
+    {
+      "title": "Settings, sectioned",
+      "html": "<form class=\"v-form\" action=\"#\">\n  <div class=\"v-form-section\">\n    <div class=\"v-form-section-header\">\n      <h4 class=\"v-form-section-title\">Profile</h4>\n      <p class=\"v-form-section-text\">Shown on your artist page and in promo emails.</p>\n    </div>\n    <div class=\"v-form-section-body\">\n      <div class=\"v-form-grid\">\n        <div class=\"v-field\">\n          <label class=\"v-label\" for=\"fs-name\">Artist name</label>\n          <input class=\"v-input\" id=\"fs-name\" type=\"text\" value=\"Martin Graff\">\n        </div>\n        <div class=\"v-field\">\n          <label class=\"v-label\" for=\"fs-label\">Label</label>\n          <input class=\"v-input\" id=\"fs-label\" type=\"text\" value=\"Contrasts Records\">\n        </div>\n        <div class=\"v-field v-form-full\">\n          <label class=\"v-label\" for=\"fs-bio\">Bio</label>\n          <textarea class=\"v-input\" id=\"fs-bio\" rows=\"3\">Melodic and progressive house from Berlin.</textarea>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"v-form-section\">\n    <div class=\"v-form-section-header\">\n      <h4 class=\"v-form-section-title\">Notifications</h4>\n      <p class=\"v-form-section-text\">Choose what lands in your inbox.</p>\n    </div>\n    <div class=\"v-form-section-body\">\n      <label class=\"v-choice\"><input class=\"v-switch\" type=\"checkbox\" role=\"switch\" checked><span>New tips</span></label>\n      <label class=\"v-choice\"><input class=\"v-switch\" type=\"checkbox\" role=\"switch\"><span>Weekly sales summary</span></label>\n    </div>\n  </div>\n  <div class=\"v-form-actions\">\n    <p class=\"v-hint v-form-actions-start\">Last saved 2 minutes ago</p>\n    <button class=\"v-btn v-btn-primary\" type=\"submit\">Save changes</button>\n  </div>\n</form>",
+      "layout": "fill",
+      "height": 560,
+      "source": "examples/elements/#form-layouts"
+    },
+    {
+      "title": "Unsaved changes",
+      "description": "Edit a field: the note appears and leaving the page asks first. Saving or resetting clears it.",
+      "html": "<form class=\"v-form\" action=\"#\" id=\"address\" data-v-unsaved>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"x-town\">Town</label>\n    <input class=\"v-input\" id=\"x-town\" type=\"text\" autocomplete=\"address-level2\" value=\"Tuam\">\n  </div>\n  <div class=\"v-form-actions\">\n    <p class=\"v-hint v-form-actions-start\" id=\"address-note\" hidden>Unsaved changes</p>\n    <button class=\"v-btn v-btn-ghost\" type=\"reset\">Reset</button>\n    <button class=\"v-btn v-btn-primary\" type=\"submit\">Save address</button>\n  </div>\n</form>",
+      "js": "const note = document.getElementById('address-note');\ndocument.getElementById('address').addEventListener('v:dirty', (e) => {\n  note.hidden = !e.detail.dirty;\n});",
+      "layout": "fill",
+      "height": 160,
+      "source": "examples/forms/#example"
+    }
+  ]
+}

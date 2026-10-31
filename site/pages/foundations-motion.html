@@ -1,0 +1,24 @@
+<!--meta {"description": "Vectra's motion tokens, enter and exit animations, the view transition theme reveal and reduced motion."}-->
+<header class="site-page-head">
+  <p class="v-kicker">Foundations</p>
+  <h1>{{title}}</h1>
+  <p class="v-lead">Short, purposeful motion that always enhances and never gates. Without support, or under reduced motion, things simply appear.</p>
+</header>
+<h2>Tokens</h2>
+<table class="v-table site-table">
+  <caption class="v-sr-only">Motion tokens</caption>
+  <thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Used for</th></tr></thead>
+  <tbody>
+    <tr><td><code>--v-dur-1</code></td><td>120ms</td><td>Colour and border changes on hover.</td></tr>
+    <tr><td><code>--v-dur-2</code></td><td>220ms</td><td>Lifts, menus and popovers.</td></tr>
+    <tr><td><code>--v-dur-3</code></td><td>380ms</td><td>Dialogs, drawers and the theme reveal.</td></tr>
+    <tr><td><code>--v-ease-out</code></td><td><code>cubic-bezier(0.2, 0.8, 0.2, 1)</code></td><td>Most transitions.</td></tr>
+    <tr><td><code>--v-ease-spring</code></td><td><code>linear(...)</code></td><td>A small overshoot for presses and toasts.</td></tr>
+  </tbody>
+</table>
+<h2>Enter and exit</h2>
+<p>Dialogs, drawers, popovers, menus and toasts animate in with <code>@starting-style</code> and out with <code>transition-behavior: allow-discrete</code>, all in CSS. Browsers without them snap open and closed.</p>
+<h2>Theme reveal</h2>
+<p><code>Vectra.theme.set()</code> runs direction and mode changes inside a view transition where the browser has one, so the page cross-fades instead of flashing. Try the switch in the header.</p>
+<h2>Reduced motion</h2>
+<p>Under <code>prefers-reduced-motion: reduce</code>, base.css switches transitions and animations off rather than shortening them, so a style change is never read back half-way. The status pulse and skeleton shimmer stop and the theme switch is instant. They are decoration: the words carry the meaning.</p>

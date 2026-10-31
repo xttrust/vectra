@@ -1,0 +1,121 @@
+{
+  "name": "Tabs",
+  "slug": "tabs",
+  "group": "Navigation",
+  "tier": "P0",
+  "status": "partial",
+  "summary": "Switch between panels of related content in one place, as line, pill or vertical tabs.",
+  "description": "Use tabs for views of the same thing that people compare or move between, such as Overview, Activity and Settings. For steps in a flow use steps; for page navigation use links.\n\nThe styling is done and follows the WAI-ARIA tabs pattern. Switching panels and arrow keys come with the tabs JS module; until then set aria-selected and hidden yourself.",
+  "native": "role=\"tablist\", role=\"tab\", role=\"tabpanel\", hidden",
+  "catalogue": [
+    "Tabs"
+  ],
+  "css": [
+    "tabs.css"
+  ],
+  "classes": [
+    {
+      "name": "v-tabs",
+      "kind": "base",
+      "description": "The wrapper around the tab list and its panels."
+    },
+    {
+      "name": "v-tablist",
+      "kind": "part",
+      "description": "The row of tabs, with role=\"tablist\". Scrolls sideways when the tabs do not fit."
+    },
+    {
+      "name": "v-tab",
+      "kind": "part",
+      "description": "One tab, a <button role=\"tab\">. The selected one gets an accent underline."
+    },
+    {
+      "name": "v-tabpanel",
+      "kind": "part",
+      "description": "A panel, with role=\"tabpanel\". Hidden panels carry the hidden attribute."
+    },
+    {
+      "name": "v-tabs-pill",
+      "kind": "modifier",
+      "description": "Tabs in a soft track with the selected one raised, like the segmented control."
+    },
+    {
+      "name": "v-tabs-vertical",
+      "kind": "modifier",
+      "description": "Tabs beside the panel when the slot is at least 36rem wide, a row below that."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-selected=\"true\"",
+      "description": "On the current tab: underlined, raised in the pill form."
+    },
+    {
+      "attribute": "tabindex=\"-1\"",
+      "description": "On the other tabs, so Tab goes from the selected tab straight to its panel."
+    },
+    {
+      "attribute": "hidden",
+      "description": "On every panel except the current one."
+    },
+    {
+      "attribute": "disabled",
+      "description": "On a tab that cannot be chosen: dimmed."
+    },
+    {
+      "attribute": "aria-orientation=\"vertical\"",
+      "description": "On the tablist of vertical tabs, so arrow keys will move up and down."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves focus to the selected tab, then to its panel."
+    }
+  ],
+  "a11y": [
+    "Arrow keys, Home and End are not built yet: the tabs JS module will add them, along with switching panels on click.",
+    "Give the tablist an aria-label, link each tab to its panel with aria-controls, and each panel back with aria-labelledby.",
+    "Panels have tabindex=\"0\" so keyboard users can reach a panel that has no focusable content."
+  ],
+  "tokens": [
+    "--v-accent",
+    "--v-btn-radius",
+    "--v-surface-2",
+    "--v-shadow-1",
+    "--v-text-2",
+    "--v-border"
+  ],
+  "related": [
+    "segmented-control",
+    "steps",
+    "accordion"
+  ],
+  "examples": [
+    {
+      "title": "Line tabs",
+      "description": "The default. The last tab is disabled.",
+      "html": "<div class=\"v-tabs\">\n  <div class=\"v-tablist\" role=\"tablist\" aria-label=\"Project\">\n    <button class=\"v-tab\" id=\"tab-a1\" role=\"tab\" type=\"button\" aria-selected=\"true\" aria-controls=\"panel-a1\">Overview</button>\n    <button class=\"v-tab\" id=\"tab-a2\" role=\"tab\" type=\"button\" aria-selected=\"false\" aria-controls=\"panel-a2\" tabindex=\"-1\">Activity</button>\n    <button class=\"v-tab\" id=\"tab-a3\" role=\"tab\" type=\"button\" aria-selected=\"false\" aria-controls=\"panel-a3\" tabindex=\"-1\">Settings</button>\n    <button class=\"v-tab\" id=\"tab-a4\" role=\"tab\" type=\"button\" aria-selected=\"false\" aria-controls=\"panel-a4\" tabindex=\"-1\" disabled>Billing</button>\n  </div>\n  <div class=\"v-tabpanel\" id=\"panel-a1\" role=\"tabpanel\" aria-labelledby=\"tab-a1\" tabindex=\"0\"><p>Line tabs: the selected tab gets an accent underline.</p></div>\n  <div class=\"v-tabpanel\" id=\"panel-a2\" role=\"tabpanel\" aria-labelledby=\"tab-a2\" tabindex=\"0\" hidden><p>Recent activity.</p></div>\n  <div class=\"v-tabpanel\" id=\"panel-a3\" role=\"tabpanel\" aria-labelledby=\"tab-a3\" tabindex=\"0\" hidden><p>Project settings.</p></div>\n  <div class=\"v-tabpanel\" id=\"panel-a4\" role=\"tabpanel\" aria-labelledby=\"tab-a4\" tabindex=\"0\" hidden><p>Billing.</p></div>\n</div>",
+      "height": 140,
+      "layout": "stack",
+      "source": "examples/navigation/#tabs"
+    },
+    {
+      "title": "Pill tabs",
+      "html": "<div class=\"v-tabs v-tabs-pill\">\n  <div class=\"v-tablist\" role=\"tablist\" aria-label=\"Report range\">\n    <button class=\"v-tab\" id=\"tab-b1\" role=\"tab\" type=\"button\" aria-selected=\"false\" aria-controls=\"panel-b1\" tabindex=\"-1\">Day</button>\n    <button class=\"v-tab\" id=\"tab-b2\" role=\"tab\" type=\"button\" aria-selected=\"true\" aria-controls=\"panel-b2\">Week</button>\n    <button class=\"v-tab\" id=\"tab-b3\" role=\"tab\" type=\"button\" aria-selected=\"false\" aria-controls=\"panel-b3\" tabindex=\"-1\">Month</button>\n  </div>\n  <div class=\"v-tabpanel\" id=\"panel-b1\" role=\"tabpanel\" aria-labelledby=\"tab-b1\" tabindex=\"0\" hidden><p>Today.</p></div>\n  <div class=\"v-tabpanel\" id=\"panel-b2\" role=\"tabpanel\" aria-labelledby=\"tab-b2\" tabindex=\"0\"><p>Pill tabs sit in a soft track, like the segmented control.</p></div>\n  <div class=\"v-tabpanel\" id=\"panel-b3\" role=\"tabpanel\" aria-labelledby=\"tab-b3\" tabindex=\"0\" hidden><p>This month.</p></div>\n</div>",
+      "height": 140,
+      "layout": "stack",
+      "source": "examples/navigation/#tabs"
+    },
+    {
+      "title": "Vertical tabs",
+      "description": "Beside the panel when the slot is at least 36rem wide; a row on phones.",
+      "html": "<div class=\"v-tabs v-tabs-vertical\">\n  <div class=\"v-tablist\" role=\"tablist\" aria-label=\"Account\" aria-orientation=\"vertical\">\n    <button class=\"v-tab\" id=\"tab-c1\" role=\"tab\" type=\"button\" aria-selected=\"true\" aria-controls=\"panel-c1\">Profile</button>\n    <button class=\"v-tab\" id=\"tab-c2\" role=\"tab\" type=\"button\" aria-selected=\"false\" aria-controls=\"panel-c2\" tabindex=\"-1\">Security</button>\n    <button class=\"v-tab\" id=\"tab-c3\" role=\"tab\" type=\"button\" aria-selected=\"false\" aria-controls=\"panel-c3\" tabindex=\"-1\">Notifications</button>\n  </div>\n  <div class=\"v-tabpanel\" id=\"panel-c1\" role=\"tabpanel\" aria-labelledby=\"tab-c1\" tabindex=\"0\">\n    <h3>Profile</h3>\n    <p>Your name, photo and the email address people see.</p>\n  </div>\n  <div class=\"v-tabpanel\" id=\"panel-c2\" role=\"tabpanel\" aria-labelledby=\"tab-c2\" tabindex=\"0\" hidden><p>Security.</p></div>\n  <div class=\"v-tabpanel\" id=\"panel-c3\" role=\"tabpanel\" aria-labelledby=\"tab-c3\" tabindex=\"0\" hidden><p>Notifications.</p></div>\n</div>",
+      "height": 200,
+      "layout": "stack",
+      "source": "examples/navigation/#tabs"
+    }
+  ]
+}

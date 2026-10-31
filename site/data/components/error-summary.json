@@ -1,0 +1,114 @@
+{
+  "name": "Error summary",
+  "slug": "error-summary",
+  "group": "Forms",
+  "tier": "P0",
+  "status": "done",
+  "summary": "A box at the top of a form that lists every problem as a link to its field, and takes focus on submit.",
+  "description": "Put data-v-validate on the form. Without JS the browser's own validation runs. With JS a submit with problems marks each invalid field, builds the summary and moves focus to it; fixing a field clears its message and its link.\n\nA server can render the same summary itself after a failed post.",
+  "native": "<form>, constraint validation",
+  "catalogue": [
+    "Error summary"
+  ],
+  "css": [
+    "field.css"
+  ],
+  "js": [
+    "components/validate.js"
+  ],
+  "classes": [
+    {
+      "name": "v-error-summary",
+      "kind": "base",
+      "description": "The summary box, with a thick danger edge and a focus ring that is always drawn."
+    },
+    {
+      "name": "v-error-summary-title",
+      "kind": "part",
+      "description": "The heading line: \"There is a problem\" or \"There are n problems\"."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "novalidate",
+      "description": "Set on the form by the JS, so the summary replaces the browser's bubbles."
+    },
+    {
+      "attribute": "aria-invalid=\"true\"",
+      "description": "Set by the JS on each invalid control, with its .v-field-error linked by aria-describedby."
+    },
+    {
+      "attribute": "hidden",
+      "description": "The summary hides once every problem is fixed, or when a submit passes."
+    },
+    {
+      "attribute": "tabindex=\"-1\"",
+      "description": "Lets the summary take focus from script without joining the Tab order."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-validate",
+      "value": "",
+      "on": "<form>",
+      "description": "Turns on the error summary, field marking and focus handling. Reuses a .v-error-summary already in the form."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "On submit with problems: focus moves to the summary."
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves through the links in the summary."
+    },
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "On a link: focuses that field, not just scrolls to it."
+    }
+  ],
+  "a11y": [
+    "Focus moves to the summary on a failed submit, so screen readers read the title and the list straight away.",
+    "The summary is role=\"group\" labelled by its title, and each link carries the same text as the field's error.",
+    "Write a .v-field-error for each field in your own words; without one the browser's validation message is used.",
+    "A failed async check (Vectra.fieldState invalid) is listed with its own message."
+  ],
+  "tokens": [
+    "--v-danger",
+    "--v-danger-soft",
+    "--v-radius-md",
+    "--v-focus-w",
+    "--v-space-4",
+    "--v-space-5"
+  ],
+  "related": [
+    "field",
+    "async-field-check",
+    "form-layouts",
+    "alert"
+  ],
+  "examples": [
+    {
+      "title": "Validated form",
+      "description": "Press \"Create account\" with the form empty, then follow a link in the summary.",
+      "html": "<form class=\"v-stack\" id=\"signup\" action=\"#\" data-v-validate>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"v-name\">Full name <span class=\"v-required\" aria-hidden=\"true\">*</span></label>\n    <input class=\"v-input\" id=\"v-name\" name=\"name\" type=\"text\" autocomplete=\"name\" required>\n    <p class=\"v-field-error\" id=\"v-name-error\">Enter your full name.</p>\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"v-email\">Email <span class=\"v-required\" aria-hidden=\"true\">*</span></label>\n    <input class=\"v-input\" id=\"v-email\" name=\"email\" type=\"email\" autocomplete=\"email\" required>\n    <p class=\"v-field-error\" id=\"v-email-error\">Enter an email address like name@example.com.</p>\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-choice\"><input class=\"v-checkbox\" id=\"v-terms\" name=\"terms\" type=\"checkbox\" required><span>I agree to the terms</span></label>\n    <p class=\"v-field-error\" id=\"v-terms-error\">Agree to the terms to create an account.</p>\n  </div>\n  <div class=\"v-cluster\">\n    <button class=\"v-btn v-btn-primary\" type=\"submit\">Create account</button>\n  </div>\n</form>",
+      "layout": "fill",
+      "height": 340,
+      "source": "examples/forms/#validation"
+    },
+    {
+      "title": "Rendered by the server",
+      "description": "The same markup the JS builds, written after a failed post. data-v-validate takes it over.",
+      "html": "<form class=\"v-stack\" id=\"profile\" action=\"#\" data-v-validate>\n  <div class=\"v-error-summary\" role=\"group\" aria-labelledby=\"profile-summary\" tabindex=\"-1\">\n    <p class=\"v-error-summary-title\" id=\"profile-summary\">There are 2 problems</p>\n    <ul>\n      <li><a href=\"#p-name\">Enter your full name.</a></li>\n      <li><a href=\"#p-email\">Enter an email address like name@example.com.</a></li>\n    </ul>\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"p-name\">Full name</label>\n    <input class=\"v-input\" id=\"p-name\" name=\"name\" type=\"text\" required aria-invalid=\"true\" aria-describedby=\"p-name-error\">\n    <p class=\"v-field-error\" id=\"p-name-error\">Enter your full name.</p>\n  </div>\n  <div class=\"v-field\">\n    <label class=\"v-label\" for=\"p-email\">Email</label>\n    <input class=\"v-input\" id=\"p-email\" name=\"email\" type=\"email\" value=\"aoife@\" required aria-invalid=\"true\" aria-describedby=\"p-email-error\">\n    <p class=\"v-field-error\" id=\"p-email-error\">Enter an email address like name@example.com.</p>\n  </div>\n</form>",
+      "layout": "fill",
+      "height": 400
+    }
+  ]
+}

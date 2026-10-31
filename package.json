@@ -26,6 +26,8 @@
     "check:baseline": "node build/check-baseline.mjs",
     "check": "npm run lint && npm run check:tokens && npm run build && npm run check:size && npm run check:urls && npm run check:baseline",
     "serve": "node build/serve.mjs",
+    "site": "node build/site.mjs",
+    "site:check": "node build/site.mjs --check",
     "test": "playwright test --project=chromium --grep-invert @visual",
     "test:a11y": "playwright test --project=chromium tests/a11y.spec.js",
     "test:contrast": "playwright test --project=chromium tests/contrast.spec.js",

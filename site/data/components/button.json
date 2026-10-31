@@ -1,0 +1,63 @@
+{
+  "name": "Button",
+  "slug": "button",
+  "group": "Actions",
+  "tier": "P0",
+  "status": "done",
+  "summary": "The main action control, in six variants and three sizes, on a button, a link or a submit input.",
+  "description": "Use one primary button per view for the action you most want people to take, secondary for the rest, and ghost for quiet actions in toolbars and footers. A link that looks like a button is still a link: it navigates, it does not act.",
+  "native": "<button>, <a>, <input type=\"submit\">",
+  "catalogue": ["Button", "Link button"],
+  "css": ["button.css"],
+  "classes": [
+    { "name": "v-btn", "kind": "base", "description": "The button. On its own it is the default, neutral style." },
+    { "name": "v-btn-primary", "kind": "modifier", "description": "The main action: filled with the accent." },
+    { "name": "v-btn-secondary", "kind": "modifier", "description": "Bordered, for actions next to a primary one." },
+    { "name": "v-btn-ghost", "kind": "modifier", "description": "No fill or border until hovered; for toolbars and quiet actions." },
+    { "name": "v-btn-soft", "kind": "modifier", "description": "A light accent tint." },
+    { "name": "v-btn-danger", "kind": "modifier", "description": "Destructive actions. Name the action (Delete project), not just OK." },
+    { "name": "v-btn-sm", "kind": "modifier", "description": "Small size." },
+    { "name": "v-btn-lg", "kind": "modifier", "description": "Large size." },
+    { "name": "v-btn-block", "kind": "modifier", "description": "Fills the width of its container." }
+  ],
+  "states": [
+    { "attribute": "disabled", "description": "Native disabled: dimmed, not focusable, no click." },
+    { "attribute": "aria-disabled=\"true\"", "description": "Looks disabled but stays focusable, for links or when the reason should still be reachable." },
+    { "attribute": "aria-busy=\"true\"", "description": "Loading: a spinner appears before the label. Pair it with disabled so it is not pressed twice." }
+  ],
+  "keyboard": [
+    { "keys": ["Tab"], "action": "Moves focus to the button." },
+    { "keys": ["Enter", "Space"], "action": "Presses a button. A link button follows its link on Enter only." }
+  ],
+  "a11y": [
+    "Use <button type=\"button\"> for actions and <a href> for navigation, so the role and keys match what people expect.",
+    "A busy button keeps its label in the markup, so screen readers still hear what is loading.",
+    "Every variant holds 4.5:1 text contrast in all four directions and both themes."
+  ],
+  "tokens": ["--v-btn-radius", "--v-btn-weight", "--v-btn-border", "--v-btn-shadow", "--v-control-h", "--v-primary-bg", "--v-primary-fg", "--v-accent"],
+  "related": ["icon-button", "button-group", "toggle-button", "segmented-control"],
+  "examples": [
+    {
+      "title": "Variants",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\">Primary</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\">Secondary</button>\n<button class=\"v-btn v-btn-ghost\" type=\"button\">Ghost</button>\n<button class=\"v-btn v-btn-soft\" type=\"button\">Soft</button>\n<button class=\"v-btn v-btn-danger\" type=\"button\">Danger</button>\n<button class=\"v-btn\" type=\"button\">Default</button>",
+      "source": "examples/components/#buttons"
+    },
+    {
+      "title": "Sizes and icons",
+      "description": "Icons sit before or after the label and scale with the text.",
+      "html": "<button class=\"v-btn v-btn-primary v-btn-sm\" type=\"button\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#plus\"/></svg>Small</button>\n<button class=\"v-btn v-btn-primary\" type=\"button\">Medium</button>\n<button class=\"v-btn v-btn-primary v-btn-lg\" type=\"button\">Large <svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#arrow-right\"/></svg></button>",
+      "source": "examples/components/#buttons"
+    },
+    {
+      "title": "Loading, disabled and link",
+      "html": "<button class=\"v-btn v-btn-primary\" type=\"button\" aria-busy=\"true\" disabled>Saving</button>\n<button class=\"v-btn v-btn-secondary\" type=\"button\" disabled>Disabled</button>\n<a class=\"v-btn v-btn-secondary\" href=\"#\">Link styled as a button</a>",
+      "source": "examples/components/#buttons"
+    },
+    {
+      "title": "Block",
+      "html": "<button class=\"v-btn v-btn-primary v-btn-block\" type=\"button\">Start free trial</button>",
+      "layout": "stack",
+      "source": "examples/components/#cards"
+    }
+  ]
+}
