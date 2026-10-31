@@ -1,0 +1,138 @@
+/* Sidebar navigation: group headings, icon + label items, badges, collapsible groups on <details>,
+   aria-current for the current page. .v-sidenav-rail collapses it to icons (labels stay for screen readers). */
+@layer components {
+  .v-sidenav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--v-space-4);
+    color: var(--v-text-2);
+    font-size: 0.9375rem;
+  }
+
+  .v-sidenav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v-sidenav-heading {
+    padding-inline: 0.75rem;
+    color: var(--v-text-3);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .v-sidenav a,
+  .v-sidenav summary {
+    position: relative;
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    min-block-size: 2.375rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--v-radius-sm);
+    color: var(--v-text-2);
+    font-weight: 520;
+    text-decoration: none;
+    list-style: none;
+    cursor: pointer;
+    transition: color var(--v-dur-1), background-color var(--v-dur-1);
+  }
+
+  .v-sidenav .v-icon { font-size: 1.1em; }
+  .v-sidenav-label { flex: 1; }
+  .v-sidenav .v-badge { margin-inline-start: auto; }
+
+  /* Collapsible group. The chevron is a rotated corner: down when closed, up when open. */
+  .v-sidenav summary::-webkit-details-marker { display: none; }
+
+  .v-sidenav summary::after {
+    content: "";
+    inline-size: 0.4em;
+    block-size: 0.4em;
+    margin-inline: auto 0.2em;
+    border: solid currentcolor;
+    border-width: 0 1.5px 1.5px 0;
+    rotate: 45deg;
+    translate: 0 -0.1em;
+    transition: rotate var(--v-dur-2) var(--v-ease-out);
+  }
+
+  .v-sidenav details[open] > summary::after {
+    rotate: -135deg;
+    translate: 0 0.1em;
+  }
+
+  .v-sidenav details ul {
+    margin-block-start: 2px;
+    margin-inline-start: 1.3rem;
+    padding-inline-start: 0.5rem;
+    border-inline-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  /* Icon rail: icons only, badges become a small count on the icon. */
+  .v-sidenav-rail {
+    align-items: center;
+    inline-size: max-content;
+  }
+
+  .v-sidenav-rail a {
+    justify-content: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+  }
+
+  .v-sidenav-rail .v-icon { font-size: 1.25rem; }
+
+  .v-sidenav-rail .v-sidenav-label,
+  .v-sidenav-rail .v-sidenav-heading {
+    position: absolute;
+    overflow: hidden;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .v-sidenav-rail .v-badge {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    padding: 0 0.35em;
+    font-size: 0.6875rem;
+  }
+
+  .v-sidenav a:hover,
+  .v-sidenav summary:hover {
+    background-color: var(--v-surface-2);
+    color: var(--v-text);
+  }
+
+  .v-sidenav a[aria-current="page"] {
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+    font-weight: 620;
+  }
+}
+
+@layer directions {
+  :root[data-direction="soft"] .v-sidenav a[aria-current="page"] {
+    background-color: var(--v-surface);
+    box-shadow: var(--v-shadow-1);
+  }
+
+  :root[data-direction="editorial"] .v-sidenav a[aria-current="page"] {
+    background-color: var(--v-surface-2);
+    color: var(--v-text);
+    box-shadow: inset 2px 0 0 var(--v-accent);
+  }
+
+  :root[data-direction="editorial"] .v-sidenav a[aria-current="page"]:dir(rtl) { box-shadow: inset -2px 0 0 var(--v-accent); }
+}

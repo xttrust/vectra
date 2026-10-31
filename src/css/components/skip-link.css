@@ -1,0 +1,24 @@
+/* Skip link: the first focusable element on the page, off-screen until it receives focus.
+   Point it at the main content, which needs tabindex="-1" so focus actually moves there. */
+@layer components {
+  .v-skip-link {
+    position: fixed;
+    inset-block-start: var(--v-space-3);
+    inset-inline-start: var(--v-space-3);
+    z-index: 1000;
+    padding: 0.65rem 1rem;
+    border-radius: var(--v-btn-radius);
+    background-color: var(--v-primary-bg);
+    color: var(--v-primary-fg);
+    font-weight: var(--v-btn-weight);
+    text-decoration: none;
+    box-shadow: var(--v-shadow-2);
+    translate: 0 calc(-100% - var(--v-space-4));
+    transition: translate var(--v-dur-2) var(--v-ease-out);
+  }
+
+  .v-skip-link:focus { translate: 0; }
+
+  /* The target is focused by script-free fragment navigation; no ring around the whole page region. */
+  .v-skip-target:focus { outline: none; }
+}
