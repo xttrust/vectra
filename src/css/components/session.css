@@ -1,0 +1,9 @@
+/* Session timeout warning: a .v-dialog built by session.warn() in JS. The countdown keeps a steady
+   width as the digits change. */
+@layer components {
+  .v-session-time {
+    color: var(--v-text);
+    font-variant-numeric: tabular-nums;
+    font-weight: 650;
+  }
+}
