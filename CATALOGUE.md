@@ -37,7 +37,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Button group | P0 | done | |
 | Link button | P0 | done | |
 | Segmented control | P0 | done | |
-| Toggle button (`aria-pressed`) | P0 | | |
+| Toggle button (`aria-pressed`) | P0 | done | |
 | Split button (action + menu) | P1 | | uses dropdown menu |
 | Copy button | P0 | | shared with code block |
 | Floating action button | P2 | | mobile apps |
@@ -54,13 +54,13 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Empty state | P0 | done | |
 | Skeleton | P0 | done | |
 | Spinner | P0 | done | |
-| Panel | P0 | | |
-| Kbd | P0 | | |
-| Tag / chip (removable, selectable) | P0 | | |
-| List group (plain, with actions, with avatars) | P0 | | |
-| Description list (stacked, two-column, in card) | P0 | | |
-| Status indicator (online, busy, away; pulse) | P0 | | |
-| Figure / image with caption, aspect-ratio frame | P0 | | |
+| Panel | P0 | done | |
+| Kbd | P0 | done | |
+| Tag / chip (removable, selectable) | P0 | done | |
+| List group (plain, with actions, with avatars) | P0 | done | |
+| Description list (stacked, two-column, in card) | P0 | done | |
+| Status indicator (online, busy, away; pulse) | P0 | done | |
+| Figure / image with caption, aspect-ratio frame | P0 | done | |
 | Icon (sprite `<use>`) | P0 | | after M5 |
 | Ribbon / corner label | P2 | | |
 
@@ -72,8 +72,8 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Progress (incl. indeterminate) | P0 | done | |
 | Meter | P0 | done | |
 | Toast (stack, actions, auto-dismiss) | P0 | | JS |
-| Banner (page-level, dismissible) | P0 | | |
-| Callout (docs style: note, tip, warning) | P0 | | |
+| Banner (page-level, dismissible) | P0 | done | |
+| Callout (docs style: note, tip, warning) | P0 | done | |
 | Inline save status (saving, saved, failed, offline) | P0 | | section 11 |
 | Connection banner (offline, back online, slow network) | P0 | | section 11, JS |
 | Session timeout warning (countdown dialog) | P0 | | section 11, JS |
@@ -85,21 +85,21 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Field (label, hint, error), fieldset | P0 | planned | M3.2 |
-| Input, textarea, select | P0 | planned | M3.2 |
-| Checkbox, radio, switch | P0 | planned | M3.2 |
-| Range | P0 | planned | M3.2 |
-| Input group (addons, icons, buttons) | P0 | planned | M3.2 |
-| Password reveal | P0 | planned | M3.2 static, M4 JS |
-| File drop zone | P0 | planned | M3.2 static, M4 JS |
-| Search field (with clear, shortcut hint) | P0 | | |
+| Field (label, hint, error), fieldset | P0 | done | |
+| Input, textarea, select | P0 | done | |
+| Checkbox, radio, switch | P0 | done | |
+| Range | P0 | done | |
+| Input group (addons, icons, buttons) | P0 | done | |
+| Password reveal | P0 | done | static done, JS in M4 |
+| File drop zone | P0 | done | static done, JS in M4 |
+| Search field (with clear, shortcut hint) | P0 | done | |
 | Number stepper | P0 | | small JS |
 | Character counter | P0 | | small JS |
 | Error summary (links to each invalid field, takes focus on submit) | P0 | | section 11 |
 | Password strength meter | P0 | | built on meter |
 | Async field check (checking, available, taken) | P0 | | section 11 |
-| Checkbox / radio cards (rich selectable tiles) | P0 | | pricing, onboarding |
-| Form layouts (stacked, two-column, sectioned settings, inline) | P0 | | |
+| Checkbox / radio cards (rich selectable tiles) | P0 | done | pricing, onboarding |
+| Form layouts (stacked, two-column, sectioned settings, inline) | P0 | done | |
 | OTP input | P1 | | 2FA flows use a plain input in v2.0 |
 | Tag input | P1 | | |
 | Combobox / autocomplete | P1 | | |
@@ -116,11 +116,11 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Dialog (incl. confirm / alert dialog) | P0 | | `<dialog>` |
-| Drawer / sheet (four sides, bottom sheet on phones) | P0 | | `<dialog>` |
-| Popover | P0 | | `popover` + anchor |
-| Dropdown menu (items, groups, checkable, submenus) | P0 | | |
-| Tooltip | P0 | | |
+| Dialog (incl. confirm / alert dialog) | P0 | done | helpers in M4 |
+| Drawer / sheet (four sides, bottom sheet on phones) | P0 | done | `<dialog>` |
+| Popover | P0 | done | `popover` + anchor |
+| Dropdown menu (items, groups, checkable, submenus) | P0 | done | keys in M4 |
+| Tooltip | P0 | done | Escape in M4 |
 | Context menu | P1 | | |
 | Hover card | P1 | | |
 | Command palette (Ctrl/Cmd+K) | P1 | | |
@@ -130,14 +130,14 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Navbar (with mobile menu) | P0 | | |
-| Sidebar nav (collapsible groups, icon rail) | P0 | | |
-| Tabs (line, pill, vertical) | P0 | | JS |
-| Breadcrumb | P0 | | |
-| Pagination (numbered, simple, load more) | P0 | | |
-| Steps (horizontal, vertical) | P0 | | |
-| Skip link | P0 | | |
-| Bottom tab bar (mobile) | P0 | | |
+| Navbar (with mobile menu) | P0 | done | mobile menu works without JS; polish in M4 |
+| Sidebar nav (collapsible groups, icon rail) | P0 | done | |
+| Tabs (line, pill, vertical) | P0 | done | keys in M4 |
+| Breadcrumb | P0 | done | |
+| Pagination (numbered, simple, load more) | P0 | done | |
+| Steps (horizontal, vertical) | P0 | done | |
+| Skip link | P0 | done | |
+| Bottom tab bar (mobile) | P0 | done | |
 | Table of contents / scrollspy | P1 | | scroll-driven where supported |
 | Mega menu | P1 | | |
 | Back to top | P1 | | |
@@ -147,16 +147,16 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Accordion (exclusive via `<details name>`) | P0 | | |
-| Collapsible | P0 | | |
+| Accordion (exclusive via `<details name>`) | P0 | done | |
+| Collapsible | P0 | done | |
 | Read more / line clamp | P1 | | |
 
 ### Data
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Table (responsive, sticky header, zebra, selectable rows, dense) | P0 | | |
-| Timeline / activity feed | P0 | | |
+| Table (responsive, sticky header, zebra, selectable rows, dense) | P0 | done | |
+| Timeline / activity feed | P0 | done | |
 | Data table (sort, filter, column toggle, bulk actions) | P1 | | |
 | Charts: sparkline, bar, line, area, donut | P1 | | SVG, no library |
 | Calendar (month, week) | P2 | | |
@@ -166,11 +166,11 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 
 | Component | Tier | Status | Notes |
 |---|---|---|---|
-| Prose (long-form typography) | P0 | | |
-| Code block with copy | P0 | | |
-| Blockquote / testimonial | P0 | | |
-| Pricing card | P0 | | |
-| Logo cloud | P0 | | |
+| Prose (long-form typography) | P0 | done | |
+| Code block with copy | P0 | done | copy in M4 |
+| Blockquote / testimonial | P0 | done | |
+| Pricing card | P0 | done | |
+| Logo cloud | P0 | done | |
 | Carousel (scroll-snap + buttons) | P1 | | |
 | Gallery / masonry grid | P1 | | |
 | Video embed (lite, click to load) | P1 | | no third-party request until clicked |
@@ -185,7 +185,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Direction switcher | P0 | | |
 | Theme toggle (light, dark, system) | P0 | | |
 | Customizer | P0 | | |
-| Scroll area (styled scrollbars, fade edges) | P0 | | |
+| Scroll area (styled scrollbars, fade edges) | P0 | done | |
 | Visually hidden, sticky helpers | P0 | | utilities |
 | Cookie consent banner | P1 | | no tracking code shipped |
 | Resizable split pane | P2 | | |
@@ -415,10 +415,10 @@ Replaces the M3 to M9 rows of PLAN.md section 14. Same gates as before: one bran
 | # | Milestone | Contains | Size |
 |---|---|---|---|
 | M3.1 | Actions, display, feedback | done | L |
-| M3.2 | Forms (static) | planned | M |
-| M3.3 | Display and form additions | toggle button, panel, kbd, tag, list group, description list, status indicator, figure, banner, callout, search field, checkbox cards, form layouts | M |
-| M3.4 | Navigation and disclosure (static) | navbar, sidebar, tabs, breadcrumb, pagination, steps, skip link, bottom bar, accordion, collapsible | M |
-| M3.5 | Overlays, data, content (static) | dialog, drawer, popover, menu, tooltip, table, timeline, prose, code block, testimonial, pricing card, logo cloud, scroll area | L |
+| M3.2 | Forms (static) | done | M |
+| M3.3 | Display and form additions | done: toggle button, panel, kbd, tag, list group, description list, status indicator, figure, banner, callout, search field, checkbox cards, form layouts | M |
+| M3.4 | Navigation and disclosure (static) | done: navbar, sidebar, tabs, breadcrumb, pagination, steps, skip link, bottom bar, accordion, collapsible | M |
+| M3.5 | Overlays, data, content (static) | done: dialog, drawer, popover, menu, tooltip, table, timeline, prose, code block, testimonial, pricing card, logo cloud, scroll area | L |
 | M4 | JS core + interactive P0 | toast, tabs, menu, mobile nav, dialog helpers, password reveal, drop zone, stepper, counter, copy, theming components, plus the state helpers in section 11 (connection and slow-network detection, session timeout, error summary focus, unsaved changes, live announcements) | L |
 | M5 | Icons + fonts | sprite, subset tool, Inter subset | S |
 | M6 | Docs site + theme builder | as PLAN.md section 11 | L |
