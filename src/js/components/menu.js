@@ -52,8 +52,16 @@ export function init(el) {
     refocus = false;
   };
 
+  // autofocus makes showPopover itself move focus into the menu, in the same task as the click that
+  // opened it. Waiting for the async toggle event left a gap where a fast key press hit the trigger.
   const onBefore = (e) => {
-    if (e.newState === 'closed') refocus = el.contains(document.activeElement);
+    if (e.newState === 'closed') {
+      refocus = el.contains(document.activeElement);
+      return;
+    }
+    const list = items();
+    for (const i of el.querySelectorAll('[autofocus]')) i.removeAttribute('autofocus');
+    list[fromEnd ? list.length - 1 : 0]?.setAttribute('autofocus', '');
   };
 
   const onKey = (e) => {

@@ -6,7 +6,12 @@ const target = PAGES.find((p) => p.name === 'overlays');
 // data-v-menu takes its items out of the Tab order, so that means the modules have started.
 const ready = (page) => expect(page.locator('#menu-project [role="menuitem"]').first()).toHaveAttribute('tabindex', '-1');
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, browserName }) => {
+  // CPU_THROTTLE=4 slows Chromium down like a busy CI runner, to shake out timing races.
+  if (process.env.CPU_THROTTLE && browserName === 'chromium') {
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: Number(process.env.CPU_THROTTLE) });
+  }
   await open(page, target, { direction: 'tech', theme: 'dark' });
   await ready(page);
 });
@@ -73,6 +78,18 @@ test.describe('menu', () => {
     await expect(page.locator('#menu-project')).toBeHidden();
     // The next focusable element after the trigger is the no-popover tooltip's Help button.
     await expect(page.locator('[aria-describedby="tip-help"]')).toBeFocused();
+  });
+
+  test('a key pressed before the async toggle event still lands in the menu', async ({ page }) => {
+    // Click and key in one task: the toggle event cannot have fired yet, as on a slow CI runner.
+    const focused = await page.evaluate(() => {
+      const trigger = document.getElementById('open-menu');
+      trigger.focus();
+      trigger.click();
+      document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+      return document.activeElement.textContent.trim();
+    });
+    expect(focused).toMatch(/^Duplicate/);
   });
 
   test('an item closes the menu, returns focus and fires v:select', async ({ page }) => {
