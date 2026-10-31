@@ -121,6 +121,11 @@
     inset-block-start: 0;
     background: linear-gradient(var(--v-table-head-bg), var(--v-table-head-bg)), var(--v-bg);
   }
+
+  @media (forced-colors: active) {
+    /* The selected-row bar is a box-shadow, which forced colours remove: draw it as a border. */
+    .v-table tbody tr:is([aria-selected="true"], :has(> .v-table-check input:checked)) > :first-child { border-inline-start: 3px solid Highlight; }
+  }
 }
 
 @layer directions {

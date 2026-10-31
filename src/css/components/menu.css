@@ -112,6 +112,11 @@
     background-color: var(--v-accent-text);
   }
 
+  /* The radio dot is a background colour, which forced colours would paint as Canvas. */
+  @media (forced-colors: active) {
+    .v-menu-item[role="menuitemradio"][aria-checked="true"]::before { background-color: CanvasText; }
+  }
+
   .v-menu-item-danger,
   .v-menu-item-danger .v-icon { color: var(--v-danger); }
 
@@ -122,6 +127,12 @@
     background: none;
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  /* Disabled items stay focusable (WAI-ARIA menu pattern); the fade must not fade their focus ring too. */
+  .v-menu-item[aria-disabled="true"]:focus-visible {
+    color: var(--v-text-3);
+    opacity: 1;
   }
 
   .v-menu-label {

@@ -29,7 +29,10 @@
 
   :is(.v-input, .v-select, .v-input-group):where(:hover) { border-color: color-mix(in oklch, var(--v-input-border), var(--v-text) 40%); }
 
+  /* Date and time fields: Tab also reaches the picker button inside them, where the field stops
+     matching :focus-visible, so they keep the ring on any focus (typing fields always show it anyway). */
   :is(.v-input, .v-select):where(:focus-visible),
+  .v-input:where([type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]):where(:focus-within),
   .v-input-group:where(:has(:focus-visible)) {
     border-color: var(--v-accent);
     outline: var(--v-focus-w) solid var(--v-accent);
@@ -147,6 +150,9 @@
 
   .v-input-group > .v-btn:focus-visible { outline-offset: -4px; }
 
+  /* That inset ring sits on the button's own fill: on a primary button, draw it in the button's text colour. */
+  .v-input-group > .v-btn-primary:focus-visible { outline-color: var(--v-primary-fg); }
+
   .v-input-group > .v-btn:first-child {
     border-start-start-radius: calc(var(--v-input-radius) - var(--v-border-w));
     border-end-start-radius: calc(var(--v-input-radius) - var(--v-border-w));
@@ -159,8 +165,11 @@
     inline-size: auto;
   }
 
+  /* A definite width: with only a flex basis, the group's auto width came from the number input's own
+     intrinsic width, which changes when the spin arrows go, so the box measured 60 or 72px by load timing. */
   .v-stepper > input.v-input {
-    flex: 0 1 4.5rem;
+    flex: none;
+    inline-size: 4.5rem;
     padding-inline: 0.25rem;
     text-align: center;
     font-variant-numeric: tabular-nums;
@@ -218,8 +227,9 @@
     box-shadow: 0 var(--v-border-w) 0 0 var(--v-danger);
   }
 
+  /* An invalid rule is already drawn, so focus adds the full focus width on top of it. */
   :root[data-direction="editorial"] :is(.v-input:not(textarea, .v-input-group > *), .v-input-group):where(:user-invalid, [aria-invalid="true"], :has(:user-invalid, [aria-invalid="true"])):where(:focus-visible, :has(:focus-visible)) {
-    box-shadow: 0 var(--v-focus-w) 0 0 var(--v-danger);
+    box-shadow: 0 calc(var(--v-focus-w) + var(--v-border-w)) 0 0 var(--v-danger);
   }
 
   :root[data-direction="editorial"] .v-input-group > :is(.v-input, .v-input-addon):first-child { padding-inline-start: 0; }

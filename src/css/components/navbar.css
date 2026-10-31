@@ -129,6 +129,15 @@
 
     .v-navbar-actions { margin-inline-start: auto; }
   }
+
+  @media (forced-colors: active) {
+    /* The current link's tint and colour are flattened by forced colours: use the system highlight. */
+    .v-navbar-links a[aria-current="page"] {
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
+    }
+  }
 }
 
 @layer directions {

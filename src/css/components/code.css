@@ -56,6 +56,9 @@
 
   .v-code-body code { font-size: inherit; }
 
+  /* The scrolling body is focusable; .v-code clips overflow, so its ring is drawn inside. */
+  .v-code-body:focus-visible { outline-offset: calc(var(--v-focus-w) * -1); }
+
   /* Long lines wrap instead of scrolling. */
   .v-code-wrap .v-code-body {
     overflow-wrap: anywhere;
