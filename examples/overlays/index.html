@@ -31,7 +31,7 @@
       translate: none;
     }
 
-    .ex-preview { display: grid; gap: var(--v-space-4); align-content: start; justify-items: start; }
+    .ex-preview { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-4); align-content: start; justify-items: start; }
     .ex-live { margin-block-start: var(--v-space-4); }
   </style>
   <script src="../shared/switcher.js" defer></script>
@@ -199,11 +199,11 @@
         </div>
       </div>
       <div class="v-cluster ex-live">
-        <button class="v-btn v-btn-secondary" type="button" id="open-tooltip" popovertarget="tip-copy" aria-describedby="tip-copy">Click for a popover tooltip</button>
         <span class="v-tooltip-wrap">
-          <button class="v-btn v-btn-secondary v-btn-icon" type="button" aria-label="Help" aria-describedby="tip-help"><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg></button>
-          <span class="v-tooltip" role="tooltip" id="tip-help">Hover or focus: no popover needed</span>
+          <button class="v-btn v-btn-secondary" type="button" aria-describedby="tip-help"><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>Help</button>
+          <span class="v-tooltip" role="tooltip" id="tip-help">No popover needed</span>
         </span>
+        <button class="v-btn v-btn-secondary" type="button" id="open-tooltip" popovertarget="tip-copy" aria-describedby="tip-copy">Click for a popover tooltip</button>
       </div>
     </section>
   </main>
