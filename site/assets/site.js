@@ -1,5 +1,5 @@
 /* Docs site behaviour, on top of dist/vectra.js: search (press / to focus), live demo frames that follow
-   the site's theme or their own inline switch, the table of contents highlight, and the filters on the
+   the site's theme or their own inline switch (and can be shown at phone or tablet width), the table of contents highlight, and the filters on the
    component index and icon pages. Without JavaScript the search form opens the component index. */
 (function () {
   var root = document.documentElement;
@@ -123,6 +123,7 @@
 
   /* ---------- Demo frames ---------- */
   var KEYS = ['direction', 'theme', 'corners', 'density', 'font'];
+  var WIDTHS = { full: '', tablet: '768px', phone: '390px' };
   var darkOS = matchMedia('(prefers-color-scheme: dark)');
   var resolved = function () { return root.dataset.theme || (darkOS.matches ? 'dark' : 'light'); };
 
@@ -146,6 +147,7 @@
     if (own.mode) doc.dataset.theme = own.mode;
     example.querySelectorAll('.site-demo-bar input').forEach(function (r) {
       var key = r.name.split('-').pop();
+      if (key === 'width') return;
       r.checked = r.value === (key === 'direction' ? doc.dataset.direction : (own.mode || resolved()));
     });
   }
@@ -174,6 +176,12 @@
     if (frame.contentDocument && frame.contentDocument.readyState === 'complete') ready();
     example.addEventListener('change', function (e) {
       if (!e.target.closest('.site-demo-bar')) return;
+      if (e.target.name.slice(-6) === '-width') {
+        // Phone and tablet widths show the demo at that size, centred; the frame height follows.
+        frame.style.inlineSize = WIDTHS[e.target.value];
+        if (e.target.value === 'full') delete example.dataset.width; else example.dataset.width = e.target.value;
+        return;
+      }
       example.own = example.own || {};
       example.own[e.target.name.split('-').pop()] = e.target.value;
       apply(example);

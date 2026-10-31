@@ -41,13 +41,15 @@ npm run site         # the site, into site/dist/
 npm run serve        # then open http://127.0.0.1:4173/site/dist/
 ```
 
+The site also has a **theme builder** (`/theme-builder/`: direction, mode, accent hue, corners, density, typeface and single-token overrides, with a live WCAG contrast report across every hue, a CSS export of only the changed tokens and a shareable link) and a **quality page** (`/quality/`) generated at build time from `build/budgets.json`, `dist/`, `playwright test --list`, the test page lists, `build/contrast-pairs.mjs` and `build/browsers.mjs`. The changelog is written from git tags and merged pull requests, so build from a full clone to see it filled in.
+
 Every URL in the site is relative, so it works under any base path. It is deployed to GitHub Pages (https://xttrust.github.io/vectra/) by `.github/workflows/pages.yml`, only when a release is published or the workflow is run by hand.
 
 ## Development
 
 | Command | What it does |
 |---|---|
-| `npm run check` | Lint, build, size budgets, external-URL check, browser floor check |
+| `npm run check` | Lint (including `site/assets/*.css`), build, size budgets, external-URL check, browser floor check |
 | `npm run site:check` | Validate the component data, build the docs site and check every page (one h1, landmarks, links, no external URLs) |
 | `npm test` | Accessibility, contrast sweep and keyboard tests in Chromium |
 | `npm run build:icons` | Copy the icons listed in `src/icons/icons.json` from Lucide into `src/icons/svg/`, then build the sprite |

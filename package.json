@@ -18,7 +18,7 @@
     "build:icons": "node build/icons.mjs --sync",
     "build:fonts": "node build/fonts.mjs",
     "icons": "node build/icons-subset.mjs",
-    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:css": "stylelint \"src/**/*.css\" \"site/assets/*.css\"",
     "lint:js": "eslint .",
     "lint": "npm run lint:css && npm run lint:js",
     "check:size": "node build/check-size.mjs",

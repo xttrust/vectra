@@ -12,6 +12,9 @@ import { gzipSync } from 'node:zlib';
 import { execFileSync } from 'node:child_process';
 import { loadComponents, validate, GROUPS, builtClasses } from './site-data.mjs';
 import { esc, icon, inline, slugify, codeBlock, table, keys, resetCodeIds, PREPAINT } from './site-render.mjs';
+import { themeBuilderPage, previewDoc } from './site-builder.mjs';
+import { qualityPage, changelogBody } from './site-quality.mjs';
+import { HUES, PAIRS } from './contrast-pairs.mjs';
 
 const CHECK = process.argv.includes('--check');
 const OUT = 'site/dist';
@@ -53,17 +56,20 @@ const FOUNDATIONS = [
 ];
 const NAV = [
   { heading: 'Start', items: [['', 'Introduction', 'home'], ['getting-started/', 'Getting started', 'zap'], ['changelog/', 'Changelog', 'history']] },
+  { heading: 'Tools', items: [['theme-builder/', 'Theme builder', 'palette'], ['quality/', 'Quality', 'shield-check']] },
   { heading: 'Foundations', items: FOUNDATIONS.map(([s, t]) => [`foundations/${s}/`, t]) },
   { heading: 'Components', items: [['components/', 'All components', 'grid']], groups },
   { heading: 'Reference', items: [['api/', 'JavaScript API', 'code'], ['patterns/', 'Patterns', 'layers'], ['migration/', 'Migrating from v1', 'arrow-up-right']] },
 ];
 // Reading order for previous and next links.
+const navItems = (heading) => NAV.find((s) => s.heading === heading).items.map(([p]) => p);
 const ORDER = [
-  ...NAV[0].items.map(([p]) => p),
-  ...NAV[1].items.map(([p]) => p),
+  ...navItems('Start'),
+  ...navItems('Tools'),
+  ...navItems('Foundations'),
   'components/',
   ...components.map((c) => `components/${c.slug}/`),
-  ...NAV[3].items.map(([p]) => p),
+  ...navItems('Reference'),
 ];
 const TITLES = new Map([...NAV.flatMap((s) => s.items.map(([p, t]) => [p, t])), ...components.map((c) => [`components/${c.slug}/`, c.name])]);
 
@@ -133,6 +139,7 @@ function demo(page, ex, { code = true, lockDirection = '', bar = true, label = '
   const toolbar = bar ? `<div class="site-demo-bar site-js-only">
       ${radios(`${id}-direction`, `Direction for ${esc(ex.title)}`, [['tech', 'Tech'], ['editorial', 'Editorial'], ['soft', 'Soft'], ['glass', 'Glass']])}
       ${radios(`${id}-mode`, `Theme for ${esc(ex.title)}`, [['light', 'Light'], ['dark', 'Dark']])}
+      <fieldset class="v-segmented site-demo-width"><legend class="v-sr-only">Width for ${esc(ex.title)}</legend>${[['full', 'Desktop', 'monitor'], ['tablet', 'Tablet', 'laptop'], ['phone', 'Phone', 'smartphone']].map(([v, t, ic]) => `<label><input type="radio" name="${id}-width" value="${v}"${v === 'full' ? ' checked' : ''}><span>${icon(root, ic)}<span class="v-sr-only">${t}</span></span></label>`).join('')}</fieldset>
       <a class="v-btn v-btn-ghost v-btn-sm v-btn-icon site-demo-open" href="${file}" aria-label="Open ${esc(ex.title)} on its own">${icon(root, 'maximize')}</a>
     </div>` : '';
   const frame = `<iframe class="site-demo-frame" src="${src}" title="${esc(`${page.title}: ${ex.title}`)}" height="${height}" data-min="${min}"${lockDirection ? ` data-lock="${lockDirection}"` : ''}></iframe>`;
@@ -155,6 +162,7 @@ const unescape = (s) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&
 
 function processFragment(page, html) {
   return html
+    .replace(/\{\{icon:([a-z-]+)\}\}/g, (_, name) => icon(page.root, name))
     .replace(/<pre data-code="(\w+)"(?: data-title="([^"]*)")?>([\s\S]*?)<\/pre>/g, (_, lang, title, src) => codeBlock(page.root, unescape(dedent(src)), lang, title ?? ''))
     .replace(/<template data-demo="([^"]+)"((?:\s+data-[a-z]+="[^"]*")*)>([\s\S]*?)<\/template>/g, (_, title, attrs, src) => {
       const a = Object.fromEntries([...attrs.matchAll(/data-([a-z]+)="([^"]*)"/g)].map((m) => [m[1], m[2]]));
@@ -217,7 +225,7 @@ function shell(page) {
   <link rel="stylesheet" href="${root}assets/site.css">
   <script src="${root}assets/vectra.js" defer></script>
   <script src="${root}assets/site.js" defer></script>
-</head>
+${(page.scripts ?? []).map((src) => `  <script src="${root}assets/${src}" defer></script>\n`).join('')}</head>
 <body class="site${page.wide ? ' site-wide' : ''}">
   <a class="v-skip-link" href="#main">Skip to content</a>
   <header class="site-header">
@@ -356,11 +364,12 @@ async function home() {
   page.body = processFragment(page, frag.body
     .replace('{{directions}}', frames)
     .replace('{{showcase-code}}', codeBlock(page.root, showcase, 'html', 'The markup in all four'))
-    .replace('{{core-gz}}', kb(coreGz))
-    .replace('{{components-gz}}', kb(compGz))
-    .replace('{{js-gz}}', kb(jsGz))
+    .replace('{{core-gz}}', `<span data-volatile>${kb(coreGz)}</span>`)
+    .replace('{{components-gz}}', `<span data-volatile>${kb(compGz)}</span>`)
+    .replace('{{js-gz}}', `<span data-volatile>${kb(jsGz)}</span>`)
     .replace('{{count}}', String(components.length))
-    .replace('{{icons}}', String(icons.count)));
+    .replace('{{icons}}', String(icons.count))
+    .replace('{{sweep}}', (4 * 2 * HUES.length * PAIRS.length).toLocaleString('en-IE')));
   return addPage(page);
 }
 
@@ -457,6 +466,7 @@ for (const name of ['getting-started', 'api', 'changelog', 'migration', 'pattern
   let body = frag.body;
   if (name === 'migration') body = body.replace('{{class-map}}', await migrationTable());
   if (name === 'patterns') body = body.replace('{{galleries}}', patternsBody());
+  if (name === 'changelog') body = body.replace('{{changelog}}', changelogBody());
   page.body = processFragment(page, body);
   addPage(page);
 }
@@ -472,6 +482,14 @@ for (const [slug, title] of FOUNDATIONS) {
 }
 componentsIndex();
 for (const c of components) componentPage(c);
+{
+  const frag = await fragment('theme-builder');
+  const page = newPage('theme-builder/', frag.meta.title, frag.meta.description, { wide: true, toc: false, scripts: ['theme-builder.js'] });
+  page.body = processFragment(page, await themeBuilderPage(frag.body));
+  addPage(page);
+  demoFiles.push(['theme-builder/preview.html', await previewDoc(page.root)]);
+}
+addPage(await qualityPage(newPage('quality/', 'Quality', 'The bars Vectra commits to, with the numbers from this build: sizes against budgets, tests, accessibility coverage, browsers and what is not verified yet.', { wide: true }), pages));
 
 for (const page of pages) {
   await mkdir(join(OUT, page.path), { recursive: true });
@@ -485,7 +503,7 @@ const search = pages.map((p) => {
   return {
     t: p.title,
     u: p.path,
-    s: c ? c.group : p.path.startsWith('foundations/') ? 'Foundations' : p.path === '' ? 'Start' : 'Guide',
+    s: c ? c.group : p.path.startsWith('foundations/') ? 'Foundations' : p.path === '' ? 'Start' : ['theme-builder/', 'quality/'].includes(p.path) ? 'Tools' : 'Guide',
     d: p.description,
     k: c ? [...c.classes.map((k) => k.name), ...(c.hooks ?? []).map((h) => h.name), ...(c.catalogue ?? [])].join(' ') : tocOf(withHeadingIds(p.body)).map(([, t]) => t).join(' '),
   };

@@ -91,11 +91,12 @@ export function codeBlock(root, source, lang = 'html', title = '') {
 </div>`;
 }
 
-/** A table with a header row. cells are already-rendered HTML. */
+/** A table with a header row. cells are already-rendered HTML. Each cell carries its column name in
+    data-label, so on phones site.css can stack a row into a card with the names as labels. */
 export function table(head, rows, caption = '') {
   return `<div class="v-table-wrap site-table" tabindex="0" role="region" aria-label="${esc(caption || head.join(', '))}"><table class="v-table">${caption ? `<caption class="v-sr-only">${esc(caption)}</caption>` : ''}
   <thead><tr>${head.map((h) => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead>
-  <tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`).join('\n')}</tbody>
+  <tbody>${rows.map((r) => `<tr>${r.map((c, i) => `<td data-label="${esc(head[i] ?? '')}">${c}</td>`).join('')}</tr>`).join('\n')}</tbody>
 </table></div>`;
 }
 
