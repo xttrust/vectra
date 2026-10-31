@@ -3,12 +3,12 @@ export const DIRECTIONS = ['tech', 'editorial', 'soft', 'glass'];
 export const THEMES = ['light', 'dark'];
 
 // visual: 'full' = 4 directions × 2 themes × 2 widths; 'basic' = default direction × 2 themes × 2 widths
-// (screenshot budget in PLAN.md section 9).
+// (screenshot budget in PLAN.md section 9). rendered: true adds the page to tests/rendered.spec.js.
 export const PAGES = [
   { name: 'prototype', path: '/prototype/', storage: 'vectra2', visual: 'full' },
   { name: 'tokens', path: '/examples/tokens/', storage: 'vectra', visual: 'full' },
   { name: 'layout', path: '/examples/layout/', storage: 'vectra', visual: 'basic' },
-  { name: 'components', path: '/examples/components/', storage: 'vectra', visual: 'full' },
+  { name: 'components', path: '/examples/components/', storage: 'vectra', visual: 'full', rendered: true },
 ];
 
 export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
