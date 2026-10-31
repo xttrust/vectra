@@ -1,0 +1,67 @@
+/* Tooltip: a short, high-contrast label. Two ways to use it:
+   1. Popover: <span class="v-tooltip" popover="hint" role="tooltip"> opened by its trigger (or JS);
+      placed above the anchor where anchor positioning exists, centred in the viewport elsewhere.
+   2. No popover: wrap trigger and tooltip in .v-tooltip-wrap; it shows on hover and keyboard focus.
+   Either way, point the trigger's aria-describedby at the tooltip. Escape-to-dismiss for the
+   hover form comes with the JS modules. */
+@layer components {
+  .v-tooltip {
+    inline-size: max-content;
+    max-inline-size: min(16rem, 100vw - 2rem);
+    padding: 0.35rem 0.6rem;
+    border: 0;
+    border-radius: var(--v-radius-sm);
+    background-color: var(--v-text);
+    box-shadow: var(--v-shadow-2);
+    color: var(--v-bg);
+    font-size: 0.8125rem;
+    font-weight: 550;
+    line-height: 1.35;
+  }
+
+  .v-tooltip[popover] {
+    margin: auto;
+    overflow: visible;
+    opacity: 0;
+    transition: opacity var(--v-dur-1), overlay var(--v-dur-1) allow-discrete, display var(--v-dur-1) allow-discrete;
+  }
+
+  .v-tooltip:popover-open { opacity: 1; }
+
+  @starting-style {
+    .v-tooltip:popover-open { opacity: 0; }
+  }
+
+  @supports (position-area: block-start) {
+    .v-tooltip[popover] {
+      inset: auto;
+      margin: 0.4rem 0;
+      position-area: block-start;
+      position-try-fallbacks: flip-block;
+    }
+
+    .v-tooltip-bottom[popover] { position-area: block-end; }
+  }
+
+  /* No-popover form. left/translate centre it, which is the same in both writing directions. */
+  .v-tooltip-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .v-tooltip-wrap > .v-tooltip:not([popover]) {
+    position: absolute;
+    inset-block-end: calc(100% + 0.4rem);
+    left: 50%;
+    z-index: 10;
+    opacity: 0;
+    translate: -50% 4px;
+    pointer-events: none;
+    transition: opacity var(--v-dur-1), translate var(--v-dur-2) var(--v-ease-out);
+  }
+
+  .v-tooltip-wrap:is(:hover, :focus-within) > .v-tooltip:not([popover]) {
+    opacity: 1;
+    translate: -50% 0;
+  }
+}

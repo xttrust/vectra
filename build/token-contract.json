@@ -58,6 +58,8 @@
     "feature-on-fg",
     "page-bg",
     "hero-bg",
+    "overlay-bg",
+    "backdrop",
     "success-soft",
     "warning-soft",
     "danger-soft",
