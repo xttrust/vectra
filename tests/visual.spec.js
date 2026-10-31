@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { DIRECTIONS, THEMES, PAGES, AUTH_PAGES, open } from './helpers.js';
 
 // Baselines are generated in the pinned Playwright container (see .github/workflows), never on a dev machine.
+// Tall pages under Glass (many blurred surfaces) need more than the default 5 s to give two matching captures there.
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, phone: { width: 390, height: 844 } };
 
 for (const target of [...PAGES, ...AUTH_PAGES].filter((p) => p.visual !== 'none')) {
@@ -12,7 +13,7 @@ for (const target of [...PAGES, ...AUTH_PAGES].filter((p) => p.visual !== 'none'
         test(`visual: ${target.name} · ${direction} · ${theme} · ${label}`, { tag: '@visual' }, async ({ page }) => {
           await page.setViewportSize(viewport);
           await open(page, target, { direction, theme });
-          await expect(page).toHaveScreenshot(`${target.name}-${direction}-${theme}-${label}.png`, { fullPage: true });
+          await expect(page).toHaveScreenshot(`${target.name}-${direction}-${theme}-${label}.png`, { fullPage: true, timeout: 15_000 });
         });
       }
     }
