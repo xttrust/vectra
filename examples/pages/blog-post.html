@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>How to put your prices up without losing customers · Northwind</title>
+  <meta name="description" content="A Northwind blog post with a table of contents. An example page built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: blog post</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <header class="v-navbar v-navbar-contained" data-v-nav>
+    <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li><a href="saas-home.html">Product</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html" aria-current="page">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="v-navbar-actions">
+        <a class="v-btn v-btn-ghost" href="../../examples/auth/sign-in/password.html">Sign in</a>
+        <a class="v-btn v-btn-primary" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="v-skip-target" tabindex="-1">
+    <article>
+      <section class="v-section" style="--v-section-pad: clamp(2.5rem, 5vw, 4rem) var(--v-space-6)">
+        <div class="v-container">
+          <div class="v-stack" style="--v-gap: var(--v-space-4); max-inline-size: 52rem">
+            <nav class="v-breadcrumb" aria-label="Breadcrumb">
+              <ol>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="blog.html">Pricing</a></li>
+                <li><span aria-current="page">Putting your prices up</span></li>
+              </ol>
+            </nav>
+            <h1 class="v-display" style="font-size: var(--v-step-display)">How to put your prices up without losing customers</h1>
+            <p class="v-lead">A three-step plan, a letter you can copy, and what happened when 40 trades tried it this autumn.</p>
+            <div class="v-flex v-items-center v-gap-3">
+              <span class="v-avatar" aria-hidden="true">CR</span>
+              <p class="v-text-sm"><span class="v-block v-fw-semibold">Ciara Ryan</span><span class="v-block v-text-secondary"><time datetime="2026-10-28">28 October 2026</time> · 6 min read</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="v-container">
+        <div class="v-article">
+          <aside class="v-article-aside v-stack" aria-label="About this post" style="--v-gap: var(--v-space-6)">
+            <nav class="v-toc" aria-labelledby="toc-title">
+              <p class="v-toc-title" id="toc-title">On this page</p>
+              <ol>
+                <li><a href="#why" aria-current="true">Why prices have to move</a></li>
+                <li><a href="#numbers">Step 1: know your numbers</a></li>
+                <li><a href="#notice">Step 2: give fair notice</a></li>
+                <li><a href="#value">Step 3: show what they get</a></li>
+                <li><a href="#results">What happened when 40 trades tried it</a></li>
+                <li><a href="#short">The short version</a></li>
+              </ol>
+            </nav>
+            <div class="v-stack" style="--v-gap: var(--v-space-2)">
+              <p class="v-text-sm v-fw-semibold">Share</p>
+              <div class="v-cluster" style="--v-gap: var(--v-space-2)">
+                <button class="v-btn v-btn-secondary v-btn-sm" type="button" data-v-copy="northwind.ie/blog/put-prices-up"><svg class="v-icon" aria-hidden="true"><use href="#i-link"/></svg>Copy link</button>
+                <a class="v-btn v-btn-secondary v-btn-sm" href="mailto:?subject=Putting%20prices%20up"><svg class="v-icon" aria-hidden="true"><use href="#i-mail"/></svg>Email</a>
+              </div>
+            </div>
+          </aside>
+          <div class="v-article-body v-prose">
+            <p>Most of the trades we talk to have not changed their prices in two or three years. Fuel, materials and insurance have all gone up in that time, so the same job now pays noticeably less. Nobody enjoys the conversation, but it is far easier than people expect, and almost nobody leaves.</p>
+            <h2 id="why">Why prices have to move</h2>
+            <p>If your costs rise by 6% a year and your prices stay put, you are taking a pay cut every January. After three years, a job that used to leave you &euro;100 might leave you &euro;80. Customers know prices go up. What they do not like is a surprise.</p>
+            <aside class="v-callout v-callout-tip">
+              <p class="v-callout-title"><svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>Tip</p>
+              <p>Small, regular rises (once a year, in the quiet season) land far better than one large jump after five years of silence.</p>
+            </aside>
+            <h2 id="numbers">Step 1: know your numbers</h2>
+            <p>Before you pick a number, work out what a typical job really costs you. Include the things that are easy to forget:</p>
+            <ul>
+              <li>Travel time and fuel, not just time on site</li>
+              <li>Quoting time for the jobs you do not win</li>
+              <li>Insurance, phone, software and the van, spread over the year</li>
+              <li>Time spent chasing late payments</li>
+            </ul>
+            <p>In Northwind, the Reports page shows your average job value and margin by service, which makes this a ten-minute job.</p>
+            <h2 id="notice">Step 2: give fair notice</h2>
+            <p>Tell regular customers at least a month ahead, in writing, and keep it short. Here is a letter you can adapt:</p>
+            <blockquote>
+              <p>From 1 January our prices will rise by 7%, the first change in two years. It covers higher fuel and material costs and lets us keep the same team and standards. Any job booked before then stays at today's price. Thank you for your custom.</p>
+            </blockquote>
+            <p>Notice that it says what, when, why and what stays the same. It does not apologise, and it does not over-explain.</p>
+            <h2 id="value">Step 3: show what they get</h2>
+            <p>People pay for certainty. Remind them of the things that make you easy to deal with: you turn up when you say, you send a clear quote, you clean up after yourself. If you have added online booking, text reminders or a pay-now link, mention it.</p>
+            <h2 id="results">What happened when 40 trades tried it</h2>
+            <p>This autumn, 40 Northwind customers raised prices by between 5% and 12% using the steps above. We compared the three months before and after.</p>
+            <figure>
+              <svg viewBox="0 0 600 220" role="img" aria-label="Bar chart: average job value rose from 412 euro to 446 euro, while jobs booked stayed level at about 61 a month." style="inline-size: 100%; block-size: auto">
+                <g style="fill: var(--v-text-3)" font-size="14"><text x="40" y="212">Job value before</text><text x="190" y="212">Job value after</text><text x="340" y="212">Jobs before</text><text x="480" y="212">Jobs after</text></g>
+                <rect x="50" y="54" width="90" height="136" rx="6" style="fill: var(--v-accent-soft)"/>
+                <rect x="200" y="40" width="90" height="150" rx="6" style="fill: var(--v-accent)"/>
+                <rect x="350" y="70" width="90" height="120" rx="6" style="fill: var(--v-accent-soft)"/>
+                <rect x="490" y="72" width="90" height="118" rx="6" style="fill: var(--v-accent)"/>
+                <g style="fill: var(--v-text)" font-size="15" font-weight="600" text-anchor="middle"><text x="95" y="44">&euro;412</text><text x="245" y="30">&euro;446</text><text x="395" y="60">61</text><text x="535" y="62">60</text></g>
+              </svg>
+              <figcaption>Average job value and jobs booked per month, before and after the price rise.</figcaption>
+            </figure>
+            <table>
+              <thead><tr><th scope="col">Measure</th><th scope="col">Before</th><th scope="col">After</th></tr></thead>
+              <tbody>
+                <tr><td>Average job value</td><td>&euro;412</td><td>&euro;446</td></tr>
+                <tr><td>Jobs booked a month</td><td>61</td><td>60</td></tr>
+                <tr><td>Customers who left</td><td>Not measured</td><td>2 of 40 businesses lost one regular</td></tr>
+              </tbody>
+            </table>
+            <p>In short: income went up by about 8%, the number of jobs barely moved, and the conversations were, in the words of one roofer, "a lot less awkward than the dentist".</p>
+            <h2 id="short">The short version</h2>
+            <ol>
+              <li>Work out what a job really costs you, including travel and admin.</li>
+              <li>Give a month's notice in writing: what, when, why, and what stays the same.</li>
+              <li>Remind people why you are worth it, then get back to work.</li>
+            </ol>
+            <hr>
+            <p>Questions about pricing in Northwind? <a href="contact.html">Talk to us</a>, we are happy to look at your numbers with you.</p>
+          </div>
+        </div>
+        <div class="v-card v-mt-8" style="max-inline-size: 52rem">
+          <div class="v-flex v-gap-4 v-items-start">
+            <span class="v-avatar v-avatar-lg" aria-hidden="true">CR</span>
+            <div class="v-stack" style="--v-gap: var(--v-space-2)">
+              <p class="v-kicker">Written by</p>
+              <p class="v-fw-semibold">Ciara Ryan, customer success at Northwind</p>
+              <p class="v-text-secondary">Ciara has helped more than 400 businesses move off paper. Before Northwind she ran the office for a plumbing firm in Ennis for eight years.</p>
+              <a class="v-text-sm" href="blog.html">More posts by Ciara</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <section class="v-section">
+      <div class="v-container">
+        <h2 class="v-mb-6">Keep reading</h2>
+        <div class="v-grid v-grid-fit" style="--v-min: 18rem; --v-gap: var(--v-space-5)">
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-accent-soft)"/><g style="fill: var(--v-accent-text)"><rect x="70" y="150" width="50" height="80" rx="6" opacity="0.5"/><rect x="150" y="110" width="50" height="120" rx="6" opacity="0.65"/><rect x="230" y="80" width="50" height="150" rx="6" opacity="0.8"/><rect x="310" y="40" width="50" height="190" rx="6"/></g></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Guides</span><span>14 October 2026 · 8 min read</span></p>
+            <h3 class="v-card-title">The quiet season survival guide</h3>
+            <p class="v-card-text">Cash flow tricks for November to February, from businesses that have been through twenty winters.</p>
+          </a>
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-surface-2)"/><circle cx="240" cy="135" r="90" style="fill: var(--v-accent-soft)"/><path d="M240 60l20 60 62 2-50 38 18 60-50-36-50 36 18-60-50-38 62-2z" style="fill: var(--v-accent)"/></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Guides</span><span>30 September 2026 · 7 min read</span></p>
+            <h3 class="v-card-title">Quotes that win the job</h3>
+            <p class="v-card-text">What to put in, what to leave out, and why photos beat paragraphs.</p>
+          </a>
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-accent-soft)"/><path d="M0 190q120-80 240-20t240-30V270H0z" style="fill: var(--v-accent)" opacity="0.6"/><path d="M0 220q120-50 240-10t240-20V270H0z" style="fill: var(--v-accent-text)"/></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Stories</span><span>7 October 2026 · 5 min read</span></p>
+            <h3 class="v-card-title">From 11 reviews to 140 in a year</h3>
+            <p class="v-card-text">How a cleaning company in Galway doubled its bookings by asking at the right moment.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-card v-cta">
+          <div class="v-cta-split">
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+              <h2>Tips for busy trades, once a month</h2>
+              <p class="v-text-secondary">Pricing, chasing payments, getting more reviews. Short, practical, and from people who do the work.</p>
+            </div>
+            <form class="v-form-inline" action="blog.html" method="post">
+              <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+              <div class="v-field v-grow">
+                <label class="v-label" for="post-newsletter">Email address</label>
+                <input class="v-input" id="post-newsletter" name="email" type="email" autocomplete="email" placeholder="you@business.ie" required>
+              </div>
+              <button class="v-btn v-btn-primary" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid">
+        <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+          <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+          <p class="v-max-prose">Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+          <span class="v-status">All systems running</span>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Product</h2>
+          <ul class="v-footer-links">
+            <li><a href="saas-home.html#features">Features</a></li>
+            <li><a href="landing.html">Online booking</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="system/coming-soon.html">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Company</h2>
+          <ul class="v-footer-links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="system/coming-soon.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Help</h2>
+          <ul class="v-footer-links">
+            <li><a href="system/coming-soon.html">Help centre</a></li>
+            <li><a href="system/coming-soon.html">Guides</a></li>
+            <li><a href="system/coming-soon.html">Status</a></li>
+            <li><a href="privacy.html#security">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-footer-bottom">
+        <p>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+        <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>

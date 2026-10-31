@@ -1,0 +1,7 @@
+/* Example chrome for the full pages: the layout or state links in the switcher bar. Not part of the kit. */
+.ex-variants { display: flex; flex-wrap: wrap; gap: var(--v-space-2); align-items: center; font-size: 0.875rem; }
+.ex-variants-label { color: var(--v-text-2); }
+.ex-variants ul { display: flex; flex-wrap: wrap; gap: 2px; margin: 0; padding: 2px; border: var(--v-border-w) solid var(--v-border); border-radius: var(--v-radius-sm); list-style: none; }
+.ex-variants a { display: block; padding: 0.2rem 0.6rem; border-radius: calc(var(--v-radius-sm) - 2px); color: var(--v-text-2); text-decoration: none; }
+.ex-variants a:hover { background-color: var(--v-surface-2); color: var(--v-text); }
+.ex-variants a[aria-current="page"] { background-color: var(--v-accent-soft); color: var(--v-accent-text); font-weight: 600; }

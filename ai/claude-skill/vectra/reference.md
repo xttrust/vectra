@@ -2999,8 +2999,9 @@ Example (Toggle the mode):
 
 Page sections (dist/vectra.sections.css, included in dist/vectra.css) built from the components above. Copy them from the pages in examples/sections/.
 
-- app-shell: App shell. .v-app holds a sidebar (.v-app-sidebar), the main column (.v-app-main: a .v-app-topbar and the .v-app-page) and, for phones, an optional .v-bottombar. - From 64rem of shell width the sidebar sits beside the main column and stays put while the page scrolls. Below that, a sidebar with the popover attribute and an id hides, and the top bar's .v-app-toggle (popovertarget) opens it as a sheet from the start edge; a .v-app-close button inside shows only while it is open. No JS needed. - The top bar is its own size container: the toggle hides once the bar is 48rem wide, which is when a 16rem sidebar is showing beside it. - A sidebar holding a .v-sidenav-rail stays an icon rail at every width. Classes: .v-app .v-app-sidebar .v-app-main .v-app-topbar .v-app-page .v-bottombar .v-app-toggle .v-app-close .v-sidenav-rail .v-navbar-brand .v-search
+- app-shell: App shell. .v-app holds a sidebar (.v-app-sidebar), the main column (.v-app-main: a .v-app-topbar and the .v-app-page) and, for phones, an optional .v-bottombar. - From 64rem of shell width the sidebar sits beside the main column and stays put while the page scrolls. Below that, a sidebar with the popover attribute and an id hides, and the top bar's .v-app-toggle (popovertarget) opens it as a sheet from the start edge; a .v-app-close button inside shows only while it is open. No JS needed. - The top bar is its own size container: the toggle hides once the bar is 48rem wide, which is when a 16rem sidebar is showing beside it. - A sidebar holding a .v-sidenav-rail stays an icon rail at every width. Classes: .v-app .v-app-sidebar .v-app-main .v-app-topbar .v-app-page .v-bottombar .v-app-toggle .v-app-close .v-sidenav-rail .v-navbar-brand .v-search .v-app-stacked .v-navbar .v-navbar-contained
 - app-ui: App UI sections. Most are composition (panels, lists, tables, forms, description lists, empty states); this file adds the two pieces that are not: - .v-toolbar: a filter row above a table or list. The search grows, filters and actions wrap. - .v-danger-zone: a .v-panel for destructive actions, in the danger tone, one action per .v-panel-body row (text first, button last). Classes: .v-toolbar .v-danger-zone .v-panel .v-panel-body .v-search .v-panel-title
+- article: Article: long-form pages such as a blog post, legal terms or a help article. .v-article holds an optional .v-article-aside (a table of contents, author details) and the .v-article-body (usually a .v-prose). From 64rem the aside moves beside the body at the inline end and stays in view while the body scrolls; below that it comes first. Headings with an id stop clear of the top edge when a link jumps to them. .v-toc: a <nav> with a .v-toc-title and an <ol> of links (nest an <ol> for sub-sections). Mark the section in view with aria-current="true"; the rule beside it turns accent. Classes: .v-article .v-article-aside .v-article-body .v-prose .v-toc .v-toc-title
 - auth: Auth layouts: sign in, sign up, recovery and the rest. The wrapper picks the layout; the markup inside is the same in every one, so any flow drops into any layout by changing one class. <main class="v-auth"> centred card (default) <div class="v-auth-main"> <a class="v-auth-logo" href="/">..</a> <div class="v-auth-box"> .v-auth-header (.v-auth-title, .v-auth-text), a .v-form, .v-auth-alt <footer class="v-auth-footer">..</footer> </div> <aside class="v-auth-aside v-auth-art"> split layouts only: drawn art, or .v-auth-panel for a quote </main> Layouts: .v-auth-split (form beside an aside; stacks on phones), .v-auth-minimal (no card), .v-auth-bleed (card over a colour field; Glass shows its own), and .v-auth-dialog on a .v-dialog. .v-auth-wide widens the column for plan pickers, 2FA set-up and onboarding. Classes: .v-auth-header .v-auth-title .v-auth-text .v-form .v-auth-alt .v-auth-panel .v-auth-split .v-auth-minimal .v-auth-bleed .v-auth-dialog .v-dialog .v-auth-wide .v-auth .v-auth-main .v-auth-logo .v-icon .v-auth-box .v-auth-footer .v-auth-icon .v-auth-icon-success .v-auth-icon-warning .v-auth-icon-danger .v-auth-code .v-auth-qr .v-auth-codes .v-auth-aside .v-auth-art .v-testimonial-quote .v-dialog-close
 - cta: Call to action, on a card (.v-card, often .v-card-feature for the direction's emphasis surface). .v-cta centres a title, a line of copy and the actions with generous padding. .v-cta-split puts the copy beside the actions (or a newsletter form) once the card is 44rem wide. Classes: .v-card .v-card-feature .v-cta .v-cta-split .v-lead
 - features: Feature sections. Layout comes from .v-grid and .v-bento; this file adds only what they cannot do. - .v-feature-icon: the tinted tile an icon sits in. - .v-alternate: rows of copy and art, each row a direct child, art swapping sides on every second row from 48rem wide. - .v-howto: an <ol> of steps, numbered by CSS, in as many columns as fit. - .v-stats: a <dl> of .v-stat blocks (term first, shown under the number), split by rules. Classes: .v-grid .v-bento .v-feature-icon .v-alternate .v-howto .v-stats .v-stat .v-stat-value .v-stat-label
@@ -3010,6 +3011,7 @@ Page sections (dist/vectra.sections.css, included in dist/vectra.css) built from
 - pricing-section: Pricing section with a monthly / yearly switch that needs no JS. Inside .v-billing put a .v-segmented radio pair with the values "monthly" and "yearly", then the plans; mark each price that differs with data-period="monthly" or data-period="yearly". The checked radio decides which ones show, so hidden prices are hidden from screen readers too. Classes: .v-billing .v-segmented
 - section: Shared section pieces. - .v-section-head: kicker, title and lead above a section; .v-section-head-center centres it. - .v-shot: a window frame for a product screenshot composed from real Vectra components. Give the composed content role="img" and a label, and keep it free of focusable things: <a> without href, <span class="v-btn">. .v-shot-bar is the title strip, .v-shot-body the content. Classes: .v-section-head .v-section-head-center .v-shot .v-shot-bar .v-shot-body
 - site-header: Site header pieces on top of the navbar and banner components. - .v-navbar-contained: keeps the navbar's content in line with a .v-container below it. - .v-navbar-center: links at the start, the brand in the middle, actions at the end, once the navbar is 48rem wide (below that it is the usual brand + menu button). - .v-announce: a slim, centred .v-banner strip above the navbar. Classes: .v-navbar-contained .v-container .v-navbar-center .v-announce .v-banner .v-navbar-brand .v-banner-body
+- system-page: System pages: errors (401 to 503), maintenance, offline and coming soon. .v-system fills the screen: a .v-system-header (the logo), the .v-system-main and a .v-system-footer (a few links). Inside the main, .v-system-copy stacks a .v-system-code (the status number), the title (.v-system-title), the explanation (.v-system-text), the .v-system-actions and an optional .v-system-note. A form, progress bar or list under the text takes .v-system-extra; .v-system-list is a list of ticks (what still works). - Minimal (default): one centred column, the code drawn large. - .v-system-illustrated: add a .v-system-art (an SVG drawn with tokens) before the copy. It sits above the copy on phones and beside it, at the inline end, once the page is 56rem wide. Classes: .v-system .v-system-header .v-system-main .v-system-footer .v-system-copy .v-system-code .v-system-title .v-system-text .v-system-actions .v-system-note .v-system-extra .v-system-list .v-system-illustrated .v-system-art .v-icon
 - team: Team: a grid of people. Each .v-person is a <figure> or <li> with a large avatar, the name (.v-person-name), the role (.v-person-role) and an optional line of bio. Centred in its cell. Classes: .v-person .v-person-name .v-person-role .v-avatar
 
 ## Layout primitives
@@ -3022,6 +3024,7 @@ Tune them with custom properties (--v-gap, --v-min, --v-container-max), not modi
 - .v-stack: Vertical rhythm: children spaced by --v-gap.
 - .v-cluster: Inline group that wraps: buttons, tags, toolbars.
 - .v-grid: As many columns as fit, each at least --v-min wide.
+- .v-grid-fit: .v-grid-fit: with fewer items than would fit, they stretch to share the row instead of leaving empty columns.
 - .v-sidebar: Side panel + content. Stacks once the content would get narrower than --v-content-min.
 - .v-switcher: Equal columns in a row, all stacking together below --v-switch (no media query).
 - .v-bento: 12-column bento. Spans apply from 48rem; everything is full width below.
@@ -3212,8 +3215,61 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/layout/: Foundations
 - examples/navigation/: Navigation
 - examples/overlays/: Overlays
+- examples/pages/: Full pages
+- examples/pages/about.html: About us
 - examples/pages/app-shell.html: Northwind
+- examples/pages/blog-post.html: How to put your prices up without losing customers
+- examples/pages/blog.html: Blog
+- examples/pages/contact.html: Contact
+- examples/pages/cookies.html: Cookie policy
+- examples/pages/landing.html: Online booking
+- examples/pages/pricing.html: Pricing
+- examples/pages/privacy.html: Privacy notice
 - examples/pages/saas-home.html: Northwind
+- examples/pages/terms.html: Terms of service
+- examples/pages/app/detail-empty.html: Pages: Customer detail (empty)
+- examples/pages/app/detail-error.html: Pages: Customer detail (error)
+- examples/pages/app/detail-loading.html: Pages: Customer detail (loading)
+- examples/pages/app/detail.html: Pages: Customer detail
+- examples/pages/app/list-empty.html: Pages: Customer list (empty)
+- examples/pages/app/list-error.html: Pages: Customer list (error)
+- examples/pages/app/list-loading.html: Pages: Customer list (loading)
+- examples/pages/app/list.html: Pages: Customer list
+- examples/pages/app/settings-account-empty.html: Pages: Account settings (empty)
+- examples/pages/app/settings-account-error.html: Pages: Account settings (error)
+- examples/pages/app/settings-account-loading.html: Pages: Account settings (loading)
+- examples/pages/app/settings-account.html: Pages: Account settings
+- examples/pages/app/settings-notifications-empty.html: Pages: Notification settings (empty)
+- examples/pages/app/settings-notifications-error.html: Pages: Notification settings (error)
+- examples/pages/app/settings-notifications-loading.html: Pages: Notification settings (loading)
+- examples/pages/app/settings-notifications.html: Pages: Notification settings
+- examples/pages/app/settings-profile-empty.html: Pages: Profile settings (empty)
+- examples/pages/app/settings-profile-error.html: Pages: Profile settings (error)
+- examples/pages/app/settings-profile-loading.html: Pages: Profile settings (loading)
+- examples/pages/app/settings-profile.html: Pages: Profile settings
+- examples/pages/app/settings-security-empty.html: Pages: Security settings (empty)
+- examples/pages/app/settings-security-error.html: Pages: Security settings (error)
+- examples/pages/app/settings-security-loading.html: Pages: Security settings (loading)
+- examples/pages/app/settings-security.html: Pages: Security settings
+- examples/pages/app/stacked.html: Pages: Jobs
+- examples/pages/system/401-illustrated.html: Pages: 401 Sign in needed
+- examples/pages/system/401.html: Pages: 401 Sign in needed
+- examples/pages/system/403-illustrated.html: Pages: 403 No access
+- examples/pages/system/403.html: Pages: 403 No access
+- examples/pages/system/404-illustrated.html: Pages: 404 Page not found
+- examples/pages/system/404.html: Pages: 404 Page not found
+- examples/pages/system/419-illustrated.html: Pages: 419 Page expired
+- examples/pages/system/419.html: Pages: 419 Page expired
+- examples/pages/system/429-illustrated.html: Pages: 429 Too many requests
+- examples/pages/system/429.html: Pages: 429 Too many requests
+- examples/pages/system/500-illustrated.html: Pages: 500 Server error
+- examples/pages/system/500.html: Pages: 500 Server error
+- examples/pages/system/503-illustrated.html: Pages: 503 Maintenance
+- examples/pages/system/503.html: Pages: 503 Maintenance
+- examples/pages/system/coming-soon-illustrated.html: Pages: Coming soon
+- examples/pages/system/coming-soon.html: Pages: Coming soon
+- examples/pages/system/offline-illustrated.html: Pages: Offline
+- examples/pages/system/offline.html: Pages: Offline
 - examples/sections/: Sections
 - examples/sections/app.html: Sections: app UI
 - examples/sections/chrome.html: Sections: navigation and chrome

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Jobs · Northwind</title>
+  <meta name="description" content="The stacked app shell (top navigation only), an example built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../shared/examples.css">
+  <link rel="stylesheet" href="../pages.css">
+  <script src="../../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.4 4-6.5 8-6.5s7 2.1 8 6.5"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 000-6H9a3 3 0 010-6h6.5"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 012 2v12a2 2 0 01-2 2h-3M10 16l-4-4 4-4M6 12h10"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../index.html">Vectra <span>example: stacked shell</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <div class="v-app-stacked">
+    <header class="v-navbar v-navbar-contained" data-v-nav>
+      <a class="v-navbar-brand" href="../app-shell.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+      <nav class="v-navbar-menu" id="app-menu" popover aria-label="App">
+        <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="app-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <ul class="v-navbar-links">
+          <li><a href="../app-shell.html">Today</a></li>
+          <li><a href="stacked.html" aria-current="page">Jobs</a></li>
+          <li><a href="#main">Calendar</a></li>
+          <li><a href="list.html">Customers</a></li>
+          <li><a href="#main">Invoices</a></li>
+        </ul>
+      </nav>
+      <div class="v-navbar-end">
+        <a class="v-btn v-btn-ghost v-btn-icon" href="#main" aria-label="Notifications, 3 unread"><svg class="v-icon" aria-hidden="true"><use href="#i-bell"/></svg></a>
+        <button class="v-btn v-btn-ghost v-btn-icon" type="button" popovertarget="account-menu" aria-haspopup="menu"><span class="v-avatar v-avatar-sm" aria-hidden="true">AK</span><span class="v-sr-only">Account menu, Aoife Kelly</span></button>
+      </div>
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="app-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </header>
+    <div class="v-menu" id="account-menu" popover role="menu" data-v-menu aria-label="Account">
+      <a class="v-menu-item" role="menuitem" href="settings-profile.html"><svg class="v-icon" aria-hidden="true"><use href="#i-user"/></svg>Your profile</a>
+      <a class="v-menu-item" role="menuitem" href="settings-account.html"><svg class="v-icon" aria-hidden="true"><use href="#i-gear"/></svg>Settings</a>
+      <hr class="v-menu-sep">
+      <a class="v-menu-item" role="menuitem" href="../../auth/sessions/signed-out.html"><svg class="v-icon" aria-hidden="true"><use href="#i-logout"/></svg>Sign out</a>
+    </div>
+    <main class="v-app-page v-skip-target" id="main" tabindex="-1">
+      <div class="v-page-header">
+        <div>
+          <p class="v-kicker">Week 46</p>
+          <h1 class="v-page-title">Jobs</h1>
+          <p class="v-page-meta">12 jobs this week, 4 today. 2 quotes waiting for an answer.</p>
+        </div>
+        <div class="v-page-actions">
+          <a class="v-btn v-btn-secondary" href="#main"><svg class="v-icon" aria-hidden="true"><use href="#i-route"/></svg>Day plan</a>
+          <a class="v-btn v-btn-primary" href="#main"><svg class="v-icon" aria-hidden="true"><use href="#i-plus"/></svg>New job</a>
+        </div>
+        <nav class="v-tablist" aria-label="Job views">
+          <a class="v-tab" href="stacked.html" aria-current="page">Today <span class="v-badge v-badge-accent">4</span></a>
+          <a class="v-tab" href="#main">This week</a>
+          <a class="v-tab" href="#main">Quotes <span class="v-badge">2</span></a>
+          <a class="v-tab" href="#main">Done</a>
+        </nav>
+      </div>
+      <div class="v-grid v-grid-fit" style="--v-min: 12rem">
+        <div class="v-card v-stat"><span class="v-stat-label">Booked today</span><span class="v-stat-value">&euro;1,480</span><span class="v-text-sm v-text-secondary">4 jobs, 1 done</span></div>
+        <div class="v-card v-stat"><span class="v-stat-label">Driving today</span><span class="v-stat-value">96 km</span><span class="v-text-sm v-text-secondary">About 1 h 40 min</span></div>
+        <div class="v-card v-stat"><span class="v-stat-label">Quotes waiting</span><span class="v-stat-value">2</span><span class="v-text-sm v-text-secondary">&euro;3,900 in total</span></div>
+      </div>
+      <div class="v-panel">
+        <div class="v-panel-header"><h2 class="v-panel-title">Thursday 12 November</h2><span class="v-badge v-badge-success v-badge-dot">Dry, 11&deg;C</span></div>
+        <ul class="v-list" style="border: 0; border-radius: 0">
+          <li><a class="v-list-item" href="detail.html"><span class="v-badge v-badge-accent v-tabular">08:00</span><span class="v-list-body"><span class="v-list-title">Roof survey, P&aacute;draig &Oacute; S&eacute;</span><span class="v-list-meta">Claregalway</span></span><span class="v-list-end"><span class="v-badge v-badge-success v-badge-dot">Done</span></span></a></li>
+          <li><a class="v-list-item" href="detail.html"><span class="v-badge v-badge-accent v-tabular">10:30</span><span class="v-list-body"><span class="v-list-title">Gutter clean, Mary Walsh</span><span class="v-list-meta">Tuam</span></span><span class="v-list-end"><span class="v-badge v-badge-info v-badge-dot">On the way</span></span></a></li>
+          <li><a class="v-list-item" href="detail.html"><span class="v-badge v-badge-accent v-tabular">14:00</span><span class="v-list-body"><span class="v-list-title">Chimney repair, The Quay Bar</span><span class="v-list-meta">Westport</span></span><span class="v-list-end"><span class="v-badge v-badge-accent v-badge-dot">Booked</span></span></a></li>
+          <li><a class="v-list-item" href="detail.html"><span class="v-badge v-badge-accent v-tabular">16:30</span><span class="v-list-body"><span class="v-list-title">Quote visit, Moss &amp; Fern Gardens</span><span class="v-list-meta">Clifden</span></span><span class="v-list-end"><span class="v-badge v-badge-accent v-badge-dot">Booked</span></span></a></li>
+        </ul>
+        <div class="v-panel-footer"><p class="v-text-sm v-text-secondary v-grow">Day ends around 18:00, back in Tuam.</p><a class="v-btn v-btn-ghost v-btn-sm" href="#main"><svg class="v-icon" aria-hidden="true"><use href="#i-arrow"/></svg>Open the day plan</a></div>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="../../../src/js/index.js"></script>
+</body>
+</html>

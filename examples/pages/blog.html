@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Blog · Northwind</title>
+  <meta name="description" content="The Northwind blog index. An example page built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: blog</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <header class="v-navbar v-navbar-contained" data-v-nav>
+    <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li><a href="saas-home.html">Product</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html" aria-current="page">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="v-navbar-actions">
+        <a class="v-btn v-btn-ghost" href="../../examples/auth/sign-in/password.html">Sign in</a>
+        <a class="v-btn v-btn-primary" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="v-skip-target" tabindex="-1">
+    <section class="v-section" style="--v-section-pad: clamp(3rem, 6vw, 5rem) var(--v-space-6)">
+      <div class="v-container">
+        <div class="v-section-head">
+          <p class="v-kicker">The Northwind blog</p>
+          <h1 class="v-display">Practical reading for busy owners</h1>
+          <p class="v-lead">Short guides on pricing, cash flow and getting found locally, plus what is new in Northwind.</p>
+        </div>
+        <nav class="v-tablist" aria-label="Blog categories">
+          <a class="v-tab" href="blog.html" aria-current="page">All posts</a>
+          <a class="v-tab" href="blog.html">Guides</a>
+          <a class="v-tab" href="blog.html">Product</a>
+          <a class="v-tab" href="blog.html">Stories</a>
+          <a class="v-tab" href="blog.html">Pricing</a>
+        </nav>
+        <a class="v-card v-mt-6" href="blog-post.html">
+          <div class="v-switcher" style="--v-switch: 46rem; --v-gap: var(--v-space-6)">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-accent-soft)"/><circle cx="360" cy="70" r="46" style="fill: var(--v-accent)" opacity="0.8"/><path d="M0 210L140 110l90 70 70-50 180 120V270H0z" style="fill: var(--v-accent-text)" opacity="0.9"/></svg></div></div>
+            <div class="v-stack v-justify-center" style="--v-gap: var(--v-space-3)">
+              <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-solid">Featured</span><span class="v-badge v-badge-accent">Pricing</span><span>28 October 2026 · 6 min read</span></p>
+              <h2 style="font-size: var(--v-step-2)">How to put your prices up without losing customers</h2>
+              <p class="v-text-secondary">A three-step plan, a letter you can copy, and what happened when 40 trades tried it this autumn.</p>
+              <span class="v-flex v-items-center v-gap-3 v-text-sm"><span class="v-avatar v-avatar-sm" aria-hidden="true">CR</span><span><span class="v-block v-fw-semibold">Ciara Ryan</span><span class="v-block v-text-secondary">Customer success</span></span></span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+    <section class="v-section" style="--v-section-pad: 0 clamp(3rem, 7vw, 6rem)">
+      <div class="v-container">
+        <h2 class="v-mb-6">Latest posts</h2>
+        <div class="v-grid" style="--v-min: 18rem; --v-gap: var(--v-space-5)">
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-surface-2)"/><rect x="60" y="60" width="150" height="150" rx="18" style="fill: var(--v-accent)" opacity="0.85"/><rect x="230" y="100" width="190" height="24" rx="12" style="fill: var(--v-text-3)" opacity="0.6"/><rect x="230" y="140" width="140" height="24" rx="12" style="fill: var(--v-text-3)" opacity="0.4"/></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Product</span><span>21 October 2026 · 3 min read</span></p>
+            <h3 class="v-card-title">Online booking is here</h3>
+            <p class="v-card-text">Customers can now pick a slot from your website. Here is how it works and how to switch it on.</p>
+          </a>
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-accent-soft)"/><g style="fill: var(--v-accent-text)"><rect x="70" y="150" width="50" height="80" rx="6" opacity="0.5"/><rect x="150" y="110" width="50" height="120" rx="6" opacity="0.65"/><rect x="230" y="80" width="50" height="150" rx="6" opacity="0.8"/><rect x="310" y="40" width="50" height="190" rx="6"/></g></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Guides</span><span>14 October 2026 · 8 min read</span></p>
+            <h3 class="v-card-title">The quiet season survival guide</h3>
+            <p class="v-card-text">Cash flow tricks for November to February, from businesses that have been through twenty winters.</p>
+          </a>
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-surface-2)"/><circle cx="240" cy="135" r="90" style="fill: var(--v-accent-soft)"/><path d="M240 60l20 60 62 2-50 38 18 60-50-36-50 36 18-60-50-38 62-2z" style="fill: var(--v-accent)"/></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Stories</span><span>7 October 2026 · 5 min read</span></p>
+            <h3 class="v-card-title">From 11 reviews to 140 in a year</h3>
+            <p class="v-card-text">How a cleaning company in Galway doubled its bookings by asking at the right moment.</p>
+          </a>
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-accent-soft)"/><path d="M0 190q120-80 240-20t240-30V270H0z" style="fill: var(--v-accent)" opacity="0.6"/><path d="M0 220q120-50 240-10t240-20V270H0z" style="fill: var(--v-accent-text)"/></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Guides</span><span>30 September 2026 · 7 min read</span></p>
+            <h3 class="v-card-title">Quotes that win the job</h3>
+            <p class="v-card-text">What to put in, what to leave out, and why photos beat paragraphs.</p>
+          </a>
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-surface-2)"/><rect x="90" y="50" width="300" height="170" rx="14" style="fill: var(--v-surface)"/><rect x="90" y="50" width="300" height="34" rx="14" style="fill: var(--v-accent)"/><g style="fill: var(--v-accent-soft)"><rect x="112" y="104" width="60" height="44" rx="6"/><rect x="186" y="104" width="60" height="44" rx="6"/><rect x="260" y="104" width="60" height="44" rx="6"/><rect x="112" y="160" width="60" height="44" rx="6"/></g></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Product</span><span>23 September 2026 · 2 min read</span></p>
+            <h3 class="v-card-title">Deposits for big jobs</h3>
+            <p class="v-card-text">Ask for a part payment up front on any job over an amount you choose.</p>
+          </a>
+          <a class="v-card" href="blog-post.html">
+            <div class="v-card-media"><div class="v-frame"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="480" height="270" style="fill: var(--v-accent-soft)"/><circle cx="160" cy="135" r="60" style="fill: var(--v-accent)" opacity="0.7"/><circle cx="260" cy="135" r="60" style="fill: var(--v-accent-text)" opacity="0.7"/><circle cx="360" cy="135" r="30" style="fill: var(--v-accent-2)"/></svg></div></div>
+            <p class="v-cluster v-text-sm v-text-secondary"><span class="v-badge v-badge-accent">Stories</span><span>16 September 2026 · 6 min read</span></p>
+            <h3 class="v-card-title">Running a bar and a function room on one calendar</h3>
+            <p class="v-card-text">The Quay Bar in Westport on deposits, no-shows and finally taking a Sunday off.</p>
+          </a>
+        </div>
+        <nav class="v-mt-8" aria-label="Blog pages">
+          <ul class="v-pagination">
+            <li><span class="v-page v-page-prev" aria-disabled="true"><span class="v-page-label">Previous</span></span></li>
+            <li><a class="v-page" href="blog.html" aria-label="Page 1" aria-current="page">1</a></li>
+            <li><a class="v-page" href="blog.html" aria-label="Page 2">2</a></li>
+            <li><a class="v-page" href="blog.html" aria-label="Page 3">3</a></li>
+            <li><span class="v-page-gap" aria-hidden="true">…</span></li>
+            <li><a class="v-page" href="blog.html" aria-label="Page 8">8</a></li>
+            <li><a class="v-page v-page-next" href="blog.html" rel="next"><span class="v-page-label">Next</span></a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-card v-cta">
+          <div class="v-cta-split">
+            <div class="v-stack" style="--v-gap: var(--v-space-3)">
+              <span class="v-feature-icon"><svg class="v-icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+              <h2>Tips for busy trades, once a month</h2>
+              <p class="v-text-secondary">Pricing, chasing payments, getting more reviews. Short, practical, and from people who do the work.</p>
+            </div>
+            <form class="v-form-inline" action="blog.html" method="post">
+              <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+              <div class="v-field v-grow">
+                <label class="v-label" for="blog-newsletter">Email address</label>
+                <input class="v-input" id="blog-newsletter" name="email" type="email" autocomplete="email" placeholder="you@business.ie" required>
+              </div>
+              <button class="v-btn v-btn-primary" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid">
+        <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+          <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+          <p class="v-max-prose">Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+          <span class="v-status">All systems running</span>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Product</h2>
+          <ul class="v-footer-links">
+            <li><a href="saas-home.html#features">Features</a></li>
+            <li><a href="landing.html">Online booking</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="system/coming-soon.html">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Company</h2>
+          <ul class="v-footer-links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="system/coming-soon.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Help</h2>
+          <ul class="v-footer-links">
+            <li><a href="system/coming-soon.html">Help centre</a></li>
+            <li><a href="system/coming-soon.html">Guides</a></li>
+            <li><a href="system/coming-soon.html">Status</a></li>
+            <li><a href="privacy.html#security">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-footer-bottom">
+        <p>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+        <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>
