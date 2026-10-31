@@ -1,6 +1,6 @@
 # Vectra v2: build plan
 
-Status: M0 (tooling, CI, tests), M1 (tokens, four directions) and M2 (foundations) done 30 Oct 2026; M3 next. The prototype lives in `prototype/`.
+Status: M0 (tooling, CI, tests), M1 (tokens, four directions) and M2 (foundations) done 30 Oct 2026; M3.1 done 31 Oct 2026; M3.2 next. The prototype lives in `prototype/`. Everything Vectra will contain, by tier and milestone, is in [CATALOGUE.md](CATALOGUE.md).
 
 Vectra v1 (Bootstrap 5) stays unchanged in [xttrust/Vectra-UI-KIT](https://github.com/xttrust/Vectra-UI-KIT). This repo is v2, built from scratch.
 
@@ -209,7 +209,7 @@ Separate design language, as decided. Vectra's free core covers components, mark
 
 ## 14. Milestones
 
-One branch and one PR per milestone, each merged only with green checks. Sizes are relative (S, M, L), not dates.
+One branch and one PR per milestone, each merged only with green checks. Sizes are relative (S, M, L), not dates. The re-cut milestones in [CATALOGUE.md section 9](CATALOGUE.md#9-milestones-re-cut) (agreed 31 Oct 2026) replace the M3 and M7 rows below.
 
 | # | Milestone | Size | Done when |
 |---|---|---|---|
