@@ -1,0 +1,133 @@
+<div class="tbp-view" data-view="app">
+  <header class="v-navbar tbp-bar">
+    <a class="v-navbar-brand" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#layers"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="tbp-nav-app" aria-label="Open app menu"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#menu"/></svg></button>
+    <nav class="v-navbar-menu" id="tbp-nav-app" popover aria-label="App">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="tbp-nav-app" popovertargetaction="hide" aria-label="Close app menu"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li><a href="#" aria-current="page">Overview</a></li>
+        <li><a href="#">Invoices</a></li>
+        <li><a href="#">Clients</a></li>
+      </ul>
+      <div class="v-navbar-actions"><button class="v-btn v-btn-ghost v-btn-icon" type="button" aria-label="Notifications"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#bell"/></svg></button><span class="v-avatar v-avatar-sm" aria-hidden="true">AK</span></div>
+    </nav>
+  </header>
+  <div class="tbp-body">
+    <div class="tbp-head">
+      <div>
+        <p class="v-kicker">October 2026</p>
+        <h2 class="tbp-title">Good morning, Aoife</h2>
+      </div>
+      <div class="v-cluster">
+        <button class="v-btn v-btn-secondary" type="button"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#download"/></svg>Export</button>
+        <button class="v-btn v-btn-primary" type="button"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#plus"/></svg>New invoice</button>
+      </div>
+    </div>
+    <div class="v-grid tbp-stats">
+      <div class="v-card v-stat"><span class="v-stat-label">Revenue</span><span class="v-stat-value">€12,940</span><span class="v-badge v-badge-success">+8.2%</span></div>
+      <div class="v-card v-stat"><span class="v-stat-label">Open invoices</span><span class="v-stat-value">14</span><span class="v-badge v-badge-warning">3 overdue</span></div>
+      <div class="v-card v-stat"><span class="v-stat-label">Active clients</span><span class="v-stat-value">186</span><span class="v-badge v-badge-accent">12 new</span></div>
+    </div>
+    <div class="tbp-split">
+      <section class="v-card tbp-card" aria-labelledby="tbp-invoices">
+        <header class="v-card-header">
+          <h3 class="v-card-title" id="tbp-invoices">Recent invoices</h3>
+          <a class="v-btn v-btn-ghost v-btn-sm" href="#">View all</a>
+        </header>
+        <ul class="v-list v-list-plain tbp-list">
+          <li class="v-list-item"><span class="v-avatar" aria-hidden="true">HR</span><span class="v-list-body"><span class="v-list-title">Harbour Roofing</span><span class="v-list-meta">INV-1041 · due 3 Oct</span></span><span class="v-list-end"><span class="v-badge v-badge-success v-badge-dot">Paid</span></span></li>
+          <li class="v-list-item"><span class="v-avatar" aria-hidden="true">QB</span><span class="v-list-body"><span class="v-list-title">The Quay Bar</span><span class="v-list-meta">INV-1042 · due 12 Oct</span></span><span class="v-list-end"><span class="v-badge v-badge-warning v-badge-dot">Due soon</span></span></li>
+          <li class="v-list-item"><span class="v-avatar" aria-hidden="true">WC</span><span class="v-list-body"><span class="v-list-title">Westshore Cleaning</span><span class="v-list-meta">INV-1039 · due 28 Sep</span></span><span class="v-list-end"><span class="v-badge v-badge-danger v-badge-dot">Overdue</span></span></li>
+        </ul>
+        <div class="tbp-progress">
+          <div class="v-flex v-justify-between"><span id="tbp-goal">Monthly goal</span><span class="v-tabular">68%</span></div>
+          <progress class="v-progress" value="68" max="100" aria-labelledby="tbp-goal">68%</progress>
+        </div>
+      </section>
+      <form class="v-card tbp-card" aria-labelledby="tbp-form-title">
+        <header class="v-card-header">
+          <h3 class="v-card-title" id="tbp-form-title">Quick invoice</h3>
+        </header>
+        <div class="v-field">
+          <label class="v-label" for="tbp-client">Client</label>
+          <select class="v-select" id="tbp-client"><option>Harbour Roofing</option><option>The Quay Bar</option></select>
+        </div>
+        <div class="v-field">
+          <label class="v-label" for="tbp-amount">Amount</label>
+          <input class="v-input" id="tbp-amount" type="text" inputmode="decimal" placeholder="€0.00">
+        </div>
+        <fieldset class="v-segmented">
+          <legend class="v-sr-only">Terms</legend>
+          <label><input type="radio" name="tbp-terms" value="7"><span>7 days</span></label>
+          <label><input type="radio" name="tbp-terms" value="14" checked><span>14 days</span></label>
+          <label><input type="radio" name="tbp-terms" value="30"><span>30 days</span></label>
+        </fieldset>
+        <label class="v-choice"><input class="v-switch" type="checkbox" role="switch" checked><span>Send a reminder</span></label>
+        <label class="v-choice"><input class="v-checkbox" type="checkbox"><span>Attach a PDF</span></label>
+        <div class="v-alert v-alert-info"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#info"/></svg><p class="v-alert-body">The client gets an email with a pay link.</p></div>
+        <footer class="v-card-footer">
+          <button class="v-btn v-btn-primary" type="button">Send invoice</button>
+          <button class="v-btn v-btn-ghost" type="button">Save draft</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="tbp-view" data-view="site">
+  <section class="tbp-hero" aria-labelledby="tbp-hero-title">
+    <header class="v-navbar tbp-bar">
+      <a class="v-navbar-brand" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#layers"/></svg>Northwind</a>
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="tbp-nav-site" aria-label="Open site menu"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#menu"/></svg></button>
+      <nav class="v-navbar-menu" id="tbp-nav-site" popover aria-label="Site">
+        <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="tbp-nav-site" popovertargetaction="hide" aria-label="Close site menu"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#close"/></svg></button>
+        <ul class="v-navbar-links">
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Stories</a></li>
+        </ul>
+        <div class="v-navbar-actions"><a class="v-btn v-btn-primary v-btn-sm" href="#">Start free</a></div>
+      </nav>
+    </header>
+    <div class="tbp-hero-body">
+      <p class="v-kicker">New · the autumn release</p>
+      <h2 class="tbp-display" id="tbp-hero-title">Invoices that chase themselves.</h2>
+      <p class="v-lead">Send, remind and get paid from one calm screen. Built for trades and small studios that would rather be working.</p>
+      <div class="v-cluster">
+        <a class="v-btn v-btn-primary v-btn-lg" href="#">Start a free trial</a>
+        <a class="v-btn v-btn-secondary v-btn-lg" href="#">See how it works</a>
+      </div>
+      <div class="tbp-proof">
+        <div class="v-avatar-group" aria-label="3 customers"><span class="v-avatar">SM</span><span class="v-avatar">NB</span><span class="v-avatar">RM</span></div>
+        <span class="v-text-secondary v-text-sm">Trusted by 1,200 small businesses</span>
+      </div>
+    </div>
+  </section>
+  <div class="tbp-body">
+    <div class="v-grid tbp-features">
+      <article class="v-card"><span class="tbp-icon"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#zap"/></svg></span><h3 class="v-card-title">Paid in days</h3><p class="v-card-text">Pay links in every email and polite reminders on a schedule you choose.</p></article>
+      <article class="v-card"><span class="tbp-icon"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#shield-check"/></svg></span><h3 class="v-card-title">Safe by default</h3><p class="v-card-text">Two-step sign in, audit history and backups you never think about.</p></article>
+      <article class="v-card"><span class="tbp-icon"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chart-line"/></svg></span><h3 class="v-card-title">Know your numbers</h3><p class="v-card-text">Cash flow at a glance, with the clients who owe you at the top.</p></article>
+    </div>
+    <div class="tbp-split">
+      <article class="v-card v-pricing v-pricing-featured">
+        <header class="v-pricing-header"><h3 class="v-pricing-name">Pro</h3><span class="v-badge v-badge-solid">Most popular</span></header>
+        <p class="v-pricing-price"><span class="v-pricing-amount">€24</span><span class="v-pricing-period">per month</span></p>
+        <p class="v-pricing-desc">For a business that sends invoices every week.</p>
+        <ul class="v-pricing-features">
+          <li><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#check"/></svg>Unlimited invoices</li>
+          <li><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#check"/></svg>Automatic reminders</li>
+          <li><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#check"/></svg>Priority support</li>
+        </ul>
+        <a class="v-btn v-btn-primary v-btn-block" href="#">Choose Pro</a>
+      </article>
+      <figure class="v-card v-testimonial">
+        <span class="v-rating" role="img" aria-label="Rated 5 out of 5"></span>
+        <blockquote class="v-testimonial-quote"><p>Half our overdue invoices sorted themselves out in the first month. I stopped dreading Fridays.</p></blockquote>
+        <figcaption class="v-testimonial-author">
+          <span class="v-avatar" aria-hidden="true">SM</span>
+          <span><span class="v-testimonial-name">Seán Murphy</span><span class="v-testimonial-role">Owner, Harbour Roofing</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</div>

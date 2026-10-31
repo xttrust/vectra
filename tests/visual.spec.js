@@ -14,6 +14,12 @@ for (const target of [...PAGES, ...AUTH_PAGES].filter((p) => p.visual !== 'none'
         test(`visual: ${target.name} · ${direction} · ${theme} · ${label}`, { tag: '@visual' }, async ({ page }) => {
           await page.setViewportSize(viewport);
           await open(page, target, { direction, theme });
+          // Numbers measured at build time (sizes, test counts, the build date and commit) change with every
+          // commit, so the docs site marks them data-volatile and they are held still for the screenshot.
+          await page.evaluate(() => document.querySelectorAll('[data-volatile]').forEach((el) => {
+            if (el.tagName === 'METER') el.value = el.max / 2;
+            else el.textContent = '0.00';
+          }));
           const name = `${target.name}-${direction}-${theme}-${label}`;
           // Chromium cannot paint one surface taller than about 32k px; beyond that a full-page capture is
           // stitched and never comes out the same twice. Very tall pages are captured section by section.

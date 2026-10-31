@@ -1,0 +1,96 @@
+/* Theme builder preview (theme-builder/preview.html): an app screen and a website section built from the
+   kit's components. Only layout lives here; every colour, radius and space comes from the tokens the
+   builder sets on <html>. */
+body { min-block-size: 100vh; }
+
+.tbp[data-view="app"] > .tbp-view[data-view="site"],
+.tbp[data-view="site"] > .tbp-view[data-view="app"] {
+  display: none;
+}
+
+.tbp-body {
+  display: grid;
+  gap: var(--v-space-5);
+  padding: clamp(1rem, 3.5vw, 2.25rem);
+}
+
+.tbp-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--v-space-4);
+  align-items: end;
+  justify-content: space-between;
+}
+
+.tbp-title {
+  margin: var(--v-space-1) 0 0;
+  font-family: var(--v-font-display);
+  font-size: var(--v-step-3);
+  font-weight: var(--v-heading-weight);
+  letter-spacing: var(--v-heading-tracking);
+  line-height: 1.1;
+}
+
+.tbp-stats { --v-min: 11rem; }
+
+.tbp-split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: var(--v-space-4);
+  align-items: start;
+}
+
+.tbp-card {
+  display: grid;
+  gap: var(--v-space-4);
+}
+
+.tbp-list { margin: 0; }
+
+.tbp-progress {
+  display: grid;
+  gap: var(--v-space-2);
+  font-size: var(--v-step-minus-1);
+}
+
+.tbp-hero {
+  padding-block-end: clamp(2rem, 6vw, 4rem);
+  background: var(--v-hero-bg);
+}
+
+.tbp-hero-body {
+  display: grid;
+  gap: var(--v-space-4);
+  justify-items: start;
+  max-inline-size: 46rem;
+  padding: clamp(2rem, 7vw, 4.5rem) clamp(1rem, 4vw, 2.5rem) 0;
+}
+
+.tbp-display {
+  margin: 0;
+  font-family: var(--v-font-display);
+  font-size: clamp(2.25rem, 1.3rem + 4.2vw, 4rem);
+  font-weight: var(--v-display-weight);
+  letter-spacing: var(--v-display-tracking);
+  line-height: var(--v-display-leading);
+  text-wrap: balance;
+}
+
+.tbp-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--v-space-3);
+  align-items: center;
+}
+
+.tbp-features { --v-min: 14rem; }
+
+.tbp-icon {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: var(--v-radius-md);
+  background: var(--v-accent-soft);
+  color: var(--v-accent-text);
+}

@@ -1,0 +1,136 @@
+<!--meta {"title": "Theme builder", "description": "Pick a direction, mode, accent hue, corners, density and typeface, check contrast live across every hue, then export a ready-to-use CSS file or share a link."}-->
+<header class="site-page-head tb-head">
+  <p class="v-kicker">Tools</p>
+  <h1>Theme builder</h1>
+  <p class="v-lead">Shape Vectra to your brand. The preview, the contrast report and the CSS update as you go, every accent hue is checked against WCAG 2.2 AA, and the result is one small file you can drop in after <code>vectra.css</code>.</p>
+</header>
+<noscript><div class="v-callout v-callout-warning"><p>The theme builder runs in your browser and needs JavaScript. Without it, set <code>data-direction</code>, <code>data-theme</code> and <code>--v-accent-h</code> by hand as shown on <a href="../foundations/colour/">Colour and contrast</a>.</p></div></noscript>
+
+<div class="tb site-js-only" id="tb">
+  <form class="tb-controls" id="tb-form" aria-label="Theme settings">
+    <fieldset class="tb-group">
+      <legend class="tb-legend">Direction</legend>
+      <div class="tb-directions">
+{{direction-tiles}}
+      </div>
+    </fieldset>
+
+    <fieldset class="tb-group">
+      <legend class="tb-legend">Mode</legend>
+      <div class="v-segmented tb-seg"><label><input type="radio" name="mode" value="light"><span>{{icon:sun}}Light</span></label><label><input type="radio" name="mode" value="dark"><span>{{icon:moon}}Dark</span></label></div>
+    </fieldset>
+
+    <fieldset class="tb-group tb-accent">
+      <legend class="tb-legend">Accent</legend>
+      <div class="tb-accent-row">
+        <div class="tb-wheel" id="tb-wheel" role="slider" tabindex="0" aria-label="Accent hue" aria-valuemin="0" aria-valuemax="359" aria-valuenow="200" aria-describedby="tb-wheel-help">
+          <span class="tb-wheel-thumb" aria-hidden="true"></span>
+          <span class="tb-wheel-core" aria-hidden="true"><span class="tb-wheel-value" id="tb-hue-value">200°</span><span class="tb-wheel-name" id="tb-hue-name">Cyan</span></span>
+        </div>
+        <div class="tb-accent-side">
+          <div class="v-field">
+            <label class="v-label" for="tb-hue">Hue in degrees</label>
+            <input class="v-input v-input-sm" id="tb-hue" type="number" min="0" max="359" step="1" inputmode="numeric">
+          </div>
+          <p class="v-hint" id="tb-wheel-help">Drag the ring or use the arrow keys. Hold Shift for bigger steps.</p>
+        </div>
+      </div>
+      <div class="v-swatches tb-presets" role="radiogroup" aria-label="Accent presets">
+{{presets}}
+      </div>
+    </fieldset>
+
+    <fieldset class="tb-group">
+      <legend class="tb-legend">Corners</legend>
+      <div class="v-segmented tb-seg tb-seg-4"><label><input type="radio" name="corners" value="default"><span>Default</span></label><label><input type="radio" name="corners" value="sharp"><span>Sharp</span></label><label><input type="radio" name="corners" value="rounded"><span>Rounded</span></label><label><input type="radio" name="corners" value="round"><span>Round</span></label></div>
+    </fieldset>
+
+    <fieldset class="tb-group">
+      <legend class="tb-legend">Density</legend>
+      <div class="v-segmented tb-seg"><label><input type="radio" name="density" value="compact"><span>Compact</span></label><label><input type="radio" name="density" value="default"><span>Default</span></label><label><input type="radio" name="density" value="spacious"><span>Spacious</span></label></div>
+    </fieldset>
+
+    <fieldset class="tb-group">
+      <legend class="tb-legend">Typeface</legend>
+      <div class="v-segmented tb-seg tb-seg-4"><label><input type="radio" name="font" value="default"><span>Default</span></label><label><input type="radio" name="font" value="inter"><span>Inter</span></label><label><input type="radio" name="font" value="serif"><span>Serif</span></label><label><input type="radio" name="font" value="system"><span>System</span></label></div>
+    </fieldset>
+
+    <details class="tb-fine" id="tb-fine">
+      <summary>{{icon:sliders}}<span>Fine-tune colours</span><span class="v-badge tb-fine-count" id="tb-fine-count" hidden></span></summary>
+      <p class="v-hint">Override single tokens in the current mode. The contrast report tells you at once if a colour breaks AA.</p>
+      <div class="tb-tokens">
+{{token-rows}}
+      </div>
+    </details>
+
+    <div class="tb-actions">
+      <button class="v-btn v-btn-secondary v-btn-sm" type="button" id="tb-apply">{{icon:check}}Use on this site</button>
+      <button class="v-btn v-btn-ghost v-btn-sm" type="button" id="tb-reset">{{icon:reset}}Reset</button>
+    </div>
+  </form>
+
+  <section class="tb-stage" aria-labelledby="tb-stage-title">
+    <div class="tb-stage-bar">
+      <h2 class="v-sr-only" id="tb-stage-title">Preview</h2>
+      <fieldset class="v-segmented tb-seg"><legend class="v-sr-only">Preview</legend><label><input type="radio" name="view" value="app" checked><span>App</span></label><label><input type="radio" name="view" value="site"><span>Website</span></label></fieldset>
+      <fieldset class="v-segmented tb-seg tb-width"><legend class="v-sr-only">Preview width</legend><label><input type="radio" name="width" value="full" checked><span>{{icon:monitor}}<span class="v-sr-only">Desktop</span></span></label><label><input type="radio" name="width" value="tablet"><span>{{icon:laptop}}<span class="v-sr-only">Tablet</span></span></label><label><input type="radio" name="width" value="phone"><span>{{icon:smartphone}}<span class="v-sr-only">Phone</span></span></label></fieldset>
+      <a class="tb-score" id="tb-score" href="#tb-report-title"><span class="tb-score-dot" aria-hidden="true"></span><span id="tb-score-text">Checking contrast</span></a>
+    </div>
+    <div class="tb-canvas" id="tb-canvas">
+      <iframe class="tb-frame" id="tb-frame" src="preview.html" title="Theme preview: an app screen and a website section built from Vectra components"></iframe>
+    </div>
+  </section>
+</div>
+
+<div class="tb-panels site-js-only">
+  <section class="tb-panel tb-report" aria-labelledby="tb-report-title">
+    <div class="tb-panel-head">
+      <h2 id="tb-report-title">Contrast report</h2>
+      <p class="tb-panel-sub">Computed in your browser from the resolved tokens, with the same pairings and maths as the CI test.</p>
+    </div>
+    <p class="tb-status" id="tb-report-status" role="status"></p>
+    <div class="tb-kinds" id="tb-kinds"></div>
+    <div id="tb-failures"></div>
+    <h3 class="tb-h3">Every accent hue</h3>
+    <p class="v-hint">This direction with your fine-tuned colours, in light and dark, at every 15°. Each cell shows the accent and the lowest ratio. Pick a cell to try that hue.</p>
+    <p class="tb-sweep-summary" id="tb-sweep-summary"></p>
+    <div class="tb-sweep" id="tb-sweep"></div>
+    <details class="tb-all">
+      <summary>All pairings for the current settings</summary>
+      <div id="tb-pairs"></div>
+    </details>
+  </section>
+
+  <section class="tb-panel tb-export" aria-labelledby="tb-export-title">
+    <div class="tb-panel-head">
+      <h2 id="tb-export-title">Export</h2>
+      <p class="tb-panel-sub">Only the tokens you changed. Load the file after <code>vectra.css</code>, or after <code>vectra.core.css</code> and the direction file.</p>
+    </div>
+    <div class="v-code site-code">
+      <div class="v-code-header">
+        <span class="v-code-title">On your &lt;html&gt; element</span>
+        <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button" data-v-copy data-v-copy-target="#tb-html">{{icon:copy}}Copy</button>
+      </div>
+      <pre class="v-code-body" id="tb-html" tabindex="0" aria-label="HTML attributes"><code></code></pre>
+    </div>
+    <div class="v-code site-code">
+      <div class="v-code-header">
+        <span class="v-code-title">vectra-theme.css</span>
+        <span class="tb-code-actions">
+          <button class="v-btn v-btn-ghost v-btn-sm" type="button" id="tb-download">{{icon:download}}Download</button>
+          <button class="v-btn v-btn-ghost v-btn-sm v-code-copy" type="button" data-v-copy data-v-copy-target="#tb-css">{{icon:copy}}Copy</button>
+        </span>
+      </div>
+      <pre class="v-code-body" id="tb-css" tabindex="0" aria-label="Theme CSS"><code></code></pre>
+    </div>
+    <div class="v-field tb-share">
+      <label class="v-label" for="tb-link">Share this theme</label>
+      <div class="v-input-group">
+        <span class="v-input-addon" aria-hidden="true">{{icon:link}}</span>
+        <input class="v-input" id="tb-link" type="text" readonly>
+        <button class="v-btn v-btn-secondary" type="button" id="tb-copy-link" data-v-copy="">{{icon:copy}}Copy link</button>
+      </div>
+      <p class="v-hint">The settings live in the link, so it opens this exact theme for anyone.</p>
+    </div>
+  </section>
+</div>

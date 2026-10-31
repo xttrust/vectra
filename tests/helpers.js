@@ -23,6 +23,8 @@ export const PAGES = [
   { name: 'states', path: '/examples/states/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'site-home', path: '/site/dist/', storage: 'vectra', visual: 'basic' },
   { name: 'site-button', path: '/site/dist/components/button/', storage: 'vectra', visual: 'basic' },
+  { name: 'site-theme-builder', path: '/site/dist/theme-builder/', storage: 'vectra', visual: 'basic' },
+  { name: 'site-quality', path: '/site/dist/quality/', storage: 'vectra', visual: 'basic' },
   { name: 'sections-chrome', path: '/examples/sections/chrome.html', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'sections-marketing', path: '/examples/sections/marketing.html', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'sections-app', path: '/examples/sections/app.html', storage: 'vectra', visual: 'full', rendered: true },
