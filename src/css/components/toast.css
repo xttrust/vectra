@@ -1,0 +1,133 @@
+/* Toast: a short message in a region pinned to the bottom end corner, in the top layer
+   (popover="manual"). Built by toast() in JS; the markup also works as a static preview.
+   Parts: .v-toast-text, an optional .v-toast-action and the .v-toast-close button.
+   Tones: .v-toast-success, -info, -warning, -danger (a dot; the words carry the meaning).
+   Enters with @starting-style, leaves through [data-leaving]. */
+@layer components {
+  .v-toast-region {
+    position: fixed;
+    inset: auto;
+    inset-block-end: var(--v-space-4);
+    inset-inline-end: var(--v-space-4);
+    display: grid;
+    gap: var(--v-space-2);
+    inline-size: min(24rem, 100vw - 2rem);
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    background: none;
+    color: inherit;
+  }
+
+  .v-toast-region:not(:popover-open) { display: none; }
+
+  .v-toast {
+    --v-tone: var(--v-text-3);
+
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    padding-block: var(--v-space-2);
+    padding-inline: var(--v-space-4) var(--v-space-2);
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-overlay-bg);
+    box-shadow: var(--v-shadow-3);
+    color: var(--v-text);
+    font-size: 0.9375rem;
+    transition: opacity var(--v-dur-2), translate var(--v-dur-3) var(--v-ease-spring);
+  }
+
+  @starting-style {
+    .v-toast {
+      opacity: 0;
+      translate: 0 0.75rem;
+    }
+  }
+
+  .v-toast[data-leaving] {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+
+  .v-toast::before {
+    content: "";
+    flex: none;
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-tone);
+  }
+
+  .v-toast-text {
+    flex: 1;
+    min-inline-size: 0;
+    padding-block: 0.35rem;
+    line-height: 1.4;
+  }
+
+  .v-toast-action,
+  .v-toast-close {
+    flex: none;
+    border: 0;
+    border-radius: var(--v-radius-sm);
+    background: none;
+    color: var(--v-accent-text);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .v-toast-action {
+    padding: 0.35rem 0.6rem;
+    font-weight: 620;
+  }
+
+  .v-toast-close {
+    display: grid;
+    place-items: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    color: var(--v-text-2);
+  }
+
+  .v-toast-close::before {
+    content: "";
+    inline-size: 1rem;
+    block-size: 1rem;
+    background-color: currentcolor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  :is(.v-toast-action, .v-toast-close):hover { background-color: var(--v-surface-2); }
+
+  .v-toast-success { --v-tone: var(--v-success); }
+  .v-toast-info { --v-tone: var(--v-info); }
+  .v-toast-warning { --v-tone: var(--v-warning); }
+  .v-toast-danger { --v-tone: var(--v-danger); }
+
+  @media (width < 40rem) {
+    .v-toast-region {
+      inset-inline: var(--v-space-3);
+      inline-size: auto;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .v-toast::before { background-color: CanvasText; }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] .v-toast {
+    border-color: var(--v-border-strong);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  :root[data-direction="glass"] .v-toast { backdrop-filter: blur(24px) saturate(1.6); }
+
+  @media (prefers-reduced-transparency: reduce) {
+    :root[data-direction="glass"] .v-toast { backdrop-filter: none; }
+  }
+}
