@@ -43,7 +43,7 @@
   "api": [
     {
       "signature": "Vectra.saveStatus(el, 'saving' | 'saved' | 'failed' | 'offline', { at })",
-      "description": "Sets data-state and the text. Saved shows the time since at (default now) and refreshes it every 30 seconds. Writes into a .v-save-status-text child if there is one, otherwise into el itself."
+      "description": "Sets data-state and the text. Saved shows the time since at (default now) and refreshes it every 30 seconds. Writes into the child marked data-v-save-status-text if there is one, otherwise into el itself."
     }
   ],
   "a11y": [
@@ -80,6 +80,14 @@
       "layout": "stack",
       "height": 160,
       "source": "examples/theming/#save-status"
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-save-status-text",
+      "value": "",
+      "on": "a child of .v-save-status",
+      "description": "The element whose text saveStatus() replaces; without it the whole status element's text is replaced."
     }
   ]
 }
