@@ -866,10 +866,10 @@
         <h3>Sync status</h3>
         <div class="st-preview ex-box">
           <div class="v-grid" style="--v-min: 12rem">
-            <p class="v-save-status" data-state="saved"><span class="v-save-status-text" data-contrast>Synced 2 minutes ago</span></p>
-            <p class="v-save-status" data-state="saving"><span class="v-save-status-text" data-contrast>Syncing…</span></p>
-            <p class="v-save-status" data-state="offline"><span class="v-save-status-text" data-contrast>3 changes waiting to sync</span></p>
-            <p class="v-save-status" data-state="failed"><span class="v-save-status-text" data-contrast>Sync failed.</span> <button class="v-btn v-btn-ghost v-btn-sm" type="button">Retry</button></p>
+            <p class="v-save-status" data-state="saved"><span data-v-save-status-text data-contrast>Synced 2 minutes ago</span></p>
+            <p class="v-save-status" data-state="saving"><span data-v-save-status-text data-contrast>Syncing…</span></p>
+            <p class="v-save-status" data-state="offline"><span data-v-save-status-text data-contrast>3 changes waiting to sync</span></p>
+            <p class="v-save-status" data-state="failed"><span data-v-save-status-text data-contrast>Sync failed.</span> <button class="v-btn v-btn-ghost v-btn-sm" type="button">Retry</button></p>
           </div>
         </div>
         <dl class="st-guide">
@@ -1253,7 +1253,7 @@
         <h3>Autosave</h3>
         <div class="st-preview ex-box">
           <div class="v-field">
-            <div class="v-cluster v-justify-between"><label class="v-label" for="autosave-text">Notes</label><p class="v-save-status" id="autosave-status" data-state="saved"><span class="v-save-status-text">Saved just now</span></p></div>
+            <div class="v-cluster v-justify-between"><label class="v-label" for="autosave-text">Notes</label><p class="v-save-status" id="autosave-status" data-state="saved"><span data-v-save-status-text>Saved just now</span></p></div>
             <textarea class="v-input" id="autosave-text" rows="2">Call Seán about the gutters on Thursday.</textarea>
           </div>
           <label class="v-choice"><input class="v-checkbox" id="autosave-fail" type="checkbox"><span>Make the next save fail</span></label>
@@ -1277,7 +1277,7 @@
       <div class="st-item" id="st-saved">
         <h3>Saved</h3>
         <div class="st-preview ex-box">
-          <div class="v-cluster"><button class="v-btn v-btn-primary v-btn-sm" type="button" id="save-inline">Try it: save settings</button><p class="v-save-status" id="save-inline-status" data-state="saved"><span class="v-save-status-text" data-contrast>Saved 2 minutes ago</span></p></div>
+          <div class="v-cluster"><button class="v-btn v-btn-primary v-btn-sm" type="button" id="save-inline">Try it: save settings</button><p class="v-save-status" id="save-inline-status" data-state="saved"><span data-v-save-status-text data-contrast>Saved 2 minutes ago</span></p></div>
           <div class="v-toast v-toast-success" style="max-inline-size: 24rem"><p class="v-toast-text" data-contrast>Settings saved</p><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
         </div>
         <dl class="st-guide">
@@ -1642,7 +1642,7 @@
         <div class="st-preview ex-box">
           <div class="v-cluster">
             <p class="v-cluster v-gap-2"><span class="v-spinner" aria-hidden="true"></span><span>Loading</span></p>
-            <p class="v-save-status" data-state="failed"><span class="v-save-status-text" data-contrast>Not saved, try again</span></p>
+            <p class="v-save-status" data-state="failed"><span data-v-save-status-text data-contrast>Not saved, try again</span></p>
             <span class="v-badge v-badge-success v-badge-dot">Published</span>
             <p class="v-cluster v-gap-2"><span class="v-dot"></span><span>Unread</span></p>
           </div>

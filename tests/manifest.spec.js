@@ -24,8 +24,6 @@ const declared = new Set([
   ...manifest.utilities.flatMap((g) => g.classes),
   ...manifest.sections.flatMap((g) => g.classes),
 ]);
-// Read by the JS but not styled, so not a declared class (src/js/components/save-status.js). Reported in M8b.
-const JS_ONLY = new Set(['v-save-status-text']);
 const registered = new Set(manifest.hooks.map((h) => h.name));
 
 const blankPage = (c) => `<!DOCTYPE html>
@@ -71,7 +69,7 @@ test('manifest: llms-full.txt covers every component, class, hook and rule', () 
   for (const r of manifest.rules) expect(llmsFull, r.id).toContain(r.rule);
   for (const file of ['dist/ai/llms-full.txt', 'ai/claude-skill/vectra/SKILL.md', 'ai/AGENTS.md']) {
     const mentioned = [...readFileSync(file, 'utf8').matchAll(/\.(v-[a-z0-9]+(?:-[a-z0-9]+)*)/g)].map((m) => m[1]);
-    expect([...new Set(mentioned)].filter((k) => !declared.has(k) && !JS_ONLY.has(k)), `${file} mentions classes the manifest does not declare`).toEqual([]);
+    expect([...new Set(mentioned)].filter((k) => !declared.has(k)), `${file} mentions classes the manifest does not declare`).toEqual([]);
   }
   for (const a of manifest.api) expect(llmsFull, a.signature).toContain(a.signature);
 });
