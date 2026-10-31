@@ -13,9 +13,21 @@ for (const target of [...PAGES, ...AUTH_PAGES].filter((p) => p.visual !== 'none'
         test(`visual: ${target.name} · ${direction} · ${theme} · ${label}`, { tag: '@visual' }, async ({ page }) => {
           await page.setViewportSize(viewport);
           await open(page, target, { direction, theme });
+          const name = `${target.name}-${direction}-${theme}-${label}`;
+          // Chromium cannot paint one surface taller than about 32k px; beyond that a full-page capture is
+          // stitched and never comes out the same twice. Very tall pages are captured section by section.
+          const tall = await page.evaluate(() => document.documentElement.scrollHeight > 30000);
+          if (tall) {
+            const ids = await page.locator('main > section[id]').evaluateAll((els) => els.map((el) => el.id));
+            expect(ids.length).toBeGreaterThan(0);
+            for (const id of ids) {
+              await expect(page.locator(`#${id}`)).toHaveScreenshot(`${name}-${id}.png`, { timeout: 15000 });
+            }
+            return;
+          }
           // A page whose height has a fraction is 1px taller once the viewport grows to fit it, so the first
           // two shots never match; long glass pages can then need more than the default 5 s to settle.
-          await expect(page).toHaveScreenshot(`${target.name}-${direction}-${theme}-${label}.png`, { fullPage: true, timeout: 15000 });
+          await expect(page).toHaveScreenshot(`${name}.png`, { fullPage: true, timeout: 15000 });
         });
       }
     }

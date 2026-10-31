@@ -1,4 +1,6 @@
-/* Divider with a label, and the empty state. */
+/* Divider with a label, and the empty state. The empty state also carries the in-app error pages and
+   section failures: .v-empty-danger, -warning, -success and -accent tint the icon; .v-empty-sm fits it
+   inside a table, list, cart or side panel. */
 @layer components {
   .v-divider {
     display: flex;
@@ -15,14 +17,19 @@
     border-block-start: var(--v-border-w) solid var(--v-border);
   }
 
+  /* The column never grows past the container, so long names and file names wrap inside it. */
   .v-empty {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--v-space-3);
     justify-items: center;
     padding: var(--v-space-7) var(--v-space-4);
     color: var(--v-text-2);
     text-align: center;
+    overflow-wrap: break-word;
   }
+
+  .v-empty > * { max-inline-size: 100%; }
 
   .v-empty-icon {
     display: grid;
@@ -41,5 +48,39 @@
     font-size: var(--v-step-1);
     font-weight: var(--v-heading-weight);
 
+  }
+
+  .v-empty-sm {
+    gap: var(--v-space-2);
+    padding: var(--v-space-5) var(--v-space-3);
+    font-size: 0.9375rem;
+  }
+
+  .v-empty-sm .v-empty-icon {
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    font-size: 1.1rem;
+  }
+
+  .v-empty-sm .v-empty-title { font-size: var(--v-step-0); }
+
+  .v-empty-danger .v-empty-icon {
+    background-color: var(--v-danger-soft);
+    color: var(--v-danger);
+  }
+
+  .v-empty-warning .v-empty-icon {
+    background-color: var(--v-warning-soft);
+    color: var(--v-warning);
+  }
+
+  .v-empty-success .v-empty-icon {
+    background-color: var(--v-success-soft);
+    color: var(--v-success);
+  }
+
+  .v-empty-accent .v-empty-icon {
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
   }
 }
