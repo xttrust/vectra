@@ -35,3 +35,16 @@
 }
 
 .ex-label { color: var(--v-text-3); font-family: var(--v-font-mono); font-size: 0.75rem; }
+
+/* Section galleries: a labelled frame per variant. */
+.ex-variant { display: grid; gap: var(--v-space-3); }
+.ex-variant-head { display: flex; flex-wrap: wrap; gap: var(--v-space-1) var(--v-space-4); align-items: baseline; }
+.ex-main .ex-variant-head h2 { margin-block-end: 0; font-size: var(--v-step-1); }
+.ex-variant-head code { overflow-wrap: anywhere; }
+.ex-note { flex-basis: 100%; color: var(--v-text-2); font-size: var(--v-step-minus-1); }
+.ex-demo { overflow: clip; border: var(--v-border-w) solid var(--v-border); border-radius: var(--v-radius-lg); }
+.ex-shell { display: flex; min-block-size: 36rem; }
+.ex-shell > .v-app-sidebar { flex-shrink: 0; }
+.ex-shell > .v-app-sidebar:not(:has(.v-sidenav-rail)) { inline-size: 16rem; }
+.ex-shell-page { display: grid; flex: 1; gap: var(--v-space-4); align-content: start; padding: var(--v-space-5); background-color: var(--v-bg-subtle); }
+.ex-phone { position: relative; inline-size: min(100%, 24rem); min-block-size: 30rem; margin: var(--v-space-5) auto; overflow: clip; border: var(--v-border-w) solid var(--v-border-strong); border-radius: var(--v-radius-xl); background-color: var(--v-bg); }

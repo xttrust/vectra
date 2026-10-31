@@ -1,0 +1,13 @@
+/* Vectra v2 sections: page-level blocks composed from components. Load after vectra.components.css, or use
+   the full vectra.css. */
+@import url("./sections/section.css");
+@import url("./sections/site-header.css");
+@import url("./sections/hero.css");
+@import url("./sections/features.css");
+@import url("./sections/pricing-section.css");
+@import url("./sections/cta.css");
+@import url("./sections/team.css");
+@import url("./sections/footer.css");
+@import url("./sections/app-shell.css");
+@import url("./sections/page-header.css");
+@import url("./sections/app-ui.css");

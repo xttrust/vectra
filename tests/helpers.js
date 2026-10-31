@@ -14,6 +14,11 @@ export const PAGES = [
   { name: 'content', path: '/examples/content/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'overlays', path: '/examples/overlays/', storage: 'vectra', visual: 'full', rendered: true },
   { name: 'elements', path: '/examples/elements/', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'sections-chrome', path: '/examples/sections/chrome.html', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'sections-marketing', path: '/examples/sections/marketing.html', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'sections-app', path: '/examples/sections/app.html', storage: 'vectra', visual: 'full', rendered: true },
+  { name: 'page-saas-home', path: '/examples/pages/saas-home.html', storage: 'vectra', visual: 'basic' },
+  { name: 'page-app-shell', path: '/examples/pages/app-shell.html', storage: 'vectra', visual: 'basic' },
 ];
 
 export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
