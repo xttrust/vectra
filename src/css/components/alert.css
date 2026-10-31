@@ -20,7 +20,12 @@
     color: var(--v-tone);
 
   }
-  .v-alert-body { flex: 1; }
+
+  .v-alert-body {
+    flex: 1;
+    min-inline-size: 0;
+    overflow-wrap: break-word;
+  }
 
   .v-alert-title {
     color: var(--v-text);

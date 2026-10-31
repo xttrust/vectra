@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · States</title>
+  <meta name="description" content="Vectra states gallery and copy guide: loading, empty, errors, connection, permissions, session, validation, success, destructive actions, content status and edge cases.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction, theme and customizer choices before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        var c = JSON.parse(localStorage.getItem('vectra-custom')) || {};
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+        ['corners', 'density', 'font'].forEach(function (k) { if (c[k] && c[k] !== 'default') root.dataset[k] = c[k]; });
+        if (c.accent && c.accent !== 'default') root.style.setProperty('--v-accent-h', c.accent);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <style>
+    /* Gallery only: the layout of the guide. Every state itself is built from kit classes. */
+    /* Keeps the last section's margin inside main. */
+    .ex-main { display: flow-root; }
+    .st-toc { display: flex; flex-wrap: wrap; gap: var(--v-space-2); margin: 0; padding: 0; list-style: none; }
+    .st-group > p { max-inline-size: 65ch; color: var(--v-text-2); }
+    .st-item { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-4); padding-block: var(--v-space-6); border-block-start: var(--v-border-w) solid var(--v-border); }
+    .st-item > h3 { margin: 0; }
+    .st-preview { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-4); align-content: start; min-inline-size: 0; }
+    .st-mini { display: grid; gap: var(--v-space-2); align-content: start; min-inline-size: 0; padding: var(--v-space-3); border: var(--v-border-w) solid var(--v-border); border-radius: var(--v-radius-md); }
+    .st-guide { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--v-space-2) var(--v-space-3); align-content: start; align-items: baseline; margin: 0; font-size: 0.875rem; }
+    .st-guide dt { color: var(--v-text-3); font-size: 0.6875rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; }
+    .st-guide dd { min-inline-size: 0; margin: 0; color: var(--v-text-2); }
+    /* line-height 0: inline code never changes the height of its line, so captures stay the same height. */
+    .st-guide .st-uses { color: var(--v-text-3); font-family: var(--v-font-mono); font-size: 0.75rem; overflow-wrap: anywhere; }
+    .st-guide code { font-size: 0.8125rem; line-height: 0; overflow-wrap: anywhere; }
+    .st-say { display: flex; gap: var(--v-space-2); align-items: center; justify-content: space-between; padding: var(--v-space-2) var(--v-space-2) var(--v-space-2) var(--v-space-3); border-radius: var(--v-radius-md); background-color: var(--v-surface-2); color: var(--v-text); }
+    .st-say q { min-inline-size: 0; }
+    .st-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--v-space-4); }
+    .st-shell { display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; border: var(--v-border-w) solid var(--v-border); border-radius: var(--v-radius-lg); }
+    .st-shell-nav { display: none; padding: var(--v-space-3); border-inline-end: var(--v-border-w) solid var(--v-border); background-color: var(--v-surface-2); }
+    .st-feed { max-block-size: 17rem; overflow: auto; border-radius: var(--v-radius-lg); }
+    .st-narrow { max-inline-size: 320px; }
+    .st-skel-stat { padding: var(--v-space-3); border: var(--v-border-w) solid var(--v-border); border-radius: var(--v-radius-md); }
+    dialog.ex-static { position: static; inline-size: 100%; max-inline-size: 28rem; block-size: auto; margin: 0; translate: none; }
+    /* Below desktop width the guide runs inline, label then text, so it stays short. */
+    @media (width < 64rem) {
+      .st-item { padding-block: var(--v-space-5); }
+      .st-guide { display: block; }
+      .st-guide dt { display: inline; margin-inline-end: 0.5em; }
+      .st-guide dd { display: inline; }
+      .st-guide dd::after { content: ""; display: block; margin-block-end: var(--v-space-2); }
+    }
+    @media (width >= 40rem) {
+      .st-split { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+      .st-shell { grid-template-columns: 9rem minmax(0, 1fr); }
+      .st-shell-nav { display: grid; gap: var(--v-space-2); align-content: start; }
+    }
+    /* Desktop: the preview on the left; the state's name and its guide on the right. */
+    @media (width >= 64rem) {
+      .st-item { grid-template-rows: auto 1fr; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: var(--v-space-2) var(--v-space-6); padding-block: var(--v-space-4); }
+      .st-item > h3 { grid-row: 1; grid-column: 2; }
+      .st-preview { grid-row: 1 / span 2; grid-column: 1; }
+      .st-guide { grid-row: 2; grid-column: 2; }
+    }
+  </style>
+  <script type="module" src="../../src/js/index.js"></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></symbol>
+    <symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-success" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 9-5.5 5.5L8 12"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-archive" viewBox="0 0 24 24"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+    <symbol id="i-log-in" viewBox="0 0 24 24"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"/><path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"/><circle cx="18" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol>
+  </svg>
+
+  <div class="v-banner v-connection" id="connection" data-v-connection role="status" hidden>
+    <svg class="v-icon" aria-hidden="true"><use href="#i-wifi-off"/></svg>
+    <p class="v-banner-body" data-v-when="offline"><strong>You're offline.</strong> You can keep editing; your changes save when the connection is back.</p>
+    <p class="v-banner-body" data-v-when="slow"><strong>Slow connection.</strong> Pages may take longer to load, so images are shown in lower quality.</p>
+  </div>
+
+  <header class="ex-bar">
+    <div class="v-container v-container-wide ex-bar-inner">
+      <a class="ex-title" href="../components/">Vectra <span>states</span></a>
+      <fieldset class="v-segmented" id="hdr-switch" data-v-theme-switch><legend class="v-sr-only">Design direction</legend><label><input type="radio" name="hdr-direction" value="tech"><span>Dark tech</span></label><label><input type="radio" name="hdr-direction" value="editorial"><span>Editorial</span></label><label><input type="radio" name="hdr-direction" value="soft"><span>Soft depth</span></label><label><input type="radio" name="hdr-direction" value="glass"><span>Glass</span></label></fieldset>
+      <button class="v-btn v-btn-icon v-btn-ghost v-theme-toggle" type="button" id="hdr-toggle" data-v-theme-toggle aria-label="Theme"><svg class="v-icon" data-for="light" aria-hidden="true"><use href="#i-sun"/></svg><svg class="v-icon" data-for="dark" aria-hidden="true"><use href="#i-moon"/></svg><svg class="v-icon" data-for="system" aria-hidden="true"><use href="#i-monitor"/></svg></button>
+    </div>
+  </header>
+
+  <main class="v-container v-container-wide ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">States and patterns · copy guide</p>
+      <h1 class="v-display">Finally, the states in between.</h1>
+      <p class="v-lead">Real products spend most of their screens loading, empty, failing, offline or waiting for someone to decide. Every state here comes with the words to use and the wiring that makes it work for everyone.</p>
+      <p class="v-text-secondary v-max-prose" data-contrast>Each state has three parts of copy: what happened, why, and what the person can do next. Then a line ready to paste, and the accessibility wiring: which live region, where focus goes, and how much time people get.</p>
+      <noscript><p class="v-alert v-alert-info">The previews on this page work without JavaScript. The "Try it" buttons need it.</p></noscript>
+      <nav aria-label="State groups">
+        <ul class="st-toc">
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#loading">Loading</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#empty">Empty</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#errors">Errors</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#connection-network">Connection</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#permissions">Permissions</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#session">Session</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#validation">Validation</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#success">Success</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#destructive">Destructive</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#content-status">Content status</a></li>
+          <li><a class="v-btn v-btn-secondary v-btn-sm" href="#edge-cases">Edge cases</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <!-- ============================== Loading ============================== -->
+    <section class="st-group" id="loading" aria-labelledby="loading-h">
+      <h2 id="loading-h">Loading</h2>
+      <p>Show the shape of what is coming, say what is loading, and never leave someone guessing whether anything is happening.</p>
+
+      <div class="st-item" id="st-skeletons">
+        <h3>Page skeletons</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 7rem">
+            <div class="st-mini" aria-busy="true">
+              <p class="ex-label">List</p>
+              <p class="v-sr-only" role="status">Loading messages</p>
+              <div class="v-stack" style="--v-gap: var(--v-space-3)" aria-hidden="true">
+                <div class="v-skeleton-row"><span class="v-skeleton v-skeleton-circle"></span><span class="v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-text"></span></span></div>
+                <div class="v-skeleton-row"><span class="v-skeleton v-skeleton-circle"></span><span class="v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-text"></span></span></div>
+                <div class="v-skeleton-row"><span class="v-skeleton v-skeleton-circle"></span><span class="v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-text"></span></span></div>
+              </div>
+            </div>
+            <div class="st-mini" aria-busy="true">
+              <p class="ex-label">Card grid</p>
+              <p class="v-sr-only" role="status">Loading releases</p>
+              <div class="v-skeleton-grid" style="--v-skeleton-min: 3.5rem" aria-hidden="true">
+                <div><span class="v-skeleton v-skeleton-block" style="--v-skeleton-ratio: 1"></span><span class="v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-text"></span></span></div>
+                <div><span class="v-skeleton v-skeleton-block" style="--v-skeleton-ratio: 1"></span><span class="v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-text"></span></span></div>
+              </div>
+            </div>
+            <div class="st-mini" aria-busy="true">
+              <p class="ex-label">Table</p>
+              <p class="v-sr-only" role="status">Loading invoices</p>
+              <div class="v-skeleton-table" aria-hidden="true">
+                <div><span class="v-skeleton"></span><span class="v-skeleton"></span><span class="v-skeleton"></span><span class="v-skeleton"></span></div>
+                <div><span class="v-skeleton"></span><span class="v-skeleton"></span><span class="v-skeleton"></span><span class="v-skeleton"></span></div>
+                <div><span class="v-skeleton"></span><span class="v-skeleton"></span><span class="v-skeleton"></span><span class="v-skeleton"></span></div>
+                <div><span class="v-skeleton"></span><span class="v-skeleton"></span><span class="v-skeleton"></span><span class="v-skeleton"></span></div>
+              </div>
+            </div>
+            <div class="st-mini" aria-busy="true">
+              <p class="ex-label">Detail view</p>
+              <p class="v-sr-only" role="status">Loading the article</p>
+              <div aria-hidden="true">
+                <span class="v-skeleton v-skeleton-heading"></span>
+                <span class="v-skeleton v-skeleton-block" style="--v-skeleton-ratio: 3 / 1"></span>
+                <span class="v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-text"></span></span>
+              </div>
+            </div>
+            <div class="st-mini" aria-busy="true">
+              <p class="ex-label">Dashboard</p>
+              <p class="v-sr-only" role="status">Loading the dashboard</p>
+              <div class="v-stack" style="--v-gap: var(--v-space-3)" aria-hidden="true">
+                <div class="v-skeleton-grid" style="--v-skeleton-min: 3rem; gap: var(--v-space-2)">
+                  <div class="st-skel-stat v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-heading"></span></div>
+                  <div class="st-skel-stat v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-heading"></span></div>
+                </div>
+                <span class="v-skeleton v-skeleton-block" style="--v-skeleton-ratio: 3 / 1"></span>
+              </div>
+            </div>
+            <div class="st-mini" aria-busy="true">
+              <p class="ex-label">Profile</p>
+              <p class="v-sr-only" role="status">Loading the profile</p>
+              <div class="v-stack v-items-center" style="--v-gap: var(--v-space-2)" aria-hidden="true">
+                <span class="v-skeleton v-skeleton-circle" style="--v-skeleton-size: 4rem"></span>
+                <span class="v-skeleton v-skeleton-heading" style="margin: 0"></span>
+                <span class="v-skeleton v-skeleton-text" style="inline-size: 70%"></span>
+                <div class="v-cluster v-justify-center"><span class="v-skeleton v-skeleton-btn"></span><span class="v-skeleton v-skeleton-btn" style="--v-skeleton-w: 4rem"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The page is getting its content.</dd>
+          <dt>Why</dt><dd>The data is on its way from the server.</dd>
+          <dt>They can</dt><dd>Wait. The shape they see is the shape they get, so nothing jumps when it arrives.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Loading invoices</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Loading invoices">Copy</button></span></dd>
+          <dt>Wiring</dt><dd><code>aria-busy="true"</code> on the region and one <code>role="status"</code> line for screen readers; the skeleton is <code>aria-hidden</code>. Wait about 300 ms before showing it, so fast loads never flash.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-skeleton-row, -lines, -grid, -table, -block, -heading, -btn</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-inline-loading">
+        <h3>Inline loading</h3>
+        <div class="st-preview ex-box">
+          <div class="v-cluster">
+            <button class="v-btn v-btn-primary" type="button" aria-busy="true" disabled>Saving…</button>
+            <button class="v-btn v-btn-secondary" type="button" id="demo-save">Try it: save</button>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="ld-search">Find a client</label>
+            <div class="v-input-group">
+              <input class="v-input" id="ld-search" type="search" value="Murphy">
+              <span class="v-input-addon"><span class="v-spinner" style="--v-spinner-size: 1rem" aria-hidden="true"></span></span>
+            </div>
+            <p class="v-hint" role="status">Searching…</p>
+          </div>
+          <div class="v-card v-busy" id="orders-card" aria-busy="true">
+            <div class="v-cluster v-justify-between">
+              <h4 class="v-card-title">Recent orders</h4>
+              <p class="v-cluster v-gap-2 v-text-sm v-text-secondary" role="status"><span class="v-spinner" style="--v-spinner-size: 0.9rem" aria-hidden="true"></span><span id="orders-status">Refreshing…</span></p>
+            </div>
+            <ul class="v-list v-list-plain">
+              <li class="v-list-item"><span class="v-list-body"><span class="v-list-title">#1042 · Seán Murphy</span><span class="v-list-meta">Paid · €240.00</span></span></li>
+              <li class="v-list-item"><span class="v-list-body"><span class="v-list-title">#1041 · Niamh Kelly</span><span class="v-list-meta">Awaiting payment · €95.50</span></span></li>
+            </ul>
+            <div><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="demo-refresh">Try it: refresh</button></div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Something they started is still running.</dd>
+          <dt>Why</dt><dd>It needs a reply from the server first.</dd>
+          <dt>They can</dt><dd>Keep reading. The content stays in place while it refreshes; the button can't be pressed twice.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Saving…</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Saving…">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Keep the button's label and add <code>aria-busy="true"</code>. A <code>role="status"</code> line says "Saved" or "Refreshed" when it ends. Focus stays where it was. On a section, <code>.v-busy</code> runs a thin bar and keeps the text readable.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-btn[aria-busy], .v-spinner in .v-input-addon, .v-busy[aria-busy]</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-progress">
+        <h3>Long task progress</h3>
+        <div class="st-preview ex-box">
+          <div class="v-stack" style="--v-gap: var(--v-space-2)">
+            <div class="v-cluster v-justify-between"><label class="v-label" for="pg-import">Importing contacts</label><span class="v-text-sm v-text-secondary v-tabular">62%</span></div>
+            <progress class="v-progress" id="pg-import" value="62" max="100">62%</progress>
+            <p class="v-text-sm v-text-secondary">Step 2 of 3: checking for duplicates. About 2 minutes left.</p>
+          </div>
+          <div class="v-stack" style="--v-gap: var(--v-space-2)">
+            <label class="v-label" for="pg-export">Preparing your export</label>
+            <progress class="v-progress" id="pg-export" aria-describedby="pg-export-note"></progress>
+            <p class="v-text-sm v-text-secondary" id="pg-export-note">This can take a minute. You can leave this page; we'll email you the file.</p>
+          </div>
+          <div class="v-cluster"><button class="v-btn v-btn-secondary v-btn-sm" type="button">Cancel import</button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>A long job is under way.</dd>
+          <dt>Why</dt><dd>There is a lot to do: many rows, a big file.</dd>
+          <dt>They can</dt><dd>Watch it, cancel it, or leave and come back.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Step 2 of 3: checking for duplicates. About 2 minutes left.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Step 2 of 3: checking for duplicates. About 2 minutes left.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Give the <code>&lt;progress&gt;</code> a label. Announce each new step politely, not every percent. Round the time left ("about 2 minutes"). No value means indeterminate: pair it with words.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-progress with a label, steps and time left</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-slow">
+        <h3>Slow loading</h3>
+        <div class="st-preview ex-box">
+          <div class="v-slow">
+            <span class="v-spinner" aria-hidden="true"></span>
+            <p>This is taking longer than usual. Your orders are still loading.</p>
+            <div class="v-cluster v-gap-2"><button class="v-btn v-btn-secondary v-btn-sm" type="button">Try again</button><button class="v-btn v-btn-ghost v-btn-sm" type="button">Cancel</button></div>
+          </div>
+          <div class="v-card" id="slow-demo">
+            <div class="v-cluster v-justify-between"><h4 class="v-card-title">Orders</h4><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="slow-start">Try it: load on a slow network</button></div>
+            <div id="slow-region" aria-busy="false">
+              <p class="v-text-secondary" id="slow-content">Press the button. The note appears after 3 seconds; the orders arrive after 8.</p>
+            </div>
+            <div class="v-slow" id="slow-note" data-v-slow="#slow-region" data-v-slow-after="3000" hidden>
+              <span class="v-spinner" aria-hidden="true"></span>
+              <p>This is taking longer than usual. Your orders are still loading.</p>
+              <div class="v-cluster v-gap-2"><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="slow-retry">Try again</button><button class="v-btn v-btn-ghost v-btn-sm" type="button" id="slow-cancel">Cancel</button></div>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Loading is slower than normal.</dd>
+          <dt>Why</dt><dd>A busy server or a weak connection. Not their fault, so don't hint that it is.</dd>
+          <dt>They can</dt><dd>Keep waiting, try again, or cancel.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>This is taking longer than usual. You can keep waiting or try again.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="This is taking longer than usual. You can keep waiting or try again.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd><code>data-v-slow</code> shows the note after the delay and announces it politely, once. It hides when the region's <code>aria-busy</code> turns false. Keep the note outside the busy region so its buttons are never skipped.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-slow with data-v-slow="#region" data-v-slow-after="5000"</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-images">
+        <h3>Image placeholders</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 9rem">
+            <figure class="v-figure">
+              <div class="v-frame v-frame-4x3" style="--v-frame-fill: oklch(52% 0.09 250deg)" aria-hidden="true"></div>
+              <figcaption>Colour from the image</figcaption>
+            </figure>
+            <figure class="v-figure">
+              <div class="v-frame v-frame-4x3" style="--v-frame-fill: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAFCAIAAAD38zoCAAAAiElEQVR42gF9AIL/AChy3ER3zWF8v32BsZqGoraLlNOQhvCWeAAoZNRBaMdabLpzcKyMc5+ld5K+e4XXf3gAKFfNPVnAUly0aF6ofWGck2OQqGaEvml4ABIgbBkhZiEiYCkiWjEjVDojTkIkSEokQgASG2gYG2MeG10kG1grG1IxG004G0c/G0IezDAYi/6bNwAAAABJRU5ErkJggg==')" aria-hidden="true"></div>
+              <figcaption>Tiny low-res preview</figcaption>
+            </figure>
+            <figure class="v-figure">
+              <div class="v-frame v-frame-4x3 v-frame-missing" aria-hidden="true"></div>
+              <figcaption>No image, or it failed</figcaption>
+            </figure>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The image hasn't arrived yet, or there isn't one.</dd>
+          <dt>Why</dt><dd>Large files, a slow network, or nothing uploaded.</dd>
+          <dt>They can</dt><dd>Carry on reading. The space is kept, so the text never jumps.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Cover of Midnight Drive by Lena Moss</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Cover of Midnight Drive by Lena Moss">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Set <code>width</code> and <code>height</code> or an aspect ratio so space is reserved. The alt text describes the picture; use <code>alt=""</code> when it is decoration. Nothing is announced.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-frame with --v-frame-fill, .v-frame-missing</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-load-more">
+        <h3>Loading more</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 12rem">
+            <div class="v-load-more st-mini"><p>Showing 20 of 134 orders</p><button class="v-btn v-btn-secondary v-btn-sm" type="button">Load 20 more</button></div>
+            <div class="v-load-more st-mini"><p class="v-cluster v-gap-2" role="status"><span class="v-spinner" aria-hidden="true"></span><span>Loading more orders…</span></p></div>
+            <div class="v-load-more st-mini"><p>That's all 134 orders.</p><a href="#loading">Back to top</a></div>
+          </div>
+          <div>
+            <ul class="v-list" id="more-list" aria-label="Orders">
+              <li class="v-list-item" tabindex="-1"><span class="v-list-body"><span class="v-list-title">Order #1001</span><span class="v-list-meta">Paid</span></span></li>
+              <li class="v-list-item" tabindex="-1"><span class="v-list-body"><span class="v-list-title">Order #1002</span><span class="v-list-meta">Paid</span></span></li>
+              <li class="v-list-item" tabindex="-1"><span class="v-list-body"><span class="v-list-title">Order #1003</span><span class="v-list-meta">Refunded</span></span></li>
+            </ul>
+            <div class="v-load-more v-mt-4">
+              <p id="more-count">Showing 3 of 9 orders</p>
+              <button class="v-btn v-btn-secondary v-btn-sm" type="button" id="more-btn">Try it: load 3 more</button>
+              <p class="v-sr-only" role="status" id="more-status"></p>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>There is more in the list than fits on one screen.</dd>
+          <dt>Why</dt><dd>Loading everything at once would be slow.</dd>
+          <dt>They can</dt><dd>Load more when they want, and know when they have reached the end.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>That's all 134 orders.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="That's all 134 orders.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Prefer a real "Load more" button to endless scrolling, so the footer stays reachable. Announce "3 more orders loaded" politely and move focus to the first new item.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-load-more (pagination.css) under a .v-list</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Empty ============================== -->
+    <section class="st-group" id="empty" aria-labelledby="empty-h">
+      <h2 id="empty-h">Empty</h2>
+      <p>An empty screen is an invitation, not a dead end. Say why it is empty and offer one clear next step.</p>
+
+      <div class="st-item" id="st-first-run">
+        <h3>First run</h3>
+        <div class="st-preview ex-box">
+          <div class="v-empty v-empty-accent">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-folder"/></svg></span>
+            <p class="v-empty-title" data-contrast>Create your first project</p>
+            <p class="v-max-prose">Projects keep your files, tasks and people in one place.</p>
+            <div class="v-cluster v-justify-center"><button class="v-btn v-btn-primary" type="button">New project</button><a class="v-btn v-btn-ghost" href="#st-first-run">Explore a sample project</a></div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Nothing here yet.</dd>
+          <dt>Why</dt><dd>The account or the space is new.</dd>
+          <dt>They can</dt><dd>Take one clear first step, or look around with sample data.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>No projects yet. Create one to get started.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="No projects yet. Create one to get started.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Plain content, no live region. One primary action. Use a heading at the right level if the empty state replaces the page's main content.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-empty .v-empty-accent</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-no-results">
+        <h3>No search results</h3>
+        <div class="st-preview ex-box">
+          <div class="v-input-group v-search">
+            <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
+            <input class="v-input" id="nr-search" type="search" value="invocie" aria-label="Search">
+          </div>
+          <div class="v-empty v-empty-sm">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-search"/></svg></span>
+            <p class="v-empty-title" role="status" data-contrast>No results for "invocie"</p>
+            <p>Did you mean <a href="#st-no-results">invoice</a>?</p>
+            <ul class="v-text-sm v-text-secondary v-text-start" style="padding-inline-start: 1.25em; list-style: disc">
+              <li>Check the spelling</li>
+              <li>Try fewer or broader words</li>
+              <li>Search all workspaces, not just this one</li>
+            </ul>
+            <button class="v-btn v-btn-secondary v-btn-sm" type="button">Clear search</button>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The search found nothing.</dd>
+          <dt>Why</dt><dd>A typo, a narrow term, or it really isn't there.</dd>
+          <dt>They can</dt><dd>Fix the spelling, widen the search, or clear it.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>No results for ‘invocie’. Did you mean invoice?</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="No results for ‘invocie’. Did you mean invoice?">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Repeat the query. The result line is <code>role="status"</code>, updated once typing pauses. "Clear search" empties the field and puts focus back in it.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-search, .v-empty .v-empty-sm</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-filtered">
+        <h3>Filtered to nothing</h3>
+        <div class="st-preview ex-box">
+          <div class="v-cluster v-gap-2">
+            <span class="v-tag">Status: Overdue<button class="v-tag-remove" type="button" aria-label="Remove filter Status: Overdue"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
+            <span class="v-tag">Owner: Me<button class="v-tag-remove" type="button" aria-label="Remove filter Owner: Me"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
+          </div>
+          <div class="v-empty v-empty-sm">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-filter"/></svg></span>
+            <p class="v-empty-title" data-contrast>No invoices match these filters</p>
+            <p>2 filters are on: Status is Overdue, Owner is Me.</p>
+            <button class="v-btn v-btn-secondary v-btn-sm" type="button">Clear filters</button>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The filters hide everything.</dd>
+          <dt>Why</dt><dd>The combination is too narrow.</dd>
+          <dt>They can</dt><dd>Remove one filter, or clear them all.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>No invoices match these filters.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="No invoices match these filters.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Name the filters in words. A <code>role="status"</code> count ("0 invoices") updates politely. After "Clear filters", focus goes to the results heading.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-tag filters, .v-empty-sm</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-all-done">
+        <h3>All done</h3>
+        <div class="st-preview ex-box">
+          <div class="v-empty v-empty-success">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-check"/></svg></span>
+            <p class="v-empty-title" data-contrast>You're all caught up</p>
+            <p>No new notifications. We'll let you know when something needs you.</p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Everything is done.</dd>
+          <dt>Why</dt><dd>They cleared their inbox, tasks or notifications.</dd>
+          <dt>They can</dt><dd>Nothing, and that is the point. Keep it calm.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>You're all caught up.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="You're all caught up.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>No live region and no confetti. If the last item was just cleared, a polite "All done" status is enough.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-empty .v-empty-success</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-nothing-selected">
+        <h3>Nothing selected</h3>
+        <div class="st-preview ex-box">
+          <div class="st-split">
+            <ul class="v-list" aria-label="Messages">
+              <li><a class="v-list-item" href="#st-nothing-selected"><span class="v-list-body"><span class="v-list-title">Aoife Byrne</span><span class="v-list-meta">Quote for the roof</span></span></a></li>
+              <li><a class="v-list-item" href="#st-nothing-selected"><span class="v-list-body"><span class="v-list-title">Tom Walsh</span><span class="v-list-meta">Gig on Friday</span></span></a></li>
+              <li><a class="v-list-item" href="#st-nothing-selected"><span class="v-list-body"><span class="v-list-title">Ciara Doyle</span><span class="v-list-meta">Invoice question</span></span></a></li>
+            </ul>
+            <div class="v-card v-empty v-empty-sm">
+              <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-mail"/></svg></span>
+              <p class="v-empty-title" data-contrast>Select a message to read it</p>
+              <p>3 conversations, none unread.</p>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The detail pane has nothing to show yet.</dd>
+          <dt>Why</dt><dd>Nothing is picked in the list.</dd>
+          <dt>They can</dt><dd>Pick an item.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Select a message to read it.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Select a message to read it.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Mark the chosen row with <code>aria-current</code>. When something is picked, move focus to the detail heading. On phones, show the list alone.</dd>
+          <dt>Uses</dt><dd class="st-uses">list and detail, .v-empty in the detail pane</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-empty-containers">
+        <h3>Empty table, list, cart and favourites</h3>
+        <div class="st-preview ex-box">
+          <div class="v-table-wrap" role="region" aria-label="Invoices" tabindex="0">
+            <table class="v-table">
+              <thead><tr><th scope="col">Invoice</th><th scope="col">Client</th><th class="v-table-num" scope="col">Amount</th></tr></thead>
+              <tbody><tr><td class="v-table-empty" colspan="3" data-contrast>No invoices yet. Ones you send show up here.</td></tr></tbody>
+            </table>
+          </div>
+          <div class="v-grid" style="--v-min: 12rem">
+            <div class="v-card v-empty v-empty-sm">
+              <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-cart"/></svg></span>
+              <p class="v-empty-title" data-contrast>Your cart is empty</p>
+              <a class="v-btn v-btn-secondary v-btn-sm" href="#st-empty-containers">Browse the shop</a>
+            </div>
+            <div class="v-card v-empty v-empty-sm">
+              <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-heart"/></svg></span>
+              <p class="v-empty-title" data-contrast>No favourites yet</p>
+              <p>Tap the heart on any track to keep it here.</p>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>One part of the page has no items.</dd>
+          <dt>Why</dt><dd>Nothing has been added yet.</dd>
+          <dt>They can</dt><dd>Add the first one, or go where items come from.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Your cart is empty.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Your cart is empty.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Keep the table header so the structure still reads. Size the message to its container with <code>.v-empty-sm</code>, and keep the rest of the page as it is.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-table-empty, .v-empty-sm inside its container</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Errors ============================== -->
+    <section class="st-group" id="errors" aria-labelledby="errors-h">
+      <h2 id="errors-h">Errors</h2>
+      <p>Say what went wrong in plain words, never blame the person, and always offer a way forward. Interrupt only when it matters.</p>
+
+      <div class="st-item" id="st-field-errors">
+        <h3>Field errors</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 14rem">
+            <div class="v-field">
+              <label class="v-label" for="fe-name">Full name</label>
+              <input class="v-input" id="fe-name" type="text" aria-invalid="true" aria-describedby="fe-name-error">
+              <p class="v-field-error" id="fe-name-error" data-contrast>Enter your full name</p>
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="fe-email">Email</label>
+              <input class="v-input" id="fe-email" type="email" value="aoife@" aria-invalid="true" aria-describedby="fe-email-error">
+              <p class="v-field-error" id="fe-email-error" data-contrast>Enter an email address like name@example.com</p>
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="fe-pw">Password</label>
+              <input class="v-input" id="fe-pw" type="password" value="abc12" aria-invalid="true" aria-describedby="fe-pw-error">
+              <p class="v-field-error" id="fe-pw-error" data-contrast>Use at least 8 characters. You have 5.</p>
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="fe-pw2">Confirm password</label>
+              <input class="v-input" id="fe-pw2" type="password" value="abc123" aria-invalid="true" aria-describedby="fe-pw2-error">
+              <p class="v-field-error" id="fe-pw2-error" data-contrast>The passwords don't match</p>
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="fe-taken">Work email</label>
+              <input class="v-input" id="fe-taken" type="email" value="aoife@atlas.example" aria-invalid="true" aria-describedby="fe-taken-error">
+              <p class="v-field-error" id="fe-taken-error" data-contrast>This email already has an account. <a href="#st-field-errors">Sign in instead</a></p>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>One answer needs fixing.</dd>
+          <dt>Why</dt><dd>State the rule it missed, not "invalid input".</dd>
+          <dt>They can</dt><dd>The message says exactly how to fix it.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Enter an email address like name@example.com</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Enter an email address like name@example.com">Copy</button></span></dd>
+          <dt>Wiring</dt><dd><code>aria-invalid="true"</code> and <code>aria-describedby</code> pointing at the message, which stays visible. No live region per field; the error summary speaks on submit. Server errors use the same markup.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-field with aria-invalid and .v-field-error</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-error-summary">
+        <h3>Error summary</h3>
+        <div class="st-preview ex-box">
+          <div class="v-error-summary" role="group" aria-labelledby="es-title">
+            <p class="v-error-summary-title" id="es-title">There are 2 problems with this form</p>
+            <ul><li><a href="#fe-email">Enter an email address like name@example.com</a></li><li><a href="#fe-pw">Use at least 8 characters</a></li></ul>
+          </div>
+          <form class="v-stack" id="summary-form" action="#st-error-summary" data-v-validate style="--v-gap: var(--v-space-3)">
+            <div class="v-field">
+              <label class="v-label" for="sf-name">Your name</label>
+              <input class="v-input" id="sf-name" name="name" type="text" autocomplete="name" required>
+              <p class="v-field-error" id="sf-name-error">Enter your name</p>
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="sf-email">Email</label>
+              <input class="v-input" id="sf-email" name="email" type="email" autocomplete="email" required>
+              <p class="v-field-error" id="sf-email-error">Enter an email address like name@example.com</p>
+            </div>
+            <div><button class="v-btn v-btn-primary" type="submit">Try it: send with empty fields</button></div>
+          </form>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The form was sent with problems.</dd>
+          <dt>Why</dt><dd>Some answers are missing or need fixing.</dd>
+          <dt>They can</dt><dd>Jump straight to each one from the list.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>There are 2 problems with this form</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="There are 2 problems with this form">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>On submit, focus moves to the summary (<code>tabindex="-1"</code>, labelled group), so it is read in full. Each link focuses its field. Fixing a field removes its line.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-error-summary, built by data-v-validate</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-section-failed">
+        <h3>Section failed to load</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 12rem">
+            <div class="v-card v-stat"><p class="v-stat-label">Revenue this month</p><p class="v-stat-value v-tabular" data-contrast>€12,480</p></div>
+            <div class="v-card v-empty v-empty-danger v-empty-sm">
+              <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-alert"/></svg></span>
+              <p class="v-empty-title" data-contrast>Couldn't load recent orders</p>
+              <p>The rest of the page still works.</p>
+              <button class="v-btn v-btn-secondary v-btn-sm" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-refresh"/></svg>Try again</button>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>One part of the page didn't load.</dd>
+          <dt>Why</dt><dd>That part's request failed; the others were fine.</dd>
+          <dt>They can</dt><dd>Try that part again, without reloading the page.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Couldn't load recent orders. The rest of the page still works.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Couldn't load recent orders. The rest of the page still works.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>The message replaces only that section. If it fails while they wait, announce it politely. "Try again" keeps focus and sets <code>aria-busy</code> on the section.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-empty .v-empty-danger .v-empty-sm in place of the section</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-action-failed">
+        <h3>Action failed</h3>
+        <div class="st-preview ex-box">
+          <div class="v-toast v-toast-danger" style="max-inline-size: 24rem"><p class="v-toast-text" data-contrast>Couldn't send the invite</p><button class="v-toast-action" type="button">Retry</button><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+          <div class="v-alert v-alert-danger">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-error"/></svg>
+            <div class="v-alert-body v-stack" style="--v-gap: var(--v-space-2)">
+              <p class="v-alert-title" data-contrast>Payment details weren't saved</p>
+              <p>Our payment provider didn't answer. Nothing was charged. Try again in a minute.</p>
+              <details open>
+                <summary>Details for support</summary>
+                <div class="v-cluster v-gap-2 v-mt-2"><code id="err-details">Error 502 · ref 7F3A-91C2 · 31 Oct 2026 14:02 GMT</code><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy-target="#err-details"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button></div>
+              </details>
+              <div><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="fail-toast">Try it: send the invite</button></div>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>What they just did didn't work.</dd>
+          <dt>Why</dt><dd>Say whose side it was on, and what was not done ("Nothing was charged").</dd>
+          <dt>They can</dt><dd>Retry, or copy the details for support.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Couldn't send the invite. Nothing was sent, so you can try again.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Couldn't send the invite. Nothing was sent, so you can try again.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Danger toasts are announced assertively and, with an action, stay at least 10 s and pause on hover and focus. Use <code>role="alert"</code> on an inline alert only right after the person acted.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-toast-danger with an action, .v-alert-danger with details to copy</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-not-found">
+        <h3>Not found in the app</h3>
+        <div class="st-preview ex-box">
+          <div class="st-shell">
+            <nav class="st-shell-nav" aria-label="App, preview"><a href="#st-not-found">Projects</a><a href="#st-not-found">Clients</a><a href="#st-not-found">Settings</a></nav>
+            <div class="v-empty">
+              <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-search"/></svg></span>
+              <p class="v-kicker">Error 404</p>
+              <p class="v-empty-title" data-contrast>We can't find that project</p>
+              <p>It may have been moved or deleted, or the link may be wrong.</p>
+              <div class="v-cluster v-justify-center"><a class="v-btn v-btn-primary v-btn-sm" href="#st-not-found">Go to projects</a><a class="v-btn v-btn-ghost v-btn-sm" href="#st-not-found">Search</a></div>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The page or item doesn't exist.</dd>
+          <dt>Why</dt><dd>Moved, deleted, or a wrong link.</dd>
+          <dt>They can</dt><dd>Go to the list it would live in, or search. The app's navigation still works.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>We can't find that project. It may have been moved or deleted.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="We can't find that project. It may have been moved or deleted.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Send a real 404 status. Set the page title ("Project not found · Atlas"). In a single-page app, move focus to the heading after the route changes.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-empty inside the app shell</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-upload-failed">
+        <h3>Upload failed</h3>
+        <div class="st-preview ex-box">
+          <ul class="v-list" aria-label="Uploads">
+            <li class="v-list-item"><svg class="v-icon v-text-success" aria-hidden="true"><use href="#i-success"/></svg><span class="v-list-body"><span class="v-list-title">site-plan.pdf</span><span class="v-list-meta">Uploaded · 2.4 MB</span></span></li>
+            <li class="v-list-item"><svg class="v-icon v-text-danger" aria-hidden="true"><use href="#i-error"/></svg><span class="v-list-body"><span class="v-list-title">drone-footage.mov</span><span class="v-list-meta" data-contrast>Too large: 48 MB. The limit is 25 MB.</span></span><span class="v-list-end"><button class="v-btn v-btn-ghost v-btn-sm" type="button">Choose another</button></span></li>
+            <li class="v-list-item"><svg class="v-icon v-text-danger" aria-hidden="true"><use href="#i-error"/></svg><span class="v-list-body"><span class="v-list-title">roof-photo.heic</span><span class="v-list-meta" data-contrast>Stopped: the connection dropped.</span></span><span class="v-list-end"><button class="v-btn v-btn-secondary v-btn-sm" type="button">Retry</button></span></li>
+          </ul>
+          <p class="v-text-sm v-text-secondary" role="status">1 of 3 files uploaded. 2 need your attention.</p>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Some files didn't upload.</dd>
+          <dt>Why</dt><dd>Give the reason per file: too large, wrong type, or the network.</dd>
+          <dt>They can</dt><dd>Retry the ones that can work, replace the others.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Too large: 48 MB. The limit is 25 MB.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Too large: 48 MB. The limit is 25 MB.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Words and an icon per file, never colour alone. Announce one polite summary when the batch ends, not each file. Retry keeps focus on its row.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-list with a status line per file</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-rate-limit">
+        <h3>Too many requests</h3>
+        <div class="st-preview ex-box">
+          <div class="v-alert v-alert-warning">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg>
+            <div class="v-alert-body">
+              <p class="v-alert-title" data-contrast>Too many attempts</p>
+              <p>For your security, please wait <b class="v-tabular">0:30</b> before trying again.</p>
+            </div>
+          </div>
+          <form class="v-stack" id="rate-form" action="#st-rate-limit" style="--v-gap: var(--v-space-3)">
+            <div id="rate-slot"></div>
+            <div><button class="v-btn v-btn-primary" type="submit" id="rate-btn">Try it: wrong password</button></div>
+          </form>
+          <template id="rate-tpl">
+            <div class="v-alert v-alert-warning" data-v-countdown="15">
+              <svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg>
+              <div class="v-alert-body">
+                <p class="v-alert-title" role="alert">Too many attempts</p>
+                <p data-v-when="running">For your security, please wait <b class="v-tabular" data-v-countdown-time>0:15</b> before trying again.</p>
+                <p data-v-when="done" hidden>You can try again now.</p>
+              </div>
+            </div>
+          </template>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They tried too often, too quickly (HTTP 429).</dd>
+          <dt>Why</dt><dd>A limit protects their account. Say so, kindly.</dd>
+          <dt>They can</dt><dd>Wait, and see exactly how long.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>For your security, please wait 0:30 before trying again.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="For your security, please wait 0:30 before trying again.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Take the time from <code>Retry-After</code>. <code>data-v-countdown</code> ticks every second but announces only at minute marks, 30 and 10 s and the end. Only the title is <code>role="alert"</code>, so the ticking stays quiet.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-alert-warning with data-v-countdown</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-server-error">
+        <h3>Server error and maintenance</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 15rem">
+            <div class="v-card v-empty v-empty-danger v-empty-sm">
+              <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-zap"/></svg></span>
+              <p class="v-kicker">Error 500</p>
+              <p class="v-empty-title" data-contrast>Something went wrong on our side</p>
+              <p>It's not you. We've been told and are on it. Try again in a few minutes.</p>
+              <div class="v-cluster v-justify-center"><button class="v-btn v-btn-primary v-btn-sm" type="button">Try again</button><a class="v-btn v-btn-ghost v-btn-sm" href="#st-server-error">Status page</a></div>
+              <p class="v-text-sm v-text-secondary">Ref 7F3A-91C2</p>
+            </div>
+            <div class="v-card v-empty v-empty-warning v-empty-sm">
+              <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-clock"/></svg></span>
+              <p class="v-kicker">Back soon</p>
+              <p class="v-empty-title" data-contrast>Down for maintenance</p>
+              <p>Atlas is being updated until 15:00 GMT. Your work is safe.</p>
+              <a class="v-btn v-btn-ghost v-btn-sm" href="#st-server-error">Follow the status page</a>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The service failed, or is paused on purpose.</dd>
+          <dt>Why</dt><dd>Our fault (500), or planned work (503). Say which.</dd>
+          <dt>They can</dt><dd>Try again later, check the status page, quote the reference.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Something went wrong on our side. It's not you.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Something went wrong on our side. It's not you.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Real 500 and 503 statuses, with <code>Retry-After</code> on 503. The page title names the problem. Keep the app shell so they can still move around.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-empty-danger and .v-empty-warning inside the app shell</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Connection and network ============================== -->
+    <section class="st-group" id="connection-network" aria-labelledby="connection-h">
+      <h2 id="connection-h">Connection and network</h2>
+      <p>Tell people what still works when the network goes, and get out of the way when it comes back.</p>
+
+      <div class="st-item" id="st-offline">
+        <h3>Offline</h3>
+        <div class="st-preview ex-box">
+          <div class="v-banner v-banner-warning">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-wifi-off"/></svg>
+            <p class="v-banner-body" data-contrast><strong>You're offline.</strong> You can keep editing; your changes save when the connection is back.</p>
+          </div>
+          <div class="v-cluster"><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="go-offline">Try it: go offline</button><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="go-online">Come back online</button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The connection dropped.</dd>
+          <dt>Why</dt><dd>Wi-Fi, mobile signal, or a flight.</dd>
+          <dt>They can</dt><dd>Say what still works: reading, editing, drafts.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>You're offline. You can keep editing; your changes save when the connection is back.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="You're offline. You can keep editing; your changes save when the connection is back.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd><code>data-v-connection</code> on a hidden banner with <code>role="status"</code>: polite, sticky at the top, shown only while offline. Never block the page.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-banner .v-connection with data-v-connection</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-back-online">
+        <h3>Back online</h3>
+        <div class="st-preview ex-box">
+          <div class="v-toast v-toast-success" style="max-inline-size: 24rem"><p class="v-toast-text" data-contrast>Back online</p><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The connection is back.</dd>
+          <dt>Why</dt><dd>No need to explain.</dd>
+          <dt>They can</dt><dd>Carry on. Waiting changes are sent now.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Back online</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Back online">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>A short polite toast (3 s) and the banner goes. If changes were waiting, say "Back online. 3 changes saved."</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-toast-success, shown by data-v-connection</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-slow-network">
+        <h3>Slow network</h3>
+        <div class="st-preview ex-box">
+          <div class="v-banner">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-wifi"/></svg>
+            <p class="v-banner-body" data-contrast><strong>Slow connection.</strong> Pages may take longer to load, so images are shown in lower quality.</p>
+          </div>
+          <div class="v-cluster"><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="go-slow">Try it: slow network</button><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="go-fast">Back to normal</button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Requests are taking a long time.</dd>
+          <dt>Why</dt><dd>A weak or busy connection.</dd>
+          <dt>They can</dt><dd>Expect delays; the app lightens itself (smaller images, no autoplay).</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Slow connection. Images are shown in lower quality.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Slow connection. Images are shown in lower quality.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Same banner, quieter tone. Shown from <code>navigator.connection</code> where it exists, or by <code>connection.slow(true)</code> when your own requests run long.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-banner, connection.slow(true)</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-retrying">
+        <h3>Retrying</h3>
+        <div class="st-preview ex-box">
+          <div class="v-cluster v-text-secondary">
+            <span class="v-spinner" style="--v-spinner-size: 1rem" aria-hidden="true"></span>
+            <p>Couldn't reach the server. Retrying in <b class="v-tabular">0:05</b></p>
+            <button class="v-btn v-btn-secondary v-btn-sm" type="button">Retry now</button>
+          </div>
+          <div id="retry-slot"><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="retry-start">Try it: lose the server</button></div>
+          <template id="retry-tpl">
+            <div class="v-cluster v-text-secondary" data-v-countdown="5">
+              <p data-v-when="running">Couldn't reach the server. Retrying in <b class="v-tabular" data-v-countdown-time>0:05</b></p>
+              <p data-v-when="done" hidden>Connected again.</p>
+              <button class="v-btn v-btn-secondary v-btn-sm" type="button" data-v-when="running">Retry now</button>
+            </div>
+          </template>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>A request failed and will be tried again.</dd>
+          <dt>Why</dt><dd>The server or the network didn't answer.</dd>
+          <dt>They can</dt><dd>Wait, or retry now.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Couldn't reach the server. Retrying in 5 seconds.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Couldn't reach the server. Retrying in 5 seconds.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd><code>data-v-countdown</code>: silent ticks, a polite word at the end. Back off between tries (5, 15, 60 s) and don't announce each attempt.</dd>
+          <dt>Uses</dt><dd class="st-uses">data-v-countdown with running and done parts</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-sync">
+        <h3>Sync status</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 12rem">
+            <p class="v-save-status" data-state="saved"><span class="v-save-status-text" data-contrast>Synced 2 minutes ago</span></p>
+            <p class="v-save-status" data-state="saving"><span class="v-save-status-text" data-contrast>Syncing…</span></p>
+            <p class="v-save-status" data-state="offline"><span class="v-save-status-text" data-contrast>3 changes waiting to sync</span></p>
+            <p class="v-save-status" data-state="failed"><span class="v-save-status-text" data-contrast>Sync failed.</span> <button class="v-btn v-btn-ghost v-btn-sm" type="button">Retry</button></p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Where their changes are right now.</dd>
+          <dt>Why</dt><dd>Saving takes a moment; offline changes wait.</dd>
+          <dt>They can</dt><dd>Trust it, or retry when it fails.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>3 changes waiting to sync</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="3 changes waiting to sync">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Keep the status out of live regions; <code>saveStatus()</code> announces only saved and failed. Icon shape and words differ for each state, so colour is never needed.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-save-status, saveStatus(el, state)</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Permissions and access ============================== -->
+    <section class="st-group" id="permissions" aria-labelledby="permissions-h">
+      <h2 id="permissions-h">Permissions and access</h2>
+      <p>Explain what is locked and who can open it. A locked door with a name on it is much better than a wall.</p>
+
+      <div class="st-item" id="st-no-permission">
+        <h3>No permission</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 17rem">
+          <div class="v-card v-empty v-empty-sm">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-lock"/></svg></span>
+            <p class="v-kicker">Error 403</p>
+            <p class="v-empty-title" data-contrast>You don't have access to Billing</p>
+            <p>Ask a workspace owner: Aoife Byrne or Tom Walsh.</p>
+            <button class="v-btn v-btn-primary v-btn-sm" type="button">Request access</button>
+          </div>
+          <div class="v-locked">
+            <div class="v-locked-preview" inert aria-hidden="true">
+              <p class="v-fw-semibold">Revenue by month</p>
+              <p class="v-stat-value">€48,580</p>
+              <p>Ireland 64% · UK 28% · Other 8%</p>
+              <ul class="v-list v-list-plain">
+                <li class="v-list-item">October · €15,210 · 38 invoices</li>
+                <li class="v-list-item">September · €11,940 · 31 invoices</li>
+                <li class="v-list-item">August · €9,380 · 24 invoices</li>
+                <li class="v-list-item">July · €12,050 · 29 invoices</li>
+              </ul>
+            </div>
+            <div class="v-locked-panel">
+              <svg class="v-icon" aria-hidden="true"><use href="#i-lock"/></svg>
+              <p class="v-fw-semibold" style="color: var(--v-text)">Only admins can see revenue</p>
+              <p>Ask Aoife Byrne to make you an admin.</p>
+              <button class="v-btn v-btn-secondary v-btn-sm" type="button">Ask Aoife</button>
+            </div>
+          </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They can't open this.</dd>
+          <dt>Why</dt><dd>Their role doesn't include it. Name the role, not "an error".</dd>
+          <dt>They can</dt><dd>Ask a named person, or request access in one step.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>You don't have access to Billing. Ask a workspace owner: Aoife Byrne or Tom Walsh.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="You don't have access to Billing. Ask a workspace owner: Aoife Byrne or Tom Walsh.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Send a 403 for the page. Inline, the preview is <code>inert</code> and <code>aria-hidden</code>, so nobody tabs into what they can't use, and its numbers are blurred or fake.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-empty (403 page) and .v-locked (inline section)</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-request-access">
+        <h3>Request access</h3>
+        <div class="st-preview ex-box">
+          <form class="v-card v-stack" action="#st-request-access" style="--v-gap: var(--v-space-3)">
+            <p class="v-card-title">Ask for access to Billing</p>
+            <div class="v-field">
+              <label class="v-label" for="ra-why">Why do you need it? <span class="v-optional">Optional</span></label>
+              <textarea class="v-input" id="ra-why" rows="1">To send invoices for the Galway jobs.</textarea>
+            </div>
+            <div><button class="v-btn v-btn-primary v-btn-sm" type="button">Send request</button></div>
+          </form>
+          <div class="v-grid" style="--v-min: 16rem">
+          <div class="v-alert v-alert-success" role="status">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-send"/></svg>
+            <div class="v-alert-body"><p class="v-alert-title" data-contrast>Request sent to Aoife Byrne</p><p>We'll email you when she replies.</p></div>
+          </div>
+          <div class="v-alert">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>
+            <div class="v-alert-body"><p class="v-alert-title" data-contrast>Aoife declined your request</p><p>She said: "Billing is for the finance team." You can ask Tom Walsh instead.</p></div>
+          </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They asked, and then got an answer.</dd>
+          <dt>Why</dt><dd>Someone with the right role decides.</dd>
+          <dt>They can</dt><dd>Add a reason, wait for the email, or ask someone else.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Request sent to Aoife Byrne. We'll email you when she replies.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Request sent to Aoife Byrne. We'll email you when she replies.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>After sending, the form is replaced by the <code>role="status"</code> message and focus moves to it. A decline is plain news, never red.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-card with a form, then .v-alert for the outcome</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-view-only">
+        <h3>View only</h3>
+        <div class="st-preview ex-box">
+          <div class="v-banner">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-eye"/></svg>
+            <p class="v-banner-body" data-contrast><strong>You can view this project.</strong> Ask the owner for edit access to make changes.</p>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="vo-name">Project name</label>
+            <input class="v-input" id="vo-name" type="text" value="Perform Roofing site" readonly aria-describedby="vo-hint">
+            <p class="v-hint" id="vo-hint">Only editors can change this.</p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They can look but not change anything.</dd>
+          <dt>Why</dt><dd>They have the viewer role.</dd>
+          <dt>They can</dt><dd>Read and copy everything; ask for edit access.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>You can view this project. Ask the owner for edit access to make changes.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="You can view this project. Ask the owner for edit access to make changes.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Prefer <code>readonly</code> to <code>disabled</code>: the value stays focusable, readable and copyable. Put the reason in a hint linked by <code>aria-describedby</code>.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-banner, readonly fields with the reason</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-plan-limit">
+        <h3>Plan limit</h3>
+        <div class="st-preview ex-box">
+          <div class="v-card v-stack" style="--v-gap: var(--v-space-3)">
+            <div class="v-cluster v-justify-between"><label class="v-label" for="pl-meter">Projects</label><span class="v-text-sm v-tabular">5 of 5 used</span></div>
+            <progress class="v-progress" id="pl-meter" value="5" max="5">5 of 5</progress>
+            <p class="v-text-secondary">You've used all 5 projects on the Free plan. Archive one to make room, or upgrade for unlimited projects.</p>
+            <div class="v-cluster"><a class="v-btn v-btn-secondary v-btn-sm" href="#st-plan-limit">See plans</a><button class="v-btn v-btn-ghost v-btn-sm" type="button">Archive a project</button></div>
+          </div>
+          <p class="v-cluster v-gap-2"><span>Custom domains</span><span class="v-badge v-badge-accent">Pro</span><a class="v-text-sm" href="#st-plan-limit">Compare plans</a></p>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They reached the plan's limit, or found a paid feature.</dd>
+          <dt>Why</dt><dd>Name the limit and the plan, plainly.</dd>
+          <dt>They can</dt><dd>Free up room, or upgrade. Both are fine.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>You've used all 5 projects on the Free plan. Archive one to make room, or upgrade.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="You've used all 5 projects on the Free plan. Archive one to make room, or upgrade.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Label the bar, and keep it in the accent colour. No red, no countdowns, no "Are you sure you want to miss out?". Show it where the limit bites, once, not on every page.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-progress, .v-badge, a calm .v-card</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Session and account ============================== -->
+    <section class="st-group" id="session" aria-labelledby="session-h">
+      <h2 id="session-h">Session and account</h2>
+      <p>Never lose someone's work to a timeout, and give them enough warning to stop it (WCAG 2.2.1).</p>
+
+      <div class="st-item" id="st-session-warning">
+        <h3>Session about to expire</h3>
+        <div class="st-preview ex-box">
+          <dialog class="v-dialog v-session ex-static" open aria-labelledby="pv-session-t" aria-describedby="pv-session-d">
+            <div class="v-dialog-header"><h4 class="v-dialog-title" id="pv-session-t" data-contrast>Your session is ending</h4></div>
+            <div class="v-dialog-body"><p id="pv-session-d">You will be signed out in <b class="v-session-time">1:59</b>.</p></div>
+            <div class="v-dialog-footer"><button class="v-btn v-btn-primary" type="button">Stay signed in</button></div>
+          </dialog>
+          <div><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="session-warn">Try it: warn, expires in 70 seconds</button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They are about to be signed out.</dd>
+          <dt>Why</dt><dd>No activity for a while; it protects their account.</dd>
+          <dt>They can</dt><dd>Stay signed in with one press.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Your session is ending. You will be signed out in 2 minutes.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Your session is ending. You will be signed out in 2 minutes.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>A modal <code>alertdialog</code>, focus on "Stay signed in", Escape also extends. Warn at least 2 minutes ahead; announce at minute marks and at 30 and 10 s.</dd>
+          <dt>Uses</dt><dd class="st-uses">session.warn({ expiresAt, onExtend })</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-session-expired">
+        <h3>Session expired</h3>
+        <div class="st-preview ex-box">
+          <form class="v-card v-stack" action="#st-session-expired" style="--v-gap: var(--v-space-3)">
+            <p class="v-card-title">Sign in again to save your changes</p>
+            <p class="v-text-sm v-text-secondary">Your session ended, but what you typed is safe on this device.</p>
+            <div class="v-grid" style="--v-min: 12rem">
+            <div class="v-field"><label class="v-label" for="se-email">Email</label><input class="v-input" id="se-email" type="email" autocomplete="username" value="aoife@example.com"></div>
+            <div class="v-field"><label class="v-label" for="se-pw">Password</label><input class="v-input" id="se-pw" type="password" autocomplete="current-password"></div>
+            </div>
+            <div><button class="v-btn v-btn-primary v-btn-sm" type="button">Sign in and save</button></div>
+          </form>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They were signed out.</dd>
+          <dt>Why</dt><dd>The session timed out.</dd>
+          <dt>They can</dt><dd>Sign in and land back where they were, work intact.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Sign in again to save your changes. What you typed is safe.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Sign in again to save your changes. What you typed is safe.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Keep the draft (local storage), fill in the email, focus the password. Use <code>autocomplete</code> so password managers help. Return them to the same page.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-card sign-in form with the draft kept</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-signed-out">
+        <h3>Signed out elsewhere</h3>
+        <div class="st-preview ex-box">
+          <div class="v-alert">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-log-in"/></svg>
+            <div class="v-alert-body"><p class="v-alert-title" data-contrast>You were signed out on this device</p><p>This happens after a password change, or when someone signs out of all devices in Settings. Sign in again to carry on.</p></div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>This device was signed out.</dd>
+          <dt>Why</dt><dd>A password change or "sign out everywhere".</dd>
+          <dt>They can</dt><dd>Sign in again, or secure the account if it wasn't them.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>You were signed out on this device. Sign in again to carry on.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="You were signed out on this device. Sign in again to carry on.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Shown on the sign-in page after the redirect, above the form, as plain content. No live region: it is there when the page loads.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-alert on the sign-in page</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-email-unverified">
+        <h3>Email not verified</h3>
+        <div class="st-preview ex-box">
+          <div class="v-banner v-banner-warning">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-mail"/></svg>
+            <p class="v-banner-body" data-contrast><strong>Please confirm your email.</strong> We sent a link to aoife@example.com.</p>
+            <div class="v-banner-actions" id="resend-slot"><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="resend-btn">Resend email</button><a class="v-btn v-btn-ghost v-btn-sm" href="#st-email-unverified">Change address</a></div>
+          </div>
+          <template id="resend-tpl"><p class="v-text-sm" data-v-countdown="30"><span data-v-when="running">Sent. You can resend in <b class="v-tabular" data-v-countdown-time>0:30</b></span><button class="v-btn v-btn-secondary v-btn-sm" type="button" data-v-when="done" hidden>Resend email</button></p></template>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Their email isn't confirmed yet.</dd>
+          <dt>Why</dt><dd>We need to know the address is theirs before we send anything important.</dd>
+          <dt>They can</dt><dd>Resend the link, or fix a typo in the address.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Please confirm your email. We sent a link to aoife@example.com.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Please confirm your email. We sent a link to aoife@example.com.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Persistent: no dismiss until it's done. The resend result is a polite toast; the wait before the next resend is a quiet countdown.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-banner-warning with actions, data-v-countdown on resend</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Form validation ============================== -->
+    <section class="st-group" id="validation" aria-labelledby="validation-h">
+      <h2 id="validation-h">Form validation</h2>
+      <p>Errors appear after a field is left or on submit, never while someone is still typing it the first time. The error summary is under <a href="#st-error-summary">Errors</a>.</p>
+
+      <div class="st-item" id="st-when-errors">
+        <h3>When errors show, and server errors</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 14rem">
+            <div class="v-field">
+              <label class="v-label" for="we-email">Email</label>
+              <input class="v-input" id="we-email" type="email" required aria-describedby="we-email-error">
+              <p class="v-field-error" id="we-email-error">Enter an email address like name@example.com</p>
+              <p class="v-hint">Type "aoife", then leave the field.</p>
+            </div>
+            <div class="v-field">
+              <label class="v-label" for="we-code">Discount code</label>
+              <input class="v-input" id="we-code" type="text" value="SUMMER24" aria-invalid="true" aria-describedby="we-code-error">
+              <p class="v-field-error" id="we-code-error" data-contrast>This code ended on 31 August</p>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>An answer doesn't fit, or the server turned it down.</dd>
+          <dt>Why</dt><dd>Name the rule, or the server's reason.</dd>
+          <dt>They can</dt><dd>Fix it in place; the message stays until they do.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>This code ended on 31 August</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="This code ended on 31 August">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Browser checks show through <code>:user-invalid</code>. Server errors set <code>aria-invalid="true"</code> and link the message with <code>aria-describedby</code>.</dd>
+          <dt>Uses</dt><dd class="st-uses">:user-invalid, aria-invalid from the server</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-valid">
+        <h3>Valid field</h3>
+        <div class="st-preview ex-box">
+          <div class="v-field">
+            <label class="v-label" for="vf-card">Card number</label>
+            <input class="v-input" id="vf-card" type="text" inputmode="numeric" autocomplete="cc-number" value="4242 4242 4242 4242" aria-describedby="vf-card-status">
+            <p class="v-field-status" id="vf-card-status" data-v-state="valid" data-contrast>Visa card number looks right</p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>A tricky answer checks out.</dd>
+          <dt>Why</dt><dd>Reassurance where mistakes are easy: card numbers, usernames.</dd>
+          <dt>They can</dt><dd>Move on with confidence.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Visa card number looks right</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Visa card number looks right">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Only on fields where it helps, never on every field. Linked with <code>aria-describedby</code> and announced politely by <code>fieldState()</code>.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-field-status[data-v-state="valid"]</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-async">
+        <h3>Async checks</h3>
+        <div class="st-preview ex-box">
+          <div class="v-grid" style="--v-min: 9rem">
+            <div class="v-field"><label class="v-label" for="ac-1">Username</label><input class="v-input" id="ac-1" type="text" value="aoife-b" aria-describedby="ac-1-s"><p class="v-field-status" id="ac-1-s" data-v-state="checking" data-contrast>Checking…</p></div>
+            <div class="v-field"><label class="v-label" for="ac-2">Username</label><input class="v-input" id="ac-2" type="text" value="aoife-byrne" aria-describedby="ac-2-s"><p class="v-field-status" id="ac-2-s" data-v-state="valid" data-contrast>aoife-byrne is available</p></div>
+            <div class="v-field"><label class="v-label" for="ac-3">Username</label><input class="v-input" id="ac-3" type="text" value="aoife" aria-invalid="true" aria-describedby="ac-3-s"><p class="v-field-status" id="ac-3-s" data-v-state="invalid" data-contrast>Taken. Try aoife-b2 or aoife-designs</p></div>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="user-check">Try it: pick a username</label>
+            <input class="v-input" id="user-check" type="text" autocomplete="off" aria-describedby="user-check-hint">
+            <p class="v-hint" id="user-check-hint">"aoife" and "admin" are taken.</p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The answer is being checked, then it's free or taken.</dd>
+          <dt>Why</dt><dd>Only the server knows.</dd>
+          <dt>They can</dt><dd>Take a suggestion with one tap.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Taken. Try aoife-b2 or aoife-designs</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Taken. Try aoife-b2 or aoife-designs">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Check once typing pauses (about 500 ms). Results are polite; "invalid" blocks the submit through custom validity, so it joins the error summary.</dd>
+          <dt>Uses</dt><dd class="st-uses">fieldState(input, 'checking' | 'valid' | 'invalid', message)</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-strength">
+        <h3>Password strength</h3>
+        <div class="st-preview ex-box">
+          <div class="v-field">
+            <label class="v-label" for="ps-pw">New password</label>
+            <input class="v-input" id="ps-pw" type="password" autocomplete="new-password" minlength="8" aria-describedby="ps-hint" data-v-strength="#ps-meter">
+            <meter class="v-meter" id="ps-meter" min="0" max="4" low="2" high="3" optimum="4" value="0" aria-label="Password strength"></meter>
+            <p class="v-hint" id="ps-hint">At least 8 characters, 12 or more is better. A few unrelated words work well.</p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>How strong the password is, as they type.</dd>
+          <dt>Why</dt><dd>Show the rules up front, not after a failure.</dd>
+          <dt>They can</dt><dd>Follow plain hints ("add another word").</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>At least 8 characters, 12 or more is better.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="At least 8 characters, 12 or more is better.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>The meter is labelled; the level is announced only when it changes, never per key.</dd>
+          <dt>Uses</dt><dd class="st-uses">data-v-strength on a .v-meter</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-char-limit">
+        <h3>Character limits</h3>
+        <div class="st-preview ex-box">
+          <div class="v-field" data-v-counter>
+            <label class="v-label" for="cl-msg">Message to the DJ</label>
+            <textarea class="v-input" id="cl-msg" rows="2" maxlength="140">Loved the closing track at Contrasts last night, what was it?</textarea>
+            <p class="v-counter" id="cl-msg-count" data-contrast></p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>How much room is left.</dd>
+          <dt>Why</dt><dd>The message has a limit.</dd>
+          <dt>They can</dt><dd>See it coming before they hit it.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>61 of 140</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="61 of 140">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Announced only in the last 10%, at the limit and when over, so screen readers don't hear every key.</dd>
+          <dt>Uses</dt><dd class="st-uses">data-v-counter on the .v-field</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-submit">
+        <h3>Submit button</h3>
+        <div class="st-preview ex-box">
+          <form class="v-cluster v-items-end" id="submit-form" action="#st-submit" data-v-validate>
+            <div class="v-field v-grow">
+              <label class="v-label" for="sb-email">Email for the newsletter</label>
+              <input class="v-input" id="sb-email" type="email" autocomplete="email" required>
+              <p class="v-field-error" id="sb-email-error">Enter an email address like name@example.com</p>
+            </div>
+            <button class="v-btn v-btn-primary" type="submit">Subscribe</button>
+          </form>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They pressed submit with something missing.</dd>
+          <dt>Why</dt><dd>A greyed-out button explains nothing.</dd>
+          <dt>They can</dt><dd>Press it, and see exactly what's missing.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Enter an email address like name@example.com</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Enter an email address like name@example.com">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Keep submit enabled. On press, mark the fields and move focus to the summary (or the only field). The one exception is type to confirm.</dd>
+          <dt>Uses</dt><dd class="st-uses">an enabled submit with data-v-validate</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-unsaved">
+        <h3>Unsaved changes</h3>
+        <div class="st-preview ex-box">
+          <dialog class="v-dialog ex-static" open role="alertdialog" aria-labelledby="us-t" aria-describedby="us-d">
+            <div class="v-dialog-header"><h4 class="v-dialog-title" id="us-t" data-contrast>Discard your changes?</h4></div>
+            <div class="v-dialog-body"><p id="us-d">You changed Invoice #1042. If you leave now, those changes are lost.</p></div>
+            <div class="v-dialog-footer"><button class="v-btn v-btn-secondary" type="button">Discard changes</button><button class="v-btn v-btn-primary" type="button">Keep editing</button></div>
+          </dialog>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They're leaving with edits that aren't saved.</dd>
+          <dt>Why</dt><dd>Leaving would lose them.</dd>
+          <dt>They can</dt><dd>Keep editing (the safe choice), or discard.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>You changed Invoice #1042. If you leave now, those changes are lost.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="You changed Invoice #1042. If you leave now, those changes are lost.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>For the page, <code>data-v-unsaved</code> asks the browser's own question. Inside an app, an <code>alertdialog</code> with focus on "Keep editing". Autosave makes both rare.</dd>
+          <dt>Uses</dt><dd class="st-uses">data-v-unsaved, and an alertdialog when closing a dialog</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-autosave">
+        <h3>Autosave</h3>
+        <div class="st-preview ex-box">
+          <div class="v-field">
+            <div class="v-cluster v-justify-between"><label class="v-label" for="autosave-text">Notes</label><p class="v-save-status" id="autosave-status" data-state="saved"><span class="v-save-status-text">Saved just now</span></p></div>
+            <textarea class="v-input" id="autosave-text" rows="2">Call Seán about the gutters on Thursday.</textarea>
+          </div>
+          <label class="v-choice"><input class="v-checkbox" id="autosave-fail" type="checkbox"><span>Make the next save fail</span></label>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Their work is saving, saved, or didn't save.</dd>
+          <dt>Why</dt><dd>It saves as they go, so they don't have to.</dd>
+          <dt>They can</dt><dd>Keep typing; retry if it fails.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Not saved, try again</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Not saved, try again">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Save about a second after typing stops. Only "Saved" and failures are announced, politely; "Saving…" stays silent.</dd>
+          <dt>Uses</dt><dd class="st-uses">saveStatus(el, 'saving' | 'saved' | 'failed')</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Success and confirmation ============================== -->
+    <section class="st-group" id="success" aria-labelledby="success-h">
+      <h2 id="success-h">Success and confirmation</h2>
+      <p>Confirm once, in proportion, and say what happens next.</p>
+
+      <div class="st-item" id="st-saved">
+        <h3>Saved</h3>
+        <div class="st-preview ex-box">
+          <div class="v-cluster"><button class="v-btn v-btn-primary v-btn-sm" type="button" id="save-inline">Try it: save settings</button><p class="v-save-status" id="save-inline-status" data-state="saved"><span class="v-save-status-text" data-contrast>Saved 2 minutes ago</span></p></div>
+          <div class="v-toast v-toast-success" style="max-inline-size: 24rem"><p class="v-toast-text" data-contrast>Settings saved</p><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Their change is stored.</dd>
+          <dt>Why</dt><dd>No reason needed.</dd>
+          <dt>They can</dt><dd>Carry on.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Settings saved</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Settings saved">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Inline status next to the button when they stay on the page; a toast when the page changes. One polite announcement either way.</dd>
+          <dt>Uses</dt><dd class="st-uses">inline .v-save-status, or a toast: not both</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-done">
+        <h3>Done page</h3>
+        <div class="st-preview ex-box">
+          <div class="v-empty v-empty-success">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-calendar"/></svg></span>
+            <p class="v-empty-title" data-contrast>Booking confirmed</p>
+            <p class="v-max-prose">Thursday 6 November, 10:30 at Tuam Physio. We've emailed the details to aoife@example.com. Reference TP-4821.</p>
+            <ol class="v-text-start v-text-secondary v-text-sm" style="padding-inline-start: 1.25em; list-style: decimal">
+              <li>We'll text you a reminder the day before.</li>
+              <li>Arrive 5 minutes early to fill in a short form.</li>
+              <li>Change or cancel up to 24 hours before, free.</li>
+            </ol>
+            <div class="v-cluster v-justify-center"><a class="v-btn v-btn-primary v-btn-sm" href="#st-done">Add to calendar</a><a class="v-btn v-btn-ghost v-btn-sm" href="#st-done">Back to bookings</a></div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>It worked: sent, ordered, booked.</dd>
+          <dt>Why</dt><dd>Repeat the key facts back: what, when, where.</dd>
+          <dt>They can</dt><dd>Know what happens next and what to do if plans change.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Booking confirmed. We've emailed the details to aoife@example.com.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Booking confirmed. We've emailed the details to aoife@example.com.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>A real page with its own title ("Booking confirmed"); focus starts at the heading. Give a reference they can quote.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-empty-success with what happens next</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-undo">
+        <h3>Undo</h3>
+        <div class="st-preview ex-box">
+          <div class="v-toast v-toast-success" style="max-inline-size: 24rem"><p class="v-toast-text" data-contrast>"Atlas web" archived</p><button class="v-toast-action" type="button">Undo</button><button class="v-toast-close" type="button" aria-label="Dismiss"></button></div>
+          <ul class="v-list" id="undo-list" aria-label="Projects">
+            <li class="v-list-item" tabindex="-1"><span class="v-list-body"><span class="v-list-title">Atlas web</span></span><span class="v-list-end"><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-archive>Archive</button></span></li>
+            <li class="v-list-item" tabindex="-1"><span class="v-list-body"><span class="v-list-title">Bluepeak brochure</span></span><span class="v-list-end"><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-archive>Archive</button></span></li>
+            <li class="v-list-item" tabindex="-1"><span class="v-list-body"><span class="v-list-title">Spring promo</span></span><span class="v-list-end"><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-archive>Archive</button></span></li>
+          </ul>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>It's done, and it can be taken back.</dd>
+          <dt>Why</dt><dd>Undo is kinder and faster than "Are you sure?".</dd>
+          <dt>They can</dt><dd>Undo for at least 10 seconds.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Project archived. Undo</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Project archived. Undo">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Polite, "Undo available" is read with it. The timer pauses on hover and focus. Undo puts the item back in place and focus on it.</dd>
+          <dt>Uses</dt><dd class="st-uses">toast(message, { undo })</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-check-email">
+        <h3>Check your email</h3>
+        <div class="st-preview ex-box">
+          <div class="v-empty v-empty-accent">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-mail"/></svg></span>
+            <p class="v-empty-title" data-contrast>Check your email</p>
+            <p class="v-max-prose">We sent a sign-in link to aoife@example.com. It works for 15 minutes.</p>
+            <p class="v-text-sm v-text-secondary">Nothing there? Check spam, or <a href="#st-check-email">send it again</a>. <a href="#st-check-email">Wrong address?</a></p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>An email is on its way.</dd>
+          <dt>Why</dt><dd>Sign-up, a reset or an invite needs it.</dd>
+          <dt>They can</dt><dd>Open it, resend it, or fix the address.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>We sent a sign-in link to aoife@example.com. It works for 15 minutes.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="We sent a sign-in link to aoife@example.com. It works for 15 minutes.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Show the address they typed so typos are obvious. Resend has a short wait (see <a href="#st-email-unverified">Email not verified</a>).</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-empty-accent</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-copied">
+        <h3>Copied</h3>
+        <div class="st-preview ex-box">
+          <div class="v-field">
+            <label class="v-label" for="cp-link">Share link</label>
+            <div class="v-input-group">
+              <input class="v-input" id="cp-link" type="text" value="atlas.example/p/midnight-drive" readonly>
+              <button class="v-btn v-btn-secondary" type="button" data-v-copy-target="#cp-link-text"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</button>
+            </div>
+            <span class="v-sr-only" id="cp-link-text">atlas.example/p/midnight-drive</span>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The text is on the clipboard.</dd>
+          <dt>Why</dt><dd>They pressed Copy.</dd>
+          <dt>They can</dt><dd>Paste it anywhere.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Copied</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Copied">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>The label reads "Copied" for 2 s and "Copied to clipboard" is announced politely. If the clipboard is blocked, the text is selected instead.</dd>
+          <dt>Uses</dt><dd class="st-uses">data-v-copy, data-v-copy-target</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Destructive actions ============================== -->
+    <section class="st-group" id="destructive" aria-labelledby="destructive-h">
+      <h2 id="destructive-h">Destructive actions</h2>
+      <p>Say exactly what will be lost, make the safe choice the easy one, and name the action on the button.</p>
+
+      <div class="st-item" id="st-confirm">
+        <h3>Confirm dialog</h3>
+        <div class="st-preview ex-box">
+          <dialog class="v-dialog v-dialog-danger ex-static" open role="alertdialog" aria-labelledby="cd-t" aria-describedby="cd-d">
+            <div class="v-dialog-header"><span class="v-dialog-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-trash"/></svg></span><h4 class="v-dialog-title" id="cd-t" data-contrast>Delete "Atlas web"?</h4></div>
+            <div class="v-dialog-body"><p id="cd-d">This deletes the project, its 24 files and 3 integrations for everyone. You can't undo this.</p></div>
+            <div class="v-dialog-footer"><button class="v-btn v-btn-secondary" type="button">Keep project</button><button class="v-btn v-btn-danger" type="button">Delete project</button></div>
+          </dialog>
+          <div><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="open-delete">Try it: delete a project</button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They asked to delete something that can't come back.</dd>
+          <dt>Why</dt><dd>List what goes with it: files, people, integrations.</dd>
+          <dt>They can</dt><dd>Keep it (the default), or delete it.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>This deletes the project, its 24 files and 3 integrations for everyone. You can't undo this.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="This deletes the project, its 24 files and 3 integrations for everyone. You can't undo this.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>A modal <code>alertdialog</code>; first focus on the safe button; Escape cancels and focus returns to the trigger. The danger button says "Delete project", never "OK".</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-dialog.v-dialog-danger[role="alertdialog"]</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-type-confirm">
+        <h3>Type to confirm</h3>
+        <div class="st-preview ex-box">
+          <dialog class="v-dialog v-dialog-danger ex-static" open role="alertdialog" aria-labelledby="tc-t" aria-describedby="tc-d">
+            <form method="dialog" id="tc-form">
+              <div class="v-dialog-header"><span class="v-dialog-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-trash"/></svg></span><h4 class="v-dialog-title" id="tc-t" data-contrast>Delete the workspace?</h4></div>
+              <div class="v-dialog-body v-stack" style="--v-gap: var(--v-space-3)">
+                <p id="tc-d">Everything in Contrasts Records goes: 12 projects, 1,240 files and every member's access.</p>
+                <div class="v-field">
+                  <label class="v-label" for="tc-input">Type <strong>contrasts-records</strong> to confirm</label>
+                  <input class="v-input" id="tc-input" type="text" autocomplete="off" spellcheck="false" required pattern="contrasts-records" data-v-confirm-text="contrasts-records">
+                </div>
+              </div>
+              <div class="v-dialog-footer"><button class="v-btn v-btn-secondary" type="button">Keep workspace</button><button class="v-btn v-btn-danger" type="submit" id="tc-submit">Delete workspace</button></div>
+            </form>
+          </dialog>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>They're about to do the most serious thing in the app.</dd>
+          <dt>Why</dt><dd>Typing the name makes sure it's the right one, on purpose.</dd>
+          <dt>They can</dt><dd>Type the name to unlock the button, or back out.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Type contrasts-records to confirm</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Type contrasts-records to confirm">Copy</button></span></dd>
+          <dt>Wiring</dt><dd><code>data-v-confirm-text</code> enables submit only on an exact match and resets when the dialog closes. Add <code>required</code> and <code>pattern</code> so it holds without JS. Allow paste.</dd>
+          <dt>Uses</dt><dd class="st-uses">data-v-confirm-text on the input</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-bulk">
+        <h3>Bulk actions</h3>
+        <div class="st-preview ex-box">
+          <div class="v-cluster v-justify-between">
+            <p class="v-fw-semibold" role="status">12 files selected</p>
+            <div class="v-cluster v-gap-2"><button class="v-btn v-btn-ghost v-btn-sm" type="button">Clear selection</button><button class="v-btn v-btn-danger v-btn-sm" type="button" id="open-bulk"><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete 12 files</button></div>
+          </div>
+          <dialog class="v-dialog v-dialog-danger ex-static" open role="alertdialog" aria-labelledby="bk-t" aria-describedby="bk-d">
+            <div class="v-dialog-header"><h4 class="v-dialog-title" id="bk-t" data-contrast>Delete 12 files?</h4></div>
+            <div class="v-dialog-body"><p id="bk-d">site-plan.pdf, roof-photo.heic, quote-1042.pdf and 9 more. They move to Trash for 30 days.</p></div>
+            <div class="v-dialog-footer"><button class="v-btn v-btn-secondary" type="button">Cancel</button><button class="v-btn v-btn-danger" type="button">Delete 12 files</button></div>
+          </dialog>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>One action on many items.</dd>
+          <dt>Why</dt><dd>The count prevents the "I only meant one" surprise.</dd>
+          <dt>They can</dt><dd>See the count and a few names before they commit.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Delete 12 files?</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Delete 12 files?">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>The selection count is a polite <code>role="status"</code>. The count appears in the button and the dialog title. Say where things go (Trash, 30 days).</dd>
+          <dt>Uses</dt><dd class="st-uses">the count in the button and the dialog</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Content status ============================== -->
+    <section class="st-group" id="content-status" aria-labelledby="content-status-h">
+      <h2 id="content-status-h">Content status</h2>
+      <p>Status is a word first and a colour second, so it reads the same to everyone.</p>
+
+      <div class="st-item" id="st-publishing">
+        <h3>Publishing</h3>
+        <div class="st-preview ex-box">
+          <div class="v-table-wrap" role="region" aria-label="Posts" tabindex="0">
+            <table class="v-table">
+              <thead><tr><th scope="col">Post</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+                <tr><td>Spring roofing offer</td><td><span class="v-badge v-badge-outline v-badge-dot">Draft</span></td></tr>
+                <tr><td>Gig guide: November</td><td><span class="v-badge v-badge-info v-badge-dot">Scheduled</span> <span class="v-text-sm v-text-secondary">3 Nov, 09:00</span></td></tr>
+                <tr><td>Midnight Drive is out</td><td><span class="v-badge v-badge-success v-badge-dot">Published</span></td></tr>
+                <tr><td>Summer opening hours</td><td><span class="v-badge v-badge-dot">Archived</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Where each item is in its life.</dd>
+          <dt>Why</dt><dd>Draft, scheduled, published or archived.</dd>
+          <dt>They can</dt><dd>See at a glance, and when.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Scheduled for 3 November, 09:00</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Scheduled for 3 November, 09:00">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>The badge text is the status; the dot is decoration. Use <code>&lt;time datetime&gt;</code> for dates. Use the same word everywhere for the same status.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-badge-dot per status in a .v-table</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-new-unread">
+        <h3>New and unread</h3>
+        <div class="st-preview ex-box">
+          <div class="st-feed" id="feed-scroll" role="region" aria-label="Feed" tabindex="0">
+            <div class="v-new-items" id="feed-pill"><button class="v-btn v-btn-primary v-btn-sm" type="button" id="feed-show"><svg class="v-icon" aria-hidden="true"><use href="#i-arrow-up"/></svg><span>3 new posts</span></button></div>
+            <ul class="v-list" id="feed">
+              <li class="v-list-item" tabindex="-1"><span class="v-dot"></span><span class="v-sr-only">Unread:</span><span class="v-list-body"><span class="v-list-title">Vintage &amp; Morelli shared a new promo</span><span class="v-list-meta">2 minutes ago</span></span><span class="v-list-end"><span class="v-badge v-badge-accent">New</span></span></li>
+              <li class="v-list-item" tabindex="-1"><span class="v-dot"></span><span class="v-sr-only">Unread:</span><span class="v-list-body"><span class="v-list-title">Martin Graff commented on Midnight Drive</span><span class="v-list-meta">1 hour ago</span></span></li>
+              <li class="v-list-item" tabindex="-1"><span class="v-list-body"><span class="v-list-title">Your payout of €84.20 was sent</span><span class="v-list-meta">Yesterday</span></span></li>
+              <li class="v-list-item" tabindex="-1"><span class="v-list-body"><span class="v-list-title">Contrasts Records added you to a release</span><span class="v-list-meta">Monday</span></span></li>
+            </ul>
+          </div>
+          <div><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="feed-sim">Try it: 3 more posts arrive</button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>New things arrived, or haven't been seen yet.</dd>
+          <dt>Why</dt><dd>Activity since their last visit.</dd>
+          <dt>They can</dt><dd>Show the new posts when they're ready, without losing their place.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>3 new posts</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="3 new posts">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>New posts never push the feed: <code>.v-new-items</code> takes no height. Announce the count once, politely. The button inserts them and moves focus to the first. Each dot has "Unread" as hidden text.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-dot, .v-badge-accent, .v-new-items</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-feature-labels">
+        <h3>Feature labels</h3>
+        <div class="st-preview ex-box">
+          <ul class="v-list" aria-label="Features">
+            <li class="v-list-item"><span class="v-list-body"><span class="v-list-title">Insights <span class="v-badge v-badge-info">Beta</span></span><span class="v-list-meta">Numbers may change while we test it.</span></span></li>
+            <li class="v-list-item"><span class="v-list-body"><span class="v-list-title">Live QR tips <span class="v-badge v-badge-accent">New</span></span><span class="v-list-meta">Fans can tip from a code on the screen.</span></span></li>
+            <li class="v-list-item"><span class="v-list-body"><span class="v-list-title">Legacy webhooks <span class="v-badge v-badge-warning">Deprecated</span></span><span class="v-list-meta">Stops on 1 March 2027. Move to Webhooks v2.</span></span></li>
+          </ul>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>A feature is new, still being tested, or on its way out.</dd>
+          <dt>Why</dt><dd>So people set their expectations.</dd>
+          <dt>They can</dt><dd>Try it, give feedback, or move before the date.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Deprecated. Stops on 1 March 2027. Move to Webhooks v2.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Deprecated. Stops on 1 March 2027. Move to Webhooks v2.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>The label is text after the name, so it reads "Insights, Beta". Deprecated always comes with a date and what to use instead. Remove "New" after a few weeks.</dd>
+          <dt>Uses</dt><dd class="st-uses">.v-badge-info, -accent, -warning after the name</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== Environment and edge cases ============================== -->
+    <section class="st-group" id="edge-cases" aria-labelledby="edge-h">
+      <h2 id="edge-h">Environment and edge cases</h2>
+      <p>The states above have to survive real data, small screens, other languages and other settings.</p>
+
+      <div class="st-item" id="st-no-js">
+        <h3>No JavaScript</h3>
+        <div class="st-preview ex-box">
+          <div class="v-alert">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>
+            <div class="v-alert-body"><p class="v-alert-title" data-contrast>Live chat needs JavaScript</p><p>Everything else on this page works without it. You can email support@atlas.example instead.</p></div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Scripts didn't run.</dd>
+          <dt>Why</dt><dd>Blocked, failed to load, or switched off.</dd>
+          <dt>They can</dt><dd>Use everything else, and reach the one feature another way.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Live chat needs JavaScript. You can email us instead.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Live chat needs JavaScript. You can email us instead.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Previews, forms, dialogs and validation work natively. Put a <code>&lt;noscript&gt;</code> notice next to the one feature that needs JS, never a page-wide warning.</dd>
+          <dt>Uses</dt><dd class="st-uses">&lt;noscript&gt; with a .v-alert, only where a feature needs JS</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-long-content">
+        <h3>Long and unusual content</h3>
+        <div class="st-preview ex-box" id="edge-long">
+          <ul class="v-list" aria-label="Long content">
+            <li class="v-list-item"><span class="v-avatar" aria-hidden="true">MW</span><span class="v-list-body"><span class="v-list-title">Maximiliana Wolfeschlegelsteinhausenbergerdorff-Ó Súilleabháin</span><span class="v-list-meta">quarterly-report-final-FINAL-v12-approved-by-legal-and-finance-2026.pdf</span></span><span class="v-list-end"><span class="v-badge">Draft</span></span></li>
+            <li class="v-list-item"><span class="v-avatar" aria-hidden="true"><svg class="v-icon"><use href="#i-user"/></svg></span><span class="v-list-body"><span class="v-list-title">Pneumonoultramicroscopicsilicovolcanoconiosisresearchgroup</span><span class="v-list-meta">No photo, so the avatar falls back to an icon</span></span></li>
+          </ul>
+          <div class="v-grid" style="--v-min: 9rem">
+            <div class="v-card v-stat"><p class="v-stat-label">Orders</p><p class="v-stat-value v-tabular">0</p></div>
+            <div class="v-card v-stat"><p class="v-stat-label">Plays</p><p class="v-stat-value v-tabular">1.28B</p><p class="v-text-sm v-text-secondary">1,284,903,221 plays</p></div>
+            <div class="v-card v-stat"><p class="v-stat-label">Balance</p><p class="v-stat-value v-tabular">€12.3M</p><p class="v-text-sm v-text-secondary">€12,345,678.90</p></div>
+          </div>
+          <div class="v-banner v-banner-warning">
+            <svg class="v-icon" aria-hidden="true"><use href="#i-warning"/></svg>
+            <p class="v-banner-body"><strong>Link expired:</strong> atlas.example/invite/7f3a91c2b8d44e0f9a1c3b7e5d2f8a6c4b0e9d1f</p>
+          </div>
+          <div class="v-empty v-empty-sm v-empty-danger">
+            <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-alert"/></svg></span>
+            <p class="v-empty-title">Couldn't open Supercalifragilisticexpialidocious_Final_Master_24bit.wav</p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>Real data is longer, emptier or bigger than the mock-up.</dd>
+          <dt>Why</dt><dd>Names, file names, links and totals don't fit a design.</dd>
+          <dt>They can</dt><dd>Still read everything; nothing is cut off or pushed off screen.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>No photo yet</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="No photo yet">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Lists, banners, alerts, toasts and empty states wrap unbroken words for you. Shorten huge numbers (<code>Intl.NumberFormat</code>, compact) and keep the full value next to them. Avatars fall back to initials or an icon. Show 0, not a blank.</dd>
+          <dt>Uses</dt><dd class="st-uses">real data: long names, unbroken words, missing images, 0 and huge numbers</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-small-screens">
+        <h3>Small screens and zoom</h3>
+        <div class="st-preview ex-box">
+          <div class="st-narrow v-stack" style="--v-gap: var(--v-space-3)">
+            <div class="v-banner v-banner-warning">
+              <svg class="v-icon" aria-hidden="true"><use href="#i-wifi-off"/></svg>
+              <p class="v-banner-body" data-contrast><strong>You're offline.</strong> Changes save when you're back.</p>
+            </div>
+            <div class="v-card v-empty v-empty-sm v-empty-danger">
+              <span class="v-empty-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-alert"/></svg></span>
+              <p class="v-empty-title" data-contrast>Couldn't load orders</p>
+              <button class="v-btn v-btn-secondary v-btn-sm" type="button">Try again</button>
+            </div>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The screen is small, or the text is very large.</dd>
+          <dt>Why</dt><dd>Phones, split screens, and people who zoom to read (WCAG 1.4.10).</dd>
+          <dt>They can</dt><dd>Read every state without scrolling sideways.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Changes save when you're back.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Changes save when you're back.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>This whole page reflows at 320 px; only tables and code scroll, inside their own focusable region. Short copy helps here most.</dd>
+          <dt>Uses</dt><dd class="st-uses">320 px wide, the same as 1280 px at 400% zoom</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-rtl">
+        <h3>Right to left</h3>
+        <div class="st-preview ex-box">
+          <div class="v-stack" id="rtl-demo" dir="rtl" lang="ar" style="--v-gap: var(--v-space-3)">
+            <div class="v-banner v-banner-warning">
+              <svg class="v-icon" aria-hidden="true"><use href="#i-wifi-off"/></svg>
+              <p class="v-banner-body"><strong>أنت غير متصل بالإنترنت.</strong> يمكنك متابعة العمل، وستُحفظ تغييراتك عند عودة الاتصال.</p>
+            </div>
+            <div class="v-skeleton-row" aria-hidden="true"><span class="v-skeleton v-skeleton-circle"></span><span class="v-skeleton-lines"><span class="v-skeleton v-skeleton-text"></span><span class="v-skeleton v-skeleton-text"></span></span></div>
+            <ul class="v-list" aria-label="الرسائل">
+              <li class="v-list-item"><span class="v-dot"></span><span class="v-sr-only">غير مقروءة:</span><span class="v-list-body"><span class="v-list-title">ليلى حداد</span><span class="v-list-meta">عرض سعر للسقف</span></span><span class="v-list-end"><span class="v-badge v-badge-accent">جديد</span></span></li>
+            </ul>
+            <div class="v-field">
+              <label class="v-label" for="rtl-email">البريد الإلكتروني</label>
+              <input class="v-input" id="rtl-email" type="email" dir="ltr" value="layla@" aria-invalid="true" aria-describedby="rtl-email-error">
+              <p class="v-field-error" id="rtl-email-error">أدخل بريدًا إلكترونيًا مثل name@example.com</p>
+            </div>
+          </div>
+          <div><button class="v-btn v-btn-secondary v-btn-sm" type="button" id="flip-dir" aria-pressed="false">Try it: flip the whole page</button></div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The language reads right to left.</dd>
+          <dt>Why</dt><dd>Arabic, Hebrew, Persian, Urdu.</dd>
+          <dt>They can</dt><dd>Use every state, mirrored, with nothing out of place.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Write the copy in the person's language, not a mirrored English one.</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Write the copy in the person's language, not a mirrored English one.">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Vectra uses logical properties throughout, so <code>dir="rtl"</code> is all it takes. Set <code>lang</code> too, so screen readers pick the right voice, and keep emails and codes <code>dir="ltr"</code>.</dd>
+          <dt>Uses</dt><dd class="st-uses">dir="rtl" on a container, or on &lt;html&gt;</dd>
+        </dl>
+      </div>
+
+      <div class="st-item" id="st-settings">
+        <h3>Reduced motion, forced colours and print</h3>
+        <div class="st-preview ex-box">
+          <div class="v-cluster">
+            <p class="v-cluster v-gap-2"><span class="v-spinner" aria-hidden="true"></span><span>Loading</span></p>
+            <p class="v-save-status" data-state="failed"><span class="v-save-status-text" data-contrast>Not saved, try again</span></p>
+            <span class="v-badge v-badge-success v-badge-dot">Published</span>
+            <p class="v-cluster v-gap-2"><span class="v-dot"></span><span>Unread</span></p>
+          </div>
+        </div>
+        <dl class="st-guide">
+          <dt>Happened</dt><dd>The person changed how their screen behaves.</dd>
+          <dt>Why</dt><dd>Motion sickness, low vision, high contrast, or paper.</dd>
+          <dt>They can</dt><dd>Read every state just as clearly.</dd>
+          <dt>Say</dt><dd><span class="st-say"><q data-contrast>Loading</q><button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-copy="Loading">Copy</button></span></dd>
+          <dt>Wiring</dt><dd>Under reduced motion, spinners and skeletons stop but keep their shape, and words carry the meaning. Forced colours draw dots and icons in system colours. Never let animation be the only signal.</dd>
+          <dt>Uses</dt><dd class="st-uses">no motion needed to understand a state</dd>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="v-dialog v-dialog-danger" id="dlg-delete" role="alertdialog" aria-labelledby="dlg-delete-t" aria-describedby="dlg-delete-d">
+    <div class="v-dialog-header"><span class="v-dialog-icon" aria-hidden="true"><svg class="v-icon"><use href="#i-trash"/></svg></span><h2 class="v-dialog-title" id="dlg-delete-t">Delete "Atlas web"?</h2></div>
+    <div class="v-dialog-body"><p id="dlg-delete-d">This deletes the project, its 24 files and 3 integrations for everyone. You can't undo this.</p></div>
+    <form class="v-dialog-footer" method="dialog">
+      <button class="v-btn v-btn-secondary" value="keep" autofocus>Keep project</button>
+      <button class="v-btn v-btn-danger" value="delete">Delete project</button>
+    </form>
+  </dialog>
+
+  <dialog class="v-dialog v-dialog-danger" id="dlg-bulk" role="alertdialog" aria-labelledby="dlg-bulk-t" aria-describedby="dlg-bulk-d">
+    <div class="v-dialog-header"><h2 class="v-dialog-title" id="dlg-bulk-t">Delete 12 files?</h2></div>
+    <div class="v-dialog-body"><p id="dlg-bulk-d">site-plan.pdf, roof-photo.heic, quote-1042.pdf and 9 more. They move to Trash for 30 days.</p></div>
+    <form class="v-dialog-footer" method="dialog">
+      <button class="v-btn v-btn-secondary" value="cancel" autofocus>Cancel</button>
+      <button class="v-btn v-btn-danger" value="delete">Delete 12 files</button>
+    </form>
+  </dialog>
+
+  <script type="module">
+    /* Gallery only: the "Try it" buttons drive the real kit modules. window.Vectra is for the tests. */
+    import * as Vectra from '../../src/js/index.js';
+    window.Vectra = Vectra;
+    const $ = (id) => document.getElementById(id);
+    const on = (id, fn) => $(id).addEventListener('click', fn);
+    const wait = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); });
+
+    // Inline loading: a busy button that keeps its label, and a section refreshed in place.
+    on('demo-save', async (e) => {
+      const btn = e.currentTarget;
+      if (btn.ariaBusy === 'true') return;
+      btn.ariaBusy = 'true';
+      btn.textContent = 'Saving…';
+      await wait(1500);
+      btn.removeAttribute('aria-busy');
+      btn.textContent = 'Try it: save';
+      Vectra.toast('Changes saved', { tone: 'success' });
+    });
+    on('demo-refresh', async () => {
+      $('orders-card').ariaBusy = 'true';
+      $('orders-status').textContent = 'Refreshing…';
+      await wait(2000);
+      $('orders-card').ariaBusy = 'false';
+      $('orders-status').textContent = 'Updated just now';
+    });
+
+    // Slow loading: the region is busy for 8 s; data-v-slow shows its note after 3 s.
+    let slowTimer;
+    const slowLoad = () => {
+      clearTimeout(slowTimer);
+      $('slow-region').ariaBusy = 'true';
+      $('slow-content').textContent = 'Loading orders…';
+      slowTimer = setTimeout(() => {
+        $('slow-region').ariaBusy = 'false';
+        $('slow-content').textContent = '24 orders loaded.';
+      }, 8000);
+    };
+    on('slow-start', slowLoad);
+    on('slow-retry', slowLoad);
+    on('slow-cancel', () => {
+      clearTimeout(slowTimer);
+      $('slow-region').ariaBusy = 'false';
+      $('slow-content').textContent = 'Loading stopped. You can try again whenever you like.';
+      $('slow-start').focus();
+    });
+
+    // Loading more: three at a time, then the end of the list.
+    let shown = 3;
+    on('more-btn', async (e) => {
+      const btn = e.currentTarget;
+      btn.ariaBusy = 'true';
+      btn.disabled = true;
+      await wait(800);
+      const list = $('more-list');
+      let first;
+      for (let i = 1; i <= 3; i += 1) {
+        const n = shown + i;
+        const li = list.firstElementChild.cloneNode(true);
+        li.querySelector('.v-list-title').textContent = `Order #${1000 + n}`;
+        list.append(li);
+        first ??= li;
+      }
+      shown += 3;
+      btn.removeAttribute('aria-busy');
+      btn.disabled = false;
+      $('more-status').textContent = `3 more orders loaded. Showing ${shown} of 9.`;
+      $('more-count').textContent = shown < 9 ? `Showing ${shown} of 9 orders` : "That's all 9 orders.";
+      if (shown >= 9) btn.hidden = true;
+      first.focus();
+    });
+
+    on('fail-toast', () => Vectra.toast("Couldn't send the invite", { tone: 'danger', action: { label: 'Retry', onClick: () => Vectra.toast('Invite sent', { tone: 'success' }) } }));
+
+    // Too many requests: the third quick try gets a countdown.
+    let tries = 0;
+    let waiting = false;
+    $('rate-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (waiting) return Vectra.toast('Still waiting. Try again when the timer ends.', { tone: 'warning' });
+      tries += 1;
+      if (tries < 3) return Vectra.toast(`Wrong password. ${3 - tries} ${3 - tries === 1 ? 'try' : 'tries'} left before a short wait.`, { tone: 'warning' });
+      tries = 0;
+      waiting = true;
+      const box = $('rate-tpl').content.firstElementChild.cloneNode(true);
+      box.addEventListener('v:done', () => { waiting = false; });
+      $('rate-slot').replaceChildren(box);
+    });
+
+    // Connection: the browser decides navigator.onLine, so the buttons override it.
+    const simulate = (online) => {
+      Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => online });
+      window.dispatchEvent(new Event(online ? 'online' : 'offline'));
+    };
+    on('go-offline', () => simulate(false));
+    on('go-online', () => simulate(true));
+    on('go-slow', () => Vectra.connection.slow(true));
+    on('go-fast', () => Vectra.connection.slow(false));
+
+    on('retry-start', () => {
+      const box = $('retry-tpl').content.firstElementChild.cloneNode(true);
+      box.querySelector('button').addEventListener('click', () => { box.dataset.vCountdown = '0'; });
+      box.tabIndex = -1;
+      $('retry-slot').replaceChildren(box);
+      box.focus();
+    });
+
+    on('session-warn', () => Vectra.session.warn({
+      expiresAt: Date.now() + 70_000,
+      onExtend: () => Vectra.toast('You are still signed in', { tone: 'success' }),
+      onSignIn: () => Vectra.toast('Signed in again', { tone: 'success' }),
+    }));
+
+    // Email not verified: resend, then a quiet wait before the next one.
+    const resend = () => {
+      Vectra.toast('Email sent. It can take a minute to arrive.', { tone: 'success' });
+      const wait30 = $('resend-tpl').content.firstElementChild.cloneNode(true);
+      wait30.querySelector('button').addEventListener('click', resend);
+      wait30.tabIndex = -1;
+      $('resend-slot').firstElementChild.replaceWith(wait30);
+      wait30.focus();
+    };
+    on('resend-btn', resend);
+
+    // Async check: waits for a pause in typing, then answers.
+    let checkTimer;
+    $('user-check').addEventListener('input', (e) => {
+      const input = e.currentTarget;
+      clearTimeout(checkTimer);
+      const name = input.value.trim().toLowerCase();
+      if (!name) return Vectra.fieldState(input, 'clear');
+      checkTimer = setTimeout(async () => {
+        Vectra.fieldState(input, 'checking', 'Checking…');
+        await wait(700);
+        if (input.value.trim().toLowerCase() !== name) return;
+        if (['aoife', 'admin'].includes(name)) Vectra.fieldState(input, 'invalid', `Taken. Try ${name}-b2 or ${name}-designs`);
+        else Vectra.fieldState(input, 'valid', `${name} is available`);
+      }, 500);
+    });
+
+    // Autosave: saves a second after typing stops.
+    let saveTimer;
+    const status = $('autosave-status');
+    $('autosave-text').addEventListener('input', () => {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(async () => {
+        Vectra.saveStatus(status, 'saving');
+        await wait(700);
+        Vectra.saveStatus(status, $('autosave-fail').checked ? 'failed' : 'saved');
+      }, 1000);
+    });
+
+    on('save-inline', () => Vectra.saveStatus($('save-inline-status'), 'saved'));
+
+    // Undo: archive takes the row out; Undo puts it back where it was, with focus on it.
+    $('undo-list').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-archive]');
+      if (!btn) return;
+      const row = btn.closest('li');
+      const next = row.nextElementSibling;
+      const list = row.parentElement;
+      const name = row.querySelector('.v-list-title').textContent;
+      (next ?? row.previousElementSibling)?.querySelector('button')?.focus();
+      row.remove();
+      Vectra.toast(`"${name}" archived`, { tone: 'success', undo: () => { list.insertBefore(row, next); row.focus(); } });
+    });
+
+    on('open-delete', () => $('dlg-delete').showModal());
+    $('dlg-delete').addEventListener('close', (e) => { if (e.target.returnValue === 'delete') Vectra.toast('"Atlas web" deleted'); });
+    on('open-bulk', () => $('dlg-bulk').showModal());
+    $('dlg-bulk').addEventListener('close', (e) => { if (e.target.returnValue === 'delete') Vectra.toast('12 files moved to Trash', { tone: 'success', undo: () => Vectra.toast('12 files restored') }); });
+    $('tc-form').addEventListener('submit', (e) => { e.preventDefault(); Vectra.toast('Preview only: nothing was deleted'); e.target.reset(); });
+
+    // New posts: the pill appears without moving the feed; showing them moves focus to the first.
+    on('feed-sim', () => {
+      $('feed-pill').hidden = false;
+      Vectra.announce('3 new posts');
+    });
+    on('feed-show', () => {
+      const feed = $('feed');
+      const posts = ['Seán Murphy liked Midnight Drive', 'Ciara Doyle followed you', 'Bea Bakes shared your tip link'];
+      const rows = posts.map((title) => {
+        const li = feed.firstElementChild.cloneNode(true);
+        li.querySelector('.v-list-title').textContent = title;
+        li.querySelector('.v-list-meta').textContent = 'Just now';
+        return li;
+      });
+      feed.prepend(...rows);
+      $('feed-pill').hidden = true;
+      $('feed-scroll').scrollTop = 0;
+      rows[0].focus();
+    });
+
+    on('flip-dir', (e) => {
+      const rtl = document.documentElement.dir !== 'rtl';
+      document.documentElement.dir = rtl ? 'rtl' : 'ltr';
+      e.currentTarget.ariaPressed = String(rtl);
+    });
+  </script>
+</body>
+</html>
