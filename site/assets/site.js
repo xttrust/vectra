@@ -188,23 +188,6 @@
     });
   }
 
-  /* While focus is inside a demo or preview frame, mark the box around it (site.css draws the ring there):
-     the frame clips anything drawn outside it, and the parent page cannot style a focused iframe. */
-  function ringWhileFocused(frame, holder) {
-    var hook = function () {
-      var win = frame.contentWindow;
-      if (!win || win.vRing) return;
-      win.vRing = true;
-      win.addEventListener('focus', function () { holder.dataset.frameFocus = ''; });
-      win.addEventListener('blur', function () { delete holder.dataset.frameFocus; });
-    };
-    frame.addEventListener('load', hook);
-    hook();
-  }
-  document.querySelectorAll('[data-demo] iframe').forEach(function (f) { ringWhileFocused(f, f.closest('[data-demo]')); });
-  var preview = document.getElementById('tb-frame');
-  if (preview) ringWhileFocused(preview, preview.closest('.tb-stage'));
-
   var examples = document.querySelectorAll('[data-demo]');
   examples.forEach(wire);
   var all = function () { examples.forEach(apply); };
@@ -262,4 +245,18 @@
     live.forEach(function (el) { el.textContent = cs.getPropertyValue(el.dataset.token).trim() || '(not set)'; });
   };
   if (live.length) { readTokens(); root.addEventListener('v:theme', function () { requestAnimationFrame(readTokens); }); }
+})();
+
+// Focus inside a demo frame is invisible to CSS in this page, so the card is marked while it lasts.
+(function () {
+  function markFrameFocus() {
+    document.querySelectorAll('[data-frame-focus]').forEach(function (card) { card.removeAttribute('data-frame-focus'); });
+    var active = document.activeElement;
+    // Demo frames ring their example card; the theme builder's preview rings its stage.
+    var card = active && active.matches && active.matches('.site-demo-frame, .tb-frame') ? active.closest('.site-example, .tb-stage') : null;
+    if (card) card.setAttribute('data-frame-focus', '');
+  }
+  window.addEventListener('blur', markFrameFocus);
+  window.addEventListener('focus', markFrameFocus);
+  document.addEventListener('focusin', markFrameFocus);
 })();

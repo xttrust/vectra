@@ -232,13 +232,14 @@ test.describe('forced colours', () => {
         if (r.width < 4 || r.height < 4 || cs.visibility === 'hidden' || Number(cs.opacity) === 0) return [];
         // Inactive controls are exempt (WCAG 1.4.11), and so is anything scrolled out of its own scroller.
         if (el.closest('[hidden], .v-sr-only, [aria-hidden="true"]') || el.matches(':disabled, [aria-disabled="true"]')) return [];
+        // Content of a closed <details> (a collapsed nav group) is laid out but not rendered.
+        if (!el.checkVisibility()) return [];
         for (let a = el.parentElement; a; a = a.parentElement) {
-          const s = getComputedStyle(a);
+          const { overflowX, overflowY } = getComputedStyle(a);
           const b = a.getBoundingClientRect();
-          if (s.overflowX !== 'visible' && (r.right <= b.left || r.left >= b.right)) return [];
-          // Vertically too: the docs site's sticky sidebar scrolls, and links below its fold are not painted
-          // in a full-page screenshot.
-          if (s.overflowY !== 'visible' && a !== document.documentElement && a !== document.body && Math.min(r.bottom, b.bottom) - Math.max(r.top, b.top) < r.height / 2) return [];
+          if (overflowX !== 'visible' && (r.right <= b.left || r.left >= b.right)) return [];
+          // Mostly below a scroller's fold (the docs sidebar) counts as out: a full-page screenshot paints only a sliver.
+          if (overflowY !== 'visible' && Math.min(r.bottom, b.bottom) - Math.max(r.top, b.top) < r.height / 2) return [];
         }
         return [{ label: window.vLabel(el), x: r.left + scrollX - 1, y: r.top + scrollY - 1, w: r.width + 2, h: r.height + 2 }];
       }), CONTROLS);
@@ -425,10 +426,11 @@ test.describe('focus visible', () => {
               const p = getComputedStyle(c).position;
               return (p === 'fixed' || p === 'sticky') && !c.contains(el) && c.getBoundingClientRect().height > 0;
             }).map((c) => c.getBoundingClientRect());
-            // Only if it is really painted underneath: a skip link inside the sticky header's box sits above it.
-            const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
-            const onTop = top && (top === el || el.contains(top));
-            const hidden = !onTop && covers.some((c) => c.left <= r.left && c.right >= r.right && c.top <= r.top && c.bottom >= r.bottom);
+            // Covered geometrically is not enough: the focused element may sit above the cover (a skip link
+            // over a sticky header), so ask the browser what is really on top at its centre.
+            const onTop = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+            const hidden = covers.some((c) => c.left <= r.left && c.right >= r.right && c.top <= r.top && c.bottom >= r.bottom)
+              && !(onTop && (el.contains(onTop) || onTop.contains(el)));
             let bg = 'none';
             for (let a = el; a; a = a.parentElement) {
               const b = getComputedStyle(a).backgroundColor;
