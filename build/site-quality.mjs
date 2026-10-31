@@ -186,10 +186,10 @@ ${table(['Browser', 'Minimum version'], browsers.map(([b, ver]) => [b, `${esc(ve
 <p>What the checks above do not prove, so you can judge for yourself.</p>
 <ul class="site-list">
   <li><strong>Firefox and WebKit</strong> run the full suite nightly, not on every push. A regression in Safari can land and be caught the next morning.</li>
-  <li><strong>Screen readers</strong> (VoiceOver, NVDA, TalkBack) are tested by hand before releases, not in CI. axe catches markup problems, not how a page sounds.</li>
+  <li><strong>Screen readers</strong> (VoiceOver, NVDA, TalkBack) have not had a manual pass yet; one is planned before v2.0. axe catches markup problems, not how a page sounds.</li>
   <li><strong>Visual screenshots</strong> cover the default direction on most pages and all four directions on the galleries; the docs pages are screenshotted in tech only.</li>
-  <li><strong>Real devices.</strong> Phone width is emulated in Chromium; touch targets and on-screen keyboards are checked by hand.</li>
-  <li><strong>Forced colours and reduced transparency</strong> are designed for but not yet covered by automated tests.</li>
+  <li><strong>Real devices.</strong> Phone width is emulated in Chromium; touch targets and on-screen keyboards still need a pass on real phones.</li>
+  <li><strong>Forced colours</strong> are tested with Chromium's emulation, not yet in Windows High Contrast itself; <strong>reduced transparency</strong> is tested through the DevTools protocol in Chromium only.</li>
 </ul>
 
 <p class="qa-built">Built ${v(esc(built))} UTC${commit ? ` from commit ${v(`<code>${esc(commit)}</code>`)}${commitDate ? ` (${v(esc(commitDate))})` : ''}` : ', git commit not available'}.</p>`;
