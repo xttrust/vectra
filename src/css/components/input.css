@@ -147,7 +147,31 @@
 
   .v-input-group > .v-btn:focus-visible { outline-offset: -4px; }
 
-  /* Password reveal (M4 adds the toggle): with two icons, aria-pressed swaps which one shows. */
+  .v-input-group > .v-btn:first-child {
+    border-start-start-radius: calc(var(--v-input-radius) - var(--v-border-w));
+    border-end-start-radius: calc(var(--v-input-radius) - var(--v-border-w));
+  }
+
+  /* Number stepper (data-v-stepper): minus and plus buttons around a centred number. The buttons ship
+     hidden and the JS shows them; until then the native spin arrows stay. */
+  .v-stepper {
+    justify-self: start;
+    inline-size: auto;
+  }
+
+  .v-stepper > input.v-input {
+    flex: 0 1 4.5rem;
+    padding-inline: 0.25rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .v-stepper:has(> .v-btn:not([hidden])) > .v-input { appearance: textfield; }
+
+  .v-stepper:has(> .v-btn:not([hidden])) > .v-input::-webkit-inner-spin-button,
+  .v-stepper:has(> .v-btn:not([hidden])) > .v-input::-webkit-outer-spin-button { appearance: none; }
+
+  /* Password reveal: the toggle (data-v-password): with two icons, aria-pressed swaps which one shows. */
   .v-password-toggle .v-icon + .v-icon,
   .v-password-toggle[aria-pressed="true"] .v-icon:has(+ .v-icon) { display: none; }
   .v-password-toggle[aria-pressed="true"] .v-icon + .v-icon { display: block; }

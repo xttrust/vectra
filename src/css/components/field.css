@@ -2,7 +2,8 @@
    Client-side errors: the message shows once the control is :user-invalid (after the person has
    interacted), so a fresh form never opens in red. Keep the error out of aria-describedby here; the
    browser already announces the invalid state. Server-side errors: put aria-invalid="true" on the
-   control and link the message with aria-describedby; it is then always visible. */
+   control and link the message with aria-describedby; it is then always visible. The counter, the async
+   check line and the error summary below are filled in by the form JS (src/js/components). */
 @layer components {
   .v-field {
     display: grid;
@@ -55,7 +56,107 @@
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5h.01'/%3E%3C/svg%3E") center / contain no-repeat;
   }
 
-  .v-field:has(:user-invalid, [aria-invalid="true"]) > .v-field-error { display: flex; }
+  .v-field:has(:user-invalid, [aria-invalid="true"]) > .v-field-error,
+  .v-fieldset:has([aria-invalid="true"]) > .v-field-error { display: flex; }
+
+  /* Character counter (data-v-counter): "n of max" under the control, louder near and past the limit. */
+  .v-counter {
+    justify-self: end;
+    color: var(--v-text-3);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .v-counter[data-v-level="near"],
+  .v-counter[data-v-level="full"] {
+    color: var(--v-warning);
+    font-weight: 560;
+  }
+
+  .v-counter[data-v-level="over"] {
+    color: var(--v-danger);
+    font-weight: 560;
+  }
+
+  /* Async field check (Vectra.fieldState): checking, valid or invalid, each with its own mark. */
+  .v-field-status {
+    display: flex;
+    gap: 0.4em;
+    align-items: flex-start;
+    color: var(--v-text-2);
+    font-size: 0.8125rem;
+    font-weight: 560;
+  }
+
+  .v-field-status:empty { display: none; }
+
+  .v-field-status::before {
+    content: "";
+    flex: none;
+    box-sizing: border-box;
+    inline-size: 1.1em;
+    block-size: 1.1em;
+    margin-block-start: 0.1em;
+    background-color: currentcolor;
+    mask: var(--v-status-mark) center / contain no-repeat;
+  }
+
+  .v-field-status[data-v-state="checking"]::before {
+    border: 0.15em solid color-mix(in oklch, currentcolor 25%, transparent);
+    border-block-start-color: currentcolor;
+    border-radius: 50%;
+    background-color: transparent;
+    mask: none;
+    animation: v-spin 0.7s linear infinite;
+  }
+
+  .v-field-status[data-v-state="valid"] {
+    --v-status-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+
+    color: var(--v-success);
+  }
+
+  /* A failed async check speaks for itself; the field's generic error stays out of the way. */
+  .v-field:has(> .v-field-status[data-v-state="invalid"]) > .v-field-error { display: none; }
+
+  .v-field-status[data-v-state="invalid"] {
+    --v-status-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7.5v5.5M12 16.5h.01'/%3E%3C/svg%3E");
+
+    color: var(--v-danger);
+  }
+
+  /* Error summary (data-v-validate builds it): at the top of the form, one link per problem. It takes
+     focus on submit, so its focus ring is always drawn. */
+  .v-error-summary {
+    display: grid;
+    gap: var(--v-space-2);
+    padding: var(--v-space-4) var(--v-space-5);
+    border: var(--v-border-w) solid color-mix(in oklch, var(--v-danger) 40%, transparent);
+    border-inline-start: 4px solid var(--v-danger);
+    border-radius: var(--v-radius-md);
+    background-color: var(--v-danger-soft);
+    color: var(--v-text);
+  }
+
+  .v-error-summary:focus {
+    outline: var(--v-focus-w) solid var(--v-danger);
+    outline-offset: 2px;
+  }
+
+  .v-error-summary-title { font-weight: 650; }
+
+  .v-error-summary ul {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+    padding-inline-start: 1.25rem;
+  }
+
+  .v-error-summary a {
+    color: var(--v-danger);
+    font-weight: 560;
+    text-decoration: underline;
+  }
 
   .v-fieldset {
     display: grid;
@@ -88,8 +189,11 @@
     font-weight: 560;
   }
 
+  @keyframes v-spin { to { rotate: 1turn; } }
+
   @media (forced-colors: active) {
-    .v-field-error::before {
+    .v-field-error::before,
+    .v-field-status::before {
       background-color: CanvasText;
       forced-color-adjust: none;
     }

@@ -71,18 +71,18 @@
     <section id="banners">
       <h2>Banners</h2>
       <div class="v-stack" style="--v-gap: var(--v-space-3)">
-        <div class="v-banner" role="status">
+        <div class="v-banner" role="status" data-v-dismissable>
           <svg class="v-icon" aria-hidden="true"><use href="#i-info"/></svg>
           <p class="v-banner-body" data-contrast><strong>Scheduled maintenance</strong> on Sunday 8 November from 02:00 to 03:00 GMT.</p>
-          <button class="v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss" type="button" aria-label="Dismiss"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+          <button class="v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss" type="button" data-v-dismiss aria-label="Dismiss"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
         </div>
-        <div class="v-banner v-banner-accent" role="status">
+        <div class="v-banner v-banner-accent" role="status" data-v-dismissable>
           <svg class="v-icon" aria-hidden="true"><use href="#i-rocket"/></svg>
           <p class="v-banner-body" data-contrast><strong>New:</strong> live QR tips are here for every artist page.</p>
           <div class="v-banner-actions">
             <a class="v-btn v-btn-primary v-btn-sm" href="#banners" data-contrast>See how it works</a>
           </div>
-          <button class="v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss" type="button" aria-label="Dismiss"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+          <button class="v-btn v-btn-ghost v-btn-icon v-btn-sm v-banner-dismiss" type="button" data-v-dismiss aria-label="Dismiss"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
         </div>
         <div class="v-banner v-banner-warning" role="status">
           <svg class="v-icon" aria-hidden="true"><use href="#i-alert"/></svg>
@@ -171,9 +171,9 @@
             <span class="v-tag v-tag-info" data-contrast>Draft</span>
           </div>
           <div class="v-cluster" style="--v-gap: var(--v-space-2)">
-            <span class="v-tag"><span data-contrast>Galway</span><button class="v-tag-remove" type="button" aria-label="Remove Galway"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
-            <span class="v-tag"><span data-contrast>Mayo</span><button class="v-tag-remove" type="button" aria-label="Remove Mayo"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
-            <span class="v-tag v-tag-accent"><span data-contrast>Clare</span><button class="v-tag-remove" type="button" aria-label="Remove Clare"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
+            <span class="v-tag" data-v-dismissable><span data-contrast>Galway</span><button class="v-tag-remove" type="button" data-v-dismiss aria-label="Remove Galway"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
+            <span class="v-tag" data-v-dismissable><span data-contrast>Mayo</span><button class="v-tag-remove" type="button" data-v-dismiss aria-label="Remove Mayo"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
+            <span class="v-tag v-tag-accent" data-v-dismissable><span data-contrast>Clare</span><button class="v-tag-remove" type="button" data-v-dismiss aria-label="Remove Clare"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></span>
           </div>
           <fieldset class="v-fieldset v-fieldset-plain">
             <legend class="v-legend" data-contrast>Services</legend>
@@ -322,7 +322,7 @@
         </div>
         <div class="v-field">
           <label class="v-label" for="s-clients" data-contrast>Clients</label>
-          <div class="v-input-group v-search">
+          <div class="v-input-group v-search" data-v-clear>
             <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
             <input class="v-input" id="s-clients" type="search" placeholder="Name or email" value="Kelly" data-contrast>
             <button class="v-btn v-btn-ghost v-btn-icon v-search-clear" type="button" aria-label="Clear search"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
@@ -330,7 +330,7 @@
         </div>
         <div class="v-field">
           <label class="v-label" for="s-pill" data-contrast>Find a command</label>
-          <div class="v-input-group v-search v-search-pill">
+          <div class="v-input-group v-search v-search-pill" data-v-clear>
             <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg></span>
             <input class="v-input" id="s-pill" type="search" placeholder="Type a command" aria-keyshortcuts="Control+K">
             <button class="v-btn v-btn-ghost v-btn-icon v-search-clear" type="button" aria-label="Clear search"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
@@ -470,5 +470,6 @@
       </form>
     </section>
   </main>
+  <script type="module" src="../../src/js/index.js"></script>
 </body>
 </html>
