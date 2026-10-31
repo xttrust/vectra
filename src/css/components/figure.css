@@ -1,6 +1,8 @@
 /* Figure: an image (or video, map, embed) with an optional caption.
    .v-frame crops its media to a fixed aspect ratio: .v-frame-1x1, -4x3, -16x9 (default), -21x9.
-   Corners follow the direction's radius-lg. */
+   Corners follow the direction's radius-lg. Placeholder while the media loads: --v-frame-fill on the
+   .v-frame (a colour, or a tiny low-res url() that the browser blurs as it scales); .v-frame-missing
+   adds an image icon behind the media, seen while it loads or if it fails (use alt="" when decorative). */
 @layer components {
   .v-figure {
     display: grid;
@@ -26,7 +28,7 @@
   .v-frame {
     overflow: hidden;
     aspect-ratio: 16 / 9;
-    background-color: var(--v-surface-2);
+    background: var(--v-frame-fill, var(--v-surface-2)) center / cover no-repeat;
   }
 
   .v-frame > :is(img, video, iframe, svg, picture) {
@@ -41,6 +43,25 @@
   .v-frame-4x3 { aspect-ratio: 4 / 3; }
   .v-frame-16x9 { aspect-ratio: 16 / 9; }
   .v-frame-21x9 { aspect-ratio: 21 / 9; }
+
+  .v-frame-missing { position: relative; }
+
+  .v-frame-missing::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    inline-size: clamp(1.25rem, 18%, 2.5rem);
+    block-size: clamp(1.25rem, 18%, 2.5rem);
+    background-color: var(--v-text-3);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='M21 15l-3.1-3.1a2 2 0 0 0-2.8 0L6 21'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  .v-frame-missing > * { position: relative; }
+
+  @media (forced-colors: active) {
+    .v-frame-missing::before { background-color: CanvasText; }
+  }
 }
 
 @layer directions {

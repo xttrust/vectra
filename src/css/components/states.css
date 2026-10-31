@@ -1,0 +1,177 @@
+/* States: the small pieces the screens in between need (CATALOGUE.md section 11). Everything else in
+   the states gallery is built from existing components.
+   - Skeleton presets on .v-skeleton: .v-skeleton-lines, -heading, -row, -block, -grid, -table, -btn.
+     Mark a skeleton aria-hidden="true" and put aria-busy="true" plus a .v-sr-only "Loading" line on the region.
+   - .v-busy: a region refreshing in place. Content stays readable; a thin bar runs along the top
+     while aria-busy="true".
+   - .v-slow: the "Taking longer than usual" note (data-v-slow shows it after a delay).
+   - Image placeholders live in figure.css (--v-frame-fill, .v-frame-missing).
+   - .v-locked: an inline section the person cannot open yet; .v-locked-preview (inert, aria-hidden)
+     sits blurred behind .v-locked-panel.
+   - .v-new-items: a sticky, zero-height holder for a "3 new posts" button, so the feed never jumps.
+   - .v-dot: the unread dot. Pair it with .v-sr-only text ("Unread"). */
+@layer components {
+  .v-skeleton-lines { display: grid; }
+  .v-skeleton-lines > :nth-child(3n + 2) { inline-size: 88%; }
+  .v-skeleton-lines > :last-child:not(:only-child) { inline-size: 60%; }
+
+  .v-skeleton-heading {
+    inline-size: 45%;
+    block-size: 1.4em;
+    margin-block-end: 0.5em;
+  }
+
+  .v-skeleton-row {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+  }
+
+  .v-skeleton-row > .v-skeleton-lines {
+    flex: 1;
+    min-inline-size: 0;
+  }
+
+  .v-skeleton-block {
+    block-size: auto;
+    aspect-ratio: var(--v-skeleton-ratio, 16 / 9);
+    border-radius: var(--v-radius-md);
+  }
+
+  .v-skeleton-btn {
+    flex: none;
+    inline-size: var(--v-skeleton-w, 6rem);
+    block-size: var(--v-control-h);
+    border-radius: var(--v-radius-md);
+  }
+
+  .v-skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--v-skeleton-min, 11rem)), 1fr));
+    gap: var(--v-space-4);
+  }
+
+  /* Table: each child is a row; the first cell is wider, like a name column. */
+  .v-skeleton-table > * {
+    display: grid;
+    grid-template-columns: 2fr repeat(var(--v-skeleton-cols, 3), 1fr);
+    gap: var(--v-space-4);
+    align-items: center;
+    padding-block: var(--v-space-3);
+  }
+
+  .v-skeleton-table > * + * { border-block-start: var(--v-border-w) solid var(--v-border); }
+  .v-skeleton-table > :where(:first-child) > * { block-size: 0.6em; }
+
+  /* Refreshing in place: the bar rests in the middle under reduced motion. */
+  .v-busy { position: relative; }
+
+  .v-busy[aria-busy="true"] { cursor: progress; }
+
+  .v-busy[aria-busy="true"]::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: 1;
+    block-size: 2px;
+    border-radius: var(--v-radius-pill);
+    background: linear-gradient(90deg, transparent, var(--v-accent), transparent) 50% 0 / 40% 100% no-repeat;
+    animation: v-busy-sweep 1.2s var(--v-ease-out) infinite;
+  }
+
+  @keyframes v-busy-sweep { from { background-position: -60% 0; } to { background-position: 160% 0; } }
+
+  .v-slow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2) var(--v-space-3);
+    align-items: center;
+    padding: var(--v-space-3) var(--v-space-4);
+    border: var(--v-border-w) dashed var(--v-border-strong);
+    border-radius: var(--v-radius-md);
+    color: var(--v-text-2);
+    font-size: 0.9375rem;
+  }
+
+  .v-slow > p {
+    flex: 1 1 14rem;
+    margin: 0;
+  }
+
+  :is(.v-slow, .v-new-items)[hidden] { display: none; }
+
+  .v-locked {
+    display: grid;
+    overflow: hidden;
+    isolation: isolate;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-lg);
+  }
+
+  .v-locked > * { grid-area: 1 / 1; }
+
+  .v-locked-preview {
+    padding: var(--v-space-4);
+    filter: blur(4px);
+    mask-image: linear-gradient(currentcolor 20%, transparent 90%);
+    user-select: none;
+  }
+
+  .v-locked-panel {
+    z-index: 1;
+    display: grid;
+    gap: var(--v-space-2);
+    justify-items: center;
+    place-self: center;
+    max-inline-size: 26rem;
+    margin: var(--v-space-4);
+    padding: var(--v-space-5);
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-surface);
+    box-shadow: var(--v-shadow-2);
+    color: var(--v-text-2);
+    text-align: center;
+  }
+
+  .v-locked-panel > * { margin: 0; }
+
+  .v-new-items {
+    position: sticky;
+    inset-block-start: var(--v-new-items-top, var(--v-space-3));
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    block-size: 0;
+  }
+
+  .v-new-items > .v-btn {
+    border-radius: var(--v-radius-pill);
+    box-shadow: var(--v-shadow-3);
+  }
+
+  .v-dot {
+    display: inline-block;
+    flex: none;
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--v-accent);
+  }
+
+  @media (forced-colors: active) {
+    .v-dot {
+      background-color: Highlight;
+      forced-color-adjust: none;
+    }
+
+    .v-busy[aria-busy="true"]::before { background: Highlight; }
+    .v-locked-preview { visibility: hidden; }
+  }
+}
+
+@layer directions {
+  :root[data-direction="editorial"] :is(.v-locked-panel, .v-new-items > .v-btn) { box-shadow: none; }
+  :root[data-direction="editorial"] .v-slow { border-style: solid; }
+}

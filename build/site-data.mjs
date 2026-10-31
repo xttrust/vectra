@@ -25,7 +25,7 @@ export async function loadComponents() {
 export const GROUPS = async () => (await readJSON('site/data/component.schema.json')).properties.group.enum;
 
 // A small JSON Schema subset: type, required, properties, additionalProperties, enum, pattern, items, minItems.
-function checkSchema(value, schema, path, errors) {
+export function checkSchema(value, schema, path, errors) {
   if (schema.enum && !schema.enum.includes(value)) errors.push(`${path}: "${value}" is not one of ${schema.enum.join(', ')}`);
   const type = schema.type ?? (schema.enum ? null : undefined);
   const actual = Array.isArray(value) ? 'array' : Number.isInteger(value) ? 'integer' : typeof value;
