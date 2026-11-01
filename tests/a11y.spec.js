@@ -20,6 +20,10 @@ const combos = (target) => (AUTH_PAGES.includes(target) || EXAMPLE_PAGES.include
 for (const target of [...PAGES, ...AUTH_PAGES, ...EXAMPLE_PAGES]) {
   for (const [direction, theme] of combos(target)) {
     test(`axe: ${target.name} · ${direction} · ${theme}`, async ({ page, browserName }) => {
+      // axe takes a few seconds per large page in WebKit on its own, and WebKit's web processes start a
+      // thread pool per CPU, so on the 4-core nightly runner next to Chromium and Firefox the big galleries
+      // passed 30 s. One worker locally: about 1.5 s each; the work is the same, only slower.
+      test.slow(browserName === 'webkit', 'axe is CPU heavy in WebKit on the large galleries');
       await open(page, target, { direction, theme });
       const { violations } = await axeFor(page, browserName).analyze();
       expect(describeViolations(violations)).toEqual([]);
