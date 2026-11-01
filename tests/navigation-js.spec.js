@@ -146,3 +146,85 @@ test.describe('navbar', () => {
     await expect(page.locator('.v-navbar-toggle[popovertarget="nav-main"]')).toHaveAttribute('aria-expanded', 'false');
   });
 });
+
+test.describe('mega menu', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  const product = (page) => page.locator('#mega-product');
+  const summary = (page) => page.locator('#mega-product > summary');
+
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await ready(page);
+  });
+
+  test('the panel drops below the whole navbar, full width', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' }); // measure the end position, not mid-slide
+    await summary(page).click();
+    const [panel, nav] = [await page.locator('#mega-product .v-mega-panel').boundingBox(), await page.locator('#megamenu .v-navbar').boundingBox()];
+    expect(Math.abs(panel.y - (nav.y + nav.height))).toBeLessThan(2);
+    expect(Math.abs(panel.width - nav.width)).toBeLessThan(2);
+  });
+
+  test('Enter opens it, Escape closes it and returns focus to the summary', async ({ page }) => {
+    await summary(page).focus();
+    await page.keyboard.press('Enter');
+    await expect(product(page)).toHaveAttribute('open', '');
+    await page.keyboard.press('Tab');
+    await expect(page.locator('#mega-product .v-mega-link').first()).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(product(page)).not.toHaveAttribute('open', '');
+    await expect(summary(page)).toBeFocused();
+  });
+
+  test('only one panel is open at a time', async ({ page }) => {
+    await summary(page).click();
+    await page.locator('#mega-resources > summary').click();
+    await expect(page.locator('#mega-resources')).toHaveAttribute('open', '');
+    await expect(product(page)).not.toHaveAttribute('open', '');
+  });
+
+  test('a click outside, focus leaving and a followed link each close it', async ({ page }) => {
+    await summary(page).click();
+    await page.locator('#megamenu h2').click();
+    await expect(product(page)).not.toHaveAttribute('open', '');
+
+    await summary(page).click();
+    await page.locator('#megamenu .v-navbar-links > li > a', { hasText: 'Pricing' }).focus();
+    await expect(product(page)).not.toHaveAttribute('open', '');
+
+    await summary(page).click();
+    await page.locator('#mega-product .v-mega-link').first().click();
+    await expect(product(page)).not.toHaveAttribute('open', '');
+  });
+});
+
+test.describe('mega menu in the mobile menu', () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test('opens inline in the sheet, and Escape closes the panel but not the sheet', async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await ready(page);
+    const sheet = page.locator('#nav-mega');
+    await page.click('.v-navbar-toggle[popovertarget="nav-mega"]');
+    await page.locator('#mega-product > summary').click();
+    const [panel, sheetBox] = [await page.locator('#mega-product .v-mega-panel').boundingBox(), await sheet.boundingBox()];
+    expect(panel.x).toBeGreaterThanOrEqual(sheetBox.x);
+    expect(panel.x + panel.width).toBeLessThanOrEqual(sheetBox.x + sheetBox.width + 1);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#mega-product')).not.toHaveAttribute('open', '');
+    await expect(sheet).toBeVisible();
+  });
+});
+
+test.describe('mega menu without JS', () => {
+  test.use({ javaScriptEnabled: false, viewport: { width: 1280, height: 900 } });
+
+  test('the summary still opens and closes the panel', async ({ page }) => {
+    await page.goto(target.path);
+    const summary = page.locator('#mega-product > summary');
+    await summary.click();
+    await expect(page.locator('#mega-product .v-mega-panel')).toBeVisible();
+    await summary.click();
+    await expect(page.locator('#mega-product .v-mega-panel')).toBeHidden();
+  });
+});

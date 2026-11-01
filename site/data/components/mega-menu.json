@@ -1,0 +1,146 @@
+{
+  "name": "Mega menu",
+  "slug": "mega-menu",
+  "group": "Navigation",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A navbar item that opens a wide panel of grouped links, with descriptions, a featured card and a footer row.",
+  "description": "Use a mega menu when a site has more pages than fit in a row of navbar links, such as products, solutions or resources. Each group gets a title and each link can carry a one-line description.\n\nIt is a <details class=\"v-mega\"> inside .v-navbar-links, so it opens and closes without JS, and the same name on each one keeps only one panel open. On a wide navbar the panel drops below the whole bar; in a narrow slot it opens inline in the mobile menu sheet. Add data-v-mega for Escape, click outside and focus leaving.",
+  "native": "<details name>, <summary>",
+  "catalogue": [
+    "Mega menu"
+  ],
+  "css": [
+    "megamenu.css",
+    "navbar.css"
+  ],
+  "js": [
+    "components/mega.js",
+    "components/nav.js"
+  ],
+  "classes": [
+    {
+      "name": "v-mega",
+      "kind": "base",
+      "description": "The <details> element, inside an <li> of .v-navbar-links. Its <summary> is the trigger and looks like a navbar link."
+    },
+    {
+      "name": "v-mega-chevron",
+      "kind": "part",
+      "description": "The chevron icon in the summary. It turns when the panel is open."
+    },
+    {
+      "name": "v-mega-panel",
+      "kind": "part",
+      "description": "The panel: below the navbar at full width when the navbar is wide, inline in the mobile menu when it is narrow."
+    },
+    {
+      "name": "v-mega-grid",
+      "kind": "part",
+      "description": "Columns of groups that fit the width (each at least 12rem)."
+    },
+    {
+      "name": "v-mega-title",
+      "kind": "part",
+      "description": "A small uppercase group title. Give it an id and point the list's aria-labelledby at it."
+    },
+    {
+      "name": "v-mega-links",
+      "kind": "part",
+      "description": "The list of links in a group, on a <ul>."
+    },
+    {
+      "name": "v-mega-link",
+      "kind": "part",
+      "description": "One link: an icon, a title and an optional .v-mega-link-text description."
+    },
+    {
+      "name": "v-mega-link-text",
+      "kind": "part",
+      "description": "The one-line description under a link title."
+    },
+    {
+      "name": "v-mega-feature",
+      "kind": "part",
+      "description": "A highlighted card in the grid, for a launch, a case study or a call to action."
+    },
+    {
+      "name": "v-mega-footer",
+      "kind": "part",
+      "description": "A row under the grid for a secondary link, such as \"Book a demo\" or \"All products\"."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "open",
+      "description": "On .v-mega: the panel is showing. Set it in the server markup to render a panel open."
+    },
+    {
+      "attribute": "name",
+      "description": "On .v-mega: give every mega menu in one navbar the same name so opening one closes the others."
+    },
+    {
+      "attribute": "aria-current=\"page\"",
+      "description": "On a .v-mega-link: the current page, tinted in the accent colour."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-mega",
+      "value": "",
+      "on": "The .v-mega <details>",
+      "description": "Escape closes the panel and returns focus to the summary (the mobile sheet stays open). A click outside, focus moving out, or a followed link closes it."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On the summary, opens or closes the panel."
+    },
+    {
+      "keys": [
+        "Tab",
+        "Shift+Tab"
+      ],
+      "action": "Moves through the links in the panel in reading order. Leaving the panel closes it (with data-v-mega)."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the panel and returns focus to the summary (with data-v-mega)."
+    }
+  ],
+  "a11y": [
+    "This is the disclosure navigation pattern, not role=\"menu\": the links stay ordinary links in reading order, which suits site navigation.",
+    "The summary reports expanded and collapsed by itself, so no aria-expanded is needed.",
+    "Panels open on click or Enter, never on hover alone, so nothing opens by accident and touch works the same as a mouse.",
+    "Label each group: an id on .v-mega-title and aria-labelledby on its .v-mega-links."
+  ],
+  "tokens": [
+    "--v-surface",
+    "--v-surface-2",
+    "--v-accent-soft",
+    "--v-accent-text",
+    "--v-shadow-3",
+    "--v-radius-lg",
+    "--v-container-max"
+  ],
+  "related": [
+    "navbar",
+    "dropdown-menu",
+    "accordion"
+  ],
+  "examples": [
+    {
+      "title": "Product and resources menus",
+      "description": "Two mega menus and a plain link. Open Product, then Resources: only one stays open. Make the window narrow to see them inside the mobile menu.",
+      "html": "<header class=\"v-navbar\" data-v-nav>\n  <a class=\"v-navbar-brand\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#layers\"/></svg>Northwind</a>\n  <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-toggle\" type=\"button\" popovertarget=\"nav-mega\" aria-label=\"Open menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#menu\"/></svg></button>\n  <nav class=\"v-navbar-menu\" id=\"nav-mega\" popover aria-label=\"Mega menu example\">\n    <button class=\"v-btn v-btn-ghost v-btn-icon v-navbar-close\" type=\"button\" popovertarget=\"nav-mega\" popovertargetaction=\"hide\" aria-label=\"Close menu\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button>\n    <ul class=\"v-navbar-links\">\n      <li>\n        <details class=\"v-mega\" name=\"nav-mega\" data-v-mega id=\"mega-product\">\n          <summary>Product<svg class=\"v-icon v-mega-chevron\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-down\"/></svg></summary>\n          <div class=\"v-mega-panel\">\n            <div class=\"v-mega-grid\">\n              <div>\n                <p class=\"v-mega-title\" id=\"mega-build\">Build</p>\n                <ul class=\"v-mega-links\" aria-labelledby=\"mega-build\">\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#folder\"/></svg><span>Projects<span class=\"v-mega-link-text\">Every project in one place, with owners and status.</span></span></a></li>\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chart-bar\"/></svg><span>Analytics<span class=\"v-mega-link-text\">Live numbers without a separate dashboard.</span></span></a></li>\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#inbox\"/></svg><span>Inbox<span class=\"v-mega-link-text\">Requests and replies from your whole team.</span></span></a></li>\n                </ul>\n              </div>\n              <div>\n                <p class=\"v-mega-title\" id=\"mega-team\">Work together</p>\n                <ul class=\"v-mega-links\" aria-labelledby=\"mega-team\">\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#users\"/></svg><span>Teams<span class=\"v-mega-link-text\">Roles, groups and invitations.</span></span></a></li>\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#settings\"/></svg><span>Automations<span class=\"v-mega-link-text\">Rules that run when something changes.</span></span></a></li>\n                </ul>\n              </div>\n              <a class=\"v-mega-feature\" href=\"#\">\n                <span class=\"v-badge v-badge-accent\">New</span>\n                <strong>Northwind 3.0</strong>\n                <span class=\"v-text-sm v-text-secondary\">Faster search, offline mode and a new mobile app.</span>\n              </a>\n            </div>\n            <div class=\"v-mega-footer\"><span>Need a hand choosing?</span><a href=\"#\">Book a demo</a></div>\n          </div>\n        </details>\n      </li>\n      <li>\n        <details class=\"v-mega\" name=\"nav-mega\" data-v-mega id=\"mega-resources\">\n          <summary>Resources<svg class=\"v-icon v-mega-chevron\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-down\"/></svg></summary>\n          <div class=\"v-mega-panel\">\n            <div class=\"v-mega-grid\">\n              <div>\n                <p class=\"v-mega-title\" id=\"mega-learn\">Learn</p>\n                <ul class=\"v-mega-links\" aria-labelledby=\"mega-learn\">\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#folder\"/></svg><span>Guides<span class=\"v-mega-link-text\">Step by step, from setup to launch.</span></span></a></li>\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#search\"/></svg><span>Help centre<span class=\"v-mega-link-text\">Answers to common questions.</span></span></a></li>\n                </ul>\n              </div>\n              <div>\n                <p class=\"v-mega-title\" id=\"mega-company\">Company</p>\n                <ul class=\"v-mega-links\" aria-labelledby=\"mega-company\">\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#user\"/></svg><span>About<span class=\"v-mega-link-text\">Who we are and how we work.</span></span></a></li>\n                <li><a class=\"v-mega-link\" href=\"#\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#inbox\"/></svg><span>Contact<span class=\"v-mega-link-text\">Talk to sales or support.</span></span></a></li>\n                </ul>\n              </div>\n            </div>\n          </div>\n        </details>\n      </li>\n      <li><a href=\"#\">Pricing</a></li>\n    </ul>\n    <div class=\"v-navbar-actions\">\n      <a class=\"v-btn v-btn-ghost\" href=\"#\">Sign in</a>\n      <a class=\"v-btn v-btn-primary\" href=\"#\">Get started</a>\n    </div>\n  </nav>\n</header>",
+      "height": 520,
+      "source": "examples/navigation/#megamenu"
+    }
+  ]
+}

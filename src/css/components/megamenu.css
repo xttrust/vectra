@@ -1,0 +1,174 @@
+/* Mega menu: a navbar item that opens a wide panel of grouped links. Built on <details class="v-mega">
+   (the disclosure navigation pattern), so it opens and closes without JS and <details name> keeps one
+   open at a time. Wide navbar: the panel spans the navbar below it. Narrow: the panel opens inline inside the mobile menu sheet. data-v-mega adds
+   Escape, click outside and focus leaving. */
+@layer components {
+  /* The panel's containing block. :where() keeps this at the navbar's own specificity, so a sticky or
+     fixed navbar (both are containing blocks too) still wins. */
+  .v-navbar:where(:has(.v-mega)) { position: relative; }
+
+  .v-mega > summary {
+    display: flex;
+    gap: var(--v-space-1);
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--v-radius-sm);
+    color: var(--v-text-2);
+    font-weight: 520;
+    list-style: none;
+    cursor: pointer;
+    transition: color var(--v-dur-1), background-color var(--v-dur-1);
+  }
+
+  .v-mega > summary::-webkit-details-marker { display: none; }
+
+  .v-mega > summary:hover,
+  .v-mega[open] > summary {
+    background-color: var(--v-surface-2);
+    color: var(--v-text);
+  }
+
+  .v-mega-chevron {
+    inline-size: 1em;
+    block-size: 1em;
+    margin-inline-start: auto;
+    transition: rotate var(--v-dur-2) var(--v-ease-out);
+  }
+
+  .v-mega[open] .v-mega-chevron { rotate: 180deg; }
+
+  .v-mega-panel {
+    display: grid;
+    gap: var(--v-space-4);
+    padding: var(--v-space-3) 0 var(--v-space-2) var(--v-space-3);
+  }
+
+  .v-mega-grid {
+    display: grid;
+    gap: var(--v-space-5);
+  }
+
+  .v-mega-title {
+    margin: 0 0 var(--v-space-2);
+    color: var(--v-text-3);
+    font-size: var(--v-step-minus-1);
+    font-weight: 620;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .v-mega-links {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Doubled class: beats .v-navbar-links a, which these links sit inside. */
+  .v-mega .v-mega-link {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: flex-start;
+    padding: var(--v-space-2);
+    border-radius: var(--v-radius-md);
+    color: var(--v-text);
+    font-weight: 560;
+    text-decoration: none;
+  }
+
+  .v-mega .v-mega-link:hover { background-color: var(--v-surface-2); }
+
+  .v-mega .v-mega-link[aria-current="page"] {
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+    text-decoration: none;
+  }
+
+  .v-mega-link > .v-icon {
+    flex-shrink: 0;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin-block-start: 0.1rem;
+    color: var(--v-accent-text);
+  }
+
+  .v-mega-link-text {
+    display: block;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  /* Doubled class, as for .v-mega-link. */
+  .v-mega .v-mega-feature {
+    display: grid;
+    gap: var(--v-space-2);
+    align-content: start;
+    justify-items: start;
+    padding: var(--v-space-4);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-accent-soft);
+    color: var(--v-text);
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .v-mega .v-mega-feature:hover { background-color: color-mix(in oklch, var(--v-accent-soft), var(--v-accent) 8%); }
+
+  .v-mega-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2) var(--v-space-4);
+    align-items: center;
+    padding-block-start: var(--v-space-3);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-mega .v-mega-footer a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 1.5rem;
+    padding: 0;
+    background: none;
+    color: var(--v-accent-text);
+    font-weight: 560;
+    text-decoration: underline;
+  }
+
+  /* Wide navbar: the panel drops below the whole bar. */
+  @container v-navbar (width >= 48rem) {
+    .v-mega > summary { padding-inline: 0.7rem; }
+
+    .v-mega-panel {
+      position: absolute;
+      z-index: 20;
+      inset-block-start: 100%;
+      inset-inline: 0;
+      padding: var(--v-space-6) max(var(--v-space-4), (100% - var(--v-container-max, 76rem)) / 2);
+      border-block-end: var(--v-border-w) solid var(--v-border);
+      background-color: var(--v-surface);
+      box-shadow: var(--v-shadow-3);
+    }
+
+    .v-mega[open] .v-mega-panel {
+      animation: v-mega-in var(--v-dur-2) var(--v-ease-out);
+    }
+
+    .v-mega-grid { grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+  }
+
+  @keyframes v-mega-in {
+    from {
+      opacity: 0;
+      translate: 0 -0.5rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .v-mega-panel { border: 1px solid CanvasText; }
+  }
+}

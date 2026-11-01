@@ -166,6 +166,7 @@ Overlays:
 Navigation:
 - Bottom tab bar: .v-bottombar
 - Breadcrumb: .v-breadcrumb
+- Mega menu: .v-mega, hooks data-v-mega
 - Navbar: .v-navbar, hooks data-v-nav
 - Pagination: .v-pagination .v-load-more
 - Sidebar nav: .v-sidenav

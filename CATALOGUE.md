@@ -140,7 +140,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Skip link | P0 | done | |
 | Bottom tab bar (mobile) | P0 | done | |
 | Table of contents / scrollspy | P1 | | scroll-driven where supported |
-| Mega menu | P1 | | |
+| Mega menu | P1 | done | `<details name>` disclosure; inline in the mobile menu |
 | Back to top | P1 | | |
 | Tree view | P2 | | |
 

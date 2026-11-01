@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-72 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+73 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -2046,6 +2046,114 @@ Example (Breadcrumb):
 </nav>
 ```
 
+#### Mega menu (mega-menu)
+
+A navbar item that opens a wide panel of grouped links, with descriptions, a featured card and a footer row. Native: <details name>, <summary>.
+
+Base:
+- .v-mega: The <details> element, inside an <li> of .v-navbar-links. Its <summary> is the trigger and looks like a navbar link.
+Parts:
+- .v-mega-chevron: The chevron icon in the summary. It turns when the panel is open.
+- .v-mega-panel: The panel: below the navbar at full width when the navbar is wide, inline in the mobile menu when it is narrow.
+- .v-mega-grid: Columns of groups that fit the width (each at least 12rem).
+- .v-mega-title: A small uppercase group title. Give it an id and point the list's aria-labelledby at it.
+- .v-mega-links: The list of links in a group, on a <ul>.
+- .v-mega-link: One link: an icon, a title and an optional .v-mega-link-text description.
+- .v-mega-link-text: The one-line description under a link title.
+- .v-mega-feature: A highlighted card in the grid, for a launch, a case study or a call to action.
+- .v-mega-footer: A row under the grid for a secondary link, such as "Book a demo" or "All products".
+
+States:
+- open: On .v-mega: the panel is showing. Set it in the server markup to render a panel open.
+- name: On .v-mega: give every mega menu in one navbar the same name so opening one closes the others.
+- aria-current="page": On a .v-mega-link: the current page, tinted in the accent colour.
+
+Hooks:
+- data-v-mega (on the .v-mega <details>): Escape closes the panel and returns focus to the summary (the mobile sheet stays open). A click outside, focus moving out, or a followed link closes it.
+
+Keyboard:
+- Enter / Space: On the summary, opens or closes the panel.
+- Tab / Shift+Tab: Moves through the links in the panel in reading order. Leaving the panel closes it (with data-v-mega).
+- Escape: Closes the panel and returns focus to the summary (with data-v-mega).
+
+Accessibility:
+- This is the disclosure navigation pattern, not role="menu": the links stay ordinary links in reading order, which suits site navigation.
+- The summary reports expanded and collapsed by itself, so no aria-expanded is needed.
+- Panels open on click or Enter, never on hover alone, so nothing opens by accident and touch works the same as a mouse.
+- Label each group: an id on .v-mega-title and aria-labelledby on its .v-mega-links.
+
+Example (Product and resources menus):
+
+```html
+<header class="v-navbar" data-v-nav>
+  <a class="v-navbar-brand" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#layers"/></svg>Northwind</a>
+  <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="nav-mega" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#menu"/></svg></button>
+  <nav class="v-navbar-menu" id="nav-mega" popover aria-label="Mega menu example">
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="nav-mega" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#close"/></svg></button>
+    <ul class="v-navbar-links">
+      <li>
+        <details class="v-mega" name="nav-mega" data-v-mega id="mega-product">
+          <summary>Product<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="/icons/sprite.svg#chevron-down"/></svg></summary>
+          <div class="v-mega-panel">
+            <div class="v-mega-grid">
+              <div>
+                <p class="v-mega-title" id="mega-build">Build</p>
+                <ul class="v-mega-links" aria-labelledby="mega-build">
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#folder"/></svg><span>Projects<span class="v-mega-link-text">Every project in one place, with owners and status.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chart-bar"/></svg><span>Analytics<span class="v-mega-link-text">Live numbers without a separate dashboard.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#inbox"/></svg><span>Inbox<span class="v-mega-link-text">Requests and replies from your whole team.</span></span></a></li>
+                </ul>
+              </div>
+              <div>
+                <p class="v-mega-title" id="mega-team">Work together</p>
+                <ul class="v-mega-links" aria-labelledby="mega-team">
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#users"/></svg><span>Teams<span class="v-mega-link-text">Roles, groups and invitations.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#settings"/></svg><span>Automations<span class="v-mega-link-text">Rules that run when something changes.</span></span></a></li>
+                </ul>
+              </div>
+              <a class="v-mega-feature" href="#">
+                <span class="v-badge v-badge-accent">New</span>
+                <strong>Northwind 3.0</strong>
+                <span class="v-text-sm v-text-secondary">Faster search, offline mode and a new mobile app.</span>
+              </a>
+            </div>
+            <div class="v-mega-footer"><span>Need a hand choosing?</span><a href="#">Book a demo</a></div>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details class="v-mega" name="nav-mega" data-v-mega id="mega-resources">
+          <summary>Resources<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="/icons/sprite.svg#chevron-down"/></svg></summary>
+          <div class="v-mega-panel">
+            <div class="v-mega-grid">
+              <div>
+                <p class="v-mega-title" id="mega-learn">Learn</p>
+                <ul class="v-mega-links" aria-labelledby="mega-learn">
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#folder"/></svg><span>Guides<span class="v-mega-link-text">Step by step, from setup to launch.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg><span>Help centre<span class="v-mega-link-text">Answers to common questions.</span></span></a></li>
+                </ul>
+              </div>
+              <div>
+                <p class="v-mega-title" id="mega-company">Company</p>
+                <ul class="v-mega-links" aria-labelledby="mega-company">
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#user"/></svg><span>About<span class="v-mega-link-text">Who we are and how we work.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#inbox"/></svg><span>Contact<span class="v-mega-link-text">Talk to sales or support.</span></span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </li>
+      <li><a href="#">Pricing</a></li>
+    </ul>
+    <div class="v-navbar-actions">
+      <a class="v-btn v-btn-ghost" href="#">Sign in</a>
+      <a class="v-btn v-btn-primary" href="#">Get started</a>
+    </div>
+  </nav>
+</header>
+```
+
 #### Navbar (navbar)
 
 The top bar with a brand, page links and actions, which folds its links into a native popover menu in narrow slots. Native: <nav>, popover, popovertarget, container queries.
@@ -3135,7 +3243,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-card-pad --v-code-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 
@@ -3165,7 +3273,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-confirm-text data-v-connection data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-confirm-text data-v-connection data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 
