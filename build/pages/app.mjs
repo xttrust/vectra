@@ -4,10 +4,10 @@
 import { icon, brand, appShell, CSRF } from './shared.mjs';
 
 const STATES = [['', 'Loaded'], ['-loading', 'Loading'], ['-empty', 'Empty'], ['-error', 'Error']];
-const btn = (text, href = '#main', cls = 'v-btn-secondary', ic) => `<a class="v-btn ${cls}" href="${href}">${ic ? icon(ic) : ''}${text}</a>`;
+export const btn = (text, href = '#main', cls = 'v-btn-secondary', ic) => `<a class="v-btn ${cls}" href="${href}">${ic ? icon(ic) : ''}${text}</a>`;
 const sk = (w, h = '1em', extra = '') => `<span class="v-skeleton" style="inline-size: ${w}; block-size: ${h}${extra}"></span>`;
 
-const header = ({ kicker, crumbs, title, meta, actions = '', tabs = '' }) => `<div class="v-page-header">
+export const header = ({ kicker, crumbs, title, meta, actions = '', tabs = '' }) => `<div class="v-page-header">
 <div>
 ${crumbs ? `<nav class="v-breadcrumb" aria-label="Breadcrumb">
 <ol>
@@ -303,7 +303,7 @@ ${[['Gutter bracket', 'Booked for 19 Nov', 'Booked', 'accent'], ['Slate re-roof'
 const relatedInvoices = `<ul class="v-list" style="border: 0; border-radius: 0">
 ${[['INV-2046', 'Paid 3 Nov', '1,850.00'], ['INV-1710', 'Paid June 2025', '170.00'], ['INV-1202', 'Paid March 2024', '150.00']].map(([n, m, a]) => `<li><a class="v-list-item" href="#main"><span class="v-list-body"><span class="v-list-title">${n}</span><span class="v-list-meta">${m}</span></span><span class="v-list-end v-tabular">&euro;${a}</span></a></li>`).join('\n')}
 </ul>`;
-const panel = (title, body, { action = '', footer = '', flush = false, id } = {}) => `<section class="v-panel"${id ? ` aria-labelledby="${id}"` : ''}>
+export const panel = (title, body, { action = '', footer = '', flush = false, id } = {}) => `<section class="v-panel"${id ? ` aria-labelledby="${id}"` : ''}>
 <div class="v-panel-header"><h2 class="v-panel-title"${id ? ` id="${id}"` : ''}>${title}</h2>${action}</div>
 ${flush ? body : `<div class="v-panel-body">\n${body}\n</div>`}
 ${footer ? `<div class="v-panel-footer">${footer}</div>` : ''}
@@ -372,15 +372,15 @@ ${panel('Activity', `${failedInline('Activity', 'detail.html')}\n${noteForm('not
 ${panel('Invoices', relatedInvoices, { flush: true, id: 'invoices-title' })}`)}`);
 
 // ---------------------------------------------------------------- Settings
-const SETTINGS = [['profile', 'Profile'], ['account', 'Account'], ['security', 'Security'], ['notifications', 'Notifications']];
-const settingsHeader = (current, extra = '') => header({
+const SETTINGS = [['profile', 'Profile'], ['account', 'Account'], ['security', 'Security'], ['notifications', 'Notifications'], ['billing', 'Billing'], ['team', 'Team'], ['api', 'API keys'], ['integrations', 'Integrations']];
+export const settingsHeader = (current, extra = '') => header({
   kicker: 'Harbour Roofing', title: 'Settings', meta: 'Your own details, how you sign in and what we send you.',
   actions: extra,
   tabs: `<nav class="v-tablist" aria-label="Settings sections">
 ${SETTINGS.map(([s, t]) => `<a class="v-tab" href="settings-${s}.html"${s === current ? ' aria-current="page"' : ''}>${t}</a>`).join('\n')}
 </nav>`,
 });
-const sectionRow = (title, text, body, id) => `<div class="v-form-section">
+export const sectionRow = (title, text, body, id) => `<div class="v-form-section">
 <div class="v-form-section-header">
 <h2 class="v-form-section-title"${id ? ` id="${id}"` : ''}>${title}</h2>
 <p class="v-form-section-text">${text}</p>
@@ -389,14 +389,14 @@ const sectionRow = (title, text, body, id) => `<div class="v-form-section">
 ${body}
 </div>
 </div>`;
-const field = (id, label, input, { hint, error, optional } = {}) => `<div class="v-field">
+export const field = (id, label, input, { hint, error, optional } = {}) => `<div class="v-field">
 <label class="v-label" for="${id}">${label}${optional ? ' <span class="v-optional">Optional</span>' : ''}</label>
 ${input}
 ${hint ? `<p class="v-hint" id="${id}-hint">${hint}</p>` : ''}
 ${error ? `<p class="v-field-error" id="${id}-error">${error}</p>` : ''}
 </div>`;
-const input = (id, name, { type = 'text', value = '', auto, required, describe, extra = '' } = {}) => `<input class="v-input" id="${id}" name="${name}" type="${type}"${value ? ` value="${value}"` : ''}${auto ? ` autocomplete="${auto}"` : ''}${required ? ' required' : ''}${describe ? ` aria-describedby="${id}-hint"` : ''}${extra}>`;
-const actions = (saved = 'Last saved today at 09:12') => `<div class="v-form-actions">
+export const input = (id, name, { type = 'text', value = '', auto, required, describe, extra = '' } = {}) => `<input class="v-input" id="${id}" name="${name}" type="${type}"${value ? ` value="${value}"` : ''}${auto ? ` autocomplete="${auto}"` : ''}${required ? ' required' : ''}${describe ? ` aria-describedby="${id}-hint"` : ''}${extra}>`;
+export const actions = (saved = 'Last saved today at 09:12') => `<div class="v-form-actions">
 <p class="v-hint v-form-actions-start">${saved}</p>
 <button class="v-btn v-btn-ghost" type="reset">Discard</button>
 <button class="v-btn v-btn-primary" type="submit">Save changes</button>

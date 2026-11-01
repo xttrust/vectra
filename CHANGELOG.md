@@ -30,6 +30,8 @@ Vectra follows [semantic versioning](https://semver.org). Pre-release versions (
   - **Combobox** (`.v-combobox`, `data-v-combobox`): upgrades `<input list>` + `<datalist>`.
   - **Multi-step form** (`.v-wizard`, `data-v-wizard`): one form, checked step by step.
   - **Charts** (`.v-chart`, `.v-chart-bars`, `.v-chart-columns`, `.v-donut`, `.v-sparkline`, `.v-chart-line`, `.v-chart-legend`): tables, lists and SVG, no library.
+- **18 new example pages** (`examples/pages/`): features, changelog, careers and a job with a multi-step application, customers and a case study, help centre and an article, developer docs, status and a waitlist; and in the app, billing, team, API keys and integrations settings, notifications, search results and a business profile.
+- The example marketing header now has two mega menus (Product, Resources), the footer links to the new pages instead of the coming-soon page, and the app shell's top bar has a working notification centre and a Ctrl+K command palette.
 
 - **Utilities:** position (`v-relative`, `v-absolute`, `v-inset-0`, `v-sticky` with `--v-sticky-top`), overflow, a scroll-snap row (`v-snap-row`), aspect ratios and object fit, line clamp (2 and 3 lines), dividers between children (`v-divide`), top and bottom borders, flex column and self-alignment, text sizes `xl`, `2xl` and `display`, `v-pretty`, `v-break-word`, `v-uppercase`, more spacing steps (margins 1 and 3, padding 1, 3, 8, inline and block padding, `v-ms-auto`, `v-me-auto`, `v-gap-8`), `v-h-full`, and container-width helpers `v-hide-narrow` and `v-hide-wide`.
 

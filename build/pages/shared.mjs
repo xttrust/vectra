@@ -66,6 +66,7 @@ const ICONS = {
   book: '<path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2zM4 20a2 2 0 002 2h13v-4"/>',
   coffee: '<path d="M4 9h13v5a5 5 0 01-5 5H9a5 5 0 01-5-5zM17 10h1.5a2.5 2.5 0 010 5H17M8 3v3M12 3v3"/>',
   printer: '<path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/>',
+  chevron: '<path d="M6 9l6 6 6-6"/>',
   link: '<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>',
   quote: '<path d="M10 7H6a2 2 0 00-2 2v3a2 2 0 002 2h2v3H5M20 7h-4a2 2 0 00-2 2v3a2 2 0 002 2h2v3h-3"/>',
 };
@@ -141,17 +142,50 @@ ${format(`${sprite(inner)}\n${inner}`, 1)}
 
 export const brand = (href) => `<a class="v-navbar-brand" href="${href}"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>`;
 
-// Marketing site. Pages that are not built yet (changelog, careers, help) point at the coming-soon page.
-const SOON = '{p}system/coming-soon.html';
-const NAV = [['Product', 'saas-home.html'], ['Pricing', 'pricing.html'], ['About', 'about.html'], ['Blog', 'blog.html'], ['Contact', 'contact.html']];
+// Marketing site. The header has two mega menus (Product, Resources) and two plain links. `current` is the
+// page's file name (older pages pass a label, mapped below); the matching link is marked as the current page.
+const LABEL_FILE = { Product: 'landing.html', Pricing: 'pricing.html', About: 'about.html', Blog: 'blog.html', Contact: 'contact.html' };
+const MEGA = [
+  ['product', 'Product', [
+    ['Build', [['zap', 'Features', 'features.html', 'Everything Northwind does, in one tour.'], ['calendar', 'Online booking', 'landing.html', 'Let customers book a slot themselves.'], ['card', 'Pricing', 'pricing.html', 'Plans for one van or a whole crew.']]],
+    ['Customers', [['users', 'Customer stories', 'customers.html', 'How trades across Ireland use it.'], ['star', 'Case study: Harbour Roofing', 'case-study.html', 'Quotes out in an hour, not a week.']]],
+  ], ['changelog.html', 'New', 'Changelog', 'Recurring jobs, offline mode and more in the last release.'], ['Northwind Teams is coming.', 'Join the waitlist', 'waitlist.html']],
+  ['resources', 'Resources', [
+    ['Learn', [['help', 'Help centre', 'help.html', 'Answers, in plain words.'], ['book', 'Developer docs', 'docs.html', 'The API, webhooks and exports.'], ['file', 'Blog', 'blog.html', 'Guides on pricing and cash flow.']]],
+    ['Company', [['building', 'About us', 'about.html', 'Who we are and how we work.'], ['heart', 'Careers', 'careers.html', 'Four open roles, two remote.'], ['chart', 'System status', 'status.html', 'Live status and past incidents.']]],
+  ], null, ['Need a person?', 'Contact us', 'contact.html']],
+];
+const megaLink = (current) => ([ic, text, href, note]) => `<li><a class="v-mega-link" href="{p}${href}"${href === current ? ' aria-current="page"' : ''}>${icon(ic)}<span>${text}<span class="v-mega-link-text">${note}</span></span></a></li>`;
+const mega = (current) => ([id, label, groups, feature, foot]) => `<li>
+<details class="v-mega" name="site-mega" data-v-mega>
+<summary>${label}<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+<div class="v-mega-panel">
+<div class="v-mega-grid">
+${groups.map(([title, links], i) => `<div>
+<p class="v-mega-title" id="mega-${id}-${i}">${title}</p>
+<ul class="v-mega-links" aria-labelledby="mega-${id}-${i}">
+${links.map(megaLink(current)).join('\n')}
+</ul>
+</div>`).join('\n')}
+${feature ? `<a class="v-mega-feature" href="{p}${feature[0]}"><span class="v-badge v-badge-accent">${feature[1]}</span><strong>${feature[2]}</strong><span class="v-text-sm v-text-secondary">${feature[3]}</span></a>` : ''}
+</div>
+<div class="v-mega-footer"><span>${foot[0]}</span><a href="{p}${foot[2]}">${foot[1]}</a></div>
+</div>
+</details>
+</li>`;
 
-export const siteHeader = (current) => `<header class="v-navbar v-navbar-contained" data-v-nav>
+export const siteHeader = (currentIn) => {
+  const current = LABEL_FILE[currentIn] ?? currentIn;
+  const plain = (text, href) => `<li><a href="{p}${href}"${href === current ? ' aria-current="page"' : ''}>${text}</a></li>`;
+  return `<header class="v-navbar v-navbar-contained" data-v-nav>
 ${brand('{p}saas-home.html')}
 <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu">${icon('menu')}</button>
 <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
 <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu">${icon('close')}</button>
 <ul class="v-navbar-links">
-${NAV.map(([text, href]) => `<li><a href="{p}${href}"${text === current ? ' aria-current="page"' : ''}>${text}</a></li>`).join('\n')}
+${MEGA.map(mega(current)).join('\n')}
+${plain('Pricing', 'pricing.html')}
+${plain('Contact', 'contact.html')}
 </ul>
 <div class="v-navbar-actions">
 <a class="v-btn v-btn-ghost" href="{root}examples/auth/sign-in/password.html">Sign in</a>
@@ -159,6 +193,7 @@ ${NAV.map(([text, href]) => `<li><a href="{p}${href}"${text === current ? ' aria
 </div>
 </nav>
 </header>`;
+};
 
 export const siteFooter = `<footer class="v-footer">
 <div class="v-container">
@@ -171,10 +206,10 @@ ${brand('{p}saas-home.html')}
 <div>
 <h2 class="v-footer-title">Product</h2>
 <ul class="v-footer-links">
-<li><a href="{p}saas-home.html#features">Features</a></li>
+<li><a href="{p}features.html">Features</a></li>
 <li><a href="{p}landing.html">Online booking</a></li>
 <li><a href="{p}pricing.html">Pricing</a></li>
-<li><a href="${SOON}">Changelog</a></li>
+<li><a href="{p}changelog.html">Changelog</a></li>
 </ul>
 </div>
 <div>
@@ -182,16 +217,16 @@ ${brand('{p}saas-home.html')}
 <ul class="v-footer-links">
 <li><a href="{p}about.html">About us</a></li>
 <li><a href="{p}blog.html">Blog</a></li>
-<li><a href="${SOON}">Careers</a></li>
+<li><a href="{p}careers.html">Careers</a></li>
 <li><a href="{p}contact.html">Contact</a></li>
 </ul>
 </div>
 <div>
 <h2 class="v-footer-title">Help</h2>
 <ul class="v-footer-links">
-<li><a href="${SOON}">Help centre</a></li>
-<li><a href="${SOON}">Guides</a></li>
-<li><a href="${SOON}">Status</a></li>
+<li><a href="{p}help.html">Help centre</a></li>
+<li><a href="{p}docs.html">Developer docs</a></li>
+<li><a href="{p}status.html">Status</a></li>
 <li><a href="{p}privacy.html#security">Security</a></li>
 </ul>
 </div>
@@ -247,11 +282,51 @@ ${items.map(([text, ic, href, badge]) => `<li><a href="${href}"${text === curren
 </form>
 <div class="v-cluster" style="--v-gap: var(--v-space-1)">
 <a class="v-btn v-btn-ghost v-btn-icon v-hide-mobile" href="#main" aria-label="Help">${icon('help')}</a>
-<a class="v-btn v-btn-ghost v-btn-icon" href="#main" aria-label="Notifications, 3 unread">${icon('bell')}</a>
+<button class="v-btn v-btn-ghost v-btn-sm v-hide-mobile" type="button" data-v-dialog-open="app-commands">${icon('zap')}Commands<kbd class="v-kbd">Ctrl K</kbd></button>
+<button class="v-btn v-btn-ghost v-btn-icon v-notify" type="button" popovertarget="app-notifications" aria-label="Notifications, 3 unread">${icon('bell')}<span class="v-notify-count" aria-hidden="true">3</span></button>
 <a class="v-btn v-btn-primary v-btn-sm v-hide-mobile" href="#main">${icon('plus')}New job</a>
 <a class="v-avatar v-avatar-sm" href="{p}app/settings-profile.html" style="text-decoration: none"><span aria-hidden="true">AK</span><span class="v-sr-only">Your profile, Aoife Kelly</span></a>
 </div>
 </header>
+<div class="v-popover v-notifications" id="app-notifications" popover role="dialog" aria-labelledby="app-notifications-title" data-v-notifications>
+<div class="v-notifications-head">
+<h2 class="v-notifications-title" id="app-notifications-title">Notifications</h2>
+<button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-notifications-read>Mark all as read</button>
+</div>
+<ul class="v-notifications-list" role="list">
+<li class="v-notification" data-unread><a class="v-notification-link" href="{p}app/notifications.html"><span class="v-avatar v-avatar-sm" aria-hidden="true">MW</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Mary Walsh</strong> accepted the quote for <strong>slate re-roof</strong><span class="v-notification-time">12 minutes ago</span></span></a></li>
+<li class="v-notification" data-unread><a class="v-notification-link" href="{p}app/notifications.html"><span class="v-avatar v-avatar-sm" aria-hidden="true">JD</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>John Doyle</strong> paid invoice <strong>#0412</strong> (€1,840)<span class="v-notification-time">1 hour ago</span></span></a></li>
+<li class="v-notification" data-unread><a class="v-notification-link" href="{p}app/notifications.html"><span class="v-avatar v-avatar-sm" aria-hidden="true">NW</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Reminder:</strong> gutter clean in Athenry tomorrow at 9:00<span class="v-notification-time">Today at 07:30</span></span></a></li>
+<li class="v-notification"><a class="v-notification-link" href="{p}app/notifications.html"><span class="v-avatar v-avatar-sm" aria-hidden="true">SC</span><span><strong>Siobhan Costello</strong> left a 5-star review<span class="v-notification-time">Yesterday</span></span></a></li>
+</ul>
+<p class="v-notifications-empty">You're all caught up.</p>
+<div class="v-notifications-foot"><a href="{p}app/notifications.html">View all notifications</a></div>
+</div>
+<dialog class="v-dialog v-command" id="app-commands" aria-label="Commands" data-v-command data-v-dismissable>
+<div class="v-command-search">
+${icon('search')}
+<input class="v-command-input" type="text" role="combobox" aria-expanded="true" aria-controls="app-commands-list" aria-autocomplete="list" aria-label="Search commands" placeholder="Type a command or search" autocomplete="off" spellcheck="false">
+<kbd>Esc</kbd>
+</div>
+<div class="v-command-list" id="app-commands-list" role="listbox" aria-label="Commands">
+<div role="group" aria-labelledby="app-commands-go">
+<div class="v-command-label" id="app-commands-go" role="presentation">Go to</div>
+<a class="v-command-item" role="option" href="{p}app-shell.html" data-keywords="home today">${icon('home')}Dashboard</a>
+<a class="v-command-item" role="option" href="{p}app/list.html" data-keywords="clients people">${icon('users')}Customers</a>
+<a class="v-command-item" role="option" href="{p}app/notifications.html" data-keywords="inbox alerts">${icon('bell')}Notifications</a>
+<a class="v-command-item" role="option" href="{p}app/search.html" data-keywords="find">${icon('search')}Search everything</a>
+</div>
+<div role="group" aria-labelledby="app-commands-settings">
+<div class="v-command-label" id="app-commands-settings" role="presentation">Settings</div>
+<a class="v-command-item" role="option" href="{p}app/settings-profile.html">${icon('user')}Profile</a>
+<a class="v-command-item" role="option" href="{p}app/settings-billing.html" data-keywords="invoices payment upgrade">${icon('card')}Billing and plan</a>
+<a class="v-command-item" role="option" href="{p}app/settings-team.html" data-keywords="invite staff roles">${icon('users')}Team members</a>
+<a class="v-command-item" role="option" href="{p}app/settings-api.html" data-keywords="developer token webhook">${icon('key')}API keys</a>
+<a class="v-command-item" role="option" href="{p}app/settings-integrations.html" data-keywords="xero stripe google connect">${icon('link')}Integrations</a>
+</div>
+</div>
+<p class="v-command-empty" role="status"></p>
+</dialog>
 <main class="v-app-page v-skip-target" id="main" tabindex="-1">
 ${main}
 </main>

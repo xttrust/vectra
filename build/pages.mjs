@@ -8,12 +8,14 @@ import { dirname } from 'node:path';
 import { page, icon } from './pages/shared.mjs';
 import { SYSTEM, systemPages } from './pages/system.mjs';
 import { marketingPages } from './pages/marketing.mjs';
+import { morePages } from './pages/marketing-more.mjs';
 import { appPages } from './pages/app.mjs';
+import { moreAppPages } from './pages/app-more.mjs';
 
 const OUT = 'examples/pages';
 const CHECK = process.argv.includes('--check');
 
-const files = new Map([...systemPages(page), ...marketingPages(page), ...appPages(page)].map(([f, html]) => [`${OUT}/${f}`, html]));
+const files = new Map([...systemPages(page), ...marketingPages(page), ...morePages(page), ...appPages(page), ...moreAppPages(page)].map(([f, html]) => [`${OUT}/${f}`, html]));
 
 const group = (id, title, text, cards) => `<section class="v-stack" aria-labelledby="${id}" style="--v-gap: var(--v-space-5)">
 <div class="v-stack" style="--v-gap: var(--v-space-2)">
@@ -40,6 +42,14 @@ const MARKETING = [
   ['mail', 'Contact', 'Ways to get in touch and a validated form.', [['Open', 'contact.html']]],
   ['book', 'Blog', 'Index with a featured post, and a post with a table of contents.', [['Index', 'blog.html'], ['Post', 'blog-post.html']]],
   ['file', 'Legal', 'Terms, privacy and cookies, with contents and marked example text.', [['Terms', 'terms.html'], ['Privacy', 'privacy.html'], ['Cookies', 'cookies.html']]],
+  ['zap', 'Features', 'A product tour with device frames around live screens.', [['Open', 'features.html']]],
+  ['sparkle', 'Changelog', 'Releases with tags and a scrollspy list of versions.', [['Open', 'changelog.html']]],
+  ['heart', 'Careers', 'Values, open roles, hiring steps, and a job with a multi-step application.', [['Careers', 'careers.html'], ['Job', 'careers-job.html']]],
+  ['users', 'Customers', 'A logo marquee, a quote carousel and stories, plus a case study with a chart.', [['Customers', 'customers.html'], ['Case study', 'case-study.html']]],
+  ['help', 'Help centre', 'Search with suggestions, topics, and an article with steps.', [['Help centre', 'help.html'], ['Article', 'help-article.html']]],
+  ['book', 'Developer docs', 'Sidebar navigation, code with copy buttons and a table of contents.', [['Open', 'docs.html']]],
+  ['chart', 'Status', 'Live service status, 30-day uptime and past incidents.', [['Open', 'status.html']]],
+  ['sparkle', 'Waitlist', 'A launch page with a signup form.', [['Open', 'waitlist.html']]],
 ];
 const SYSTEM_ICONS = { 401: 'key', 403: 'lock', 404: 'search', 419: 'clock', 429: 'zap', 500: 'alert', 503: 'gear', offline: 'wifi', 'coming-soon': 'sparkle' };
 const states = (slug) => [['Loaded', `app/${slug}.html`], ['Loading', `app/${slug}-loading.html`], ['Empty', `app/${slug}-empty.html`], ['Error', `app/${slug}-error.html`]];
@@ -52,6 +62,13 @@ const APP = [
   ['building', 'Settings: account', 'Business details, sign-in email, plan and danger zone.', states('settings-account')],
   ['shield', 'Settings: security', 'Password with strength meter, two-step sign-in, devices.', states('settings-security')],
   ['bell', 'Settings: notifications', 'Switches per channel, quiet hours and save status.', states('settings-notifications')],
+  ['card', 'Settings: billing', 'Plan, usage rings, payment method and invoices.', [['Open', 'app/settings-billing.html']]],
+  ['users', 'Settings: team', 'Members with roles and invites by tag input.', [['Open', 'app/settings-team.html']]],
+  ['key', 'Settings: API keys', 'Keys with copy buttons, usage columns and a new key dialog.', [['Open', 'app/settings-api.html']]],
+  ['link', 'Settings: integrations', 'Connected apps and ones to add.', [['Open', 'app/settings-integrations.html']]],
+  ['bell', 'Notifications', 'Every notification, grouped by day, with mark all as read.', [['Open', 'app/notifications.html']]],
+  ['search', 'Search results', 'Results across every kind of record.', [['Open', 'app/search.html']]],
+  ['building', 'Business profile', 'About with read more, work in a lightbox, reviews.', [['Open', 'app/profile.html']]],
 ];
 
 const index = `<main class="v-container ex-main v-skip-target" id="main" tabindex="-1">
