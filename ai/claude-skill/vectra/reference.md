@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-91 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+92 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1380,6 +1380,63 @@ Example (Checkboxes):
 
 ```js
 document.getElementById('c-ind').indeterminate = true;
+```
+
+#### Combobox (combobox)
+
+A text input with a list of suggestions that filters as you type. Native: <input list>, <datalist>.
+
+Base:
+- .v-combobox: The wrapper around the input and its datalist. The list opens below it.
+Parts:
+- .v-combobox-list: The listbox, added by the JS. Also styles the "No matches" box.
+- .v-combobox-option: One suggestion, role="option". The matching letters are in a <mark>.
+- .v-combobox-hint: Extra text beside an option, from the datalist option's label (such as the county beside a town).
+- .v-combobox-empty: The "No matches" message, a role="status" box shown when nothing matches. data-empty on the wrapper changes the words.
+
+States:
+- aria-expanded: On the input, set by the JS: true while the list is open.
+- aria-activedescendant: On the input: the highlighted option, while focus stays in the input.
+- aria-selected="true": On the highlighted option.
+
+Hooks:
+- data-v-combobox (on the .v-combobox wrapper): Turns off the native datalist and draws its own listbox with filtering, highlighting and the combobox keyboard pattern.
+
+Events:
+- v:select detail { value }: Fires when an option is picked from the list, after the input's own input and change events.
+
+Keyboard:
+- ArrowDown / ArrowUp: Opens the list on the first or last option, then moves the highlight and wraps. Alt+ArrowDown opens without moving.
+- Enter: Puts the highlighted option in the input and closes the list.
+- Escape: Closes the list; a second Escape clears the input.
+
+Accessibility:
+- Focus stays in the input while the highlight moves (aria-activedescendant), so typing and choosing never fight over focus.
+- "No matches" is a live status message, so screen reader users hear when the list empties.
+- Options are picked on pointer down, before the input loses focus, so the list never closes under the click.
+
+Example (Town):
+
+```html
+<div class="v-field">
+  <label class="v-label" for="cb-town">Town</label>
+  <div class="v-combobox" data-v-combobox>
+    <input class="v-input" id="cb-town" name="town" list="cb-town-list" autocomplete="off">
+    <datalist id="cb-town-list">
+      <option value="Tuam" label="Co. Galway"></option>
+      <option value="Galway" label="Co. Galway"></option>
+      <option value="Athenry" label="Co. Galway"></option>
+      <option value="Ballinasloe" label="Co. Galway"></option>
+      <option value="Castlebar" label="Co. Mayo"></option>
+      <option value="Ballina" label="Co. Mayo"></option>
+      <option value="Westport" label="Co. Mayo"></option>
+      <option value="Claremorris" label="Co. Mayo"></option>
+      <option value="Ennis" label="Co. Clare"></option>
+      <option value="Roscommon" label="Co. Roscommon"></option>
+      <option value="Dún Laoghaire" label="Co. Dublin"></option>
+    </datalist>
+  </div>
+</div>
 ```
 
 #### Error summary (error-summary)
@@ -4065,7 +4122,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-carousel data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-tag-input data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video
+data-v-carousel data-v-clear data-v-combobox data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-tag-input data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video
 
 ## Patterns
 

@@ -195,6 +195,29 @@
         </div>
       </form>
     </section>
+    <section id="combobox">
+      <h2 data-contrast>Combobox</h2>
+      <p class="ex-label">Type part of a town: the list filters and marks the match. Arrow keys move, Enter picks, Escape closes. Any text is allowed. Without JS the browser's own suggestions appear.</p>
+      <div class="v-field" style="max-inline-size: 24rem">
+        <label class="v-label" for="cb-town" data-contrast>Town</label>
+        <div class="v-combobox" data-v-combobox id="cb-town-box">
+          <input class="v-input" id="cb-town" name="town" list="cb-town-list" autocomplete="off">
+          <datalist id="cb-town-list">
+            <option value="Tuam" label="Co. Galway"></option>
+            <option value="Galway" label="Co. Galway"></option>
+            <option value="Athenry" label="Co. Galway"></option>
+            <option value="Ballinasloe" label="Co. Galway"></option>
+            <option value="Castlebar" label="Co. Mayo"></option>
+            <option value="Ballina" label="Co. Mayo"></option>
+            <option value="Westport" label="Co. Mayo"></option>
+            <option value="Claremorris" label="Co. Mayo"></option>
+            <option value="Ennis" label="Co. Clare"></option>
+            <option value="Roscommon" label="Co. Roscommon"></option>
+            <option value="Dún Laoghaire" label="Co. Dublin"></option>
+          </datalist>
+        </div>
+      </div>
+    </section>
   </main>
 </body>
 </html>

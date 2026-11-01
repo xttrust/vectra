@@ -102,7 +102,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Form layouts (stacked, two-column, sectioned settings, inline) | P0 | done | |
 | OTP input | P1 | done | one real input drawn as boxes; no JS |
 | Tag input | P1 | done | comma-separated field without JS; same form value with it |
-| Combobox / autocomplete | P1 | | |
+| Combobox / autocomplete | P1 | done | `<input list>` + datalist without JS |
 | Multi-select | P1 | | built on combobox |
 | Date and time input styling | P1 | | native inputs |
 | Dual-thumb range | P1 | | |

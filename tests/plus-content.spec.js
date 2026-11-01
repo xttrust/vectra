@@ -381,3 +381,59 @@ test.describe('tag input without JS', () => {
     await expect(page.locator('#tags-skills')).toHaveAttribute('name', 'skills');
   });
 });
+
+test.describe('combobox', () => {
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await expect(page.locator('#cb-town[role="combobox"]')).toBeAttached();
+  });
+  const input = (page) => page.locator('#cb-town');
+  const options = (page) => page.locator('#cb-town-box [role="option"]');
+  const active = (page) => page.locator('#cb-town-box [role="option"][aria-selected="true"]');
+
+  test('takes over from the datalist and filters as you type, ignoring case and accents', async ({ page }) => {
+    await expect(input(page)).not.toHaveAttribute('list', /.*/);
+    await input(page).fill('bal');
+    await expect(options(page)).toHaveText(['BallinasloeCo. Galway', 'BallinaCo. Mayo']);
+    await expect(options(page).first().locator('mark')).toHaveText('Bal');
+    await expect(input(page)).toHaveAttribute('aria-expanded', 'true');
+    await input(page).fill('dun');
+    await expect(options(page)).toHaveCount(1);
+    await expect(options(page)).toContainText('Dún Laoghaire');
+  });
+
+  test('arrow keys move the highlight and wrap, Enter puts the option in the input', async ({ page }) => {
+    await input(page).fill('mayo');
+    await page.keyboard.press('ArrowDown');
+    await expect(active(page)).toContainText('Castlebar');
+    expect(await input(page).getAttribute('aria-activedescendant')).toBe(await active(page).getAttribute('id'));
+    await page.keyboard.press('ArrowUp');
+    await expect(active(page)).toContainText('Claremorris');
+    const chosen = page.evaluate(() => new Promise((r) => document.getElementById('cb-town-box').addEventListener('v:select', (e) => r(e.detail.value), { once: true })));
+    await page.keyboard.press('Enter');
+    await expect(input(page)).toHaveValue('Claremorris');
+    expect(await chosen).toBe('Claremorris');
+    await expect(page.locator('#cb-town-box [role="listbox"]')).toBeHidden();
+    await expect(input(page)).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('a click picks an option; Escape closes, a second Escape clears; free text stays', async ({ page }) => {
+    await input(page).fill('we');
+    await options(page).filter({ hasText: 'Westport' }).click();
+    await expect(input(page)).toHaveValue('Westport');
+    await expect(input(page)).toBeFocused();
+    await input(page).fill('Oranmore');
+    await expect(page.locator('#cb-town-box .v-combobox-empty')).toHaveText('No matches');
+    await page.keyboard.press('Escape');
+    await expect(input(page)).toHaveValue('Oranmore');
+    await page.keyboard.press('Escape');
+    await expect(input(page)).toHaveValue('');
+  });
+
+  test('ArrowDown on an empty field opens the whole list', async ({ page }) => {
+    await input(page).focus();
+    await page.keyboard.press('ArrowDown');
+    await expect(options(page)).toHaveCount(11);
+    await expect(active(page)).toContainText('Tuam');
+  });
+});

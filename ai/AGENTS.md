@@ -149,6 +149,7 @@ Forms:
 - Character counter: .v-counter, hooks data-v-counter data-v-max
 - Checkbox and radio cards: .v-choice-card
 - Checkbox, radio and switch: .v-choice .v-checkbox .v-radio .v-switch
+- Combobox: .v-combobox, hooks data-v-combobox
 - Error summary: .v-error-summary, hooks data-v-validate
 - Field: .v-field .v-fieldset
 - File drop zone: .v-dropzone, hooks data-v-dropzone data-v-dropzone-files
