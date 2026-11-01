@@ -202,7 +202,7 @@ Added 31 Oct 2026 after comparing current kits (section 12): chat and AI interfa
 | Theme toggle (light, dark, system) | P0 | done | |
 | Customizer | P0 | done | |
 | Scroll area (styled scrollbars, fade edges) | P0 | done | |
-| Visually hidden, sticky helpers | P0 | done | `.v-sr-only`, `.v-sticky` and the v2.1 utility set in utilities.css |
+| Visually hidden, sticky helpers | P0 | | shipped as utilities, not a component: `.v-sr-only` and `.v-sticky` in utilities.css, on the Utilities docs page |
 | Cookie consent banner | P1 | | no tracking code shipped |
 | Menubar (desktop-app style menus) | P2 | | |
 | Resizable split pane | P2 | | |
