@@ -140,7 +140,7 @@ async function utilityGroups() {
   const groups = [{ group: 'Type (base.css)', classes: [...base.matchAll(/^ {2}\.(v-[a-z0-9-]+)\s*\{/gm)].map((m) => m[1]) }, current];
   for (const line of css.split('\n')) {
     const heading = line.match(/^ {2}\/\* (.+?)(?: \*\/|$)/);
-    const rule = line.match(/^ {2}\.(v-[a-z0-9-]+)\s*\{/);
+    const rule = line.match(/^ {2}(?:@(?:media|container)[^{]*\{\s*)?\.(v-[a-z0-9-]+)[^{]*\{/);
     if (heading) groups.push(current = { group: heading[1].replace(/\s*\*\/$/, '').replace(/\s*\(.*\)$/, ''), classes: [] });
     else if (rule && current && !current.classes.includes(rule[1])) current.classes.push(rule[1]);
   }

@@ -82,3 +82,50 @@ test('reduced motion switches off transitions and shortens animations', async ({
   expect(durations[1]).toBeLessThan(0.001);
   expect(durations[2]).toBe('1');
 });
+
+test.describe('v2.1 utilities', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); });
+
+  test('aspect ratios hold their shape', async ({ page }) => {
+    const [square, video] = [await box(page, '#demo-square'), await box(page, '#demo-video')];
+    expect(Math.abs(square.width - square.height)).toBeLessThan(1);
+    expect(video.width / video.height).toBeCloseTo(16 / 9, 1);
+  });
+
+  test('line clamp stops at two lines', async ({ page }) => {
+    const lines = await page.locator('#demo-clamp').evaluate((el) => el.clientHeight / parseFloat(getComputedStyle(el).lineHeight));
+    expect(Math.round(lines)).toBe(2);
+  });
+
+  test('divide draws a border between children only', async ({ page }) => {
+    const widths = await page.locator('#demo-divide > li').evaluateAll((els) => els.map((e) => getComputedStyle(e).borderBlockStartWidth));
+    expect(widths[0]).toBe('0px');
+    expect(widths.slice(1).every((w) => w !== '0px')).toBe(true);
+  });
+
+  test('container helpers follow the container, not the viewport', async ({ page }) => {
+    const host = page.locator('#demo-wide-only').locator('..');
+    await host.evaluate((el) => { el.style.inlineSize = '20rem'; });
+    await expect(page.locator('#demo-narrow-only')).toBeVisible();
+    await expect(page.locator('#demo-wide-only')).toBeHidden();
+    await host.evaluate((el) => { el.style.inlineSize = '40rem'; });
+    await expect(page.locator('#demo-wide-only')).toBeVisible();
+    await expect(page.locator('#demo-narrow-only')).toBeHidden();
+  });
+
+  test('snap row scrolls sideways without widening the page', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const row = await page.locator('#demo-snap').evaluate((el) => [el.scrollWidth > el.clientWidth, getComputedStyle(el).scrollSnapType]);
+    expect(row[0]).toBe(true);
+    expect(row[1]).toContain('x');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+
+  test('sticky header stays at the top of its scroller', async ({ page }) => {
+    const scroller = page.locator('#demo-sticky-box');
+    await scroller.evaluate((el) => { el.scrollTop = 120; });
+    const [outer, header] = [await scroller.boundingBox(), await box(page, '#demo-sticky')];
+    expect(Math.abs(header.y - outer.y)).toBeLessThan(3);
+  });
+});

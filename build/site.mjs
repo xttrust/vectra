@@ -389,15 +389,28 @@ ${table(['Token', 'Current value'], rows(contract.required), 'Required tokens')}
 ${table(['Token', 'Current value'], rows(contract.optional), 'Optional tokens')}`;
 }
 
+// A utility rule at the top level of the layer, optionally inside a one-line @media or @container:
+// class, the rest of its selector (e.g. " > * + *"), and the declarations when they sit on the same line.
+const UTILITY_RULE = /^ {2}(?:@(?:media|container)[^{]*\{\s*)?\.(v-[a-z0-9-]+)([^{]*)\{\s*([^}]*?)\s*(?:\}\s*)*$/;
+
+/** The declarations of the rule at lines[i]: the same line, or the lines up to its closing brace. */
+function utilityDeclarations(lines, i, inline) {
+  if (inline) return inline;
+  const body = [];
+  for (let j = i + 1; j < lines.length && !/^ {2}\}/.test(lines[j]); j++) body.push(lines[j].trim());
+  return body.join(' ');
+}
+
 async function utilitiesBody() {
   const css = await readFile('src/css/utilities.css', 'utf8');
   const sections = [];
   let current = null;
-  for (const line of css.split('\n')) {
+  const lines = css.split('\n');
+  for (const [i, line] of lines.entries()) {
     const heading = line.match(/^ {2}\/\* (.+?)(?: \*\/|$)/);
-    const rule = line.match(/^ {2}\.(v-[a-z0-9-]+)\s*\{\s*(.*?)\s*\}?\s*$/);
+    const rule = line.match(UTILITY_RULE);
     if (heading) sections.push(current = { title: heading[1].replace(/\s*\*\/$/, ''), rules: [] });
-    else if (rule && current) current.rules.push([rule[1], rule[2]]);
+    else if (rule && current) current.rules.push([rule[1] + rule[2].trimEnd(), utilityDeclarations(lines, i, rule[3])]);
   }
   return sections.filter((s) => s.rules.length).map((s) => `<h2>${esc(s.title.replace(/\s*\(.*\)$/, ''))}</h2>\n${table(['Class', 'Declaration'], s.rules.map(([k, d]) => [`<code>.${esc(k)}</code>`, d ? `<code>${esc(d.replace(/\s*\}$/, ''))}</code>` : '<span class="v-text-muted">see source</span>']), s.title)}`).join('\n');
 }

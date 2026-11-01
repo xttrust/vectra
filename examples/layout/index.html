@@ -159,6 +159,62 @@
           <p class="v-hide-mobile">Only on wider screens.</p>
           <p class="v-hide-desktop">Only on phones.</p>
         </div>
+        <div class="ex-box v-stack" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Text sizes and case</p>
+          <p class="v-uppercase v-text-sm v-text-secondary">Eyebrow label</p>
+          <p class="v-text-xl v-fw-semibold">Extra large</p>
+          <p class="v-text-2xl v-fw-bold v-balance">Two extra large</p>
+        </div>
+        <div class="ex-box v-stack" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Line clamp</p>
+          <p class="v-line-clamp-2" id="demo-clamp">Line clamp keeps a card excerpt to two lines however long the text is. The rest is cut with an ellipsis, so cards in a grid stay the same height and the layout does not jump when one excerpt runs longer than the others.</p>
+        </div>
+        <div class="ex-box v-stack" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Aspect ratio and object fit</p>
+          <div class="v-cluster">
+            <div class="v-aspect-square v-bg-subtle v-rounded" id="demo-square" style="inline-size: 4rem"></div>
+            <div class="v-aspect-video v-bg-subtle v-rounded" id="demo-video" style="inline-size: 8rem"></div>
+          </div>
+        </div>
+        <div class="ex-box v-stack" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Dividers between children</p>
+          <ul class="v-divide v-p-0" id="demo-divide" role="list">
+            <li class="v-py-2">First</li>
+            <li class="v-py-2">Second</li>
+            <li class="v-py-2">Third</li>
+          </ul>
+        </div>
+        <div class="ex-box v-stack v-cq" style="--v-gap: var(--v-space-2)">
+          <p class="ex-label">Container width</p>
+          <p class="v-hide-narrow" id="demo-wide-only">Shown when this box is at least 30rem wide.</p>
+          <p class="v-hide-wide" id="demo-narrow-only">Shown when this box is narrower than 30rem.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Scroll-snap row</h2>
+      <ul class="v-snap-row v-p-0" id="demo-snap" role="list" aria-label="Snap row example" tabindex="0">
+        <li class="ex-box">One</li>
+        <li class="ex-box">Two</li>
+        <li class="ex-box">Three</li>
+        <li class="ex-box">Four</li>
+        <li class="ex-box">Five</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Sticky</h2>
+      <div class="v-overflow-auto v-border v-rounded" style="block-size: 10rem" id="demo-sticky-box" tabindex="0" role="region" aria-label="Sticky example">
+        <p class="v-sticky v-bg-surface v-p-2 v-border-bottom v-fw-semibold" id="demo-sticky">Sticky header</p>
+        <div class="v-p-4 v-stack">
+          <p>Scroll this box. The header stays at the top.</p>
+          <p>Set <code>--v-sticky-top</code> to leave room for a fixed navbar.</p>
+          <p>Line three.</p>
+          <p>Line four.</p>
+          <p>Line five.</p>
+          <p>Line six.</p>
+        </div>
       </div>
     </section>
   </main>

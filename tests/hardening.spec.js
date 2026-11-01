@@ -378,7 +378,10 @@ test.describe('text spacing', () => {
             if (r.width < 4 || r.height < 4) continue;
             const cs = getComputedStyle(el);
             if (cs.visibility === 'hidden' || el.closest('.v-sr-only, [hidden]')) continue;
-            // Text cut off by a clipping box. Deliberate truncation (ellipsis) shows it is cut and is allowed.
+            // Text cut off by a clipping box. Deliberate truncation (ellipsis, or a line clamp, which also ends in
+            // an ellipsis) shows it is cut and is allowed.
+            const clamped = cs.webkitLineClamp && cs.webkitLineClamp !== 'none';
+            if (clamped) continue;
             // Checked per axis: a sideways scroller (overflow-x: auto) clips nothing horizontally.
             const clipX = /hidden|clip/.test(cs.overflowX) && el.scrollWidth > el.clientWidth + 1;
             const clipY = /hidden|clip/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 1;
