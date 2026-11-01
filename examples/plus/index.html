@@ -46,6 +46,9 @@
     <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></symbol>
     <symbol id="i-credit-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></symbol>
     <symbol id="i-log-out" viewBox="0 0 24 24"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
   </svg>
 
@@ -228,6 +231,27 @@
         </div>
         <p class="v-command-empty" role="status"></p>
         <div class="v-command-footer" aria-hidden="true"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to choose</span><span><kbd>Esc</kbd> to close</span></div>
+      </dialog>
+    </section>
+
+    <section id="lightbox">
+      <h2 data-contrast>Lightbox</h2>
+      <p class="ex-label">Select a picture to view it large. Arrow keys or swipe to move between them, Escape to close. Without JS each link opens the image itself.</p>
+      <ul class="v-grid v-p-0" role="list" style="--v-min: 10rem">
+        <li><a class="v-frame v-frame-4x3 v-rounded" href="../shared/img/roof.svg" data-v-lightbox="lb-work" data-caption="Slate re-roof, Tuam. Two days, no skips on the street."><img src="../shared/img/roof.svg" alt="A slate roof under an evening sky" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+        <li><a class="v-frame v-frame-4x3 v-rounded" href="../shared/img/garden.svg" data-v-lightbox="lb-work" data-caption="Spring garden clean-up in Headford."><img src="../shared/img/garden.svg" alt="A green lawn and hedge under a blue sky" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+        <li><a class="v-frame v-frame-4x3 v-rounded" href="../shared/img/booth.svg" data-v-lightbox="lb-work" data-caption="Release night at the Bridge Bar."><img src="../shared/img/booth.svg" alt="A DJ booth lit in purple and green" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+        <li><a class="v-frame v-frame-4x3 v-rounded" href="../shared/img/coast.svg" data-v-lightbox="lb-work" data-caption="Golden hour on the Atlantic coast."><img src="../shared/img/coast.svg" alt="The Atlantic coastline at dusk" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+      </ul>
+      <dialog class="v-lightbox" id="lb-work" aria-label="Image viewer" data-v-dismissable>
+        <p class="v-lightbox-count" aria-live="polite"></p>
+        <form method="dialog" class="v-lightbox-close"><button class="v-btn v-btn-secondary v-btn-icon" aria-label="Close viewer"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></form>
+        <button class="v-btn v-btn-secondary v-btn-icon v-lightbox-prev" type="button" aria-label="Previous image"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+        <figure class="v-lightbox-figure">
+          <img class="v-lightbox-img" alt="">
+          <figcaption class="v-lightbox-caption"></figcaption>
+        </figure>
+        <button class="v-btn v-btn-secondary v-btn-icon v-lightbox-next" type="button" aria-label="Next image"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
       </dialog>
     </section>
 

@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-79 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+80 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -2130,6 +2130,61 @@ Example (Person and repository):
 </div>
 ```
 
+#### Lightbox (lightbox)
+
+A full-screen image viewer that opens from thumbnails and steps through them. Native: <dialog>, showModal(), <figure>.
+
+Base:
+- .v-lightbox: The <dialog>: full screen, dark, laid out as count and close on top, the image between previous and next (under it on phones).
+Parts:
+- .v-lightbox-figure: The <figure> holding the image and caption.
+- .v-lightbox-img: The large image. Its src and alt are set from the link and its thumbnail.
+- .v-lightbox-caption: The caption, from the link's data-caption. Hidden while empty.
+- .v-lightbox-count: "2 of 6", in a polite live region. data-template changes the words; {n} and {total} are filled in.
+- .v-lightbox-prev: The previous button. The arrow flips in right-to-left.
+- .v-lightbox-next: The next button.
+- .v-lightbox-close: The close control: a <form method="dialog"> with a button inside.
+
+States:
+- data-caption: On a thumbnail link: the caption shown under the large image.
+- data-single: Set by the JS when the viewer has one picture: previous, next and the count are hidden.
+
+Hooks:
+- data-v-lightbox = dialog id (on Each thumbnail link): Opens the viewer on this picture instead of following the link (a modified click still opens the image in a new tab).
+- data-v-dismissable (on the dialog): A click on the dark area outside the picture closes it.
+
+Keyboard:
+- Enter: On a thumbnail, opens the viewer.
+- ArrowRight / ArrowLeft: Next and previous picture (swapped in right-to-left). Both wrap.
+- Escape: Closes the viewer and returns focus to the thumbnail.
+
+Accessibility:
+- The large image takes its alt text from the thumbnail, so write real alt text on the thumbnails.
+- The count is a polite live region, so stepping through announces "3 of 6" without moving focus.
+- Previous and next are real buttons with labels; a swipe on touch does the same, it is never the only way.
+- Ctrl, Cmd or Shift with a click still open the image in a new tab or window, as the link would.
+
+Example (Work gallery):
+
+```html
+<ul class="v-grid v-p-0" role="list" style="--v-min: 10rem">
+  <li><a class="v-frame v-frame-4x3 v-rounded" href="/img/roof.svg" data-v-lightbox="lb-work" data-caption="Slate re-roof, Tuam. Two days, no skips on the street."><img src="/img/roof.svg" alt="A slate roof under an evening sky" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+  <li><a class="v-frame v-frame-4x3 v-rounded" href="/img/garden.svg" data-v-lightbox="lb-work" data-caption="Spring garden clean-up in Headford."><img src="/img/garden.svg" alt="A green lawn and hedge under a blue sky" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+  <li><a class="v-frame v-frame-4x3 v-rounded" href="/img/booth.svg" data-v-lightbox="lb-work" data-caption="Release night at the Bridge Bar."><img src="/img/booth.svg" alt="A DJ booth lit in purple and green" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+  <li><a class="v-frame v-frame-4x3 v-rounded" href="/img/coast.svg" data-v-lightbox="lb-work" data-caption="Golden hour on the Atlantic coast."><img src="/img/coast.svg" alt="The Atlantic coastline at dusk" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+</ul>
+<dialog class="v-lightbox" id="lb-work" aria-label="Image viewer" data-v-dismissable>
+  <p class="v-lightbox-count" aria-live="polite"></p>
+  <form method="dialog" class="v-lightbox-close"><button class="v-btn v-btn-secondary v-btn-icon" aria-label="Close viewer"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#close"/></svg></button></form>
+  <button class="v-btn v-btn-secondary v-btn-icon v-lightbox-prev" type="button" aria-label="Previous image"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-left"/></svg></button>
+  <figure class="v-lightbox-figure">
+    <img class="v-lightbox-img" alt="">
+    <figcaption class="v-lightbox-caption"></figcaption>
+  </figure>
+  <button class="v-btn v-btn-secondary v-btn-icon v-lightbox-next" type="button" aria-label="Next image"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-right"/></svg></button>
+</dialog>
+```
+
 #### Popover (popover)
 
 A small floating panel on the native popover attribute, opened by a button with popovertarget and placed next to it. Native: popover, popovertarget, CSS anchor positioning.
@@ -3566,7 +3621,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 

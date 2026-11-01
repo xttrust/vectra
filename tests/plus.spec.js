@@ -165,6 +165,7 @@ test.describe('context menu', () => {
   test('Escape closes it and returns focus to the region', async ({ page }) => {
     const box = await region(page).boundingBox();
     await page.mouse.click(box.x + 40, box.y + 40, { button: 'right' });
+    await expect(menu(page).locator('.v-menu-item').first()).toBeFocused(); // it opens on release, a tick later
     await page.keyboard.press('ArrowDown');
     await expect(menu(page).locator('.v-menu-item').nth(1)).toBeFocused();
     await page.keyboard.press('Escape');
@@ -197,6 +198,7 @@ test.describe('context menu', () => {
   test('choosing an item closes it', async ({ page }) => {
     const box = await region(page).boundingBox();
     await page.mouse.click(box.x + 40, box.y + 40, { button: 'right' });
+    await expect(menu(page)).toBeVisible();
     await menu(page).getByRole('menuitem', { name: /Download/ }).click();
     await expect(menu(page)).toBeHidden();
   });
@@ -308,5 +310,64 @@ test.describe('command palette', () => {
     await page.click('#cmdk-open');
     await page.keyboard.press('Enter');
     await expect(dialog(page)).toBeVisible();
+  });
+});
+
+test.describe('lightbox', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); await ready(page); });
+  const viewer = (page) => page.locator('#lb-work');
+  const thumbs = (page) => page.locator('[data-v-lightbox="lb-work"]');
+
+  test('a thumbnail opens the viewer on its image, with alt text, caption and count', async ({ page }) => {
+    await thumbs(page).nth(1).click();
+    await expect(viewer(page)).toBeVisible();
+    const img = viewer(page).locator('.v-lightbox-img');
+    await expect(img).toHaveAttribute('src', /garden\.svg$/);
+    await expect(img).toHaveAttribute('alt', 'A green lawn and hedge under a blue sky');
+    await expect(viewer(page).locator('.v-lightbox-caption')).toHaveText('Spring garden clean-up in Headford.');
+    await expect(viewer(page).locator('.v-lightbox-count')).toHaveText('2 of 4');
+    await expect(page).not.toHaveURL(/garden\.svg/);
+  });
+
+  test('next, previous and the arrow keys step through and wrap; Escape returns focus to the thumbnail', async ({ page }) => {
+    await thumbs(page).nth(3).focus();
+    await page.keyboard.press('Enter');
+    await expect(viewer(page).locator('.v-lightbox-count')).toHaveText('4 of 4');
+    await viewer(page).locator('.v-lightbox-next').click();
+    await expect(viewer(page).locator('.v-lightbox-count')).toHaveText('1 of 4');
+    await page.keyboard.press('ArrowLeft');
+    await expect(viewer(page).locator('.v-lightbox-count')).toHaveText('4 of 4');
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('ArrowRight');
+    await expect(viewer(page).locator('.v-lightbox-img')).toHaveAttribute('src', /garden\.svg$/);
+    await page.keyboard.press('Escape');
+    await expect(viewer(page)).toBeHidden();
+    await expect(thumbs(page).nth(3)).toBeFocused();
+  });
+
+  test('right to left: ArrowLeft moves forward', async ({ page }) => {
+    await page.evaluate(() => { document.documentElement.dir = 'rtl'; });
+    await thumbs(page).first().click();
+    await page.keyboard.press('ArrowLeft');
+    await expect(viewer(page).locator('.v-lightbox-count')).toHaveText('2 of 4');
+  });
+
+  test('the image fits the viewport on a phone', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await thumbs(page).first().click();
+    const box = await viewer(page).locator('.v-lightbox-img').boundingBox();
+    expect(box.width).toBeLessThanOrEqual(390);
+    expect(box.y + box.height).toBeLessThanOrEqual(844);
+  });
+});
+
+test.describe('lightbox without JS', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('a thumbnail is a plain link to the image', async ({ page }) => {
+    await page.goto(target.path);
+    await page.locator('[data-v-lightbox="lb-work"]').first().click();
+    await expect(page).toHaveURL(/roof\.svg$/);
   });
 });
