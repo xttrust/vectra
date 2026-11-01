@@ -81,3 +81,22 @@ test.describe('data and content at desktop width', () => {
     expect(ch).toBeLessThanOrEqual(80);
   });
 });
+
+test.describe('table row menu', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+
+  test('each row\'s options button opens the shared actions menu beside it', async ({ page }) => {
+    await open(page, PAGES.find((p) => p.name === 'content'), { direction: 'tech', theme: 'light' });
+    const button = page.getByRole('button', { name: 'More for INV-1043' });
+    await button.click();
+    const menu = page.locator('#inv-actions');
+    await expect(menu).toBeVisible();
+    await expect(menu.getByRole('menuitem')).toHaveCount(4);
+    const [m, b] = [await menu.boundingBox(), await button.boundingBox()];
+    // Below the button, or above it when there is no room below (position-try flip).
+    expect(Math.min(Math.abs(m.y - (b.y + b.height)), Math.abs(m.y + m.height - b.y))).toBeLessThan(16);
+    await page.keyboard.press('Escape');
+    await expect(menu).toBeHidden();
+    await expect(button).toBeFocused();
+  });
+});
