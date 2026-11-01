@@ -154,7 +154,9 @@ test('theme builder: controls change the preview tokens, by mouse and keyboard',
   await expect(page.locator('html')).toHaveAttribute('data-direction', 'editorial');
 });
 
-test('theme builder: the contrast report passes the defaults and flags a bad override', async ({ page }) => {
+test('theme builder: the contrast report passes the defaults and flags a bad override', async ({ page, browserName }) => {
+  // Eight loads of the heaviest page in one test: WebKit on the 4-core nightly runner needs more than 30 s.
+  test.slow(browserName === 'webkit', 'eight theme builder loads are slow in WebKit');
   for (const direction of ['tech', 'editorial', 'soft', 'glass']) {
     for (const theme of ['light', 'dark']) {
       await open(page, BUILDER, { direction, theme });
