@@ -2,6 +2,16 @@
 
 Vectra follows [semantic versioning](https://semver.org). Pre-release versions (`-alpha`, `-beta`) may change markup and tokens between releases; each change is listed here.
 
+## Unreleased
+
+### Added
+
+- **Utilities:** position (`v-relative`, `v-absolute`, `v-inset-0`, `v-sticky` with `--v-sticky-top`), overflow, a scroll-snap row (`v-snap-row`), aspect ratios and object fit, line clamp (2 and 3 lines), dividers between children (`v-divide`), top and bottom borders, flex column and self-alignment, text sizes `xl`, `2xl` and `display`, `v-pretty`, `v-break-word`, `v-uppercase`, more spacing steps (margins 1 and 3, padding 1, 3, 8, inline and block padding, `v-ms-auto`, `v-me-auto`, `v-gap-8`), `v-h-full`, and container-width helpers `v-hide-narrow` and `v-hide-wide`.
+
+### Fixed
+
+- The Utilities docs page and the AI manifest now list helpers wrapped in `@media` or `@container` (`v-hide-mobile` and `v-hide-desktop` were missing) and show the declarations of multi-line rules.
+
 ## 2.0.0-alpha.1 (2026-10-31)
 
 The first public pre-release of Vectra v2, rebuilt from scratch on the web platform. Not yet recommended for production: see "Not verified yet" below.

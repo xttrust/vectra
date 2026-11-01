@@ -3038,14 +3038,18 @@ Tune them with custom properties (--v-gap, --v-min, --v-container-max), not modi
 
 - Type (base.css): .v-display .v-lead .v-kicker .v-icon
 - Screen readers: .v-sr-only
-- Display: .v-block .v-inline-block .v-flex .v-inline-flex .v-none
-- Flex alignment: .v-items-start .v-items-center .v-items-end .v-items-baseline .v-justify-start .v-justify-center .v-justify-end .v-justify-between .v-wrap .v-grow .v-shrink-0
-- Gap: .v-gap-0 .v-gap-1 .v-gap-2 .v-gap-3 .v-gap-4 .v-gap-5 .v-gap-6
-- Block margins: .v-mt-0 .v-mt-2 .v-mt-4 .v-mt-6 .v-mt-8 .v-mb-0 .v-mb-2 .v-mb-4 .v-mb-6 .v-mb-8 .v-mx-auto
-- Padding: .v-p-0 .v-p-2 .v-p-4 .v-p-6
-- Text: .v-text-start .v-text-center .v-text-end .v-text-sm .v-text-lg .v-text-secondary .v-text-muted .v-text-accent .v-text-success .v-text-warning .v-text-danger .v-text-info .v-font-mono .v-fw-regular .v-fw-medium .v-fw-semibold .v-fw-bold .v-nowrap .v-tabular .v-balance .v-truncate
-- Surfaces: .v-bg-surface .v-bg-subtle .v-border .v-rounded .v-rounded-lg .v-rounded-pill .v-shadow-1 .v-shadow-2 .v-shadow-3
-- Sizing: .v-w-full .v-max-prose
+- Display: .v-block .v-inline-block .v-flex .v-inline-flex .v-inline .v-none .v-hide-mobile .v-hide-desktop
+- Container width: hide by the width of the nearest .v-cq container, not the viewport: .v-hide-narrow .v-hide-wide
+- Position: .v-relative .v-absolute .v-inset-0 .v-sticky
+- Overflow: .v-overflow-hidden .v-overflow-auto .v-overflow-x-auto .v-snap-row
+- Media: .v-aspect-square .v-aspect-video .v-aspect-photo .v-aspect-portrait .v-object-cover .v-object-contain
+- Flex alignment: .v-items-start .v-items-center .v-items-end .v-items-baseline .v-justify-start .v-justify-center .v-justify-end .v-justify-between .v-flex-col .v-items-stretch .v-self-start .v-self-center .v-self-end .v-wrap .v-grow .v-shrink-0
+- Gap: .v-gap-0 .v-gap-1 .v-gap-2 .v-gap-3 .v-gap-4 .v-gap-5 .v-gap-6 .v-gap-8
+- Block margins: .v-mt-0 .v-mt-1 .v-mt-2 .v-mt-3 .v-mt-4 .v-mt-6 .v-mt-8 .v-mb-0 .v-mb-1 .v-mb-2 .v-mb-3 .v-mb-4 .v-mb-6 .v-mb-8 .v-mx-auto .v-ms-auto .v-me-auto
+- Padding: .v-p-0 .v-p-1 .v-p-2 .v-p-3 .v-p-4 .v-p-6 .v-p-8 .v-px-2 .v-px-4 .v-px-6 .v-py-2 .v-py-4 .v-py-6 .v-py-8
+- Text: .v-text-start .v-text-center .v-text-end .v-text-sm .v-text-lg .v-text-xl .v-text-2xl .v-text-display .v-text-secondary .v-text-muted .v-text-accent .v-text-success .v-text-warning .v-text-danger .v-text-info .v-font-mono .v-fw-regular .v-fw-medium .v-fw-semibold .v-fw-bold .v-nowrap .v-tabular .v-balance .v-pretty .v-break-word .v-uppercase .v-truncate .v-line-clamp-2 .v-line-clamp-3
+- Surfaces: .v-bg-surface .v-bg-subtle .v-border .v-border-top .v-border-bottom .v-divide .v-rounded .v-rounded-lg .v-rounded-pill .v-shadow-1 .v-shadow-2 .v-shadow-3
+- Sizing: .v-w-full .v-h-full .v-max-prose
 
 ## Theme attributes
 
