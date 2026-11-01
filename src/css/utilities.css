@@ -152,8 +152,16 @@
   .v-text-end { text-align: end; }
   .v-text-sm { font-size: var(--v-step-minus-1); }
   .v-text-lg { font-size: var(--v-step-1); }
-  .v-text-xl { font-size: var(--v-step-2); }
-  .v-text-2xl { font-size: var(--v-step-3); }
+
+  .v-text-xl {
+    font-size: var(--v-step-2);
+    line-height: 1.3;
+  }
+
+  .v-text-2xl {
+    font-size: var(--v-step-3);
+    line-height: 1.2;
+  }
 
   .v-text-display {
     font-size: var(--v-step-display);
