@@ -65,3 +65,26 @@ test.describe('read more without JS', () => {
     expect(await body.evaluate((el) => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
   });
 });
+
+test.describe('device frames', () => {
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); });
+
+  test('each screen keeps its aspect ratio and the image fills it', async ({ page }) => {
+    const ratio = async (sel) => page.locator(sel).evaluate((el) => { const r = el.getBoundingClientRect(); return r.width / r.height; });
+    expect(await ratio('.v-device-browser .v-device-screen')).toBeCloseTo(1.6, 1);
+    expect(await ratio('.v-device-phone .v-device-screen')).toBeCloseTo(9 / 19.5, 1);
+    const [screen, img] = [await page.locator('.v-device-phone .v-device-screen').boundingBox(), await page.locator('.v-device-phone img').boundingBox()];
+    expect(Math.abs(screen.width - img.width)).toBeLessThan(1);
+  });
+
+  test('the phone camera stays centred in right to left', async ({ page }) => {
+    await page.evaluate(() => { document.documentElement.dir = 'rtl'; });
+    const centre = await page.locator('.v-device-phone .v-device-screen').evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      const cs = getComputedStyle(el, '::before');
+      const left = r.left + parseFloat(cs.left) + parseFloat(cs.marginLeft); // auto margins centre it
+      return Math.abs(left + parseFloat(cs.width) / 2 - (r.left + r.width / 2));
+    });
+    expect(centre).toBeLessThan(1.5);
+  });
+});

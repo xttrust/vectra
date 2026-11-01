@@ -177,7 +177,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Gallery / masonry grid | P1 | | |
 | Video embed (lite, click to load) | P1 | | no third-party request until clicked |
 | Marquee / logo ticker | P1 | | respects reduced motion |
-| Device frames (phone, laptop, browser window) for screenshots in heroes and features | P1 | | pure CSS, holds real Vectra UI or an image |
+| Device frames (phone, laptop, browser window) for screenshots in heroes and features | P1 | done | pure CSS, holds real Vectra UI or an image |
 | Countdown | P1 | | |
 | Map placeholder (static image + link) | P1 | | no map SDK |
 

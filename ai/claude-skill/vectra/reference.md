@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-81 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+84 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1077,6 +1077,39 @@ Example (With a value and indeterminate):
 <progress class="v-progress" value="68" max="100" aria-labelledby="checklist">68%</progress>
 <span class="v-text-sm v-text-secondary" id="uploading">Uploading files</span>
 <progress class="v-progress" aria-labelledby="uploading"></progress>
+```
+
+#### Progress ring (progress-ring)
+
+A circular progress indicator with its value written inside. Native: role="progressbar", conic-gradient(), mask.
+
+Base:
+- .v-progress-ring: The ring. Set --v-value as a number from 0 to 100; put the label (a number or an icon) inside.
+Modifiers:
+- .v-progress-ring-sm: Small, for lists and table cells.
+- .v-progress-ring-lg: Large, for a dashboard figure.
+- .v-progress-ring-success: Success colour, for a finished task.
+- .v-progress-ring-warning: Warning colour, for a quota nearly used.
+- .v-progress-ring-danger: Danger colour, for a limit reached.
+
+States:
+- --v-value: The fill, a number from 0 to 100 (style="--v-value: 72").
+- aria-valuenow: The same number for assistive tech, with aria-valuemin="0", aria-valuemax="100" and an aria-label.
+
+Accessibility:
+- role="progressbar" with aria-valuenow and a label is what screen readers announce; the ring itself is decoration.
+- Write the value inside as text too, so it does not depend on reading the arc.
+- In forced colours the ring switches to system colours so the filled part still shows.
+
+Example (Sizes and tones):
+
+```html
+<div class="v-cluster v-items-center" style="--v-gap: var(--v-space-6)">
+  <div class="v-progress-ring v-progress-ring-sm" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Storage used" style="--v-value: 25"><span>25</span></div>
+  <div class="v-progress-ring" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Upload" style="--v-value: 72"><span>72%</span></div>
+  <div class="v-progress-ring v-progress-ring-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Profile complete" style="--v-value: 100"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#check"/></svg></div>
+  <div class="v-progress-ring v-progress-ring-lg v-progress-ring-warning" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Monthly quota" style="--v-value: 88"><span>88%</span></div>
+</div>
 ```
 
 #### Session timeout warning (session-timeout)
@@ -2926,6 +2959,46 @@ Example (Closed and open):
 </details>
 ```
 
+#### Read more (read-more)
+
+Long text cut to a few lines, with a button that shows the rest. Native: -webkit-line-clamp.
+
+Base:
+- .v-readmore: The wrapper. Set --v-lines to change how many lines show before the button.
+Parts:
+- .v-readmore-body: The text, clamped while closed.
+- .v-readmore-toggle: The button. Hidden when the text fits. data-more and data-less set its words.
+
+States:
+- data-clamped: Set on .v-readmore by the JS: "true" while the text is cut.
+- aria-expanded: On the button, set by the JS, with aria-controls pointing at the body.
+
+Hooks:
+- data-v-readmore (on the .v-readmore wrapper): Clamps the body when it is longer than --v-lines, shows and labels the button, and re-measures when the width changes.
+
+Keyboard:
+- Enter / Space: On the button, shows or hides the rest of the text.
+
+Accessibility:
+- Nothing is hidden without JS: the clamp only applies once the script has measured the text.
+- The button says Read more or Show less and carries aria-expanded, so the change is announced.
+- Screen readers read the whole text even while it is clamped visually; the button is for sighted readers.
+
+Example (Long and short):
+
+```html
+<div class="v-grid" style="--v-min: 18rem">
+  <div class="v-readmore" data-v-readmore>
+    <p class="v-readmore-body">Long text is cut to four lines here, with a button to show the rest. Without JavaScript the whole text shows, so nothing is ever hidden from someone whose script failed to load. The button only appears when the text really is longer than the limit, and it keeps track as the width changes: make the window narrower and a short paragraph may need the button after all. It says whether the text is open or closed, so a screen reader hears the change as well as seeing it.</p>
+    <button class="v-readmore-toggle" type="button">Read more</button>
+  </div>
+  <div class="v-readmore" data-v-readmore>
+    <p class="v-readmore-body">A short review fits on its own.</p>
+    <button class="v-readmore-toggle" type="button">Read more</button>
+  </div>
+</div>
+```
+
 ### Data
 
 #### Table (table)
@@ -3151,6 +3224,42 @@ Example (Numbered CSS):
 <span class="v-code-line">  <span class="v-tok-property">--v-density</span><span class="v-tok-punct">:</span> <span class="v-tok-number">0.85</span><span class="v-tok-punct">;</span></span>
 <span class="v-code-line">  <span class="v-tok-property">font-family</span><span class="v-tok-punct">:</span> <span class="v-tok-string">"Inter Var"</span><span class="v-tok-punct">;</span></span>
 <span class="v-code-line"><span class="v-tok-punct">}</span></span></code></pre>
+</div>
+```
+
+#### Device frames (device-frames)
+
+A browser window, a laptop and a phone drawn in CSS around a screenshot or live UI.
+
+Base:
+- .v-device: Every frame, on a <figure> or <div>.
+Modifiers:
+- .v-device-browser: A browser window with a title bar. Default ratio 16 / 10.
+- .v-device-laptop: A laptop: the screen in a bezel on a base. Default ratio 16 / 10.
+- .v-device-phone: A phone with a camera island. Default ratio 9 / 19.5 and width 18rem.
+Parts:
+- .v-device-bar: The browser's title bar with three dots.
+- .v-device-url: The address in the title bar.
+- .v-device-screen: The screen. An <img> or <video> inside fills it from the top.
+
+Accessibility:
+- The frame is decoration; the content carries the meaning, so give a screenshot real alt text.
+- Live markup inside a frame is real, focusable UI. If it is only a picture of the product, add inert to the screen.
+
+Example (Browser, laptop and phone):
+
+```html
+<div class="v-grid v-items-end" style="--v-min: 15rem">
+  <figure class="v-device v-device-browser">
+    <div class="v-device-bar"><span class="v-device-url">northwind.ie/pricing</span></div>
+    <div class="v-device-screen"><img src="/img/coast.svg" alt="The Northwind pricing page" width="1200" height="900"></div>
+  </figure>
+  <figure class="v-device v-device-laptop">
+    <div class="v-device-screen"><img src="/img/booth.svg" alt="The Northwind dashboard" width="1200" height="900"></div>
+  </figure>
+  <figure class="v-device v-device-phone" style="--v-device-width: 11rem">
+    <div class="v-device-screen"><img src="/img/garden.svg" alt="The Northwind app on a phone" width="1200" height="900"></div>
+  </figure>
 </div>
 ```
 
@@ -3653,7 +3762,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 
@@ -3683,7 +3792,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 
@@ -3796,6 +3905,7 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/pages/system/offline-illustrated.html: Pages: Offline
 - examples/pages/system/offline.html: Pages: Offline
 - examples/plus/: More components
+- examples/plus-content/: More components, part 2
 - examples/sections/: Sections
 - examples/sections/app.html: Sections: app UI
 - examples/sections/chrome.html: Sections: navigation and chrome

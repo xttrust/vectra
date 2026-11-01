@@ -1,0 +1,125 @@
+/* Device frames: a browser window, a phone and a laptop drawn in CSS around a screenshot or live Vectra
+   UI, for heroes and feature sections. Put an <img> (or any element) in .v-device-screen; it fills the
+   screen and keeps the frame's aspect ratio. Decorative: the content inside carries the meaning, so
+   give an image real alt text. */
+@layer components {
+  .v-device {
+    --v-device-bezel: var(--v-surface-2);
+
+    display: block;
+    color: var(--v-text);
+  }
+
+  .v-device-screen {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--v-bg);
+  }
+
+  .v-device-screen > img,
+  .v-device-screen > video {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* Browser window: a title bar with three dots and an optional address in .v-device-url. */
+  .v-device-browser {
+    overflow: hidden;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-surface);
+    box-shadow: var(--v-shadow-3);
+  }
+
+  .v-device-bar {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    padding: var(--v-space-2) var(--v-space-3);
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    background-color: var(--v-device-bezel);
+  }
+
+  .v-device-bar::before {
+    flex: none;
+    inline-size: 0.6rem;
+    block-size: 0.6rem;
+    margin-inline-end: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--v-border-strong);
+    box-shadow: 1rem 0 0 var(--v-border-strong), 2rem 0 0 var(--v-border-strong);
+    content: "";
+  }
+
+  .v-device-url {
+    flex: 1;
+    max-inline-size: 28rem;
+    margin-inline: auto;
+    padding: 0.2rem var(--v-space-3);
+    overflow: hidden;
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-surface);
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .v-device-browser .v-device-screen { aspect-ratio: var(--v-device-ratio, 16 / 10); }
+
+  /* Phone: a rounded bezel with a camera island. */
+  .v-device-phone {
+    inline-size: min(100%, var(--v-device-width, 18rem));
+    padding: 0.6rem;
+    border: var(--v-border-w) solid var(--v-border-strong);
+    border-radius: 2.6rem;
+    background-color: var(--v-device-bezel);
+    box-shadow: var(--v-shadow-3);
+  }
+
+  .v-device-phone .v-device-screen {
+    aspect-ratio: var(--v-device-ratio, 9 / 19.5);
+    border-radius: 2rem;
+  }
+
+  .v-device-phone .v-device-screen::before {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 0.6rem;
+    inset-inline: 0;
+    inline-size: 32%;
+    block-size: 1.4rem;
+    margin-inline: auto;
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-device-bezel);
+    content: "";
+  }
+
+  /* Laptop: a screen with a slim bezel on a base wider than the lid. */
+  .v-device-laptop { padding-inline: 6%; }
+
+  .v-device-laptop .v-device-screen {
+    aspect-ratio: var(--v-device-ratio, 16 / 10);
+    border: 0.6rem solid var(--v-device-bezel);
+    border-block-end-width: 1.1rem;
+    border-radius: var(--v-radius-lg) var(--v-radius-lg) 0 0;
+  }
+
+  .v-device-laptop::after {
+    display: block;
+    block-size: 0.9rem;
+    margin-inline: -6%;
+    border-radius: 0 0 var(--v-radius-lg) var(--v-radius-lg);
+    background: linear-gradient(var(--v-border-strong), var(--v-device-bezel));
+    content: "";
+  }
+
+  @media (forced-colors: active) {
+    .v-device-phone,
+    .v-device-laptop .v-device-screen { border-color: CanvasText; }
+  }
+}
