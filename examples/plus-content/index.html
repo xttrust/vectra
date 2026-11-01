@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · More components, part 2</title>
+  <meta name="description" content="Vectra v2.1 components, part 2: forms, content and data.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+  <script type="module" src="../../src/js/index.js"></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../layout/">Vectra <span>more components, part 2</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack" id="top">
+      <p class="v-kicker">Components · v2.1, part 2</p>
+      <h1 class="v-display" data-contrast>Forms, content and data.</h1>
+      <p class="v-lead" data-contrast>The second set of v2.1 additions. Each degrades to plain, usable markup without JavaScript.</p>
+    </section>
+
+    <section id="progress-ring">
+      <h2 data-contrast>Progress ring</h2>
+      <p class="ex-label">A circular progress bar. The value is --v-value; the label inside is real text.</p>
+      <div class="v-cluster v-items-center" style="--v-gap: var(--v-space-6)">
+        <div class="v-progress-ring v-progress-ring-sm" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Storage used" style="--v-value: 25"><span data-contrast>25</span></div>
+        <div class="v-progress-ring" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Upload" style="--v-value: 72" id="ring-upload"><span data-contrast>72%</span></div>
+        <div class="v-progress-ring v-progress-ring-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Profile complete" style="--v-value: 100"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></div>
+        <div class="v-progress-ring v-progress-ring-lg v-progress-ring-warning" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Monthly quota" style="--v-value: 88"><span data-contrast>88%</span></div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

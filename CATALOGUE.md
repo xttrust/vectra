@@ -77,7 +77,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Inline save status (saving, saved, failed, offline) | P0 | done | |
 | Connection banner (offline, back online, slow network) | P0 | done | |
 | Session timeout warning (countdown dialog) | P0 | done | |
-| Progress ring | P1 | | SVG |
+| Progress ring | P1 | done | CSS conic gradient, no SVG needed |
 | Typing / presence indicator | P1 | | section 11 |
 | Notification centre (panel + unread count) | P1 | done | popover panel; count and name kept in step |
 

@@ -1,0 +1,84 @@
+{
+  "name": "Progress ring",
+  "slug": "progress-ring",
+  "group": "Feedback",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A circular progress indicator with its value written inside.",
+  "description": "Use a progress ring where a bar does not fit: a profile completion badge, storage on a card, an upload on a thumbnail. For long tasks in a form or a page, the straight progress bar reads better.\n\nIt is an element with role=\"progressbar\" and the value in --v-value (0 to 100). The ring is drawn in CSS, so it needs no SVG or JS; update --v-value and aria-valuenow together.",
+  "native": "role=\"progressbar\", conic-gradient(), mask",
+  "catalogue": [
+    "Progress ring"
+  ],
+  "css": [
+    "progress-ring.css"
+  ],
+  "classes": [
+    {
+      "name": "v-progress-ring",
+      "kind": "base",
+      "description": "The ring. Set --v-value as a number from 0 to 100; put the label (a number or an icon) inside."
+    },
+    {
+      "name": "v-progress-ring-sm",
+      "kind": "modifier",
+      "description": "Small, for lists and table cells."
+    },
+    {
+      "name": "v-progress-ring-lg",
+      "kind": "modifier",
+      "description": "Large, for a dashboard figure."
+    },
+    {
+      "name": "v-progress-ring-success",
+      "kind": "modifier",
+      "description": "Success colour, for a finished task."
+    },
+    {
+      "name": "v-progress-ring-warning",
+      "kind": "modifier",
+      "description": "Warning colour, for a quota nearly used."
+    },
+    {
+      "name": "v-progress-ring-danger",
+      "kind": "modifier",
+      "description": "Danger colour, for a limit reached."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "--v-value",
+      "description": "The fill, a number from 0 to 100 (style=\"--v-value: 72\")."
+    },
+    {
+      "attribute": "aria-valuenow",
+      "description": "The same number for assistive tech, with aria-valuemin=\"0\", aria-valuemax=\"100\" and an aria-label."
+    }
+  ],
+  "a11y": [
+    "role=\"progressbar\" with aria-valuenow and a label is what screen readers announce; the ring itself is decoration.",
+    "Write the value inside as text too, so it does not depend on reading the arc.",
+    "In forced colours the ring switches to system colours so the filled part still shows."
+  ],
+  "tokens": [
+    "--v-ring-size",
+    "--v-ring-width",
+    "--v-ring-color",
+    "--v-accent",
+    "--v-surface-2"
+  ],
+  "related": [
+    "progress",
+    "meter",
+    "stat-card"
+  ],
+  "examples": [
+    {
+      "title": "Sizes and tones",
+      "description": "Small, default with a percentage, a finished task with an icon, and a large warning.",
+      "html": "<div class=\"v-cluster v-items-center\" style=\"--v-gap: var(--v-space-6)\">\n  <div class=\"v-progress-ring v-progress-ring-sm\" role=\"progressbar\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"Storage used\" style=\"--v-value: 25\"><span>25</span></div>\n  <div class=\"v-progress-ring\" role=\"progressbar\" aria-valuenow=\"72\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"Upload\" style=\"--v-value: 72\"><span>72%</span></div>\n  <div class=\"v-progress-ring v-progress-ring-success\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"Profile complete\" style=\"--v-value: 100\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#check\"/></svg></div>\n  <div class=\"v-progress-ring v-progress-ring-lg v-progress-ring-warning\" role=\"progressbar\" aria-valuenow=\"88\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"Monthly quota\" style=\"--v-value: 88\"><span>88%</span></div>\n</div>",
+      "height": 180,
+      "source": "examples/plus-content/#progress-ring"
+    }
+  ]
+}
