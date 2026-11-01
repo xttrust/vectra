@@ -1,0 +1,52 @@
+{
+  "name": "Masonry gallery",
+  "slug": "masonry",
+  "group": "Content",
+  "tier": "P1",
+  "status": "done",
+  "summary": "Pictures and cards of different heights packed into columns.",
+  "description": "Use it for photo walls, testimonial walls and mood boards, where items have different heights and the order does not matter much.\n\nIt is CSS multi-column: items keep their own height and never split across columns, and the column count follows the width (each column at least --v-masonry-col, default 16rem). Columns fill top to bottom, so when reading order matters use .v-grid instead.",
+  "native": "CSS multi-column (columns, break-inside)",
+  "catalogue": [
+    "Gallery / masonry grid"
+  ],
+  "css": [
+    "masonry.css"
+  ],
+  "classes": [
+    {
+      "name": "v-masonry",
+      "kind": "base",
+      "description": "The list. Each child is one item; images inside fill the column width."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "--v-masonry-col",
+      "description": "The narrowest a column may get (default 16rem). --v-gap sets the space between items."
+    }
+  ],
+  "a11y": [
+    "Columns read top to bottom, then the next column: fine for pictures, confusing for steps or ranked lists.",
+    "Give every image real alt text; the layout adds nothing for screen readers to skip."
+  ],
+  "tokens": [
+    "--v-masonry-col",
+    "--v-gap",
+    "--v-radius-md"
+  ],
+  "related": [
+    "figure",
+    "lightbox",
+    "testimonial"
+  ],
+  "examples": [
+    {
+      "title": "Photo wall",
+      "description": "Pictures of different shapes and a quote card.",
+      "html": "<ul class=\"v-masonry\" role=\"list\">\n  <li><img src=\"/img/roof.svg\" alt=\"A slate roof under an evening sky\" width=\"1200\" height=\"900\" style=\"aspect-ratio: 4/5; object-fit: cover\"></li>\n  <li><img src=\"/img/garden.svg\" alt=\"A green lawn and hedge\" width=\"1200\" height=\"900\" style=\"aspect-ratio: 4/3; object-fit: cover\"></li>\n  <li><blockquote class=\"v-testimonial\"><p class=\"v-testimonial-quote\">\"Quick, tidy and the price we were quoted.\"</p><footer class=\"v-testimonial-author\"><span class=\"v-testimonial-name\">Siobhan, Tuam</span></footer></blockquote></li>\n  <li><img src=\"/img/booth.svg\" alt=\"A DJ booth lit in purple\" width=\"1200\" height=\"900\" style=\"aspect-ratio: 1/1; object-fit: cover\"></li>\n  <li><img src=\"/img/coast.svg\" alt=\"The coast at dusk\" width=\"1200\" height=\"900\" style=\"aspect-ratio: 3/4; object-fit: cover\"></li>\n  <li><img src=\"/img/garden.svg\" alt=\"The same lawn in summer\" width=\"1200\" height=\"900\" style=\"aspect-ratio: 16/9; object-fit: cover\"></li>\n  <li><img src=\"/img/roof.svg\" alt=\"A roof ridge at sunset\" width=\"1200\" height=\"900\" style=\"aspect-ratio: 4/3; object-fit: cover\"></li>\n</ul>",
+      "height": 620,
+      "source": "examples/plus-content/#masonry"
+    }
+  ]
+}

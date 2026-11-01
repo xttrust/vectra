@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-84 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+85 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -3291,6 +3291,34 @@ Example (Grid):
 </ul>
 ```
 
+#### Masonry gallery (masonry)
+
+Pictures and cards of different heights packed into columns. Native: CSS multi-column (columns, break-inside).
+
+Base:
+- .v-masonry: The list. Each child is one item; images inside fill the column width.
+
+States:
+- --v-masonry-col: The narrowest a column may get (default 16rem). --v-gap sets the space between items.
+
+Accessibility:
+- Columns read top to bottom, then the next column: fine for pictures, confusing for steps or ranked lists.
+- Give every image real alt text; the layout adds nothing for screen readers to skip.
+
+Example (Photo wall):
+
+```html
+<ul class="v-masonry" role="list">
+  <li><img src="/img/roof.svg" alt="A slate roof under an evening sky" width="1200" height="900" style="aspect-ratio: 4/5; object-fit: cover"></li>
+  <li><img src="/img/garden.svg" alt="A green lawn and hedge" width="1200" height="900" style="aspect-ratio: 4/3; object-fit: cover"></li>
+  <li><blockquote class="v-testimonial"><p class="v-testimonial-quote">"Quick, tidy and the price we were quoted."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Siobhan, Tuam</span></footer></blockquote></li>
+  <li><img src="/img/booth.svg" alt="A DJ booth lit in purple" width="1200" height="900" style="aspect-ratio: 1/1; object-fit: cover"></li>
+  <li><img src="/img/coast.svg" alt="The coast at dusk" width="1200" height="900" style="aspect-ratio: 3/4; object-fit: cover"></li>
+  <li><img src="/img/garden.svg" alt="The same lawn in summer" width="1200" height="900" style="aspect-ratio: 16/9; object-fit: cover"></li>
+  <li><img src="/img/roof.svg" alt="A roof ridge at sunset" width="1200" height="900" style="aspect-ratio: 4/3; object-fit: cover"></li>
+</ul>
+```
+
 #### Pricing card (pricing-card)
 
 A plan card with name, price, description, feature list and a call to action, used on .v-card. Native: <article>.
@@ -3762,7 +3790,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-masonry-col --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 

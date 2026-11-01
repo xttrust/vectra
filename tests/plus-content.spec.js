@@ -88,3 +88,15 @@ test.describe('device frames', () => {
     expect(centre).toBeLessThan(1.5);
   });
 });
+
+test.describe('masonry gallery', () => {
+  test('several columns on desktop, one on a phone, and no item splits across columns', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    const lefts = async () => new Set(await page.locator('.v-masonry > li').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().left))));
+    expect((await lefts()).size).toBeGreaterThanOrEqual(3);
+    expect(await page.locator('.v-masonry > li').evaluateAll((els) => els.every((e) => e.getClientRects().length === 1))).toBe(true);
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect((await lefts()).size).toBe(1);
+  });
+});
