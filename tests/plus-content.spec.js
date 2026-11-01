@@ -228,3 +228,52 @@ test('carousel: three slides per view on a wide page, set by the carousel width'
   expect(t.width / s.width).toBeGreaterThan(2.8);
   expect(t.width / s.width).toBeLessThan(3.3);
 });
+
+test.describe('marquee with motion allowed', () => {
+  test.use({ viewport: { width: 1280, height: 900 }, reducedMotion: 'no-preference' });
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await expect(page.locator('#marquee-clients[data-ready]')).toBeAttached();
+  });
+  const track = (page) => page.locator('#marquee-clients .v-marquee-track');
+
+  test('copies the items once, hidden from assistive tech, and animates in one line', async ({ page }) => {
+    await expect(track(page).locator('> li')).toHaveCount(14);
+    await expect(track(page).locator('> li[aria-hidden="true"][inert]')).toHaveCount(7);
+    expect(await track(page).evaluate((el) => getComputedStyle(el).animationName)).toBe('v-marquee');
+    const tops = new Set(await track(page).locator('> li').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top))));
+    expect(tops.size).toBe(1);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+
+  test('half the track width is exactly one full set, so the loop is seamless', async ({ page }) => {
+    const [w, firstCopy, first] = await track(page).evaluate((el) => {
+      const items = el.querySelectorAll(':scope > li');
+      return [el.getBoundingClientRect().width, items[7].getBoundingClientRect().left, items[0].getBoundingClientRect().left];
+    });
+    expect(Math.abs(firstCopy - first - w / 2)).toBeLessThan(1.5);
+  });
+
+  test('the button pauses and restarts it, and says which', async ({ page }) => {
+    const button = page.locator('#marquee-clients .v-marquee-toggle');
+    await expect(button).toBeVisible();
+    await button.click();
+    await expect(button).toHaveText('Play');
+    await page.mouse.move(5, 5);
+    expect(await track(page).evaluate((el) => getComputedStyle(el).animationPlayState)).toBe('paused');
+    await button.click();
+    await page.mouse.move(5, 5);
+    await expect(button).toHaveText('Pause');
+    expect(await track(page).evaluate((el) => getComputedStyle(el).animationPlayState)).toBe('running');
+  });
+});
+
+test.describe('marquee with reduced motion', () => {
+  test('is a still row of each item once, with no button', async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await expect(page.locator('#marquee-clients[data-ready]')).toBeAttached();
+    await expect(page.locator('#marquee-clients .v-marquee-toggle')).toBeHidden();
+    await expect(page.locator('#marquee-clients .v-marquee-track > li:visible')).toHaveCount(7);
+    expect(await page.locator('#marquee-clients .v-marquee-track').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+  });
+});

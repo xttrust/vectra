@@ -201,6 +201,7 @@ Content:
 - Code block: .v-code, hooks data-v-copy data-v-copy-target
 - Device frames: .v-device
 - Logo cloud: .v-logos
+- Marquee: .v-marquee, hooks data-v-marquee
 - Masonry gallery: .v-masonry
 - Pricing card: .v-pricing
 - Prose: .v-prose

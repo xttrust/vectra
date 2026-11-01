@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-88 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+89 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -3412,6 +3412,51 @@ Example (Grid):
 </ul>
 ```
 
+#### Marquee (marquee)
+
+A slow, endless row of client names or logos, with a pause button. Native: CSS animation, prefers-reduced-motion, inert.
+
+Base:
+- .v-marquee: The wrapper. --v-marquee-duration sets the speed (default 40s), --v-marquee-gap the space between items.
+Parts:
+- .v-marquee-viewport: Clips the moving row and fades its edges, so the button beside it stays clear.
+- .v-marquee-track: The list of items (<ul role="list"> with an aria-label). Logos are <img> with alt text.
+- .v-marquee-toggle: The Pause and Play button, hidden until the JS runs and whenever motion is reduced. data-pause and data-play set its words.
+
+States:
+- data-ready: Set by the JS once the copy is in place: the row starts moving (unless motion is reduced).
+- data-paused: Set by the toggle button: the row stays still until pressed again.
+
+Hooks:
+- data-v-marquee (on the .v-marquee wrapper): Copies the items once for a seamless loop, starts the animation and wires the pause button.
+
+Keyboard:
+- Enter / Space: On the toggle, stops or restarts the row. Focusing a link in the row also pauses it.
+
+Accessibility:
+- Anything that moves on its own for more than five seconds needs a way to stop it (WCAG 2.2.2): the toggle is that way, and hover or focus pause it too.
+- With prefers-reduced-motion it never moves, and the toggle is hidden because there is nothing to stop.
+- The copy is aria-hidden and inert, so screen readers read each name once and Tab never lands on a duplicate.
+
+Example (Client names):
+
+```html
+<div class="v-marquee" data-v-marquee>
+  <div class="v-marquee-viewport">
+    <ul class="v-marquee-track" role="list" aria-label="Some of our clients">
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Perform Roofing</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Bluepeak</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">West Clean</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">The Bridge Bar</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Contrasts</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Vintage &amp; Morelli</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Mike's Gardening</li>
+    </ul>
+  </div>
+  <button class="v-btn v-btn-ghost v-btn-sm v-marquee-toggle" type="button" hidden>Pause</button>
+</div>
+```
+
 #### Masonry gallery (masonry)
 
 Pictures and cards of different heights packed into columns. Native: CSS multi-column (columns, break-inside).
@@ -3911,7 +3956,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-marquee-duration --v-marquee-gap --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 
@@ -3941,7 +3986,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-carousel data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-carousel data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 
