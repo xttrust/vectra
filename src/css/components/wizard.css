@@ -1,0 +1,47 @@
+/* Multi-step form (wizard): one <form> split into .v-wizard-step fieldsets, with a .v-steps indicator.
+   Without JS every step shows, one after the other, and the form submits as usual. data-v-wizard shows
+   one step at a time: Continue checks the step before moving on, Back never does, the indicator follows,
+   and focus moves to the new step. Steps not reached yet are disabled, so they are not checked
+   or submitted early. */
+@layer components {
+  .v-wizard {
+    display: grid;
+    gap: var(--v-space-5);
+  }
+
+  .v-wizard-step {
+    display: grid;
+    gap: var(--v-space-4);
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .v-wizard-step[hidden] { display: none; }
+
+  /* Focus lands on the step when it opens; the legend is what gets read, no ring needed on the group. */
+  .v-wizard-step:focus { outline: none; }
+
+  .v-wizard-title {
+    margin-block-end: var(--v-space-1);
+    padding: 0;
+    color: var(--v-text);
+    font-family: var(--v-font-display);
+    font-size: var(--v-step-1);
+    font-weight: var(--v-heading-weight);
+    letter-spacing: var(--v-heading-tracking);
+  }
+
+  .v-wizard-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-2);
+    justify-content: flex-end;
+    padding-block-start: var(--v-space-4);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+  }
+
+  .v-wizard-actions [data-v-wizard-back] { margin-inline-end: auto; }
+  .v-wizard-actions [hidden] { display: none; }
+}

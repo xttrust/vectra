@@ -1,0 +1,63 @@
+/* Marquee: a slow, endless row of logos or short items. Without JS, or with reduced motion, it is a
+   static centred row that wraps. data-v-marquee copies the items once (aria-hidden and inert, so they
+   are neither read nor focused twice) and slides the track by half its width in a loop, which lines the
+   copy up with the original. The .v-marquee-viewport around the track clips it and fades its edges, so
+   the button beside it stays clear. The row pauses while hovered or focused, and the .v-marquee-toggle button
+   stops it for good (WCAG 2.2.2). Speed: --v-marquee-duration. */
+@layer components {
+  .v-marquee {
+    --v-marquee-gap: var(--v-space-8);
+    --v-marquee-duration: 40s;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--v-space-2);
+    justify-items: end;
+  }
+
+  .v-marquee-track {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-4) var(--v-marquee-gap);
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v-marquee-track > * { flex: none; }
+
+  /* The JS copies only matter while the row moves; a still row shows each item once. */
+  .v-marquee-track > [inert] { display: none; }
+
+  .v-marquee-viewport { justify-self: stretch; }
+  .v-marquee-toggle[hidden] { display: none; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .v-marquee[data-ready] .v-marquee-viewport {
+      overflow: clip;
+      mask-image: linear-gradient(to right, transparent, var(--v-text) 8%, var(--v-text) 92%, transparent);
+    }
+
+    /* Two copies plus a trailing gap: moving by exactly half lands the copy where the original began. */
+    .v-marquee[data-ready] .v-marquee-track {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      inline-size: max-content;
+      padding-inline-end: var(--v-marquee-gap);
+      animation: v-marquee var(--v-marquee-duration) linear infinite;
+    }
+
+    .v-marquee[data-ready] .v-marquee-track > [inert] { display: revert; }
+    .v-marquee[data-ready]:dir(rtl) .v-marquee-track { animation-direction: reverse; }
+    .v-marquee[data-ready][data-paused] .v-marquee-track { animation-play-state: paused; }
+
+    /* Hovering or focusing the row pauses it; the button's own focus does not, or Play would not play. */
+    .v-marquee[data-ready] .v-marquee-viewport:is(:hover, :focus-within) .v-marquee-track { animation-play-state: paused; }
+  }
+
+  @keyframes v-marquee {
+    to { translate: -50% 0; }
+  }
+}

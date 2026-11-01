@@ -1,0 +1,210 @@
+/* Charts without a library, in CSS and inline SVG, each readable without seeing it:
+   - .v-chart-bars: a <table> (row header, value) with a .v-chart-bar sized by --v-value (a percentage),
+     so screen readers read the data as a table.
+   - .v-chart-columns: a list of vertical columns with a visually hidden value in each item.
+   - .v-donut: a ring from a conic gradient in --v-donut (cumulative stops), role="img" with a label,
+     next to a .v-chart-legend that carries the numbers.
+   - .v-sparkline / .v-chart-line: an inline <svg> polyline (and an optional area) the server computes.
+   Series colours come from the kit's tokens, so they meet contrast in every direction and theme. */
+@layer components {
+  .v-chart {
+    --v-chart-1: var(--v-accent);
+    --v-chart-2: var(--v-info);
+    --v-chart-3: var(--v-success);
+    --v-chart-4: var(--v-warning);
+    --v-chart-5: var(--v-text-3);
+
+    display: grid;
+    gap: var(--v-space-3);
+    margin: 0;
+  }
+
+  .v-chart-title {
+    color: var(--v-text);
+    font-weight: 620;
+  }
+
+  /* Horizontal bars in a table. */
+  .v-chart-bars {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-chart-bars th {
+    inline-size: 1%;
+    padding: 0.3rem var(--v-space-3) 0.3rem 0;
+    color: var(--v-text-2);
+    font-weight: 500;
+    text-align: start;
+    white-space: nowrap;
+  }
+
+  .v-chart-bars td { padding-block: 0.3rem; }
+
+  .v-chart-track {
+    display: flex;
+    gap: var(--v-space-2);
+    align-items: center;
+  }
+
+  /* Bars use up to 85% of the track, leaving room for the value after them. */
+  .v-chart-bar {
+    flex: 0 0 calc(var(--v-value, 0%) * 0.85);
+    block-size: 0.875rem;
+    border-radius: var(--v-radius-sm);
+    background-color: var(--v-chart-color, var(--v-chart-1));
+  }
+
+  .v-chart-value {
+    color: var(--v-text);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+
+  /* Vertical columns in a list. */
+  .v-chart-columns {
+    display: flex;
+    gap: var(--v-space-2);
+    align-items: flex-end;
+    block-size: var(--v-chart-height, 10rem);
+    margin: 0;
+    padding: 0 0 1.5rem;
+    border-block-end: var(--v-border-w) solid var(--v-border);
+    list-style: none;
+  }
+
+  .v-chart-columns > li {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    block-size: 100%;
+  }
+
+  .v-chart-col {
+    block-size: var(--v-value, 0%);
+    min-block-size: 2px;
+    border-radius: var(--v-radius-sm) var(--v-radius-sm) 0 0;
+    background-color: var(--v-chart-color, var(--v-chart-1));
+  }
+
+  .v-chart-columns .v-chart-label {
+    position: absolute;
+    inset-block-start: calc(100% + 0.3rem);
+    inset-inline: 0;
+    color: var(--v-text-2);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  /* Donut. */
+  .v-donut {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    inline-size: var(--v-donut-size, 9rem);
+    aspect-ratio: 1;
+  }
+
+  .v-donut::before {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--v-donut, var(--v-surface-2));
+    content: "";
+    mask: radial-gradient(farthest-side, transparent calc(64% - 0.5px), var(--v-text) 64%);
+  }
+
+  .v-donut-total {
+    display: grid;
+    color: var(--v-text);
+    font-size: var(--v-step-1);
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .v-donut-total small {
+    color: var(--v-text-2);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* Lines and sparklines in SVG. */
+  .v-sparkline,
+  .v-chart-line {
+    display: block;
+    inline-size: 100%;
+    overflow: visible;
+  }
+
+  .v-sparkline { block-size: var(--v-spark-height, 2rem); }
+  .v-chart-line { block-size: var(--v-chart-height, 10rem); }
+
+  :is(.v-sparkline, .v-chart-line) polyline {
+    fill: none;
+    stroke: var(--v-chart-color, var(--v-chart-1));
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+  }
+
+  :is(.v-sparkline, .v-chart-line) .v-chart-area {
+    fill: color-mix(in oklch, var(--v-chart-color, var(--v-chart-1)) 18%, transparent);
+    stroke: none;
+  }
+
+  .v-chart-line .v-chart-grid {
+    stroke: var(--v-border);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* Legend. */
+  .v-chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-1) var(--v-space-4);
+    margin: 0;
+    padding: 0;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    list-style: none;
+  }
+
+  .v-chart-legend li {
+    display: inline-flex;
+    gap: 0.4em;
+    align-items: center;
+  }
+
+  .v-chart-legend strong { color: var(--v-text); }
+
+  .v-chart-swatch {
+    flex: none;
+    inline-size: 0.7rem;
+    block-size: 0.7rem;
+    border-radius: 0.2rem;
+    background-color: var(--v-chart-color, var(--v-chart-1));
+  }
+
+  /* Series colours for any part: .v-chart-c2 to .v-chart-c5 (the first is the default). */
+  .v-chart-c2 { --v-chart-color: var(--v-chart-2); }
+  .v-chart-c3 { --v-chart-color: var(--v-chart-3); }
+  .v-chart-c4 { --v-chart-color: var(--v-chart-4); }
+  .v-chart-c5 { --v-chart-color: var(--v-chart-5); }
+
+  @media (forced-colors: active) {
+    .v-chart-bar,
+    .v-chart-col,
+    .v-chart-swatch {
+      background-color: CanvasText;
+      forced-color-adjust: none;
+    }
+
+    .v-donut::before { border: 2px solid CanvasText; }
+  }
+}

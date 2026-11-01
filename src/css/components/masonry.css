@@ -1,0 +1,24 @@
+/* Masonry gallery: items of different heights packed into columns (CSS multi-column), for photo and
+   card walls. Items keep their own height and never split across columns. Columns fill top to bottom,
+   so keep the order unimportant (photos, quotes) or use .v-grid when reading order matters. */
+@layer components {
+  .v-masonry {
+    margin: 0;
+    padding: 0;
+    columns: var(--v-masonry-col, 16rem);
+    column-gap: var(--v-gap, var(--v-space-4));
+    list-style: none;
+  }
+
+  .v-masonry > * {
+    margin-block-end: var(--v-gap, var(--v-space-4));
+    break-inside: avoid;
+  }
+
+  .v-masonry img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--v-radius-md);
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "name": "Charts",
+  "slug": "charts",
+  "group": "Data",
+  "tier": "P1",
+  "status": "done",
+  "summary": "Bar, column, donut, line and sparkline charts in CSS and SVG, with no library.",
+  "description": "Use these for the handful of figures a marketing page or a small dashboard needs. For interactive analytics with tooltips and zoom, a chart library is the better tool.\n\nEach chart can be read without seeing it. Bars are a real <table> with a bar drawn in each cell; columns are a list with each value in hidden text; the donut is an image whose name lists the shares, next to a legend that shows them; lines are inline SVG with a label. The server computes the values (percentages, SVG points); the CSS draws them. Series colours come from the kit's tokens, so they meet contrast in every direction and theme.",
+  "native": "<table>, <svg>, conic-gradient()",
+  "catalogue": [
+    "Charts: sparkline, bar, line, area, donut",
+    "Chart legend and legend indicator"
+  ],
+  "css": [
+    "chart.css"
+  ],
+  "classes": [
+    {
+      "name": "v-chart",
+      "kind": "base",
+      "description": "The <figure> around any chart. Defines the series colours --v-chart-1 to --v-chart-5."
+    },
+    {
+      "name": "v-chart-title",
+      "kind": "part",
+      "description": "The chart's <figcaption>."
+    },
+    {
+      "name": "v-chart-bars",
+      "kind": "part",
+      "description": "A <table> of horizontal bars: a row header and a cell holding a .v-chart-track."
+    },
+    {
+      "name": "v-chart-track",
+      "kind": "part",
+      "description": "The row of a bar and its value inside a table cell."
+    },
+    {
+      "name": "v-chart-bar",
+      "kind": "part",
+      "description": "One bar. Set --v-value as a percentage of the largest value."
+    },
+    {
+      "name": "v-chart-value",
+      "kind": "part",
+      "description": "The number after a bar."
+    },
+    {
+      "name": "v-chart-columns",
+      "kind": "part",
+      "description": "A <ul role=\"list\"> of vertical columns. --v-chart-height sets the height."
+    },
+    {
+      "name": "v-chart-col",
+      "kind": "part",
+      "description": "One column, its height set by --v-value. Put the value in a .v-sr-only beside it."
+    },
+    {
+      "name": "v-chart-label",
+      "kind": "part",
+      "description": "The label under a column, aria-hidden because the hidden text says it."
+    },
+    {
+      "name": "v-donut",
+      "kind": "part",
+      "description": "A ring with role=\"img\" and a label listing the shares. --v-donut takes a conic-gradient with cumulative stops; --v-donut-size its size."
+    },
+    {
+      "name": "v-donut-total",
+      "kind": "part",
+      "description": "The figure in the middle of the ring, with an optional <small> line."
+    },
+    {
+      "name": "v-sparkline",
+      "kind": "part",
+      "description": "A small inline <svg> with one <polyline>, for stat cards and table cells."
+    },
+    {
+      "name": "v-chart-line",
+      "kind": "part",
+      "description": "A larger line chart <svg>, with optional .v-chart-grid lines and a .v-chart-area polygon."
+    },
+    {
+      "name": "v-chart-area",
+      "kind": "part",
+      "description": "The tinted area under a line, on a <polygon>."
+    },
+    {
+      "name": "v-chart-grid",
+      "kind": "part",
+      "description": "A guide line, on an SVG <line>."
+    },
+    {
+      "name": "v-chart-legend",
+      "kind": "part",
+      "description": "A list of series names with their swatches and numbers."
+    },
+    {
+      "name": "v-chart-swatch",
+      "kind": "part",
+      "description": "The colour key in a legend item, aria-hidden."
+    },
+    {
+      "name": "v-chart-c2",
+      "kind": "modifier",
+      "description": "Series colour 2 on any bar, column, line or swatch. Also .v-chart-c3, .v-chart-c4 and .v-chart-c5."
+    },
+    {
+      "name": "v-chart-c3",
+      "kind": "modifier",
+      "description": "Series colour 3."
+    },
+    {
+      "name": "v-chart-c4",
+      "kind": "modifier",
+      "description": "Series colour 4."
+    },
+    {
+      "name": "v-chart-c5",
+      "kind": "modifier",
+      "description": "Series colour 5, a neutral for \"other\"."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "--v-value",
+      "description": "On a bar or column: its size as a percentage of the chart's largest value."
+    },
+    {
+      "attribute": "--v-donut",
+      "description": "On the donut: conic-gradient(var(--v-chart-1) 0 45%, var(--v-chart-2) 0 72%, ...): each stop is the running total."
+    }
+  ],
+  "a11y": [
+    "Every chart carries its numbers in text: a table, hidden text in each column, a labelled image with a visible legend.",
+    "Colour is never the only key: the legend names each series next to its swatch and number.",
+    "SVG lines keep a 2px stroke however wide the chart is (vector-effect: non-scaling-stroke).",
+    "In forced colours the bars and swatches switch to the system text colour so they stay visible."
+  ],
+  "tokens": [
+    "--v-chart-1",
+    "--v-chart-2",
+    "--v-chart-3",
+    "--v-chart-4",
+    "--v-chart-5",
+    "--v-chart-height",
+    "--v-donut-size"
+  ],
+  "related": [
+    "stat-card",
+    "table",
+    "progress-ring"
+  ],
+  "examples": [
+    {
+      "title": "Bar chart",
+      "description": "A table of leads by source.",
+      "html": "<figure class=\"v-chart v-card v-p-4\">\n  <figcaption class=\"v-chart-title\">Where leads came from</figcaption>\n  <table class=\"v-chart-bars\">\n    <caption class=\"v-sr-only\">Leads by source this quarter</caption>\n    <thead class=\"v-sr-only\"><tr><th scope=\"col\">Source</th><th scope=\"col\">Leads</th></tr></thead>\n    <tbody>\n      <tr><th scope=\"row\">Website</th><td><div class=\"v-chart-track\"><span class=\"v-chart-bar\" style=\"--v-value: 100%\"></span><span class=\"v-chart-value\">48</span></div></td></tr>\n      <tr><th scope=\"row\">Referrals</th><td><div class=\"v-chart-track\"><span class=\"v-chart-bar v-chart-c2\" style=\"--v-value: 62%\"></span><span class=\"v-chart-value\">30</span></div></td></tr>\n      <tr><th scope=\"row\">Google Business</th><td><div class=\"v-chart-track\"><span class=\"v-chart-bar\" style=\"--v-value: 46%\"></span><span class=\"v-chart-value\">22</span></div></td></tr>\n      <tr><th scope=\"row\">Facebook</th><td><div class=\"v-chart-track\"><span class=\"v-chart-bar\" style=\"--v-value: 25%\"></span><span class=\"v-chart-value\">12</span></div></td></tr>\n      <tr><th scope=\"row\">Flyers</th><td><div class=\"v-chart-track\"><span class=\"v-chart-bar\" style=\"--v-value: 8%\"></span><span class=\"v-chart-value\">4</span></div></td></tr>\n    </tbody>\n  </table>\n</figure>",
+      "height": 300,
+      "source": "examples/plus-content/#charts"
+    },
+    {
+      "title": "Columns",
+      "description": "Jobs booked per month, each value in hidden text.",
+      "html": "<figure class=\"v-chart v-card v-p-4\">\n  <figcaption class=\"v-chart-title\">Jobs booked, January to June</figcaption>\n  <ul class=\"v-chart-columns\" role=\"list\">\n    <li><span class=\"v-chart-col\" style=\"--v-value: 35%\"></span><span class=\"v-chart-label\" aria-hidden=\"true\">Jan</span><span class=\"v-sr-only\">Jan: 14 jobs</span></li>\n    <li><span class=\"v-chart-col\" style=\"--v-value: 45%\"></span><span class=\"v-chart-label\" aria-hidden=\"true\">Feb</span><span class=\"v-sr-only\">Feb: 18 jobs</span></li>\n    <li><span class=\"v-chart-col\" style=\"--v-value: 60%\"></span><span class=\"v-chart-label\" aria-hidden=\"true\">Mar</span><span class=\"v-sr-only\">Mar: 24 jobs</span></li>\n    <li><span class=\"v-chart-col\" style=\"--v-value: 80%\"></span><span class=\"v-chart-label\" aria-hidden=\"true\">Apr</span><span class=\"v-sr-only\">Apr: 32 jobs</span></li>\n    <li><span class=\"v-chart-col\" style=\"--v-value: 70%\"></span><span class=\"v-chart-label\" aria-hidden=\"true\">May</span><span class=\"v-sr-only\">May: 28 jobs</span></li>\n    <li><span class=\"v-chart-col\" style=\"--v-value: 100%\"></span><span class=\"v-chart-label\" aria-hidden=\"true\">Jun</span><span class=\"v-sr-only\">Jun: 40 jobs</span></li>\n  </ul>\n</figure>",
+      "height": 300,
+      "source": "examples/plus-content/#charts"
+    },
+    {
+      "title": "Donut and legend",
+      "description": "Shares of revenue, named in the image's label and shown in the legend.",
+      "html": "<figure class=\"v-chart v-card v-p-4\">\n  <figcaption class=\"v-chart-title\">Revenue by service</figcaption>\n  <div class=\"v-cluster\" style=\"--v-gap: var(--v-space-5)\">\n    <div class=\"v-donut\" role=\"img\" aria-label=\"Revenue by service: roofing 45%, gutters 27%, repairs 18%, other 10%\" style=\"--v-donut: conic-gradient(var(--v-chart-1) 0 45%, var(--v-chart-2) 0 72%, var(--v-chart-3) 0 90%, var(--v-chart-5) 0)\">\n      <span class=\"v-donut-total\" aria-hidden=\"true\"><span>€86k</span><small>this year</small></span>\n    </div>\n    <ul class=\"v-chart-legend\" role=\"list\" style=\"flex-direction: column\">\n      <li><span class=\"v-chart-swatch\" aria-hidden=\"true\"></span><span>Roofing <strong>45%</strong></span></li>\n      <li><span class=\"v-chart-swatch v-chart-c2\" aria-hidden=\"true\"></span><span>Gutters <strong>27%</strong></span></li>\n      <li><span class=\"v-chart-swatch v-chart-c3\" aria-hidden=\"true\"></span><span>Repairs <strong>18%</strong></span></li>\n      <li><span class=\"v-chart-swatch v-chart-c5\" aria-hidden=\"true\"></span><span>Other <strong>10%</strong></span></li>\n    </ul>\n  </div>\n</figure>",
+      "height": 260,
+      "source": "examples/plus-content/#charts"
+    },
+    {
+      "title": "Line, area and sparkline",
+      "description": "Points computed on the server, drawn in SVG.",
+      "html": "<figure class=\"v-chart v-card v-p-4\">\n  <figcaption class=\"v-chart-title\">Website visits, last 12 weeks</figcaption>\n  <svg class=\"v-chart-line\" viewBox=\"0 0 100 40\" preserveAspectRatio=\"none\" role=\"img\" aria-label=\"Website visits rose from 120 to 480 a week over 12 weeks\">\n    <line class=\"v-chart-grid\" x1=\"0\" y1=\"20.0\" x2=\"100\" y2=\"20.0\"/>\n    <line class=\"v-chart-grid\" x1=\"0\" y1=\"40\" x2=\"100\" y2=\"40\"/>\n    <polygon class=\"v-chart-area\" points=\"0,40 0.0,30.4 9.09,25.6 18.18,28.0 27.27,20.8 36.36,22.4 45.45,16.0 54.55,17.6 63.64,11.2 72.73,12.8 81.82,6.4 90.91,8.0 100.0,1.6 100,40\"/>\n    <polyline points=\"0.0,30.4 9.09,25.6 18.18,28.0 27.27,20.8 36.36,22.4 45.45,16.0 54.55,17.6 63.64,11.2 72.73,12.8 81.82,6.4 90.91,8.0 100.0,1.6\"/>\n  </svg>\n  <div class=\"v-cluster v-justify-between v-items-center\">\n    <span class=\"v-text-sm v-text-secondary\">Signups</span>\n    <svg class=\"v-sparkline v-chart-c3\" viewBox=\"0 0 100 20\" preserveAspectRatio=\"none\" role=\"img\" aria-label=\"Signups up from 5 to 13 a week\" style=\"inline-size: 8rem\"><polyline points=\"0.0,12.86 14.29,10.0 28.57,11.43 42.86,7.14 57.14,8.57 71.43,4.29 85.71,5.71 100.0,1.43\"/></svg>\n  </div>\n</figure>",
+      "height": 320,
+      "source": "examples/plus-content/#charts"
+    }
+  ]
+}

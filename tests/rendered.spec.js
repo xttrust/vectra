@@ -33,11 +33,13 @@ for (const target of PAGES.filter((p) => p.rendered)) {
             const cs = getComputedStyle(el);
             const size = parseFloat(cs.fontSize);
             const large = size >= 24 || (size >= 18.66 && Number(cs.fontWeight) >= 700);
-            return { color: cs.color, large, label: `${el.tagName.toLowerCase()}.${[...el.classList].join('.')} "${el.textContent.trim().slice(0, 30)}"` };
+            // Not rendered (a marquee's hidden copy, a closed panel): nothing to measure, and a screenshot would wait forever.
+            return { visible: el.checkVisibility(), color: cs.color, large, label: `${el.tagName.toLowerCase()}.${[...el.classList].join('.')} "${el.textContent.trim().slice(0, 30)}"` };
           }));
 
           const style = await page.addStyleTag({ content: HIDE_TEXT });
           for (let i = 0; i < count; i += 1) {
+            if (!texts[i].visible) continue;
             const png = (await items.nth(i).screenshot({ animations: 'disabled' })).toString('base64');
             const ratio = await page.evaluate(async ([data, color]) => {
               const img = await createImageBitmap(await (await fetch(`data:image/png;base64,${data}`)).blob());

@@ -1,0 +1,75 @@
+{
+  "name": "Device frames",
+  "slug": "device-frames",
+  "group": "Content",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A browser window, a laptop and a phone drawn in CSS around a screenshot or live UI.",
+  "description": "Use device frames in heroes and feature sections to show the product in context. They hold any element, so the screen can be a screenshot or real Vectra markup.\n\nPut the content in .v-device-screen; it fills the screen at the frame's aspect ratio. Set --v-device-ratio for another ratio and --v-device-width for the phone's width.",
+  "catalogue": [
+    "Device frames"
+  ],
+  "css": [
+    "device.css"
+  ],
+  "classes": [
+    {
+      "name": "v-device",
+      "kind": "base",
+      "description": "Every frame, on a <figure> or <div>."
+    },
+    {
+      "name": "v-device-browser",
+      "kind": "modifier",
+      "description": "A browser window with a title bar. Default ratio 16 / 10."
+    },
+    {
+      "name": "v-device-laptop",
+      "kind": "modifier",
+      "description": "A laptop: the screen in a bezel on a base. Default ratio 16 / 10."
+    },
+    {
+      "name": "v-device-phone",
+      "kind": "modifier",
+      "description": "A phone with a camera island. Default ratio 9 / 19.5 and width 18rem."
+    },
+    {
+      "name": "v-device-bar",
+      "kind": "part",
+      "description": "The browser's title bar with three dots."
+    },
+    {
+      "name": "v-device-url",
+      "kind": "part",
+      "description": "The address in the title bar."
+    },
+    {
+      "name": "v-device-screen",
+      "kind": "part",
+      "description": "The screen. An <img> or <video> inside fills it from the top."
+    }
+  ],
+  "a11y": [
+    "The frame is decoration; the content carries the meaning, so give a screenshot real alt text.",
+    "Live markup inside a frame is real, focusable UI. If it is only a picture of the product, add inert to the screen."
+  ],
+  "tokens": [
+    "--v-device-ratio",
+    "--v-device-width",
+    "--v-device-bezel",
+    "--v-shadow-3"
+  ],
+  "related": [
+    "figure",
+    "card"
+  ],
+  "examples": [
+    {
+      "title": "Browser, laptop and phone",
+      "description": "The same frames with a picture in each.",
+      "html": "<div class=\"v-grid v-items-end\" style=\"--v-min: 15rem\">\n  <figure class=\"v-device v-device-browser\">\n    <div class=\"v-device-bar\"><span class=\"v-device-url\">northwind.ie/pricing</span></div>\n    <div class=\"v-device-screen\"><img src=\"/img/coast.svg\" alt=\"The Northwind pricing page\" width=\"1200\" height=\"900\"></div>\n  </figure>\n  <figure class=\"v-device v-device-laptop\">\n    <div class=\"v-device-screen\"><img src=\"/img/booth.svg\" alt=\"The Northwind dashboard\" width=\"1200\" height=\"900\"></div>\n  </figure>\n  <figure class=\"v-device v-device-phone\" style=\"--v-device-width: 11rem\">\n    <div class=\"v-device-screen\"><img src=\"/img/garden.svg\" alt=\"The Northwind app on a phone\" width=\"1200\" height=\"900\"></div>\n  </figure>\n</div>",
+      "height": 460,
+      "source": "examples/plus-content/#devices"
+    }
+  ]
+}

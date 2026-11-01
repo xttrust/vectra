@@ -1,0 +1,91 @@
+{
+  "name": "Video embed",
+  "slug": "video-embed",
+  "group": "Content",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A video poster with a play button that loads the player only when pressed.",
+  "description": "Use it for YouTube, Vimeo or self-hosted videos on marketing and help pages. A player embedded straight away loads megabytes of script and sets cookies before anyone presses play; this loads nothing from the video site until the click.\n\nThe poster is a link to the video, so without JS it simply opens it. data-v-video holds the player URL: an embed URL becomes an <iframe>, an .mp4 or .webm file a native <video>. Focus moves into the player. Use the privacy-friendly embed address where the service offers one (youtube-nocookie.com).",
+  "native": "<iframe>, <video>, a link",
+  "catalogue": [
+    "Video embed"
+  ],
+  "css": [
+    "video.css"
+  ],
+  "js": [
+    "components/video.js"
+  ],
+  "classes": [
+    {
+      "name": "v-video",
+      "kind": "base",
+      "description": "The link (and later the player's frame). Keeps --v-video-ratio (default 16 / 9). Always dark, like a player."
+    },
+    {
+      "name": "v-video-play",
+      "kind": "part",
+      "description": "The overlay holding the button and the label."
+    },
+    {
+      "name": "v-video-button",
+      "kind": "part",
+      "description": "The round play button around the play icon."
+    },
+    {
+      "name": "v-video-label",
+      "kind": "part",
+      "description": "What the video is and how long, such as \"Play: Product tour (2:14)\". It names the link."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "href",
+      "description": "The video's own page, used without JS and for a new-tab click."
+    },
+    {
+      "attribute": "data-title",
+      "description": "The player's title (the iframe's title attribute). Defaults to the link text."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-video",
+      "value": "player URL",
+      "on": "The a.v-video link",
+      "description": "On click, replaces the link with an iframe (embed URL) or a native video (file URL) and moves focus into it."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "On the poster, loads the player and moves focus into it."
+    }
+  ],
+  "a11y": [
+    "The label inside the link names it (\"Play: Product tour (2:14)\"), so screen readers hear what will play; the poster image is decorative with alt=\"\".",
+    "The iframe gets a title, which is how screen readers name an embedded player.",
+    "Focus moves into the player after the swap, so keyboard users do not have to find it again."
+  ],
+  "tokens": [
+    "--v-video-ratio",
+    "--v-danger",
+    "--v-on-danger",
+    "--v-shadow-3"
+  ],
+  "related": [
+    "figure",
+    "device-frames"
+  ],
+  "examples": [
+    {
+      "title": "Product tour",
+      "description": "Press play: a stand-in player page loads in place of the poster.",
+      "html": "<a class=\"v-video\" href=\"/media/player.html\" data-v-video=\"/media/player.html\" data-title=\"Northwind product tour\" style=\"max-inline-size: 40rem\">\n  <img src=\"/img/booth.svg\" alt=\"\" width=\"1200\" height=\"900\">\n  <span class=\"v-video-play\"><span class=\"v-video-button\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#play\"/></svg></span><span class=\"v-video-label\">Play: Northwind product tour (2:14)</span></span>\n</a>",
+      "height": 420,
+      "source": "examples/plus-content/#video"
+    }
+  ]
+}

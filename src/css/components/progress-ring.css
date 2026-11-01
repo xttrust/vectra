@@ -1,0 +1,52 @@
+/* Progress ring: a circular progress indicator for a value from 0 to 100, set as --v-value (a number).
+   Put role="progressbar" with aria-valuenow, aria-valuemin, aria-valuemax and a label on it; the number
+   inside is visible text. The ring is a conic gradient, masked to a band, in a pseudo-element, so the
+   label is never masked. Sizes: --v-ring-size and --v-ring-width; colour: --v-ring-color or a tone. */
+@layer components {
+  .v-progress-ring {
+    --v-ring-size: 3.5rem;
+    --v-ring-width: 0.375rem;
+    --v-ring-color: var(--v-accent);
+
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    inline-size: var(--v-ring-size);
+    aspect-ratio: 1;
+    color: var(--v-text);
+    font-size: calc(var(--v-ring-size) * 0.26);
+    font-variant-numeric: tabular-nums;
+    font-weight: 620;
+  }
+
+  .v-progress-ring::before {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(var(--v-ring-color) calc(var(--v-value, 0) * 1%), var(--v-surface-2) 0);
+    content: "";
+    mask: radial-gradient(farthest-side, transparent calc(100% - var(--v-ring-width) - 0.5px), var(--v-text) calc(100% - var(--v-ring-width)));
+  }
+
+  .v-progress-ring-sm {
+    --v-ring-size: 2.25rem;
+    --v-ring-width: 0.25rem;
+  }
+
+  .v-progress-ring-lg {
+    --v-ring-size: 6rem;
+    --v-ring-width: 0.6rem;
+  }
+
+  .v-progress-ring-success { --v-ring-color: var(--v-success); }
+  .v-progress-ring-warning { --v-ring-color: var(--v-warning); }
+  .v-progress-ring-danger { --v-ring-color: var(--v-danger); }
+
+  /* Forced colours drop the gradient's colours: draw the track and fill in system colours. */
+  @media (forced-colors: active) {
+    .v-progress-ring::before {
+      background: conic-gradient(Highlight calc(var(--v-value, 0) * 1%), GrayText 0);
+      forced-color-adjust: none;
+    }
+  }
+}

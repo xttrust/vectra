@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · More components, part 2</title>
+  <meta name="description" content="Vectra v2.1 components, part 2: forms, content and data.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+  <script type="module" src="../../src/js/index.js"></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../layout/">Vectra <span>more components, part 2</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack" id="top">
+      <p class="v-kicker">Components · v2.1, part 2</p>
+      <h1 class="v-display" data-contrast>Forms, content and data.</h1>
+      <p class="v-lead" data-contrast>The second set of v2.1 additions. Each degrades to plain, usable markup without JavaScript.</p>
+    </section>
+
+    <section id="progress-ring">
+      <h2 data-contrast>Progress ring</h2>
+      <p class="ex-label">A circular progress bar. The value is --v-value; the label inside is real text.</p>
+      <div class="v-cluster v-items-center" style="--v-gap: var(--v-space-6)">
+        <div class="v-progress-ring v-progress-ring-sm" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Storage used" style="--v-value: 25"><span data-contrast>25</span></div>
+        <div class="v-progress-ring" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Upload" style="--v-value: 72" id="ring-upload"><span data-contrast>72%</span></div>
+        <div class="v-progress-ring v-progress-ring-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Profile complete" style="--v-value: 100"><svg class="v-icon" aria-hidden="true"><use href="#i-check"/></svg></div>
+        <div class="v-progress-ring v-progress-ring-lg v-progress-ring-warning" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Monthly quota" style="--v-value: 88"><span data-contrast>88%</span></div>
+      </div>
+    </section>
+
+    <section id="readmore">
+      <h2 data-contrast>Read more</h2>
+      <p class="ex-label">The first paragraph is long and gets the button; the second fits and does not.</p>
+      <div class="v-grid" style="--v-min: 18rem">
+        <div class="v-readmore" data-v-readmore id="readmore-long">
+          <p class="v-readmore-body" data-contrast>Long text is cut to four lines here, with a button to show the rest. Without JavaScript the whole text shows, so nothing is ever hidden from someone whose script failed to load. The button only appears when the text really is longer than the limit, and it keeps track as the width changes: make the window narrower and a short paragraph may need the button after all. It says whether the text is open or closed, so a screen reader hears the change as well as seeing it.</p>
+          <button class="v-readmore-toggle" type="button">Read more</button>
+        </div>
+        <div class="v-readmore" data-v-readmore id="readmore-short">
+          <p class="v-readmore-body" data-contrast>A short review fits on its own.</p>
+          <button class="v-readmore-toggle" type="button">Read more</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="devices">
+      <h2 data-contrast>Device frames</h2>
+      <p class="ex-label">A browser window, a laptop and a phone around a picture. They hold any element: a screenshot or live markup.</p>
+      <div class="v-grid v-items-end" style="--v-min: 15rem">
+        <figure class="v-device v-device-browser">
+          <div class="v-device-bar"><span class="v-device-url">northwind.ie/pricing</span></div>
+          <div class="v-device-screen"><img src="../shared/img/coast.svg" alt="The Northwind pricing page" width="1200" height="900"></div>
+        </figure>
+        <figure class="v-device v-device-laptop">
+          <div class="v-device-screen"><img src="../shared/img/booth.svg" alt="The Northwind dashboard" width="1200" height="900"></div>
+        </figure>
+        <figure class="v-device v-device-phone" style="--v-device-width: 11rem">
+          <div class="v-device-screen"><img src="../shared/img/garden.svg" alt="The Northwind app on a phone" width="1200" height="900"></div>
+        </figure>
+      </div>
+    </section>
+    <section id="masonry">
+      <h2 data-contrast>Masonry gallery</h2>
+      <p class="ex-label">Pictures and cards of different heights packed into columns. Resize the window: the column count follows the width.</p>
+      <ul class="v-masonry" role="list">
+        <li><img src="../shared/img/roof.svg" alt="A slate roof under an evening sky" width="1200" height="900" style="aspect-ratio: 4/5; object-fit: cover"></li>
+        <li><img src="../shared/img/garden.svg" alt="A green lawn and hedge" width="1200" height="900" style="aspect-ratio: 4/3; object-fit: cover"></li>
+        <li><blockquote class="v-testimonial"><p class="v-testimonial-quote" data-contrast>"Quick, tidy and the price we were quoted."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Siobhan, Tuam</span></footer></blockquote></li>
+        <li><img src="../shared/img/booth.svg" alt="A DJ booth lit in purple" width="1200" height="900" style="aspect-ratio: 1/1; object-fit: cover"></li>
+        <li><img src="../shared/img/coast.svg" alt="The coast at dusk" width="1200" height="900" style="aspect-ratio: 3/4; object-fit: cover"></li>
+        <li><img src="../shared/img/garden.svg" alt="The same lawn in summer" width="1200" height="900" style="aspect-ratio: 16/9; object-fit: cover"></li>
+        <li><img src="../shared/img/roof.svg" alt="A roof ridge at sunset" width="1200" height="900" style="aspect-ratio: 4/3; object-fit: cover"></li>
+      </ul>
+    </section>
+    <section id="rating">
+      <h2 data-contrast>Rating</h2>
+      <p class="ex-label">Radio buttons drawn as stars: arrow keys move the choice, forms submit the value. Hover to preview. Below it, the existing .v-rating shows a fixed score.</p>
+      <div class="v-stack" style="--v-gap: var(--v-space-4)">
+        <fieldset class="v-rating-input v-fieldset-plain" id="rating-visit">
+          <legend class="v-legend" data-contrast>How was your visit?</legend>
+          <div class="v-rating-input-stars">
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="1" required><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">1 star</span></label>
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="2"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">2 stars</span></label>
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="3"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">3 stars</span></label>
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="4" checked><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">4 stars</span></label>
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="5"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">5 stars</span></label>
+          </div>
+        </fieldset>
+        <span class="v-rating" role="img" aria-label="Rated 4.5 out of 5" style="--v-rating: 4.5" id="rating-display"></span>
+      </div>
+    </section>
+    <section id="otp">
+      <h2 data-contrast>One-time code</h2>
+      <p class="ex-label">One real input drawn as six boxes: paste a code, or let the phone fill it from a text message. It needs no JavaScript.</p>
+      <div class="v-field" style="max-inline-size: 24rem">
+        <label class="v-label" for="otp-code" data-contrast>Verification code</label>
+        <span class="v-hint" id="otp-hint" data-contrast>We sent a 6-digit code to your phone.</span>
+        <span class="v-otp"><input class="v-otp-input" id="otp-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required aria-describedby="otp-hint"></span>
+      </div>
+    </section>
+    <section id="carousel">
+      <h2 data-contrast>Carousel</h2>
+      <p class="ex-label">Swipe, scroll or use the arrow buttons; each press moves one card. It never moves by itself. Without JS the row still scrolls and snaps.</p>
+      <div class="v-carousel" aria-roledescription="carousel" aria-label="What customers say" data-v-carousel id="carousel-quotes">
+        <ul class="v-carousel-track" role="list" tabindex="0" aria-label="Customer quotes">
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"They turned up when they said, and the garden has never looked better."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Mike, Headford</span></footer></blockquote></li>
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"Quick, tidy and the price we were quoted. Booked them again for the gutters."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Siobhan, Tuam</span></footer></blockquote></li>
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"Our bookings page finally works on phones. Friday nights are full."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>The Bridge Bar</span></footer></blockquote></li>
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"Release pages in an afternoon, and every one looks like us."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Contrasts Records</span></footer></blockquote></li>
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"Clear quote, no surprises, and they cleaned up after themselves."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Sean, Claregalway</span></footer></blockquote></li>
+        </ul>
+        <div class="v-carousel-controls" hidden>
+          <button class="v-btn v-btn-secondary v-btn-icon" type="button" data-v-carousel-prev aria-label="Previous quote"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+          <button class="v-btn v-btn-secondary v-btn-icon" type="button" data-v-carousel-next aria-label="Next quote"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+        </div>
+      </div>
+    </section>
+    <section id="marquee">
+      <h2 data-contrast>Marquee</h2>
+      <p class="ex-label">A slow, endless row of names or logos. It pauses while you hover or focus it, and the button stops it. With reduced motion, or without JS, it is a still row.</p>
+      <div class="v-marquee" data-v-marquee id="marquee-clients">
+        <div class="v-marquee-viewport">
+          <ul class="v-marquee-track" role="list" aria-label="Some of our clients">
+            <li class="v-fw-semibold v-text-lg v-text-secondary" data-contrast>Perform Roofing</li>
+            <li class="v-fw-semibold v-text-lg v-text-secondary" data-contrast>Bluepeak</li>
+            <li class="v-fw-semibold v-text-lg v-text-secondary" data-contrast>West Clean</li>
+            <li class="v-fw-semibold v-text-lg v-text-secondary" data-contrast>The Bridge Bar</li>
+            <li class="v-fw-semibold v-text-lg v-text-secondary" data-contrast>Contrasts</li>
+            <li class="v-fw-semibold v-text-lg v-text-secondary" data-contrast>Vintage &amp; Morelli</li>
+            <li class="v-fw-semibold v-text-lg v-text-secondary" data-contrast>Mike's Gardening</li>
+          </ul>
+        </div>
+        <button class="v-btn v-btn-ghost v-btn-sm v-marquee-toggle" type="button" hidden>Pause</button>
+      </div>
+    </section>
+    <section id="video">
+      <h2 data-contrast>Video, click to load</h2>
+      <p class="ex-label">Nothing loads from the video site until you press play, so there are no cookies or requests before then. Without JS the link opens the video.</p>
+      <a class="v-video" href="../shared/media/player.html" data-v-video="../shared/media/player.html" data-title="Northwind product tour" id="video-tour" style="max-inline-size: 40rem">
+        <img src="../shared/img/booth.svg" alt="" width="1200" height="900">
+        <span class="v-video-play"><span class="v-video-button"><svg class="v-icon" aria-hidden="true"><use href="#i-play"/></svg></span><span class="v-video-label" data-contrast>Play: Northwind product tour (2:14)</span></span>
+      </a>
+    </section>
+    <section id="tag-input">
+      <h2 data-contrast>Tag input</h2>
+      <p class="ex-label">Type a skill and press Enter or a comma. Backspace in the empty field removes the last one. Without JS it is a comma-separated text field, and the form gets the same value either way.</p>
+      <form class="v-field" style="max-inline-size: 32rem" id="tags-form" action="#tag-input">
+        <label class="v-label" for="tags-skills" data-contrast>Skills</label>
+        <span class="v-hint" id="tags-hint" data-contrast>Up to 8. Press Enter or a comma after each.</span>
+        <div class="v-tag-input" data-v-tag-input data-max="8" id="tags-skills-box">
+          <input class="v-input" id="tags-skills" name="skills" value="Roofing, Guttering, Chimney repair" aria-describedby="tags-hint" autocomplete="off" placeholder="Add a skill">
+        </div>
+      </form>
+    </section>
+    <section id="combobox">
+      <h2 data-contrast>Combobox</h2>
+      <p class="ex-label">Type part of a town: the list filters and marks the match. Arrow keys move, Enter picks, Escape closes. Any text is allowed. Without JS the browser's own suggestions appear.</p>
+      <div class="v-field" style="max-inline-size: 24rem">
+        <label class="v-label" for="cb-town" data-contrast>Town</label>
+        <div class="v-combobox" data-v-combobox id="cb-town-box">
+          <input class="v-input" id="cb-town" name="town" list="cb-town-list" autocomplete="off">
+          <datalist id="cb-town-list">
+            <option value="Tuam" label="Co. Galway"></option>
+            <option value="Galway" label="Co. Galway"></option>
+            <option value="Athenry" label="Co. Galway"></option>
+            <option value="Ballinasloe" label="Co. Galway"></option>
+            <option value="Castlebar" label="Co. Mayo"></option>
+            <option value="Ballina" label="Co. Mayo"></option>
+            <option value="Westport" label="Co. Mayo"></option>
+            <option value="Claremorris" label="Co. Mayo"></option>
+            <option value="Ennis" label="Co. Clare"></option>
+            <option value="Roscommon" label="Co. Roscommon"></option>
+            <option value="Dún Laoghaire" label="Co. Dublin"></option>
+          </datalist>
+        </div>
+      </div>
+    </section>
+    <section id="wizard">
+      <h2 data-contrast>Multi-step form</h2>
+      <p class="ex-label">One form in three steps. Continue checks the step first; Back does not. Without JS every step shows and the form submits as one.</p>
+      <form class="v-wizard v-card" style="max-inline-size: 36rem; padding: var(--v-space-6)" data-v-wizard data-v-validate id="wizard-quote" action="#wizard">
+        <ol class="v-steps" aria-label="Quote request progress">
+          <li class="v-step"><span class="v-step-label" data-contrast>The job</span></li>
+          <li class="v-step"><span class="v-step-label" data-contrast>Where</span></li>
+          <li class="v-step"><span class="v-step-label" data-contrast>Contact</span></li>
+        </ol>
+        <fieldset class="v-wizard-step" id="wizard-step-1">
+          <legend class="v-wizard-title" data-contrast>What needs doing?</legend>
+          <div class="v-field">
+            <label class="v-label" for="wz-job" data-contrast>Type of job</label>
+            <select class="v-select" id="wz-job" name="job" required>
+              <option value="">Choose one</option>
+              <option>Roof repair</option>
+              <option>New roof</option>
+              <option>Gutters and fascias</option>
+            </select>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="wz-details" data-contrast>Details <span class="v-text-secondary">(optional)</span></label>
+            <textarea class="v-input" id="wz-details" name="details" rows="3"></textarea>
+          </div>
+        </fieldset>
+        <fieldset class="v-wizard-step" id="wizard-step-2">
+          <legend class="v-wizard-title" data-contrast>Where is it?</legend>
+          <div class="v-field">
+            <label class="v-label" for="wz-town" data-contrast>Town</label>
+            <input class="v-input" id="wz-town" name="town" required autocomplete="address-level2">
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="wz-eircode" data-contrast>Eircode <span class="v-text-secondary">(optional)</span></label>
+            <input class="v-input" id="wz-eircode" name="eircode" autocomplete="postal-code">
+          </div>
+        </fieldset>
+        <fieldset class="v-wizard-step" id="wizard-step-3">
+          <legend class="v-wizard-title" data-contrast>How do we reach you?</legend>
+          <div class="v-field">
+            <label class="v-label" for="wz-name" data-contrast>Name</label>
+            <input class="v-input" id="wz-name" name="name" required autocomplete="name">
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="wz-phone" data-contrast>Phone</label>
+            <input class="v-input" id="wz-phone" name="phone" type="tel" required autocomplete="tel">
+          </div>
+        </fieldset>
+        <div class="v-wizard-actions">
+          <button class="v-btn v-btn-ghost" type="button" data-v-wizard-back hidden>Back</button>
+          <button class="v-btn v-btn-primary" type="button" data-v-wizard-next hidden>Continue</button>
+          <button class="v-btn v-btn-primary" type="submit">Send request</button>
+        </div>
+      </form>
+    </section>
+    <section id="charts">
+      <h2 data-contrast>Charts</h2>
+      <p class="ex-label">Built from tables, lists and inline SVG, with no chart library. Every chart can be read without seeing it: the bars are a real table, the columns and donut carry their numbers in text.</p>
+      <div class="v-grid" style="--v-min: 18rem; --v-gap: var(--v-space-6)">
+        <figure class="v-chart v-card v-p-4" id="chart-bars">
+          <figcaption class="v-chart-title" data-contrast>Where leads came from</figcaption>
+          <table class="v-chart-bars">
+            <caption class="v-sr-only">Leads by source this quarter</caption>
+            <thead class="v-sr-only"><tr><th scope="col">Source</th><th scope="col">Leads</th></tr></thead>
+            <tbody>
+              <tr><th scope="row" data-contrast>Website</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 100%"></span><span class="v-chart-value" data-contrast>48</span></div></td></tr>
+              <tr><th scope="row" data-contrast>Referrals</th><td><div class="v-chart-track"><span class="v-chart-bar v-chart-c2" style="--v-value: 62%"></span><span class="v-chart-value" data-contrast>30</span></div></td></tr>
+              <tr><th scope="row" data-contrast>Google Business</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 46%"></span><span class="v-chart-value" data-contrast>22</span></div></td></tr>
+              <tr><th scope="row" data-contrast>Facebook</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 25%"></span><span class="v-chart-value" data-contrast>12</span></div></td></tr>
+              <tr><th scope="row" data-contrast>Flyers</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 8%"></span><span class="v-chart-value" data-contrast>4</span></div></td></tr>
+            </tbody>
+          </table>
+        </figure>
+        <figure class="v-chart v-card v-p-4" id="chart-columns">
+          <figcaption class="v-chart-title" data-contrast>Jobs booked, January to June</figcaption>
+          <ul class="v-chart-columns" role="list">
+            <li><span class="v-chart-col" style="--v-value: 35%"></span><span class="v-chart-label" aria-hidden="true">Jan</span><span class="v-sr-only">Jan: 14 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 45%"></span><span class="v-chart-label" aria-hidden="true">Feb</span><span class="v-sr-only">Feb: 18 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 60%"></span><span class="v-chart-label" aria-hidden="true">Mar</span><span class="v-sr-only">Mar: 24 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 80%"></span><span class="v-chart-label" aria-hidden="true">Apr</span><span class="v-sr-only">Apr: 32 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 70%"></span><span class="v-chart-label" aria-hidden="true">May</span><span class="v-sr-only">May: 28 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 100%"></span><span class="v-chart-label" aria-hidden="true">Jun</span><span class="v-sr-only">Jun: 40 jobs</span></li>
+          </ul>
+        </figure>
+        <figure class="v-chart v-card v-p-4" id="chart-donut">
+          <figcaption class="v-chart-title" data-contrast>Revenue by service</figcaption>
+          <div class="v-cluster" style="--v-gap: var(--v-space-5)">
+            <div class="v-donut" role="img" aria-label="Revenue by service: roofing 45%, gutters 27%, repairs 18%, other 10%" style="--v-donut: conic-gradient(var(--v-chart-1) 0 45%, var(--v-chart-2) 0 72%, var(--v-chart-3) 0 90%, var(--v-chart-5) 0)">
+              <span class="v-donut-total" aria-hidden="true"><span data-contrast>€86k</span><small>this year</small></span>
+            </div>
+            <ul class="v-chart-legend" role="list" style="flex-direction: column">
+              <li><span class="v-chart-swatch" aria-hidden="true"></span><span data-contrast>Roofing <strong>45%</strong></span></li>
+              <li><span class="v-chart-swatch v-chart-c2" aria-hidden="true"></span><span data-contrast>Gutters <strong>27%</strong></span></li>
+              <li><span class="v-chart-swatch v-chart-c3" aria-hidden="true"></span><span data-contrast>Repairs <strong>18%</strong></span></li>
+              <li><span class="v-chart-swatch v-chart-c5" aria-hidden="true"></span><span data-contrast>Other <strong>10%</strong></span></li>
+            </ul>
+          </div>
+        </figure>
+        <figure class="v-chart v-card v-p-4" id="chart-line">
+          <figcaption class="v-chart-title" data-contrast>Website visits, last 12 weeks</figcaption>
+          <svg class="v-chart-line" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="Website visits rose from 120 to 480 a week over 12 weeks">
+            <line class="v-chart-grid" x1="0" y1="20.0" x2="100" y2="20.0"/>
+            <line class="v-chart-grid" x1="0" y1="40" x2="100" y2="40"/>
+            <polygon class="v-chart-area" points="0,40 0.0,30.4 9.09,25.6 18.18,28.0 27.27,20.8 36.36,22.4 45.45,16.0 54.55,17.6 63.64,11.2 72.73,12.8 81.82,6.4 90.91,8.0 100.0,1.6 100,40"/>
+            <polyline points="0.0,30.4 9.09,25.6 18.18,28.0 27.27,20.8 36.36,22.4 45.45,16.0 54.55,17.6 63.64,11.2 72.73,12.8 81.82,6.4 90.91,8.0 100.0,1.6"/>
+          </svg>
+          <div class="v-cluster v-justify-between v-items-center">
+            <span class="v-text-sm v-text-secondary" data-contrast>Signups</span>
+            <svg class="v-sparkline v-chart-c3" viewBox="0 0 100 20" preserveAspectRatio="none" role="img" aria-label="Signups up from 5 to 13 a week" style="inline-size: 8rem"><polyline points="0.0,12.86 14.29,10.0 28.57,11.43 42.86,7.14 57.14,8.57 71.43,4.29 85.71,5.71 100.0,1.43"/></svg>
+          </div>
+        </figure>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

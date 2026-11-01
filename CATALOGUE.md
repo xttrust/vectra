@@ -77,7 +77,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Inline save status (saving, saved, failed, offline) | P0 | done | |
 | Connection banner (offline, back online, slow network) | P0 | done | |
 | Session timeout warning (countdown dialog) | P0 | done | |
-| Progress ring | P1 | | SVG |
+| Progress ring | P1 | done | CSS conic gradient, no SVG needed |
 | Typing / presence indicator | P1 | | section 11 |
 | Notification centre (panel + unread count) | P1 | done | popover panel; count and name kept in step |
 
@@ -100,15 +100,15 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Async field check (checking, available, taken) | P0 | done | |
 | Checkbox / radio cards (rich selectable tiles) | P0 | done | pricing, onboarding |
 | Form layouts (stacked, two-column, sectioned settings, inline) | P0 | done | |
-| OTP input | P1 | | 2FA flows use a plain input in v2.0 |
-| Tag input | P1 | | |
-| Combobox / autocomplete | P1 | | |
+| OTP input | P1 | done | one real input drawn as boxes; no JS |
+| Tag input | P1 | done | comma-separated field without JS; same form value with it |
+| Combobox / autocomplete | P1 | done | `<input list>` + datalist without JS |
 | Multi-select | P1 | | built on combobox |
 | Date and time input styling | P1 | | native inputs |
 | Dual-thumb range | P1 | | |
-| Rating input | P1 | | radio group |
+| Rating input | P1 | done | radio group, no JS; .v-rating stays the read-only score |
 | File list with upload progress | P1 | | |
-| Multi-step form (wizard) | P1 | | uses steps |
+| Multi-step form (wizard) | P1 | done | uses steps; one form, every step shows without JS |
 | Repeater fields (add and remove rows, e.g. extra emails or line items) | P1 | | small JS |
 | Date picker calendar | P2 | | |
 | Colour picker | P2 | | |
@@ -150,7 +150,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 |---|---|---|---|
 | Accordion (exclusive via `<details name>`) | P0 | done | |
 | Collapsible | P0 | done | |
-| Read more / line clamp | P1 | | |
+| Read more / line clamp | P1 | done | clamps only when longer; full text without JS |
 
 ### Data
 
@@ -159,8 +159,8 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Table (responsive, sticky header, zebra, selectable rows, dense) | P0 | done | |
 | Timeline / activity feed | P0 | done | |
 | Data table (sort, filter, column toggle, bulk actions) | P1 | | |
-| Charts: sparkline, bar, line, area, donut | P1 | | SVG, no library |
-| Chart legend and legend indicator | P1 | | with the charts |
+| Charts: sparkline, bar, line, area, donut | P1 | done | tables, lists and SVG, no library |
+| Chart legend and legend indicator | P1 | done | with the charts |
 | Calendar (month, week) | P2 | | |
 | Kanban board | P2 | | |
 
@@ -173,11 +173,11 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Blockquote / testimonial | P0 | done | |
 | Pricing card | P0 | done | |
 | Logo cloud | P0 | done | |
-| Carousel (scroll-snap + buttons) | P1 | | |
-| Gallery / masonry grid | P1 | | |
-| Video embed (lite, click to load) | P1 | | no third-party request until clicked |
-| Marquee / logo ticker | P1 | | respects reduced motion |
-| Device frames (phone, laptop, browser window) for screenshots in heroes and features | P1 | | pure CSS, holds real Vectra UI or an image |
+| Carousel (scroll-snap + buttons) | P1 | done | no autoplay; slides per view follow the carousel width |
+| Gallery / masonry grid | P1 | done | CSS multi-column |
+| Video embed (lite, click to load) | P1 | done | no third-party request until clicked; iframe or native video |
+| Marquee / logo ticker | P1 | done | respects reduced motion; pause button (WCAG 2.2.2) |
+| Device frames (phone, laptop, browser window) for screenshots in heroes and features | P1 | done | pure CSS, holds real Vectra UI or an image |
 | Countdown | P1 | | |
 | Map placeholder (static image + link) | P1 | | no map SDK |
 

@@ -1,0 +1,67 @@
+/* Rating input: a <fieldset> of radio buttons drawn as stars, so the arrow keys, forms and validation are
+   the browser's own. Every star up to the checked one fills; hovering previews a choice. The radios are
+   visually hidden but focusable, and each label carries words ("3 stars") for screen readers. To show a
+   fixed score instead, use .v-rating (testimonial.css). */
+@layer components {
+  .v-rating-input {
+    --v-rating-input-size: 1.75rem;
+
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .v-rating-input-stars {
+    display: inline-flex;
+    gap: 0.15rem;
+  }
+
+  .v-rating-input-star {
+    display: inline-grid;
+    place-items: center;
+    inline-size: calc(var(--v-rating-input-size) + 0.3rem);
+    block-size: calc(var(--v-rating-input-size) + 0.3rem);
+    border-radius: var(--v-radius-sm);
+    color: var(--v-border-strong);
+    cursor: pointer;
+    transition: color var(--v-dur-1), scale var(--v-dur-1);
+  }
+
+  .v-rating-input-star .v-icon {
+    inline-size: var(--v-rating-input-size);
+    block-size: var(--v-rating-input-size);
+    stroke-width: 1.6;
+  }
+
+  .v-rating-input-star:hover { scale: 1.1; }
+
+  /* The hidden radio's own ring would be clipped away; the star around it shows focus instead. */
+  .v-rating-input-star input:focus-visible { outline: none; }
+
+  .v-rating-input-star:has(:focus-visible) {
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 1px;
+  }
+
+  /* Filled: the checked star and every star before it. */
+  .v-rating-input-star:is(:has(:checked), :has(~ .v-rating-input-star :checked)) { color: var(--v-warning); }
+  .v-rating-input-star:is(:has(:checked), :has(~ .v-rating-input-star :checked)) .v-icon { fill: currentcolor; }
+
+  .v-rating-input:disabled .v-rating-input-star {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  /* Hover previews: the hovered star and those before it fill, the rest empty. */
+  .v-rating-input-stars:hover .v-rating-input-star { color: var(--v-border-strong); }
+  .v-rating-input-stars:hover .v-rating-input-star .v-icon { fill: none; }
+  .v-rating-input-stars:hover .v-rating-input-star:is(:hover, :has(~ .v-rating-input-star:hover)) { color: var(--v-warning); }
+  .v-rating-input-stars:hover .v-rating-input-star:is(:hover, :has(~ .v-rating-input-star:hover)) .v-icon { fill: currentcolor; }
+
+  .v-rating-input-sm { --v-rating-input-size: 1.2rem; }
+
+  @media (forced-colors: active) {
+    .v-rating-input-star:is(:has(:checked), :has(~ .v-rating-input-star :checked)) { color: Highlight; }
+  }
+}

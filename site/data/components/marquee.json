@@ -1,0 +1,90 @@
+{
+  "name": "Marquee",
+  "slug": "marquee",
+  "group": "Content",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A slow, endless row of client names or logos, with a pause button.",
+  "description": "Use a marquee for a row of clients, partners or press logos that is longer than the page is wide. For a short row, a static logo cloud is calmer.\n\nWithout JS, or when the reader asks for reduced motion, it is a still, centred row that wraps. data-v-marquee copies the items once (hidden from assistive tech and inert) and slides them in a seamless loop inside .v-marquee-viewport, which fades the edges. Hovering or focusing the row pauses it, and the .v-marquee-toggle button stops and restarts it.",
+  "native": "CSS animation, prefers-reduced-motion, inert",
+  "catalogue": [
+    "Marquee / logo ticker"
+  ],
+  "css": [
+    "marquee.css"
+  ],
+  "js": [
+    "components/marquee.js"
+  ],
+  "classes": [
+    {
+      "name": "v-marquee",
+      "kind": "base",
+      "description": "The wrapper. --v-marquee-duration sets the speed (default 40s), --v-marquee-gap the space between items."
+    },
+    {
+      "name": "v-marquee-viewport",
+      "kind": "part",
+      "description": "Clips the moving row and fades its edges, so the button beside it stays clear."
+    },
+    {
+      "name": "v-marquee-track",
+      "kind": "part",
+      "description": "The list of items (<ul role=\"list\"> with an aria-label). Logos are <img> with alt text."
+    },
+    {
+      "name": "v-marquee-toggle",
+      "kind": "part",
+      "description": "The Pause and Play button, hidden until the JS runs and whenever motion is reduced. data-pause and data-play set its words."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-ready",
+      "description": "Set by the JS once the copy is in place: the row starts moving (unless motion is reduced)."
+    },
+    {
+      "attribute": "data-paused",
+      "description": "Set by the toggle button: the row stays still until pressed again."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-marquee",
+      "value": "",
+      "on": "The .v-marquee wrapper",
+      "description": "Copies the items once for a seamless loop, starts the animation and wires the pause button."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On the toggle, stops or restarts the row. Focusing a link in the row also pauses it."
+    }
+  ],
+  "a11y": [
+    "Anything that moves on its own for more than five seconds needs a way to stop it (WCAG 2.2.2): the toggle is that way, and hover or focus pause it too.",
+    "With prefers-reduced-motion it never moves, and the toggle is hidden because there is nothing to stop.",
+    "The copy is aria-hidden and inert, so screen readers read each name once and Tab never lands on a duplicate."
+  ],
+  "tokens": [
+    "--v-marquee-duration",
+    "--v-marquee-gap"
+  ],
+  "related": [
+    "logo-cloud",
+    "carousel"
+  ],
+  "examples": [
+    {
+      "title": "Client names",
+      "description": "Hover the row to pause it, or use the button.",
+      "html": "<div class=\"v-marquee\" data-v-marquee>\n  <div class=\"v-marquee-viewport\">\n    <ul class=\"v-marquee-track\" role=\"list\" aria-label=\"Some of our clients\">\n      <li class=\"v-fw-semibold v-text-lg v-text-secondary\">Perform Roofing</li>\n      <li class=\"v-fw-semibold v-text-lg v-text-secondary\">Bluepeak</li>\n      <li class=\"v-fw-semibold v-text-lg v-text-secondary\">West Clean</li>\n      <li class=\"v-fw-semibold v-text-lg v-text-secondary\">The Bridge Bar</li>\n      <li class=\"v-fw-semibold v-text-lg v-text-secondary\">Contrasts</li>\n      <li class=\"v-fw-semibold v-text-lg v-text-secondary\">Vintage &amp; Morelli</li>\n      <li class=\"v-fw-semibold v-text-lg v-text-secondary\">Mike's Gardening</li>\n    </ul>\n  </div>\n  <button class=\"v-btn v-btn-ghost v-btn-sm v-marquee-toggle\" type=\"button\" hidden>Pause</button>\n</div>",
+      "height": 200,
+      "source": "examples/plus-content/#marquee"
+    }
+  ]
+}

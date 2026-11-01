@@ -88,6 +88,7 @@ Galleries to copy from:
 - examples/overlays/: Vectra dialogs, drawers, popovers, menus and tooltips in every direction and theme.
 - examples/pages/: Vectra example pages: a marketing site, app screens with their states, and system pages.
 - examples/plus/: Vectra v2.1 components: split button, back to top, table of contents, context menu, hover card, command palette, lightbox and notification centre.
+- examples/plus-content/: Vectra v2.1 components, part 2: forms, content and data.
 - examples/sections/: Vectra section galleries: navigation and chrome, marketing and app UI, plus two example pages.
 - examples/states/: Vectra states gallery and copy guide: loading, empty, errors, connection, permissions, session, validation, success, destructive actions, content status and edge cases.
 - examples/theming/: Vectra direction switch, theme toggle, customizer, toasts, connection banner, session warning and save status.
@@ -139,6 +140,7 @@ Feedback:
 - Meter: .v-meter
 - Notification centre: .v-notify .v-notifications, hooks data-v-notifications data-v-notifications-read
 - Progress: .v-progress
+- Progress ring: .v-progress-ring
 - Session timeout warning: 
 - Toast: .v-toast-region .v-toast
 
@@ -147,17 +149,22 @@ Forms:
 - Character counter: .v-counter, hooks data-v-counter data-v-max
 - Checkbox and radio cards: .v-choice-card
 - Checkbox, radio and switch: .v-choice .v-checkbox .v-radio .v-switch
+- Combobox: .v-combobox, hooks data-v-combobox
 - Error summary: .v-error-summary, hooks data-v-validate
 - Field: .v-field .v-fieldset
 - File drop zone: .v-dropzone, hooks data-v-dropzone data-v-dropzone-files
 - Form layouts: .v-form .v-form-inline, hooks data-v-unsaved
 - Input group: .v-input-group
 - Input, textarea and select: .v-input .v-select
+- Multi-step form: .v-wizard, hooks data-v-wizard data-v-wizard-back data-v-wizard-next data-v-validate
 - Number stepper: .v-stepper, hooks data-v-stepper data-v-step
+- One-time code input: .v-otp
 - Password reveal: , hooks data-v-password
 - Password strength meter: , hooks data-v-strength
 - Range: .v-range
+- Rating input: .v-rating-input
 - Search field: .v-search, hooks data-v-clear data-v-shortcut
+- Tag input: .v-tag-input, hooks data-v-tag-input
 
 Overlays:
 - Command palette: , hooks data-v-command data-v-dialog-open data-v-dismissable
@@ -186,17 +193,24 @@ Navigation:
 Disclosure:
 - Accordion: .v-accordion
 - Collapsible: .v-collapsible
+- Read more: .v-readmore, hooks data-v-readmore
 
 Data:
+- Charts: .v-chart
 - Table: .v-table
 - Timeline: .v-timeline
 
 Content:
+- Carousel: .v-carousel, hooks data-v-carousel data-v-carousel-prev data-v-carousel-next
 - Code block: .v-code, hooks data-v-copy data-v-copy-target
+- Device frames: .v-device
 - Logo cloud: .v-logos
+- Marquee: .v-marquee, hooks data-v-marquee
+- Masonry gallery: .v-masonry
 - Pricing card: .v-pricing
 - Prose: .v-prose
 - Testimonial: .v-testimonial
+- Video embed: .v-video, hooks data-v-video
 
 Theming:
 - Customizer: .v-customizer, hooks data-v-customizer data-v-reset

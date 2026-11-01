@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-81 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+94 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1079,6 +1079,39 @@ Example (With a value and indeterminate):
 <progress class="v-progress" aria-labelledby="uploading"></progress>
 ```
 
+#### Progress ring (progress-ring)
+
+A circular progress indicator with its value written inside. Native: role="progressbar", conic-gradient(), mask.
+
+Base:
+- .v-progress-ring: The ring. Set --v-value as a number from 0 to 100; put the label (a number or an icon) inside.
+Modifiers:
+- .v-progress-ring-sm: Small, for lists and table cells.
+- .v-progress-ring-lg: Large, for a dashboard figure.
+- .v-progress-ring-success: Success colour, for a finished task.
+- .v-progress-ring-warning: Warning colour, for a quota nearly used.
+- .v-progress-ring-danger: Danger colour, for a limit reached.
+
+States:
+- --v-value: The fill, a number from 0 to 100 (style="--v-value: 72").
+- aria-valuenow: The same number for assistive tech, with aria-valuemin="0", aria-valuemax="100" and an aria-label.
+
+Accessibility:
+- role="progressbar" with aria-valuenow and a label is what screen readers announce; the ring itself is decoration.
+- Write the value inside as text too, so it does not depend on reading the arc.
+- In forced colours the ring switches to system colours so the filled part still shows.
+
+Example (Sizes and tones):
+
+```html
+<div class="v-cluster v-items-center" style="--v-gap: var(--v-space-6)">
+  <div class="v-progress-ring v-progress-ring-sm" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Storage used" style="--v-value: 25"><span>25</span></div>
+  <div class="v-progress-ring" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Upload" style="--v-value: 72"><span>72%</span></div>
+  <div class="v-progress-ring v-progress-ring-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Profile complete" style="--v-value: 100"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#check"/></svg></div>
+  <div class="v-progress-ring v-progress-ring-lg v-progress-ring-warning" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Monthly quota" style="--v-value: 88"><span>88%</span></div>
+</div>
+```
+
 #### Session timeout warning (session-timeout)
 
 A modal alert dialog, opened by Vectra.session.warn(), that counts down to sign-out and lets people stay signed in. Native: <dialog>.
@@ -1347,6 +1380,63 @@ Example (Checkboxes):
 
 ```js
 document.getElementById('c-ind').indeterminate = true;
+```
+
+#### Combobox (combobox)
+
+A text input with a list of suggestions that filters as you type. Native: <input list>, <datalist>.
+
+Base:
+- .v-combobox: The wrapper around the input and its datalist. The list opens below it.
+Parts:
+- .v-combobox-list: The listbox, added by the JS. Also styles the "No matches" box.
+- .v-combobox-option: One suggestion, role="option". The matching letters are in a <mark>.
+- .v-combobox-hint: Extra text beside an option, from the datalist option's label (such as the county beside a town).
+- .v-combobox-empty: The "No matches" message, a role="status" box shown when nothing matches. data-empty on the wrapper changes the words.
+
+States:
+- aria-expanded: On the input, set by the JS: true while the list is open.
+- aria-activedescendant: On the input: the highlighted option, while focus stays in the input.
+- aria-selected="true": On the highlighted option.
+
+Hooks:
+- data-v-combobox (on the .v-combobox wrapper): Turns off the native datalist and draws its own listbox with filtering, highlighting and the combobox keyboard pattern.
+
+Events:
+- v:select detail { value }: Fires when an option is picked from the list, after the input's own input and change events.
+
+Keyboard:
+- ArrowDown / ArrowUp: Opens the list on the first or last option, then moves the highlight and wraps. Alt+ArrowDown opens without moving.
+- Enter: Puts the highlighted option in the input and closes the list.
+- Escape: Closes the list; a second Escape clears the input.
+
+Accessibility:
+- Focus stays in the input while the highlight moves (aria-activedescendant), so typing and choosing never fight over focus.
+- "No matches" is a live status message, so screen reader users hear when the list empties.
+- Options are picked on pointer down, before the input loses focus, so the list never closes under the click.
+
+Example (Town):
+
+```html
+<div class="v-field">
+  <label class="v-label" for="cb-town">Town</label>
+  <div class="v-combobox" data-v-combobox>
+    <input class="v-input" id="cb-town" name="town" list="cb-town-list" autocomplete="off">
+    <datalist id="cb-town-list">
+      <option value="Tuam" label="Co. Galway"></option>
+      <option value="Galway" label="Co. Galway"></option>
+      <option value="Athenry" label="Co. Galway"></option>
+      <option value="Ballinasloe" label="Co. Galway"></option>
+      <option value="Castlebar" label="Co. Mayo"></option>
+      <option value="Ballina" label="Co. Mayo"></option>
+      <option value="Westport" label="Co. Mayo"></option>
+      <option value="Claremorris" label="Co. Mayo"></option>
+      <option value="Ennis" label="Co. Clare"></option>
+      <option value="Roscommon" label="Co. Roscommon"></option>
+      <option value="Dún Laoghaire" label="Co. Dublin"></option>
+    </datalist>
+  </div>
+</div>
 ```
 
 #### Error summary (error-summary)
@@ -1638,6 +1728,96 @@ Example (Text inputs):
 </div>
 ```
 
+#### Multi-step form (wizard)
+
+One form split into steps, checked step by step, with a progress indicator. Native: <form>, <fieldset>, <legend>, constraint validation.
+
+Base:
+- .v-wizard: The <form>.
+Parts:
+- .v-wizard-step: One step, a <fieldset>. Hidden and disabled by the JS until it is reached.
+- .v-wizard-title: The step's <legend>, styled as a heading. It names the step when focus moves to it.
+- .v-wizard-actions: The Back, Continue and submit buttons. Back sits at the start, the others at the end.
+
+States:
+- hidden: On the Back and Continue buttons in the markup, so readers without JS see only the submit button.
+- aria-current="step": Set by the JS on the current .v-step; finished steps get .v-step-complete and a hidden "Completed: " prefix.
+- data-completed: On the form: the hidden prefix for finished steps (default "Completed: ").
+
+Hooks:
+- data-v-wizard (on the <form>): Shows one step at a time, checks a step before moving on, keeps the indicator in step and moves focus.
+- data-v-wizard-back (on the Back button): Goes to the previous step without checking.
+- data-v-wizard-next (on the Continue button): Checks the current step and goes to the next one.
+- data-v-validate (on the <form> (optional)): Gives each step the kit's inline errors and error summary instead of the browser's message.
+
+Events:
+- v:step detail { index, step }: Fires when a step is shown, including the first.
+
+Keyboard:
+- Enter: In a field, acts as Continue before the last step and submits on the last.
+- Tab: Moves through the current step's fields and the buttons. Focus starts on the step each time it changes.
+
+Accessibility:
+- Focus moves to the new step, and its legend is announced, so screen reader users know the page changed.
+- Finished steps say "Completed" in hidden text, not only with the drawn check.
+- Errors are found step by step, so nobody is told about fields they have not seen yet.
+- Without JS nothing is hidden: the whole form is there and submits.
+
+Example (Quote request):
+
+```html
+<form class="v-wizard v-card" data-v-wizard data-v-validate action="/quotes" method="post">
+  <ol class="v-steps" aria-label="Quote request progress">
+    <li class="v-step"><span class="v-step-label">The job</span></li>
+    <li class="v-step"><span class="v-step-label">Where</span></li>
+    <li class="v-step"><span class="v-step-label">Contact</span></li>
+  </ol>
+  <fieldset class="v-wizard-step">
+    <legend class="v-wizard-title">What needs doing?</legend>
+    <div class="v-field">
+      <label class="v-label" for="wz-job">Type of job</label>
+      <select class="v-select" id="wz-job" name="job" required>
+        <option value="">Choose one</option>
+        <option>Roof repair</option>
+        <option>New roof</option>
+        <option>Gutters and fascias</option>
+      </select>
+    </div>
+    <div class="v-field">
+      <label class="v-label" for="wz-details">Details <span class="v-text-secondary">(optional)</span></label>
+      <textarea class="v-input" id="wz-details" name="details" rows="3"></textarea>
+    </div>
+  </fieldset>
+  <fieldset class="v-wizard-step">
+    <legend class="v-wizard-title">Where is it?</legend>
+    <div class="v-field">
+      <label class="v-label" for="wz-town">Town</label>
+      <input class="v-input" id="wz-town" name="town" required autocomplete="address-level2">
+    </div>
+    <div class="v-field">
+      <label class="v-label" for="wz-eircode">Eircode <span class="v-text-secondary">(optional)</span></label>
+      <input class="v-input" id="wz-eircode" name="eircode" autocomplete="postal-code">
+    </div>
+  </fieldset>
+  <fieldset class="v-wizard-step">
+    <legend class="v-wizard-title">How do we reach you?</legend>
+    <div class="v-field">
+      <label class="v-label" for="wz-name">Name</label>
+      <input class="v-input" id="wz-name" name="name" required autocomplete="name">
+    </div>
+    <div class="v-field">
+      <label class="v-label" for="wz-phone">Phone</label>
+      <input class="v-input" id="wz-phone" name="phone" type="tel" required autocomplete="tel">
+    </div>
+  </fieldset>
+  <div class="v-wizard-actions">
+    <button class="v-btn v-btn-ghost" type="button" data-v-wizard-back hidden>Back</button>
+    <button class="v-btn v-btn-primary" type="button" data-v-wizard-next hidden>Continue</button>
+    <button class="v-btn v-btn-primary" type="submit">Send request</button>
+  </div>
+</form>
+```
+
 #### Number stepper (number-stepper)
 
 A number input with minus and plus buttons either side, for small counts such as seats or quantities. Native: <input type="number">.
@@ -1674,6 +1854,38 @@ Example (Seats):
     <input class="v-input" id="f-qty" name="seats" type="number" min="1" max="50" value="3">
     <button class="v-btn v-btn-ghost v-btn-icon" type="button" data-v-step="up" aria-label="More seats" aria-controls="f-qty" hidden><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#plus"/></svg></button>
   </div>
+</div>
+```
+
+#### One-time code input (otp-input)
+
+A verification code field drawn as a row of boxes, one per digit. Native: <input autocomplete="one-time-code" inputmode="numeric">, pattern, maxlength.
+
+Base:
+- .v-otp: The wrapper that draws the boxes. --v-otp-length sets how many (default 6); --v-otp-cell and --v-otp-gap their size.
+Parts:
+- .v-otp-input: The input inside. Give it autocomplete="one-time-code", inputmode="numeric", maxlength and a pattern.
+
+States:
+- autocomplete="one-time-code": Lets phones offer the code from a text message and password managers fill it.
+- pattern: Such as [0-9]{6}. A code that does not match marks the boxes in the danger colour after the person has typed (:user-invalid).
+- maxlength: The code length, so a seventh digit cannot be typed.
+
+Keyboard:
+- 0-9: Types a digit into the next box. Backspace, arrow keys and paste work as in any text field.
+
+Accessibility:
+- One field means one label and one announcement, not six fields called "digit 1" to "digit 6".
+- Pasting the whole code works because it is a single field; nothing has to spread it across boxes.
+- Link the hint ("We sent a 6-digit code to your phone") with aria-describedby.
+
+Example (Six-digit code):
+
+```html
+<div class="v-field" style="max-inline-size: 24rem">
+  <label class="v-label" for="otp-code">Verification code</label>
+  <span class="v-hint" id="otp-hint">We sent a 6-digit code to your phone.</span>
+  <span class="v-otp"><input class="v-otp-input" id="otp-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required aria-describedby="otp-hint"></span>
 </div>
 ```
 
@@ -1787,6 +1999,47 @@ range.addEventListener('input', () => {
 });
 ```
 
+#### Rating input (rating-input)
+
+A star rating made of radio buttons, for reviews and feedback forms. Native: <fieldset>, <input type="radio">, :has().
+
+Base:
+- .v-rating-input: The <fieldset>. Add .v-fieldset-plain and a .v-legend for the question.
+Modifiers:
+- .v-rating-input-sm: Smaller stars, for a compact form.
+Parts:
+- .v-rating-input-stars: The row of stars.
+- .v-rating-input-star: One <label> holding a visually hidden radio, the star icon and the words for screen readers.
+
+States:
+- checked: On a radio: the current score. Stars up to it fill.
+- required: On the first radio: the form will not submit without a score.
+- disabled: On the fieldset: dims the stars and blocks changes.
+
+Keyboard:
+- Tab: Moves into the group, onto the checked star (or the first).
+- ArrowRight / ArrowLeft: Changes the score by one, as in any radio group (flipped in right-to-left).
+
+Accessibility:
+- Each radio has words ("3 stars") in a visually hidden span, so screen readers read a score, not "star, star, star".
+- The legend is the question; screen readers announce it when focus enters the group.
+- The focus ring sits on the star around the hidden radio, so keyboard users see where they are.
+
+Example (Visit feedback):
+
+```html
+<fieldset class="v-rating-input v-fieldset-plain">
+  <legend class="v-legend">How was your visit?</legend>
+  <div class="v-rating-input-stars">
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="1" required><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">1 star</span></label>
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="2"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">2 stars</span></label>
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="3"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">3 stars</span></label>
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="4" checked><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">4 stars</span></label>
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="5"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">5 stars</span></label>
+  </div>
+</fieldset>
+```
+
 #### Search field (search-field)
 
 A search input with a leading icon, an optional clear button and an optional keyboard shortcut hint. Native: <input type="search">.
@@ -1828,6 +2081,50 @@ Example (With a clear button):
     <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg></span>
     <input class="v-input" id="s-clients" type="search" placeholder="Name or email" value="Kelly">
     <button class="v-btn v-btn-ghost v-btn-icon v-search-clear" type="button" aria-label="Clear search"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#close"/></svg></button>
+  </div>
+</div>
+```
+
+#### Tag input (tag-input)
+
+A field where each value typed becomes a removable tag. Native: <input>, <input type="hidden">.
+
+Base:
+- .v-tag-input: The wrapper around one .v-input. Once the JS runs it draws the field box that holds the tags and the input.
+Parts:
+- .v-tag-input-list: The list of tags, added by the JS, labelled with the field's label and the count.
+- .v-tag-input-field: The text input inside the box. The JS swaps .v-input for this class so no direction styles it as a second field.
+
+States:
+- data-separator: On the wrapper: the character that ends a tag and joins the form value (default ",").
+- data-max: On the wrapper: the most tags allowed.
+- data-added, data-removed, data-remove: On the wrapper: the announced and button words, with {tag} for the value (defaults "{tag} added", "{tag} removed", "Remove {tag}").
+- data-ready: Set by the JS once it has taken over the field.
+
+Hooks:
+- data-v-tag-input (on the .v-tag-input wrapper): Turns the field's value into tags, keeps the form value in a hidden input with the same name, and announces each change.
+
+Events:
+- v:tags detail { tags }: Fires whenever the list changes, with every tag in order.
+
+Keyboard:
+- Enter / ,: Adds what was typed as a tag. An empty Enter submits the form as usual.
+- Backspace: In the empty field, removes the last tag.
+- Tab: Moves through each tag's remove button and the field. Leaving the field keeps a half-typed value as a tag.
+
+Accessibility:
+- Each added or removed tag is announced in a polite live region, since nothing else tells a screen reader the list changed.
+- Each remove button is labelled "Remove Roofing", not just an x.
+- The label stays on the real input, so the field keeps its name and hint.
+
+Example (Skills):
+
+```html
+<div class="v-field">
+  <label class="v-label" for="tags-skills">Skills</label>
+  <span class="v-hint" id="tags-hint">Up to 8. Press Enter or a comma after each.</span>
+  <div class="v-tag-input" data-v-tag-input data-max="8">
+    <input class="v-input" id="tags-skills" name="skills" value="Roofing, Guttering, Chimney repair" aria-describedby="tags-hint" autocomplete="off">
   </div>
 </div>
 ```
@@ -2926,7 +3223,105 @@ Example (Closed and open):
 </details>
 ```
 
+#### Read more (read-more)
+
+Long text cut to a few lines, with a button that shows the rest. Native: -webkit-line-clamp.
+
+Base:
+- .v-readmore: The wrapper. Set --v-lines to change how many lines show before the button.
+Parts:
+- .v-readmore-body: The text, clamped while closed.
+- .v-readmore-toggle: The button. Hidden when the text fits. data-more and data-less set its words.
+
+States:
+- data-clamped: Set on .v-readmore by the JS: "true" while the text is cut.
+- aria-expanded: On the button, set by the JS, with aria-controls pointing at the body.
+
+Hooks:
+- data-v-readmore (on the .v-readmore wrapper): Clamps the body when it is longer than --v-lines, shows and labels the button, and re-measures when the width changes.
+
+Keyboard:
+- Enter / Space: On the button, shows or hides the rest of the text.
+
+Accessibility:
+- Nothing is hidden without JS: the clamp only applies once the script has measured the text.
+- The button says Read more or Show less and carries aria-expanded, so the change is announced.
+- Screen readers read the whole text even while it is clamped visually; the button is for sighted readers.
+
+Example (Long and short):
+
+```html
+<div class="v-grid" style="--v-min: 18rem">
+  <div class="v-readmore" data-v-readmore>
+    <p class="v-readmore-body">Long text is cut to four lines here, with a button to show the rest. Without JavaScript the whole text shows, so nothing is ever hidden from someone whose script failed to load. The button only appears when the text really is longer than the limit, and it keeps track as the width changes: make the window narrower and a short paragraph may need the button after all. It says whether the text is open or closed, so a screen reader hears the change as well as seeing it.</p>
+    <button class="v-readmore-toggle" type="button">Read more</button>
+  </div>
+  <div class="v-readmore" data-v-readmore>
+    <p class="v-readmore-body">A short review fits on its own.</p>
+    <button class="v-readmore-toggle" type="button">Read more</button>
+  </div>
+</div>
+```
+
 ### Data
+
+#### Charts (charts)
+
+Bar, column, donut, line and sparkline charts in CSS and SVG, with no library. Native: <table>, <svg>, conic-gradient().
+
+Base:
+- .v-chart: The <figure> around any chart. Defines the series colours --v-chart-1 to --v-chart-5.
+Modifiers:
+- .v-chart-c2: Series colour 2 on any bar, column, line or swatch. Also .v-chart-c3, .v-chart-c4 and .v-chart-c5.
+- .v-chart-c3: Series colour 3.
+- .v-chart-c4: Series colour 4.
+- .v-chart-c5: Series colour 5, a neutral for "other".
+Parts:
+- .v-chart-title: The chart's <figcaption>.
+- .v-chart-bars: A <table> of horizontal bars: a row header and a cell holding a .v-chart-track.
+- .v-chart-track: The row of a bar and its value inside a table cell.
+- .v-chart-bar: One bar. Set --v-value as a percentage of the largest value.
+- .v-chart-value: The number after a bar.
+- .v-chart-columns: A <ul role="list"> of vertical columns. --v-chart-height sets the height.
+- .v-chart-col: One column, its height set by --v-value. Put the value in a .v-sr-only beside it.
+- .v-chart-label: The label under a column, aria-hidden because the hidden text says it.
+- .v-donut: A ring with role="img" and a label listing the shares. --v-donut takes a conic-gradient with cumulative stops; --v-donut-size its size.
+- .v-donut-total: The figure in the middle of the ring, with an optional <small> line.
+- .v-sparkline: A small inline <svg> with one <polyline>, for stat cards and table cells.
+- .v-chart-line: A larger line chart <svg>, with optional .v-chart-grid lines and a .v-chart-area polygon.
+- .v-chart-area: The tinted area under a line, on a <polygon>.
+- .v-chart-grid: A guide line, on an SVG <line>.
+- .v-chart-legend: A list of series names with their swatches and numbers.
+- .v-chart-swatch: The colour key in a legend item, aria-hidden.
+
+States:
+- --v-value: On a bar or column: its size as a percentage of the chart's largest value.
+- --v-donut: On the donut: conic-gradient(var(--v-chart-1) 0 45%, var(--v-chart-2) 0 72%, ...): each stop is the running total.
+
+Accessibility:
+- Every chart carries its numbers in text: a table, hidden text in each column, a labelled image with a visible legend.
+- Colour is never the only key: the legend names each series next to its swatch and number.
+- SVG lines keep a 2px stroke however wide the chart is (vector-effect: non-scaling-stroke).
+- In forced colours the bars and swatches switch to the system text colour so they stay visible.
+
+Example (Bar chart):
+
+```html
+<figure class="v-chart v-card v-p-4">
+  <figcaption class="v-chart-title">Where leads came from</figcaption>
+  <table class="v-chart-bars">
+    <caption class="v-sr-only">Leads by source this quarter</caption>
+    <thead class="v-sr-only"><tr><th scope="col">Source</th><th scope="col">Leads</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Website</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 100%"></span><span class="v-chart-value">48</span></div></td></tr>
+      <tr><th scope="row">Referrals</th><td><div class="v-chart-track"><span class="v-chart-bar v-chart-c2" style="--v-value: 62%"></span><span class="v-chart-value">30</span></div></td></tr>
+      <tr><th scope="row">Google Business</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 46%"></span><span class="v-chart-value">22</span></div></td></tr>
+      <tr><th scope="row">Facebook</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 25%"></span><span class="v-chart-value">12</span></div></td></tr>
+      <tr><th scope="row">Flyers</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 8%"></span><span class="v-chart-value">4</span></div></td></tr>
+    </tbody>
+  </table>
+</figure>
+```
 
 #### Table (table)
 
@@ -3092,6 +3487,54 @@ Example (Activity feed):
 
 ### Content
 
+#### Carousel (carousel)
+
+A row of cards or pictures that scrolls sideways, with previous and next buttons. Native: scroll-snap, container queries.
+
+Base:
+- .v-carousel: The wrapper, with aria-roledescription="carousel" and an aria-label. Set --v-per-view-sm, -md and -lg to change how many slides show at each width (defaults 1.15, 2.2, 3).
+Parts:
+- .v-carousel-track: The scrolling list (<ul role="list">). Give it tabindex="0" and an aria-label so keyboard users can scroll it.
+- .v-carousel-slide: One slide, an <li>. The JS labels it "2 of 5" unless it has a label.
+- .v-carousel-controls: The button row, hidden until the JS runs.
+
+States:
+- data-ready: Set on .v-carousel by the JS: the buttons are shown and the scrollbar is hidden.
+- disabled: Set on a button at its end of the track.
+
+Hooks:
+- data-v-carousel (on the .v-carousel wrapper): Shows the buttons, moves one slide per press (smoothly unless reduced motion is on), disables them at the ends and labels the slides.
+- data-v-carousel-prev (on the previous button): Moves back one slide. Its arrow flips in right-to-left.
+- data-v-carousel-next (on the next button): Moves forward one slide.
+
+Keyboard:
+- Tab: Reaches the track, the links inside the slides, then the buttons.
+- ArrowRight / ArrowLeft: On the focused track, scrolls it; snapping lands on a slide.
+- Enter / Space: On a button, moves one slide.
+
+Accessibility:
+- No autoplay, so nothing moves that the reader did not ask for (WCAG 2.2.2).
+- Every slide stays in the page and in the reading order; the buttons are a shortcut, not the only way to reach them.
+- Slides are labelled "2 of 5" with aria-roledescription="slide" so screen readers know where they are.
+
+Example (Customer quotes):
+
+```html
+<div class="v-carousel" aria-roledescription="carousel" aria-label="What customers say" data-v-carousel>
+  <ul class="v-carousel-track" role="list" tabindex="0" aria-label="Customer quotes">
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"They turned up when they said, and the garden has never looked better."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Mike, Headford</span></footer></blockquote></li>
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"Quick, tidy and the price we were quoted. Booked them again for the gutters."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Siobhan, Tuam</span></footer></blockquote></li>
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"Our bookings page finally works on phones. Friday nights are full."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">The Bridge Bar</span></footer></blockquote></li>
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"Release pages in an afternoon, and every one looks like us."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Contrasts Records</span></footer></blockquote></li>
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"Clear quote, no surprises, and they cleaned up after themselves."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Sean, Claregalway</span></footer></blockquote></li>
+  </ul>
+  <div class="v-carousel-controls" hidden>
+    <button class="v-btn v-btn-secondary v-btn-icon" type="button" data-v-carousel-prev aria-label="Previous quote"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-left"/></svg></button>
+    <button class="v-btn v-btn-secondary v-btn-icon" type="button" data-v-carousel-next aria-label="Next quote"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-right"/></svg></button>
+  </div>
+</div>
+```
+
 #### Code block (code-block)
 
 A framed code sample with a language or file name, a copy button and a scrolling body. Native: <pre><code>.
@@ -3154,6 +3597,42 @@ Example (Numbered CSS):
 </div>
 ```
 
+#### Device frames (device-frames)
+
+A browser window, a laptop and a phone drawn in CSS around a screenshot or live UI.
+
+Base:
+- .v-device: Every frame, on a <figure> or <div>.
+Modifiers:
+- .v-device-browser: A browser window with a title bar. Default ratio 16 / 10.
+- .v-device-laptop: A laptop: the screen in a bezel on a base. Default ratio 16 / 10.
+- .v-device-phone: A phone with a camera island. Default ratio 9 / 19.5 and width 18rem.
+Parts:
+- .v-device-bar: The browser's title bar with three dots.
+- .v-device-url: The address in the title bar.
+- .v-device-screen: The screen. An <img> or <video> inside fills it from the top.
+
+Accessibility:
+- The frame is decoration; the content carries the meaning, so give a screenshot real alt text.
+- Live markup inside a frame is real, focusable UI. If it is only a picture of the product, add inert to the screen.
+
+Example (Browser, laptop and phone):
+
+```html
+<div class="v-grid v-items-end" style="--v-min: 15rem">
+  <figure class="v-device v-device-browser">
+    <div class="v-device-bar"><span class="v-device-url">northwind.ie/pricing</span></div>
+    <div class="v-device-screen"><img src="/img/coast.svg" alt="The Northwind pricing page" width="1200" height="900"></div>
+  </figure>
+  <figure class="v-device v-device-laptop">
+    <div class="v-device-screen"><img src="/img/booth.svg" alt="The Northwind dashboard" width="1200" height="900"></div>
+  </figure>
+  <figure class="v-device v-device-phone" style="--v-device-width: 11rem">
+    <div class="v-device-screen"><img src="/img/garden.svg" alt="The Northwind app on a phone" width="1200" height="900"></div>
+  </figure>
+</div>
+```
+
 #### Logo cloud (logo-cloud)
 
 A row or grid of monochrome client or press logos, muted until hovered.
@@ -3179,6 +3658,79 @@ Example (Grid):
   <li><svg viewBox="0 0 136 32" role="img" aria-label="Ostra"><path d="M4 16h8l4-10 4 20 4-10h8" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><text x="40" y="23" font-size="19" font-weight="650" fill="currentColor">Ostra</text></svg></li>
   <li><svg viewBox="0 0 136 32" role="img" aria-label="Vantis"><path d="M16 3l11 6.5v13L16 29 5 22.5v-13z" fill="currentColor"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Vantis</text></svg></li>
   <li><svg viewBox="0 0 136 32" role="img" aria-label="Lumeo"><circle cx="11" cy="16" r="7" fill="currentColor"/><circle cx="22" cy="16" r="7" fill="currentColor" opacity="0.55"/><text x="36" y="23" font-size="19" font-weight="650" fill="currentColor">Lumeo</text></svg></li>
+</ul>
+```
+
+#### Marquee (marquee)
+
+A slow, endless row of client names or logos, with a pause button. Native: CSS animation, prefers-reduced-motion, inert.
+
+Base:
+- .v-marquee: The wrapper. --v-marquee-duration sets the speed (default 40s), --v-marquee-gap the space between items.
+Parts:
+- .v-marquee-viewport: Clips the moving row and fades its edges, so the button beside it stays clear.
+- .v-marquee-track: The list of items (<ul role="list"> with an aria-label). Logos are <img> with alt text.
+- .v-marquee-toggle: The Pause and Play button, hidden until the JS runs and whenever motion is reduced. data-pause and data-play set its words.
+
+States:
+- data-ready: Set by the JS once the copy is in place: the row starts moving (unless motion is reduced).
+- data-paused: Set by the toggle button: the row stays still until pressed again.
+
+Hooks:
+- data-v-marquee (on the .v-marquee wrapper): Copies the items once for a seamless loop, starts the animation and wires the pause button.
+
+Keyboard:
+- Enter / Space: On the toggle, stops or restarts the row. Focusing a link in the row also pauses it.
+
+Accessibility:
+- Anything that moves on its own for more than five seconds needs a way to stop it (WCAG 2.2.2): the toggle is that way, and hover or focus pause it too.
+- With prefers-reduced-motion it never moves, and the toggle is hidden because there is nothing to stop.
+- The copy is aria-hidden and inert, so screen readers read each name once and Tab never lands on a duplicate.
+
+Example (Client names):
+
+```html
+<div class="v-marquee" data-v-marquee>
+  <div class="v-marquee-viewport">
+    <ul class="v-marquee-track" role="list" aria-label="Some of our clients">
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Perform Roofing</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Bluepeak</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">West Clean</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">The Bridge Bar</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Contrasts</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Vintage &amp; Morelli</li>
+      <li class="v-fw-semibold v-text-lg v-text-secondary">Mike's Gardening</li>
+    </ul>
+  </div>
+  <button class="v-btn v-btn-ghost v-btn-sm v-marquee-toggle" type="button" hidden>Pause</button>
+</div>
+```
+
+#### Masonry gallery (masonry)
+
+Pictures and cards of different heights packed into columns. Native: CSS multi-column (columns, break-inside).
+
+Base:
+- .v-masonry: The list. Each child is one item; images inside fill the column width.
+
+States:
+- --v-masonry-col: The narrowest a column may get (default 16rem). --v-gap sets the space between items.
+
+Accessibility:
+- Columns read top to bottom, then the next column: fine for pictures, confusing for steps or ranked lists.
+- Give every image real alt text; the layout adds nothing for screen readers to skip.
+
+Example (Photo wall):
+
+```html
+<ul class="v-masonry" role="list">
+  <li><img src="/img/roof.svg" alt="A slate roof under an evening sky" width="1200" height="900" style="aspect-ratio: 4/5; object-fit: cover"></li>
+  <li><img src="/img/garden.svg" alt="A green lawn and hedge" width="1200" height="900" style="aspect-ratio: 4/3; object-fit: cover"></li>
+  <li><blockquote class="v-testimonial"><p class="v-testimonial-quote">"Quick, tidy and the price we were quoted."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Siobhan, Tuam</span></footer></blockquote></li>
+  <li><img src="/img/booth.svg" alt="A DJ booth lit in purple" width="1200" height="900" style="aspect-ratio: 1/1; object-fit: cover"></li>
+  <li><img src="/img/coast.svg" alt="The coast at dusk" width="1200" height="900" style="aspect-ratio: 3/4; object-fit: cover"></li>
+  <li><img src="/img/garden.svg" alt="The same lawn in summer" width="1200" height="900" style="aspect-ratio: 16/9; object-fit: cover"></li>
+  <li><img src="/img/roof.svg" alt="A roof ridge at sunset" width="1200" height="900" style="aspect-ratio: 4/3; object-fit: cover"></li>
 </ul>
 ```
 
@@ -3337,6 +3889,41 @@ Example (Cards with ratings):
     </figcaption>
   </figure>
 </div>
+```
+
+#### Video embed (video-embed)
+
+A video poster with a play button that loads the player only when pressed. Native: <iframe>, <video>, a link.
+
+Base:
+- .v-video: The link (and later the player's frame). Keeps --v-video-ratio (default 16 / 9). Always dark, like a player.
+Parts:
+- .v-video-play: The overlay holding the button and the label.
+- .v-video-button: The round play button around the play icon.
+- .v-video-label: What the video is and how long, such as "Play: Product tour (2:14)". It names the link.
+
+States:
+- href: The video's own page, used without JS and for a new-tab click.
+- data-title: The player's title (the iframe's title attribute). Defaults to the link text.
+
+Hooks:
+- data-v-video = player URL (on the a.v-video link): On click, replaces the link with an iframe (embed URL) or a native video (file URL) and moves focus into it.
+
+Keyboard:
+- Enter: On the poster, loads the player and moves focus into it.
+
+Accessibility:
+- The label inside the link names it ("Play: Product tour (2:14)"), so screen readers hear what will play; the poster image is decorative with alt="".
+- The iframe gets a title, which is how screen readers name an embedded player.
+- Focus moves into the player after the swap, so keyboard users do not have to find it again.
+
+Example (Product tour):
+
+```html
+<a class="v-video" href="/media/player.html" data-v-video="/media/player.html" data-title="Northwind product tour" style="max-inline-size: 40rem">
+  <img src="/img/booth.svg" alt="" width="1200" height="900">
+  <span class="v-video-play"><span class="v-video-button"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#play"/></svg></span><span class="v-video-label">Play: Northwind product tour (2:14)</span></span>
+</a>
 ```
 
 ### Theming
@@ -3653,7 +4240,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-chart-1 --v-chart-2 --v-chart-3 --v-chart-4 --v-chart-5 --v-chart-height --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-donut-size --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-marquee-duration --v-marquee-gap --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-video-ratio --v-warning
 
 ## Icons
 
@@ -3683,7 +4270,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-carousel data-v-clear data-v-combobox data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-tag-input data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video data-v-wizard
 
 ## Patterns
 
@@ -3796,6 +4383,7 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/pages/system/offline-illustrated.html: Pages: Offline
 - examples/pages/system/offline.html: Pages: Offline
 - examples/plus/: More components
+- examples/plus-content/: More components, part 2
 - examples/sections/: Sections
 - examples/sections/app.html: Sections: app UI
 - examples/sections/chrome.html: Sections: navigation and chrome

@@ -97,7 +97,7 @@ function demoDoc(root, { title, html, js, layout = 'row', needsJs }) {
   // Docs examples point at the sprite and the shared demo images from the site root; demos live deeper.
   const markup = html
     .replace(/href="\/icons\/sprite\.svg#/g, `href="${root}assets/icons/sprite.svg#`)
-    .replace(/(href|src)="\/img\//g, `$1="${root}assets/img/`);
+    .replace(/(href|src|data-v-video)="\/(img|media)\//g, `$1="${root}assets/$2/`);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -435,6 +435,7 @@ const GALLERIES = [
   ['navigation', 'Navigation and disclosure', 'Navbar, sidebar, tabs, pagination, steps, accordions, and a right-to-left check.'],
   ['overlays', 'Overlays', 'Dialogs, drawers, popovers, menus and tooltips.'],
   ['plus', 'More components (v2.1)', 'Split button, back to top, table of contents, context menu, hover card, command palette, lightbox and notification centre.'],
+  ['plus-content', 'More components, part 2 (v2.1)', 'Progress ring, read more, device frames, carousel, gallery, marquee, video, rating, OTP, tag input, combobox, wizard and charts.'],
   ['content', 'Content', 'Tables, timelines, prose, code, testimonials, pricing and logos.'],
   ['theming', 'Theming and feedback', 'The customizer, toasts, connection, session and save status.'],
   ['layout', 'Layout and utilities', 'The layout primitives and helpers, in every direction.'],
@@ -471,7 +472,8 @@ await cp('dist/vectra.js', `${OUT}/assets/vectra.js`);
 await cp('dist/fonts', `${OUT}/assets/fonts`, { recursive: true });
 await cp('dist/icons/sprite.svg', `${OUT}/assets/icons/sprite.svg`);
 await cp('dist/icons/icons.json', `${OUT}/assets/icons/icons.json`);
-await cp('examples/shared/img', `${OUT}/assets/img`, { recursive: true }); // demo images for docs examples
+// Demo images and media for docs examples, which point at /img/ and /media/ from the site root.
+for (const d of ['img', 'media']) await cp(`examples/shared/${d}`, `${OUT}/assets/${d}`, { recursive: true });
 for (const f of await readdir('site/assets')) await cp(`site/assets/${f}`, `${OUT}/assets/${f}`);
 for (const f of ['llms.txt', 'llms-full.txt']) if (existsSync(`dist/ai/${f}`)) await cp(`dist/ai/${f}`, `${OUT}/${f}`); // AI manifest (build/manifest.mjs)
 // The galleries load ../../src/ and ../shared/, so both are copied with the same layout.

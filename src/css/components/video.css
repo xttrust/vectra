@@ -1,0 +1,76 @@
+/* Video embed, click to load: a poster image with a play button that is a link to the video, so no
+   third-party player loads (no cookies, no requests) until the reader asks for it, and without JS the
+   link simply opens the video. data-v-video swaps the link for the player on click: an <iframe> for an
+   embed URL, or a native <video> for an .mp4 or .webm file. The frame keeps its ratio (--v-video-ratio).
+   The overlay is always dark, like a player (color-scheme: dark resolves the light-dark() tokens inside
+   it); the link itself keeps the page's scheme, so its focus ring uses the page's accent. */
+@layer components {
+  .v-video {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: var(--v-video-ratio, 16 / 9);
+    border-radius: var(--v-radius-lg);
+    background-color: var(--v-surface-2);
+    color: var(--v-text);
+    text-decoration: none;
+  }
+
+  .v-video > img,
+  .v-video > iframe,
+  .v-video > video {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    border: 0;
+    object-fit: cover;
+  }
+
+  .v-video-play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--v-space-2);
+    background: linear-gradient(transparent 40%, color-mix(in oklch, var(--v-bg) 70%, transparent));
+    color-scheme: dark;
+  }
+
+  /* The round button around the play icon. */
+  .v-video-button {
+    display: grid;
+    place-items: center;
+    inline-size: 4rem;
+    block-size: 4rem;
+    border-radius: 50%;
+    background-color: var(--v-danger);
+    color: var(--v-on-danger);
+    box-shadow: var(--v-shadow-3);
+    transition: scale var(--v-dur-2) var(--v-ease-out);
+  }
+
+  .v-video-button .v-icon {
+    inline-size: 1.6rem;
+    block-size: 1.6rem;
+    fill: currentcolor;
+    translate: 0.1rem 0; /* optical centre of a right-pointing triangle; media icons are never mirrored */
+  }
+
+  a.v-video:hover .v-video-button { scale: 1.08; }
+
+  .v-video-label {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--v-radius-pill);
+    background-color: color-mix(in oklch, var(--v-bg) 80%, transparent);
+    color: var(--v-text);
+    font-size: var(--v-step-minus-1);
+    font-weight: 600;
+  }
+
+  a.v-video:focus-visible { outline-offset: 3px; }
+
+  @media (forced-colors: active) {
+    .v-video-button { border: 2px solid ButtonText; }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "name": "Rating input",
+  "slug": "rating-input",
+  "group": "Forms",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A star rating made of radio buttons, for reviews and feedback forms.",
+  "description": "Use it to ask for a score from 1 to 5. To show a fixed score, use the read-only .v-rating instead.\n\nIt is a <fieldset> of radio buttons with a legend, drawn as stars: the arrow keys, required, form submission and reset all come from the browser, and it needs no JS. Every star up to the checked one fills, and hovering previews a choice.",
+  "native": "<fieldset>, <input type=\"radio\">, :has()",
+  "catalogue": [
+    "Rating input"
+  ],
+  "css": [
+    "rating.css",
+    "field.css"
+  ],
+  "classes": [
+    {
+      "name": "v-rating-input",
+      "kind": "base",
+      "description": "The <fieldset>. Add .v-fieldset-plain and a .v-legend for the question."
+    },
+    {
+      "name": "v-rating-input-stars",
+      "kind": "part",
+      "description": "The row of stars."
+    },
+    {
+      "name": "v-rating-input-star",
+      "kind": "part",
+      "description": "One <label> holding a visually hidden radio, the star icon and the words for screen readers."
+    },
+    {
+      "name": "v-rating-input-sm",
+      "kind": "modifier",
+      "description": "Smaller stars, for a compact form."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "checked",
+      "description": "On a radio: the current score. Stars up to it fill."
+    },
+    {
+      "attribute": "required",
+      "description": "On the first radio: the form will not submit without a score."
+    },
+    {
+      "attribute": "disabled",
+      "description": "On the fieldset: dims the stars and blocks changes."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves into the group, onto the checked star (or the first)."
+    },
+    {
+      "keys": [
+        "ArrowRight",
+        "ArrowLeft"
+      ],
+      "action": "Changes the score by one, as in any radio group (flipped in right-to-left)."
+    }
+  ],
+  "a11y": [
+    "Each radio has words (\"3 stars\") in a visually hidden span, so screen readers read a score, not \"star, star, star\".",
+    "The legend is the question; screen readers announce it when focus enters the group.",
+    "The focus ring sits on the star around the hidden radio, so keyboard users see where they are."
+  ],
+  "tokens": [
+    "--v-rating-input-size",
+    "--v-warning",
+    "--v-border-strong",
+    "--v-focus-w"
+  ],
+  "related": [
+    "choice",
+    "testimonial",
+    "field"
+  ],
+  "examples": [
+    {
+      "title": "Visit feedback",
+      "description": "Four stars chosen; use the arrow keys or hover to change it.",
+      "html": "<fieldset class=\"v-rating-input v-fieldset-plain\">\n  <legend class=\"v-legend\">How was your visit?</legend>\n  <div class=\"v-rating-input-stars\">\n    <label class=\"v-rating-input-star\"><input class=\"v-sr-only\" type=\"radio\" name=\"visit\" value=\"1\" required><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg><span class=\"v-sr-only\">1 star</span></label>\n    <label class=\"v-rating-input-star\"><input class=\"v-sr-only\" type=\"radio\" name=\"visit\" value=\"2\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg><span class=\"v-sr-only\">2 stars</span></label>\n    <label class=\"v-rating-input-star\"><input class=\"v-sr-only\" type=\"radio\" name=\"visit\" value=\"3\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg><span class=\"v-sr-only\">3 stars</span></label>\n    <label class=\"v-rating-input-star\"><input class=\"v-sr-only\" type=\"radio\" name=\"visit\" value=\"4\" checked><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg><span class=\"v-sr-only\">4 stars</span></label>\n    <label class=\"v-rating-input-star\"><input class=\"v-sr-only\" type=\"radio\" name=\"visit\" value=\"5\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#star\"/></svg><span class=\"v-sr-only\">5 stars</span></label>\n  </div>\n</fieldset>",
+      "height": 160,
+      "source": "examples/plus-content/#rating"
+    }
+  ]
+}

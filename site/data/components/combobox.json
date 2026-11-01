@@ -1,0 +1,125 @@
+{
+  "name": "Combobox",
+  "slug": "combobox",
+  "group": "Forms",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A text input with a list of suggestions that filters as you type.",
+  "description": "Use a combobox when there is a known list of likely answers but any text is allowed: towns, job titles, product names. When only listed values are valid and the list is short, use a select.\n\nWithout JS it is an <input list> with a <datalist>, which browsers already show as suggestions. data-v-combobox replaces those with a styled listbox below the input: it filters as you type (ignoring case and accents), marks the matching letters, and follows the WAI-ARIA combobox pattern for the keyboard. The typed text is always the value, so the form works the same either way.",
+  "native": "<input list>, <datalist>",
+  "catalogue": [
+    "Combobox / autocomplete"
+  ],
+  "css": [
+    "combobox.css",
+    "input.css"
+  ],
+  "js": [
+    "components/combobox.js"
+  ],
+  "classes": [
+    {
+      "name": "v-combobox",
+      "kind": "base",
+      "description": "The wrapper around the input and its datalist. The list opens below it."
+    },
+    {
+      "name": "v-combobox-list",
+      "kind": "part",
+      "description": "The listbox, added by the JS. Also styles the \"No matches\" box."
+    },
+    {
+      "name": "v-combobox-option",
+      "kind": "part",
+      "description": "One suggestion, role=\"option\". The matching letters are in a <mark>."
+    },
+    {
+      "name": "v-combobox-hint",
+      "kind": "part",
+      "description": "Extra text beside an option, from the datalist option's label (such as the county beside a town)."
+    },
+    {
+      "name": "v-combobox-empty",
+      "kind": "part",
+      "description": "The \"No matches\" message, a role=\"status\" box shown when nothing matches. data-empty on the wrapper changes the words."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-expanded",
+      "description": "On the input, set by the JS: true while the list is open."
+    },
+    {
+      "attribute": "aria-activedescendant",
+      "description": "On the input: the highlighted option, while focus stays in the input."
+    },
+    {
+      "attribute": "aria-selected=\"true\"",
+      "description": "On the highlighted option."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-combobox",
+      "value": "",
+      "on": "The .v-combobox wrapper",
+      "description": "Turns off the native datalist and draws its own listbox with filtering, highlighting and the combobox keyboard pattern."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:select",
+      "on": "The wrapper",
+      "detail": "{ value }",
+      "cancelable": false,
+      "description": "Fires when an option is picked from the list, after the input's own input and change events."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "ArrowDown",
+        "ArrowUp"
+      ],
+      "action": "Opens the list on the first or last option, then moves the highlight and wraps. Alt+ArrowDown opens without moving."
+    },
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "Puts the highlighted option in the input and closes the list."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the list; a second Escape clears the input."
+    }
+  ],
+  "a11y": [
+    "Focus stays in the input while the highlight moves (aria-activedescendant), so typing and choosing never fight over focus.",
+    "\"No matches\" is a live status message, so screen reader users hear when the list empties.",
+    "Options are picked on pointer down, before the input loses focus, so the list never closes under the click."
+  ],
+  "tokens": [
+    "--v-overlay-bg",
+    "--v-shadow-3",
+    "--v-accent-soft",
+    "--v-accent-text"
+  ],
+  "related": [
+    "input",
+    "search-field",
+    "command-palette",
+    "tag-input"
+  ],
+  "examples": [
+    {
+      "title": "Town",
+      "description": "Type \"ba\" or \"mayo\", or press ArrowDown in the empty field.",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"cb-town\">Town</label>\n  <div class=\"v-combobox\" data-v-combobox>\n    <input class=\"v-input\" id=\"cb-town\" name=\"town\" list=\"cb-town-list\" autocomplete=\"off\">\n    <datalist id=\"cb-town-list\">\n      <option value=\"Tuam\" label=\"Co. Galway\"></option>\n      <option value=\"Galway\" label=\"Co. Galway\"></option>\n      <option value=\"Athenry\" label=\"Co. Galway\"></option>\n      <option value=\"Ballinasloe\" label=\"Co. Galway\"></option>\n      <option value=\"Castlebar\" label=\"Co. Mayo\"></option>\n      <option value=\"Ballina\" label=\"Co. Mayo\"></option>\n      <option value=\"Westport\" label=\"Co. Mayo\"></option>\n      <option value=\"Claremorris\" label=\"Co. Mayo\"></option>\n      <option value=\"Ennis\" label=\"Co. Clare\"></option>\n      <option value=\"Roscommon\" label=\"Co. Roscommon\"></option>\n      <option value=\"Dún Laoghaire\" label=\"Co. Dublin\"></option>\n    </datalist>\n  </div>\n</div>",
+      "height": 380,
+      "source": "examples/plus-content/#combobox"
+    }
+  ]
+}

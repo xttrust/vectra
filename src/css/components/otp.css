@@ -1,0 +1,74 @@
+/* One-time code input: one real <input> (autocomplete="one-time-code", inputmode="numeric") drawn as a
+   row of boxes, so paste, SMS autofill, password managers and screen readers all see a normal field and
+   no JS is needed. The wrapper paints one box per digit (a border-coloured layer under a surface layer
+   inset by the border width); the digits sit in monospace with letter-spacing that puts each in a box
+   (1ch is a digit's width), and the wrapper clips the spare room the caret needs after the last one.
+   Set --v-otp-length to the number of digits (default 6) and match maxlength and pattern to it. */
+@layer components {
+  .v-otp {
+    --v-otp-length: 6;
+    --v-otp-cell: 2.75rem;
+    --v-otp-gap: 0.5rem;
+    --v-otp-line: var(--v-border-strong);
+    --v-otp-fill: var(--v-surface);
+    --v-otp-step: calc(var(--v-otp-cell) + var(--v-otp-gap));
+    --v-otp-bw: var(--v-border-w);
+
+    display: inline-block;
+    inline-size: calc(var(--v-otp-length) * var(--v-otp-step) - var(--v-otp-gap));
+    max-inline-size: 100%;
+
+    /* clip, not hidden: a hidden overflow is still a scroll container, and the browser scrolls it to show
+       the caret after the last digit, shifting every digit out of its box. */
+    overflow: clip;
+    border-radius: var(--v-radius-sm);
+    background:
+      linear-gradient(to right, var(--v-otp-fill) calc(var(--v-otp-cell) - 2 * var(--v-otp-bw)), transparent 0) var(--v-otp-bw) var(--v-otp-bw) / var(--v-otp-step) calc(100% - 2 * var(--v-otp-bw)) repeat-x,
+      linear-gradient(to right, var(--v-otp-line) var(--v-otp-cell), transparent 0) 0 0 / var(--v-otp-step) 100% repeat-x;
+    direction: ltr;
+  }
+
+  .v-otp:focus-within {
+    --v-otp-line: var(--v-accent);
+    --v-otp-bw: calc(var(--v-border-w) * 2);
+  }
+
+  /* The focus ring goes round the boxes: the input's own would be clipped. */
+  .v-otp:has(:focus-visible) {
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 3px;
+  }
+
+  .v-otp:has(.v-otp-input:user-invalid) { --v-otp-line: var(--v-danger); }
+
+  .v-otp-input {
+    display: block;
+    inline-size: calc(100% + var(--v-otp-cell));
+    block-size: 3.25rem;
+    padding: 0;
+    padding-inline-start: calc((var(--v-otp-cell) - 1ch) / 2);
+    border: 0;
+    background: transparent;
+    color: var(--v-text);
+    font-family: var(--v-font-mono);
+    font-size: 1.5rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: calc(var(--v-otp-step) - 1ch);
+    caret-color: var(--v-accent);
+  }
+
+  .v-otp-input:focus { outline: none; }
+
+  /* Forced colours drop gradient backgrounds, which would erase the boxes: draw them in system colours. */
+  @media (forced-colors: active) {
+    .v-otp {
+      --v-otp-line: CanvasText;
+      --v-otp-fill: Canvas;
+
+      forced-color-adjust: none;
+    }
+
+    .v-otp:focus-within { --v-otp-line: Highlight; }
+    .v-otp-input { color: CanvasText; }
+  }
+}

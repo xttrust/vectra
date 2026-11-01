@@ -16,6 +16,20 @@ Vectra follows [semantic versioning](https://semver.org). Pre-release versions (
   - **Command palette** (`.v-command`, `data-v-command`): Ctrl+K or Cmd+K, a combobox over a grouped listbox.
   - **Lightbox** (`.v-lightbox`, `data-v-lightbox`): thumbnails are links, the viewer steps through them.
   - **Notification centre** (`.v-notify`, `.v-notifications`, `data-v-notifications`): unread count and mark as read.
+- **v2.1 components, part 2**, on the new gallery `examples/plus-content/`:
+  - **Progress ring** (`.v-progress-ring`): a circular progressbar drawn in CSS.
+  - **Read more** (`.v-readmore`, `data-v-readmore`): clamps long text only when it is longer than `--v-lines`.
+  - **Device frames** (`.v-device-browser`, `-laptop`, `-phone`): CSS frames around screenshots or live UI.
+  - **Masonry gallery** (`.v-masonry`): CSS multi-column.
+  - **Rating input** (`.v-rating-input`): radios drawn as stars, no JS.
+  - **One-time code input** (`.v-otp`): one real input drawn as boxes, no JS.
+  - **Carousel** (`.v-carousel`, `data-v-carousel`): scroll snap, one slide per press, no autoplay.
+  - **Marquee** (`.v-marquee`, `data-v-marquee`): seamless loop with a pause button; still with reduced motion.
+  - **Video embed** (`.v-video`, `data-v-video`): nothing loads from the player until the click.
+  - **Tag input** (`.v-tag-input`, `data-v-tag-input`): same comma-separated form value with or without JS.
+  - **Combobox** (`.v-combobox`, `data-v-combobox`): upgrades `<input list>` + `<datalist>`.
+  - **Multi-step form** (`.v-wizard`, `data-v-wizard`): one form, checked step by step.
+  - **Charts** (`.v-chart`, `.v-chart-bars`, `.v-chart-columns`, `.v-donut`, `.v-sparkline`, `.v-chart-line`, `.v-chart-legend`): tables, lists and SVG, no library.
 
 - **Utilities:** position (`v-relative`, `v-absolute`, `v-inset-0`, `v-sticky` with `--v-sticky-top`), overflow, a scroll-snap row (`v-snap-row`), aspect ratios and object fit, line clamp (2 and 3 lines), dividers between children (`v-divide`), top and bottom borders, flex column and self-alignment, text sizes `xl`, `2xl` and `display`, `v-pretty`, `v-break-word`, `v-uppercase`, more spacing steps (margins 1 and 3, padding 1, 3, 8, inline and block padding, `v-ms-auto`, `v-me-auto`, `v-gap-8`), `v-h-full`, and container-width helpers `v-hide-narrow` and `v-hide-wide`.
 
@@ -23,6 +37,8 @@ Vectra follows [semantic versioning](https://semver.org). Pre-release versions (
 
 - `vectra.js` budget is now 16 KB (the v2.0 modules were 9.9 KB at alpha.1); `llms-full.txt` may grow to 300 KB.
 - The anchor fallback exports an `anchors` map, so invokers that are not `popovertarget` buttons can be placed.
+- `data-v-validate` also answers a `v:validate` event with `detail.scope`, checking part of a form (used by the multi-step form).
+- The docs site copies `examples/shared/media` and rewrites `/media/` in examples, as it does `/img/`.
 
 ### Fixed
 
