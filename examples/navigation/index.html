@@ -37,6 +37,7 @@
     <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
     <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.8c1.6.8 2.6 2.5 3 5.2"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
     <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.4 4-6.5 8-6.5s7 2.1 8 6.5"/></symbol>
   </svg>
 
@@ -106,6 +107,80 @@
             </nav>
           </header>
         </div>
+      </div>
+    </section>
+
+    <section id="megamenu">
+      <h2>Mega menu</h2>
+      <p class="ex-label">A navbar item that opens a wide panel of grouped links. It is a &lt;details&gt;, so it works without JS; only one panel is open at a time. In a narrow slot it opens inside the mobile menu.</p>
+      <div class="ex-box" style="padding: 0; min-block-size: 24rem">
+        <header class="v-navbar" data-v-nav>
+          <a class="v-navbar-brand" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-logo"/></svg>Northwind</a>
+          <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="nav-mega" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+          <nav class="v-navbar-menu" id="nav-mega" popover aria-label="Mega menu example">
+            <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="nav-mega" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+            <ul class="v-navbar-links">
+              <li>
+                <details class="v-mega" name="nav-mega" data-v-mega id="mega-product">
+                  <summary>Product<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+                  <div class="v-mega-panel">
+                    <div class="v-mega-grid">
+                      <div>
+                        <p class="v-mega-title" id="mega-build">Build</p>
+                        <ul class="v-mega-links" aria-labelledby="mega-build">
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-folder"/></svg><span>Projects<span class="v-mega-link-text">Every project in one place, with owners and status.</span></span></a></li>
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-chart"/></svg><span>Analytics<span class="v-mega-link-text">Live numbers without a separate dashboard.</span></span></a></li>
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-inbox"/></svg><span>Inbox<span class="v-mega-link-text">Requests and replies from your whole team.</span></span></a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <p class="v-mega-title" id="mega-team">Work together</p>
+                        <ul class="v-mega-links" aria-labelledby="mega-team">
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg><span>Teams<span class="v-mega-link-text">Roles, groups and invitations.</span></span></a></li>
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-gear"/></svg><span>Automations<span class="v-mega-link-text">Rules that run when something changes.</span></span></a></li>
+                        </ul>
+                      </div>
+                      <a class="v-mega-feature" href="#megamenu">
+                        <span class="v-badge v-badge-accent">New</span>
+                        <strong>Northwind 3.0</strong>
+                        <span class="v-text-sm v-text-secondary">Faster search, offline mode and a new mobile app.</span>
+                      </a>
+                    </div>
+                    <div class="v-mega-footer"><span>Need a hand choosing?</span><a href="#megamenu">Book a demo</a></div>
+                  </div>
+                </details>
+              </li>
+              <li>
+                <details class="v-mega" name="nav-mega" data-v-mega id="mega-resources">
+                  <summary>Resources<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+                  <div class="v-mega-panel">
+                    <div class="v-mega-grid">
+                      <div>
+                        <p class="v-mega-title" id="mega-learn">Learn</p>
+                        <ul class="v-mega-links" aria-labelledby="mega-learn">
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-folder"/></svg><span>Guides<span class="v-mega-link-text">Step by step, from setup to launch.</span></span></a></li>
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg><span>Help centre<span class="v-mega-link-text">Answers to common questions.</span></span></a></li>
+                        </ul>
+                      </div>
+                      <div>
+                        <p class="v-mega-title" id="mega-company">Company</p>
+                        <ul class="v-mega-links" aria-labelledby="mega-company">
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-user"/></svg><span>About<span class="v-mega-link-text">Who we are and how we work.</span></span></a></li>
+                        <li><a class="v-mega-link" href="#megamenu"><svg class="v-icon" aria-hidden="true"><use href="#i-inbox"/></svg><span>Contact<span class="v-mega-link-text">Talk to sales or support.</span></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </li>
+              <li><a href="#megamenu">Pricing</a></li>
+            </ul>
+            <div class="v-navbar-actions">
+              <a class="v-btn v-btn-ghost" href="#megamenu">Sign in</a>
+              <a class="v-btn v-btn-primary" href="#megamenu">Get started</a>
+            </div>
+          </nav>
+        </header>
       </div>
     </section>
 

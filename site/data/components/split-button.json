@@ -1,0 +1,97 @@
+{
+  "name": "Split button",
+  "slug": "split-button",
+  "group": "Actions",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A main action joined to a button that opens a menu of related actions.",
+  "description": "Use a split button when one action is the usual choice and a few close variants are needed now and then: save, save as copy, save and publish. The main button does the usual thing in one click; the arrow opens the rest.\n\nIt is two .v-btn elements and a .v-menu inside .v-split. The menu is the ordinary dropdown menu, so it opens without JS and data-v-menu adds the keyboard behaviour.",
+  "native": "popover, popovertarget",
+  "catalogue": [
+    "Split button"
+  ],
+  "css": [
+    "split.css",
+    "button.css",
+    "menu.css"
+  ],
+  "js": [
+    "components/menu.js",
+    "components/anchor.js"
+  ],
+  "classes": [
+    {
+      "name": "v-split",
+      "kind": "base",
+      "description": "The wrapper. Joins the first two .v-btn children; the .v-menu after them is not part of the join."
+    },
+    {
+      "name": "v-menu-end",
+      "kind": "modifier",
+      "description": "On the menu: lines it up with the end edge of the arrow button. It flips to the start edge when there is no room."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-haspopup=\"menu\"",
+      "description": "On the arrow button, with popovertarget pointing at the menu."
+    },
+    {
+      "attribute": "aria-label",
+      "description": "On the arrow button: name what it opens, such as \"More save options\". It has only an icon."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-menu",
+      "value": "",
+      "on": "The .v-menu",
+      "description": "Focus on open, arrow keys, typeahead, checkable items and focus return, as for any dropdown menu."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On the main button, runs the main action. On the arrow button, opens the menu."
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "ArrowUp"
+      ],
+      "action": "On the arrow button, opens the menu on the first or last item."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the menu and returns focus to the arrow button."
+    }
+  ],
+  "a11y": [
+    "The two buttons are separate Tab stops with their own names, so a screen reader hears the main action and the menu button apart.",
+    "The arrow button needs an aria-label that says what the menu holds, not just \"More\".",
+    "Put the most common action on the main button; the menu is for the variants."
+  ],
+  "tokens": [
+    "--v-border-w",
+    "--v-dur-2"
+  ],
+  "related": [
+    "button",
+    "button-group",
+    "dropdown-menu"
+  ],
+  "examples": [
+    {
+      "title": "Save and merge",
+      "description": "A primary split button with a plain menu, and a secondary one whose menu picks a merge method.",
+      "html": "<div class=\"v-split\">\n  <button class=\"v-btn v-btn-primary\" type=\"button\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#save\"/></svg>Save</button>\n  <button class=\"v-btn v-btn-primary\" type=\"button\" popovertarget=\"split-save\" aria-haspopup=\"menu\" aria-label=\"More save options\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-down\"/></svg></button>\n  <div class=\"v-menu v-menu-end\" id=\"split-save\" popover role=\"menu\" data-v-menu aria-label=\"More save options\">\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" popovertarget=\"split-save\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Save as copy</button>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" popovertarget=\"split-save\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#clock\"/></svg>Save and schedule</button>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" popovertarget=\"split-save\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#send\"/></svg>Save and publish</button>\n  </div>\n</div>\n<div class=\"v-split\">\n  <button class=\"v-btn v-btn-secondary\" type=\"button\">Merge pull request</button>\n  <button class=\"v-btn v-btn-secondary\" type=\"button\" popovertarget=\"split-merge\" aria-haspopup=\"menu\" aria-label=\"Choose a merge method\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-down\"/></svg></button>\n  <div class=\"v-menu v-menu-end\" id=\"split-merge\" popover role=\"menu\" data-v-menu aria-label=\"Merge method\">\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitemradio\" aria-checked=\"true\">Create a merge commit</button>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitemradio\" aria-checked=\"false\">Squash and merge</button>\n    <button class=\"v-menu-item\" type=\"button\" role=\"menuitemradio\" aria-checked=\"false\">Rebase and merge</button>\n  </div>\n</div>",
+      "height": 260,
+      "source": "examples/plus/#split"
+    }
+  ]
+}

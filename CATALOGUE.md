@@ -38,7 +38,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Link button | P0 | done | |
 | Segmented control | P0 | done | |
 | Toggle button (`aria-pressed`) | P0 | done | |
-| Split button (action + menu) | P1 | | uses dropdown menu |
+| Split button (action + menu) | P1 | done | uses dropdown menu |
 | Copy button | P0 | done | |
 | Floating action button | P2 | | mobile apps |
 
@@ -79,7 +79,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Session timeout warning (countdown dialog) | P0 | done | |
 | Progress ring | P1 | | SVG |
 | Typing / presence indicator | P1 | | section 11 |
-| Notification centre (panel + unread count) | P1 | | |
+| Notification centre (panel + unread count) | P1 | done | popover panel; count and name kept in step |
 
 ### Forms
 
@@ -122,10 +122,10 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Popover | P0 | done | `popover` + anchor |
 | Dropdown menu (items, groups, checkable, submenus) | P0 | done | arrow keys, Home and End |
 | Tooltip | P0 | done | Escape dismisses, stays open on hover |
-| Context menu | P1 | | |
-| Hover card | P1 | | |
-| Command palette (Ctrl/Cmd+K) | P1 | | |
-| Lightbox (image viewer) | P1 | | `<dialog>` |
+| Context menu | P1 | done | a .v-menu at the pointer; Shift+F10 and the Menu key |
+| Hover card | P1 | done | popover="manual" with an explicit anchor |
+| Command palette (Ctrl/Cmd+K) | P1 | done | `<dialog>` + combobox and listbox |
+| Lightbox (image viewer) | P1 | done | `<dialog>`; links to the image work without JS |
 
 ### Navigation
 
@@ -139,9 +139,9 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Steps (horizontal, vertical) | P0 | done | |
 | Skip link | P0 | done | |
 | Bottom tab bar (mobile) | P0 | done | |
-| Table of contents / scrollspy | P1 | | scroll-driven where supported |
-| Mega menu | P1 | | |
-| Back to top | P1 | | |
+| Table of contents / scrollspy | P1 | done | styles shipped with the article section in v2.0; scrollspy JS in v2.1 |
+| Mega menu | P1 | done | `<details name>` disclosure; inline in the mobile menu |
+| Back to top | P1 | done | plain link; scroll-driven reveal |
 | Tree view | P2 | | |
 
 ### Disclosure

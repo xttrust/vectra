@@ -6,7 +6,23 @@ Vectra follows [semantic versioning](https://semver.org). Pre-release versions (
 
 ### Added
 
+- **v2.1 components** in a new `vectra.plus.css` (own 12 KB budget; also inside `vectra.css`), shown on the new gallery `examples/plus/`:
+  - **Mega menu** (`.v-mega`): a `<details name>` disclosure in the navbar, full width below the bar or inline in the mobile menu; `data-v-mega` adds Escape, click outside and focus leaving.
+  - **Split button** (`.v-split`): a main action joined to a `.v-menu`.
+  - **Back to top** (`.v-back-to-top`): a plain link, revealed by a scroll-driven animation.
+  - **Table of contents scrollspy** (`data-v-toc`): marks the section being read with `aria-current="location"`. The `.v-toc` styles move from the article section to their own component.
+  - **Context menu** (`.v-context-menu`, `data-v-context`): a `.v-menu` at the pointer, or at the focused region on Shift+F10.
+  - **Hover card** (`.v-hovercard`, `data-v-hovercard`): a preview on hover or focus, per WCAG 1.4.13.
+  - **Command palette** (`.v-command`, `data-v-command`): Ctrl+K or Cmd+K, a combobox over a grouped listbox.
+  - **Lightbox** (`.v-lightbox`, `data-v-lightbox`): thumbnails are links, the viewer steps through them.
+  - **Notification centre** (`.v-notify`, `.v-notifications`, `data-v-notifications`): unread count and mark as read.
+
 - **Utilities:** position (`v-relative`, `v-absolute`, `v-inset-0`, `v-sticky` with `--v-sticky-top`), overflow, a scroll-snap row (`v-snap-row`), aspect ratios and object fit, line clamp (2 and 3 lines), dividers between children (`v-divide`), top and bottom borders, flex column and self-alignment, text sizes `xl`, `2xl` and `display`, `v-pretty`, `v-break-word`, `v-uppercase`, more spacing steps (margins 1 and 3, padding 1, 3, 8, inline and block padding, `v-ms-auto`, `v-me-auto`, `v-gap-8`), `v-h-full`, and container-width helpers `v-hide-narrow` and `v-hide-wide`.
+
+### Changed
+
+- `vectra.js` budget is now 16 KB (the v2.0 modules were 9.9 KB at alpha.1); `llms-full.txt` may grow to 300 KB.
+- The anchor fallback exports an `anchors` map, so invokers that are not `popovertarget` buttons can be placed.
 
 ### Fixed
 

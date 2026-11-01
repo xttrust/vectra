@@ -1,0 +1,62 @@
+/* Table of contents: a <nav> with a .v-toc-title and an <ol> of links to the headings on the page; nest
+   an <ol> for subsections. The link to the section in view carries aria-current ("true" from the server,
+   or "location" from data-v-toc, which follows the scroll) and its rule turns accent. Usually sits in a
+   .v-article-aside; add .v-sticky to keep it in view anywhere else. */
+@layer components {
+  .v-toc {
+    display: grid;
+    gap: var(--v-space-3);
+    align-content: start;
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-toc-title {
+    margin: 0;
+    color: var(--v-text);
+    font-weight: 650;
+  }
+
+  .v-toc ol {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v-toc > ol { border-inline-start: var(--v-border-w) solid var(--v-border); }
+  .v-toc ol ol { padding-inline-start: var(--v-space-3); }
+
+  .v-toc a {
+    display: block;
+    margin-inline-start: calc(var(--v-border-w) * -1);
+    padding: 0.3rem var(--v-space-3);
+    border-inline-start: 2px solid transparent;
+    color: var(--v-text-2);
+    text-decoration: none;
+  }
+
+  /* A nested link's rule still lines up with the outer one. */
+  .v-toc ol ol a {
+    margin-inline-start: calc(-1 * var(--v-space-3) - var(--v-border-w));
+    padding-inline-start: calc(2 * var(--v-space-3));
+  }
+
+  .v-toc a:hover {
+    border-inline-start-color: var(--v-border-strong);
+    color: var(--v-text);
+  }
+
+  .v-toc a:is([aria-current="true"], [aria-current="location"]) {
+    border-inline-start-color: var(--v-accent);
+    color: var(--v-accent-text);
+    font-weight: 600;
+  }
+
+  @media (forced-colors: active) {
+    .v-toc a:is([aria-current="true"], [aria-current="location"]) {
+      border-inline-start-color: Highlight;
+      color: LinkText;
+    }
+  }
+}

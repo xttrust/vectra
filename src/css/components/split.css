@@ -1,0 +1,36 @@
+/* Split button: a main action joined to a button that opens a menu of related actions (.v-menu). The
+   menu sits after the two buttons inside .v-split, so only the buttons are joined. Use .v-menu-end on the
+   menu to line it up with the end of the group. */
+@layer components {
+  .v-split {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .v-split > .v-btn:first-child {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .v-split > .v-btn + .v-btn {
+    padding-inline: 0.55rem;
+    margin-inline-start: calc(var(--v-border-w) * -1);
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  /* Filled buttons have no border of their own to divide them: draw one in the button's text colour. */
+  .v-split > .v-btn-primary + .v-btn-primary,
+  .v-split > .v-btn-danger + .v-btn-danger {
+    margin-inline-start: 0;
+    border-inline-start: var(--v-border-w) solid color-mix(in oklch, currentcolor 35%, transparent);
+  }
+
+  .v-split > .v-btn:focus-visible {
+    position: relative;
+    z-index: 1;
+  }
+
+  .v-split > .v-btn + .v-btn .v-icon { transition: rotate var(--v-dur-2) var(--v-ease-out); }
+  .v-split:has(.v-menu:popover-open) > .v-btn + .v-btn .v-icon { rotate: 180deg; }
+}

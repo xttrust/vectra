@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-72 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+81 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -166,6 +166,55 @@ Example (Billing period):
   <label><input type="radio" name="period" value="yearly"><span>Yearly</span></label>
   <label><input type="radio" name="period" value="lifetime"><span>Lifetime</span></label>
 </fieldset>
+```
+
+#### Split button (split-button)
+
+A main action joined to a button that opens a menu of related actions. Native: popover, popovertarget.
+
+Base:
+- .v-split: The wrapper. Joins the first two .v-btn children; the .v-menu after them is not part of the join.
+Modifiers:
+- .v-menu-end: On the menu: lines it up with the end edge of the arrow button. It flips to the start edge when there is no room.
+
+States:
+- aria-haspopup="menu": On the arrow button, with popovertarget pointing at the menu.
+- aria-label: On the arrow button: name what it opens, such as "More save options". It has only an icon.
+
+Hooks:
+- data-v-menu (on the .v-menu): Focus on open, arrow keys, typeahead, checkable items and focus return, as for any dropdown menu.
+
+Keyboard:
+- Enter / Space: On the main button, runs the main action. On the arrow button, opens the menu.
+- ArrowDown / ArrowUp: On the arrow button, opens the menu on the first or last item.
+- Escape: Closes the menu and returns focus to the arrow button.
+
+Accessibility:
+- The two buttons are separate Tab stops with their own names, so a screen reader hears the main action and the menu button apart.
+- The arrow button needs an aria-label that says what the menu holds, not just "More".
+- Put the most common action on the main button; the menu is for the variants.
+
+Example (Save and merge):
+
+```html
+<div class="v-split">
+  <button class="v-btn v-btn-primary" type="button"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#save"/></svg>Save</button>
+  <button class="v-btn v-btn-primary" type="button" popovertarget="split-save" aria-haspopup="menu" aria-label="More save options"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-down"/></svg></button>
+  <div class="v-menu v-menu-end" id="split-save" popover role="menu" data-v-menu aria-label="More save options">
+    <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#copy"/></svg>Save as copy</button>
+    <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#clock"/></svg>Save and schedule</button>
+    <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#send"/></svg>Save and publish</button>
+  </div>
+</div>
+<div class="v-split">
+  <button class="v-btn v-btn-secondary" type="button">Merge pull request</button>
+  <button class="v-btn v-btn-secondary" type="button" popovertarget="split-merge" aria-haspopup="menu" aria-label="Choose a merge method"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-down"/></svg></button>
+  <div class="v-menu v-menu-end" id="split-merge" popover role="menu" data-v-menu aria-label="Merge method">
+    <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="true">Create a merge commit</button>
+    <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Squash and merge</button>
+    <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Rebase and merge</button>
+  </div>
+</div>
 ```
 
 #### Toggle button (toggle-button)
@@ -939,6 +988,68 @@ Example (Three zones):
 <meter class="v-meter" min="0" max="100" low="70" high="90" optimum="20" value="82" aria-labelledby="disk-b">82%</meter>
 <span class="v-text-sm v-text-secondary" id="disk-c">Disk usage, 96%</span>
 <meter class="v-meter" min="0" max="100" low="70" high="90" optimum="20" value="96" aria-labelledby="disk-c">96%</meter>
+```
+
+#### Notification centre (notification-centre)
+
+A bell button with an unread count that opens a panel of recent notifications. Native: popover, popovertarget.
+
+Base:
+- .v-notify: On the icon button that opens the panel: room for the count badge.
+- .v-notifications: On a .v-popover with role="dialog" and aria-labelledby on its title: the panel.
+Parts:
+- .v-notify-count: The unread count on the bell, aria-hidden (the number is in the button's aria-label). Hidden at zero; shows 99+ above 99.
+- .v-notifications-head: The title and the "Mark all as read" button.
+- .v-notifications-title: The panel heading.
+- .v-notifications-list: The scrolling <ul role="list"> of items.
+- .v-notification: One item, on an <li>. data-unread marks it unread.
+- .v-notification-link: The link that fills the item: an avatar, the text and a time.
+- .v-notification-time: When it happened, under the text.
+- .v-notifications-empty: The line shown when the list is empty, such as "You're all caught up."
+- .v-notifications-foot: A link to the full notifications page.
+
+States:
+- data-unread: On a .v-notification: unread, tinted with a dot. Remove it to mark the item read.
+- data-unread-label: On a .v-sr-only span at the start of an unread item's text, saying "Unread: ". The JS removes it when the item is read.
+- data-label: On the bell: the name without unread items (default "Notifications"). data-label-unread sets the name with them; {n} is the count.
+- data-empty: Set on the panel by the JS: "true" shows the empty line.
+
+Hooks:
+- data-v-notifications (on the .v-notifications panel): Marks an item read when its link is followed, keeps the badge, the bell's name and the empty line in step, and fires v:read.
+- data-v-notifications-read (on A button in the panel): Marks every item read. Disabled when nothing is unread.
+
+Events:
+- v:read detail { items }: Fires after items are marked read, so you can tell the server.
+
+Keyboard:
+- Enter / Space: On the bell, opens the panel.
+- Tab: Moves through "Mark all as read", the notifications and the footer link.
+- Escape: Closes the panel and returns focus to the bell.
+
+Accessibility:
+- The bell's accessible name carries the count ("Notifications, 3 unread"), so the badge itself is aria-hidden.
+- Unread is said in words by a visually hidden label, not only shown by the tint and dot.
+- The panel is role="dialog" with a heading, because it holds links and a button, not menu items.
+- New notifications are not announced on their own: if one is urgent, raise a toast as well.
+
+Example (Inbox of updates):
+
+```html
+<button class="v-btn v-btn-secondary v-btn-icon v-notify" type="button" popovertarget="notif-panel" aria-label="Notifications, 3 unread"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#bell"/></svg><span class="v-notify-count" aria-hidden="true">3</span></button>
+<div class="v-popover v-notifications" id="notif-panel" popover role="dialog" aria-labelledby="notif-title" data-v-notifications>
+  <div class="v-notifications-head">
+    <h3 class="v-notifications-title" id="notif-title">Notifications</h3>
+    <button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-notifications-read>Mark all as read</button>
+  </div>
+  <ul class="v-notifications-list" role="list">
+      <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">AR</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Ana Ruiz</strong> commented on <strong>Pricing page</strong>: "Can we try the yearly toggle on the left?"<span class="v-notification-time">5 minutes ago</span></span></a></li>
+      <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">JK</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Joe Kelly</strong> assigned you <strong>Fix the footer links</strong><span class="v-notification-time">1 hour ago</span></span></a></li>
+      <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">NW</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Northwind</strong> deployed <strong>web v3.0.2</strong> to production<span class="v-notification-time">Today at 09:12</span></span></a></li>
+      <li class="v-notification"><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">MD</span><span><strong>Mia Doyle</strong> accepted your invite to <strong>Design</strong><span class="v-notification-time">Yesterday</span></span></a></li>
+  </ul>
+  <p class="v-notifications-empty">You're all caught up.</p>
+  <div class="v-notifications-foot"><a href="#notifications">View all notifications</a></div>
+</div>
 ```
 
 #### Progress (progress)
@@ -1723,6 +1834,127 @@ Example (With a clear button):
 
 ### Overlays
 
+#### Command palette (command-palette)
+
+A searchable list of pages and actions in a dialog, opened with Ctrl+K or Cmd+K. Native: <dialog>, showModal().
+
+Modifiers:
+- .v-command: On a .v-dialog: the palette layout, placed high in the viewport.
+Parts:
+- .v-command-search: The row with the search icon, the input and an Esc hint.
+- .v-command-input: The input, with role="combobox", aria-controls pointing at the list and aria-autocomplete="list".
+- .v-command-list: The role="listbox" of options. Group them in role="group" with aria-labelledby on a .v-command-label.
+- .v-command-label: A group heading, with role="presentation".
+- .v-command-item: One option: an <a> or <button> with role="option". An icon and a <kbd> hint can sit inside.
+- .v-command-empty: A role="status" element that says when nothing matches. Hidden while empty. Set data-template to change the words; {q} is the query.
+- .v-command-footer: An optional row of key hints, aria-hidden because the keys are announced by the combobox pattern itself.
+
+States:
+- aria-selected="true": On the highlighted option, set by the JS together with aria-activedescendant on the input.
+- data-keywords: On an option: extra words it should match, such as "invoices plan" on Billing.
+- hidden: Set by the JS on options and groups that do not match.
+
+Hooks:
+- data-v-command = letter (default k) (on the dialog): Ctrl or Cmd plus the letter opens and closes it. Resets and focuses the input on every open, filters as you type, and runs the highlighted option on Enter.
+- data-v-dialog-open = dialog id (on A button): Opens the palette from a visible control. Always offer one: a shortcut alone is not discoverable.
+- data-v-dismissable (on the dialog): A click on the backdrop closes it.
+
+Events:
+- v:command detail { item }, cancelable: Fires before an option runs. Call preventDefault() to keep the dialog open and skip the default click.
+
+Keyboard:
+- Ctrl+K / Cmd+K: Opens or closes the palette from anywhere on the page.
+- ArrowDown / ArrowUp: Moves the highlight through the visible options, across groups, and wraps.
+- Enter: Runs the highlighted option.
+- Escape: Closes the palette and returns focus to where it was.
+
+Accessibility:
+- Focus stays in the input while the highlight moves: aria-activedescendant tells screen readers which option is active.
+- Ctrl+K uses a modifier, so it does not clash with typing (WCAG 2.1.4). Show it on the button that opens the palette.
+- The empty message is a live region that stays in the page, so "No results" is announced.
+- Options are links and buttons underneath: a mouse click, Enter and assistive tech all run the same thing.
+
+Example (App commands):
+
+```html
+<button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="cmdk"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg>Search commands<kbd>Ctrl K</kbd></button>
+<dialog class="v-dialog v-command" id="cmdk" aria-label="Command palette" data-v-command data-v-dismissable>
+  <div class="v-command-search">
+    <svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg>
+    <input class="v-command-input" type="text" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" aria-label="Search commands" placeholder="Type a command or search" autocomplete="off" spellcheck="false">
+    <kbd>Esc</kbd>
+  </div>
+  <div class="v-command-list" id="cmdk-list" role="listbox" aria-label="Commands">
+    <div role="group" aria-labelledby="cmdk-go">
+      <div class="v-command-label" id="cmdk-go" role="presentation">Go to</div>
+      <a class="v-command-item" role="option" href="#command" data-keywords="home overview"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#home"/></svg>Dashboard<kbd>G D</kbd></a>
+      <a class="v-command-item" role="option" href="#command"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#folder"/></svg>Projects<kbd>G P</kbd></a>
+      <a class="v-command-item" role="option" href="#command" data-keywords="members people"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#users"/></svg>Team</a>
+      <a class="v-command-item" role="option" href="#command" data-keywords="invoices plan payment"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#credit-card"/></svg>Billing</a>
+      <a class="v-command-item" role="option" href="#command" data-keywords="preferences account"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#settings"/></svg>Settings<kbd>G S</kbd></a>
+    </div>
+    <div role="group" aria-labelledby="cmdk-do">
+      <div class="v-command-label" id="cmdk-do" role="presentation">Actions</div>
+      <button class="v-command-item" type="button" role="option" data-keywords="create add"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#plus"/></svg>New project</button>
+      <button class="v-command-item" type="button" role="option" data-keywords="add member"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#users"/></svg>Invite a teammate</button>
+      <button class="v-command-item" type="button" role="option" data-keywords="theme"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#moon"/></svg>Switch to dark mode</button>
+      <button class="v-command-item" type="button" role="option" data-keywords="mute snooze"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#bell"/></svg>Pause notifications</button>
+      <button class="v-command-item" type="button" role="option" data-keywords="log out"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#log-out"/></svg>Sign out</button>
+    </div>
+  </div>
+  <p class="v-command-empty" role="status"></p>
+  <div class="v-command-footer" aria-hidden="true"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to choose</span><span><kbd>Esc</kbd> to close</span></div>
+</dialog>
+```
+
+#### Context menu (context-menu)
+
+A menu of actions that opens at the pointer on right-click, or from the keyboard with Shift+F10. Native: popover, contextmenu event.
+
+Modifiers:
+- .v-context-menu: On a .v-menu: placed at the pointer (--v-context-x and --v-context-y, set by the JS) instead of beside a trigger.
+
+States:
+- tabindex="0": On the region, so it can take focus for Shift+F10 and get focus back when the menu closes.
+- aria-label: On the region: name it and mention the shortcut, such as "Project files. Press Shift+F10 for actions."
+
+Hooks:
+- data-v-context = menu id (on the region): Opens the menu at the pointer on right-click, or at the focused region on Shift+F10 and the Menu key, keeps it inside the viewport, and returns focus to the region on close.
+- data-v-menu (on the .v-menu): Arrow keys, typeahead, checkable items and Escape, as for any dropdown menu.
+
+Keyboard:
+- Shift+F10 / ContextMenu: On the focused region, opens the menu with focus on the first item.
+- ArrowDown / ArrowUp / Home / End: Moves between items.
+- Escape: Closes the menu and returns focus to the region.
+
+Accessibility:
+- Right-click is invisible: every action in a context menu must also be in a visible control, such as a row's dropdown menu.
+- Shift+F10 and the Menu key open it from the keyboard, so keyboard and screen reader users get the same shortcut.
+- Shift with right-click still opens the browser's own menu, for copy, inspect and the rest.
+
+Example (File actions):
+
+```html
+<div class="v-panel" data-v-context="ctx-files" tabindex="0" aria-label="Project files. Press Shift+F10 for actions." style="max-inline-size: 28rem">
+  <div class="v-panel-header"><p class="v-panel-title">Project files</p></div>
+  <div class="v-panel-body">
+    <ul class="v-list v-list-plain" role="list">
+      <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>brief.pdf</span></li>
+      <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>moodboard.png</span></li>
+      <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>invoice-0042.pdf</span></li>
+    </ul>
+  </div>
+  <p class="v-panel-footer v-text-sm">The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>
+</div>
+<div class="v-menu v-context-menu" id="ctx-files" popover role="menu" data-v-menu aria-label="File actions">
+  <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#edit"/></svg>Rename<kbd>F2</kbd></button>
+  <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#copy"/></svg>Duplicate</button>
+  <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#download"/></svg>Download</button>
+  <hr class="v-menu-sep">
+  <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#trash"/></svg>Delete</button>
+</div>
+```
+
 #### Dialog (dialog)
 
 A modal window on the native <dialog>, with a header, a scrolling body, a footer, three sizes and an alert dialog for confirms. Native: <dialog>, showModal(), <form method="dialog">.
@@ -1906,6 +2138,115 @@ Example (Actions menu):
 </div>
 ```
 
+#### Hover card (hover-card)
+
+A preview of what a link points at, shown after a short delay on hover or keyboard focus. Native: popover="manual", CSS anchor positioning.
+
+Base:
+- .v-hovercard: On a .v-popover with popover="manual": the card.
+Parts:
+- .v-hovercard-head: An avatar or logo beside the title and subtitle.
+- .v-hovercard-title: The name of the thing previewed.
+- .v-hovercard-sub: A role, description or path under the title.
+- .v-hovercard-meta: A row of small facts, on a <ul role="list">; <strong> inside stands out.
+
+States:
+- popover="manual": On the card. Manual, so opening it leaves other popovers alone and it only closes when the JS says.
+
+Hooks:
+- data-v-hovercard = card id (on the link): Opens the card beside the link after a delay on hover or focus and closes it on leave, blur or Escape.
+
+Keyboard:
+- Tab: Focusing the link opens the card after a moment; moving on closes it.
+- Escape: Closes the card; focus stays on the link.
+
+Accessibility:
+- Meets WCAG 1.4.13: the card can be dismissed with Escape, the pointer can move onto it, and it stays until the pointer or focus leaves.
+- Keep it informational. A Follow or Buy button inside would be hard to reach by keyboard and invisible on touch; put actions on the linked page.
+- The link must make sense on its own: screen reader users get the link, not the preview.
+
+Example (Person and repository):
+
+```html
+<p class="v-max-prose">Reviewed by <a href="#hovercard" data-v-hovercard="hc-ana">Ana Ruiz</a> in <a href="#hovercard" data-v-hovercard="hc-repo">northwind/web</a>, two hours ago. <a href="#hovercard" data-v-hovercard="hc-ana">Ana</a> also approved the release notes.</p>
+<div class="v-popover v-hovercard" id="hc-ana" popover="manual">
+  <div class="v-hovercard-head">
+    <span class="v-avatar" aria-hidden="true">AR</span>
+    <span><span class="v-hovercard-title">Ana Ruiz</span><span class="v-hovercard-sub">Design lead, Northwind</span></span>
+  </div>
+  <p class="v-popover-text">Looks after the design system and the docs. Usually replies within a day.</p>
+  <ul class="v-hovercard-meta" role="list">
+    <li><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#map-pin"/></svg> Galway</li>
+    <li><strong>142</strong> reviews</li>
+  </ul>
+</div>
+<div class="v-popover v-hovercard" id="hc-repo" popover="manual">
+  <div class="v-hovercard-head">
+    <span><span class="v-hovercard-title">northwind/web</span><span class="v-hovercard-sub">The Northwind website and app</span></span>
+  </div>
+  <ul class="v-hovercard-meta" role="list">
+    <li><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg> <strong>1,204</strong> stars</li>
+    <li><strong>38</strong> open pull requests</li>
+    <li>Updated today</li>
+  </ul>
+</div>
+```
+
+#### Lightbox (lightbox)
+
+A full-screen image viewer that opens from thumbnails and steps through them. Native: <dialog>, showModal(), <figure>.
+
+Base:
+- .v-lightbox: The <dialog>: full screen, dark, laid out as count and close on top, the image between previous and next (under it on phones).
+Parts:
+- .v-lightbox-figure: The <figure> holding the image and caption.
+- .v-lightbox-img: The large image. Its src and alt are set from the link and its thumbnail.
+- .v-lightbox-caption: The caption, from the link's data-caption. Hidden while empty.
+- .v-lightbox-count: "2 of 6", in a polite live region. data-template changes the words; {n} and {total} are filled in.
+- .v-lightbox-prev: The previous button. The arrow flips in right-to-left.
+- .v-lightbox-next: The next button.
+- .v-lightbox-close: The close control: a <form method="dialog"> with a button inside.
+
+States:
+- data-caption: On a thumbnail link: the caption shown under the large image.
+- data-single: Set by the JS when the viewer has one picture: previous, next and the count are hidden.
+
+Hooks:
+- data-v-lightbox = dialog id (on Each thumbnail link): Opens the viewer on this picture instead of following the link (a modified click still opens the image in a new tab).
+- data-v-dismissable (on the dialog): A click on the dark area outside the picture closes it.
+
+Keyboard:
+- Enter: On a thumbnail, opens the viewer.
+- ArrowRight / ArrowLeft: Next and previous picture (swapped in right-to-left). Both wrap.
+- Escape: Closes the viewer and returns focus to the thumbnail.
+
+Accessibility:
+- The large image takes its alt text from the thumbnail, so write real alt text on the thumbnails.
+- The count is a polite live region, so stepping through announces "3 of 6" without moving focus.
+- Previous and next are real buttons with labels; a swipe on touch does the same, it is never the only way.
+- Ctrl, Cmd or Shift with a click still open the image in a new tab or window, as the link would.
+
+Example (Work gallery):
+
+```html
+<ul class="v-grid v-p-0" role="list" style="--v-min: 10rem">
+  <li><a class="v-frame v-frame-4x3 v-rounded" href="/img/roof.svg" data-v-lightbox="lb-work" data-caption="Slate re-roof, Tuam. Two days, no skips on the street."><img src="/img/roof.svg" alt="A slate roof under an evening sky" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+  <li><a class="v-frame v-frame-4x3 v-rounded" href="/img/garden.svg" data-v-lightbox="lb-work" data-caption="Spring garden clean-up in Headford."><img src="/img/garden.svg" alt="A green lawn and hedge under a blue sky" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+  <li><a class="v-frame v-frame-4x3 v-rounded" href="/img/booth.svg" data-v-lightbox="lb-work" data-caption="Release night at the Bridge Bar."><img src="/img/booth.svg" alt="A DJ booth lit in purple and green" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+  <li><a class="v-frame v-frame-4x3 v-rounded" href="/img/coast.svg" data-v-lightbox="lb-work" data-caption="Golden hour on the Atlantic coast."><img src="/img/coast.svg" alt="The Atlantic coastline at dusk" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+</ul>
+<dialog class="v-lightbox" id="lb-work" aria-label="Image viewer" data-v-dismissable>
+  <p class="v-lightbox-count" aria-live="polite"></p>
+  <form method="dialog" class="v-lightbox-close"><button class="v-btn v-btn-secondary v-btn-icon" aria-label="Close viewer"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#close"/></svg></button></form>
+  <button class="v-btn v-btn-secondary v-btn-icon v-lightbox-prev" type="button" aria-label="Previous image"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-left"/></svg></button>
+  <figure class="v-lightbox-figure">
+    <img class="v-lightbox-img" alt="">
+    <figcaption class="v-lightbox-caption"></figcaption>
+  </figure>
+  <button class="v-btn v-btn-secondary v-btn-icon v-lightbox-next" type="button" aria-label="Next image"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-right"/></svg></button>
+</dialog>
+```
+
 #### Popover (popover)
 
 A small floating panel on the native popover attribute, opened by a button with popovertarget and placed next to it. Native: popover, popovertarget, CSS anchor positioning.
@@ -1987,6 +2328,31 @@ Example (On hover and focus):
 
 ### Navigation
 
+#### Back to top (back-to-top)
+
+A round link in the end corner that appears once the page has scrolled and takes the reader back to the top. Native: Same-page link, animation-timeline: scroll().
+
+Base:
+- .v-back-to-top: The link, fixed in the end corner (bottom right, bottom left in right-to-left). Holds an icon and needs an aria-label.
+
+States:
+- href="#top": Points at an element at the top of the page. Any id works.
+
+Keyboard:
+- Enter: Follows the link: scrolls to the top and moves focus there.
+
+Accessibility:
+- While hidden it is visibility: hidden, not just transparent, so it is not a Tab stop and screen readers skip it.
+- Give it an aria-label such as "Back to top": it shows only an arrow.
+- Following it moves focus to the target, so keyboard users continue from the top too, not only the viewport.
+- Smooth scrolling comes from the page and is switched off under reduced motion.
+
+Example (Back to top link):
+
+```html
+<a class="v-back-to-top" href="#top" aria-label="Back to top"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#arrow-up"/></svg></a>
+```
+
 #### Bottom tab bar (bottom-bar)
 
 Up to five icon and label links fixed to the bottom of the screen, for the main sections of a phone app. Native: <nav>, aria-current, env(safe-area-inset-*).
@@ -2044,6 +2410,114 @@ Example (Breadcrumb):
     <li><span aria-current="page">Homepage copy</span></li>
   </ol>
 </nav>
+```
+
+#### Mega menu (mega-menu)
+
+A navbar item that opens a wide panel of grouped links, with descriptions, a featured card and a footer row. Native: <details name>, <summary>.
+
+Base:
+- .v-mega: The <details> element, inside an <li> of .v-navbar-links. Its <summary> is the trigger and looks like a navbar link.
+Parts:
+- .v-mega-chevron: The chevron icon in the summary. It turns when the panel is open.
+- .v-mega-panel: The panel: below the navbar at full width when the navbar is wide, inline in the mobile menu when it is narrow.
+- .v-mega-grid: Columns of groups that fit the width (each at least 12rem).
+- .v-mega-title: A small uppercase group title. Give it an id and point the list's aria-labelledby at it.
+- .v-mega-links: The list of links in a group, on a <ul>.
+- .v-mega-link: One link: an icon, a title and an optional .v-mega-link-text description.
+- .v-mega-link-text: The one-line description under a link title.
+- .v-mega-feature: A highlighted card in the grid, for a launch, a case study or a call to action.
+- .v-mega-footer: A row under the grid for a secondary link, such as "Book a demo" or "All products".
+
+States:
+- open: On .v-mega: the panel is showing. Set it in the server markup to render a panel open.
+- name: On .v-mega: give every mega menu in one navbar the same name so opening one closes the others.
+- aria-current="page": On a .v-mega-link: the current page, tinted in the accent colour.
+
+Hooks:
+- data-v-mega (on the .v-mega <details>): Escape closes the panel and returns focus to the summary (the mobile sheet stays open). A click outside, focus moving out, or a followed link closes it.
+
+Keyboard:
+- Enter / Space: On the summary, opens or closes the panel.
+- Tab / Shift+Tab: Moves through the links in the panel in reading order. Leaving the panel closes it (with data-v-mega).
+- Escape: Closes the panel and returns focus to the summary (with data-v-mega).
+
+Accessibility:
+- This is the disclosure navigation pattern, not role="menu": the links stay ordinary links in reading order, which suits site navigation.
+- The summary reports expanded and collapsed by itself, so no aria-expanded is needed.
+- Panels open on click or Enter, never on hover alone, so nothing opens by accident and touch works the same as a mouse.
+- Label each group: an id on .v-mega-title and aria-labelledby on its .v-mega-links.
+
+Example (Product and resources menus):
+
+```html
+<header class="v-navbar" data-v-nav>
+  <a class="v-navbar-brand" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#layers"/></svg>Northwind</a>
+  <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="nav-mega" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#menu"/></svg></button>
+  <nav class="v-navbar-menu" id="nav-mega" popover aria-label="Mega menu example">
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="nav-mega" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#close"/></svg></button>
+    <ul class="v-navbar-links">
+      <li>
+        <details class="v-mega" name="nav-mega" data-v-mega id="mega-product">
+          <summary>Product<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="/icons/sprite.svg#chevron-down"/></svg></summary>
+          <div class="v-mega-panel">
+            <div class="v-mega-grid">
+              <div>
+                <p class="v-mega-title" id="mega-build">Build</p>
+                <ul class="v-mega-links" aria-labelledby="mega-build">
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#folder"/></svg><span>Projects<span class="v-mega-link-text">Every project in one place, with owners and status.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chart-bar"/></svg><span>Analytics<span class="v-mega-link-text">Live numbers without a separate dashboard.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#inbox"/></svg><span>Inbox<span class="v-mega-link-text">Requests and replies from your whole team.</span></span></a></li>
+                </ul>
+              </div>
+              <div>
+                <p class="v-mega-title" id="mega-team">Work together</p>
+                <ul class="v-mega-links" aria-labelledby="mega-team">
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#users"/></svg><span>Teams<span class="v-mega-link-text">Roles, groups and invitations.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#settings"/></svg><span>Automations<span class="v-mega-link-text">Rules that run when something changes.</span></span></a></li>
+                </ul>
+              </div>
+              <a class="v-mega-feature" href="#">
+                <span class="v-badge v-badge-accent">New</span>
+                <strong>Northwind 3.0</strong>
+                <span class="v-text-sm v-text-secondary">Faster search, offline mode and a new mobile app.</span>
+              </a>
+            </div>
+            <div class="v-mega-footer"><span>Need a hand choosing?</span><a href="#">Book a demo</a></div>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details class="v-mega" name="nav-mega" data-v-mega id="mega-resources">
+          <summary>Resources<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="/icons/sprite.svg#chevron-down"/></svg></summary>
+          <div class="v-mega-panel">
+            <div class="v-mega-grid">
+              <div>
+                <p class="v-mega-title" id="mega-learn">Learn</p>
+                <ul class="v-mega-links" aria-labelledby="mega-learn">
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#folder"/></svg><span>Guides<span class="v-mega-link-text">Step by step, from setup to launch.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg><span>Help centre<span class="v-mega-link-text">Answers to common questions.</span></span></a></li>
+                </ul>
+              </div>
+              <div>
+                <p class="v-mega-title" id="mega-company">Company</p>
+                <ul class="v-mega-links" aria-labelledby="mega-company">
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#user"/></svg><span>About<span class="v-mega-link-text">Who we are and how we work.</span></span></a></li>
+                <li><a class="v-mega-link" href="#"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#inbox"/></svg><span>Contact<span class="v-mega-link-text">Talk to sales or support.</span></span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </li>
+      <li><a href="#">Pricing</a></li>
+    </ul>
+    <div class="v-navbar-actions">
+      <a class="v-btn v-btn-ghost" href="#">Sign in</a>
+      <a class="v-btn v-btn-primary" href="#">Get started</a>
+    </div>
+  </nav>
+</header>
 ```
 
 #### Navbar (navbar)
@@ -2275,6 +2749,50 @@ Example (Horizontal):
   <li class="v-step" aria-current="step"><span class="v-step-label">Billing</span></li>
   <li class="v-step"><span class="v-step-label">Launch</span></li>
 </ol>
+```
+
+#### Table of contents (table-of-contents)
+
+A list of links to the headings on a page, with scrollspy that marks the section being read. Native: Same-page links, <nav>.
+
+Base:
+- .v-toc: The <nav>. Give it aria-labelledby pointing at its title.
+Parts:
+- .v-toc-title: The heading above the list, such as "On this page".
+
+States:
+- aria-current="location": On a link: the section being read, set by data-v-toc. aria-current="true" from the server looks the same; the JS replaces it once it runs.
+
+Hooks:
+- data-v-toc (on the .v-toc nav): Follows the scroll and marks the current section. Set --v-sticky-top on the nav to move the reading line below a sticky header.
+
+Events:
+- v:toc detail { link, target }: Fires when the current section changes.
+
+Keyboard:
+- Tab: Moves through the links. Enter follows one: the page scrolls to the heading and focus moves there.
+
+Accessibility:
+- aria-current="location" tells screen readers which section the reader is in, not only the coloured rule.
+- Headings need ids. Give them scroll-margin so a sticky header does not cover them after a jump (.v-article-body does this).
+- Keep the labels the same as the headings, so the list and the page read the same.
+
+Example (On this page):
+
+```html
+<nav class="v-toc" aria-labelledby="toc-docs-title" data-v-toc>
+  <p class="v-toc-title" id="toc-docs-title">On this page</p>
+  <ol>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#setup">Set up</a>
+      <ol>
+        <li><a href="#tokens">Tokens</a></li>
+        <li><a href="#directions">Directions</a></li>
+      </ol>
+    </li>
+    <li><a href="#ship">Ship it</a></li>
+  </ol>
+</nav>
 ```
 
 #### Tabs (tabs)
@@ -3004,7 +3522,7 @@ Page sections (dist/vectra.sections.css, included in dist/vectra.css) built from
 
 - app-shell: App shell. .v-app holds a sidebar (.v-app-sidebar), the main column (.v-app-main: a .v-app-topbar and the .v-app-page) and, for phones, an optional .v-bottombar. - From 64rem of shell width the sidebar sits beside the main column and stays put while the page scrolls. Below that, a sidebar with the popover attribute and an id hides, and the top bar's .v-app-toggle (popovertarget) opens it as a sheet from the start edge; a .v-app-close button inside shows only while it is open. No JS needed. - The top bar is its own size container: the toggle hides once the bar is 48rem wide, which is when a 16rem sidebar is showing beside it. - A sidebar holding a .v-sidenav-rail stays an icon rail at every width. Classes: .v-app .v-app-sidebar .v-app-main .v-app-topbar .v-app-page .v-bottombar .v-app-toggle .v-app-close .v-sidenav-rail .v-navbar-brand .v-search .v-app-stacked .v-navbar .v-navbar-contained
 - app-ui: App UI sections. Most are composition (panels, lists, tables, forms, description lists, empty states); this file adds the two pieces that are not: - .v-toolbar: a filter row above a table or list. The search grows, filters and actions wrap. - .v-danger-zone: a .v-panel for destructive actions, in the danger tone, one action per .v-panel-body row (text first, button last). Classes: .v-toolbar .v-danger-zone .v-panel .v-panel-body .v-search .v-panel-title
-- article: Article: long-form pages such as a blog post, legal terms or a help article. .v-article holds an optional .v-article-aside (a table of contents, author details) and the .v-article-body (usually a .v-prose). From 64rem the aside moves beside the body at the inline end and stays in view while the body scrolls; below that it comes first. Headings with an id stop clear of the top edge when a link jumps to them. .v-toc: a <nav> with a .v-toc-title and an <ol> of links (nest an <ol> for sub-sections). Mark the section in view with aria-current="true"; the rule beside it turns accent. Classes: .v-article .v-article-aside .v-article-body .v-prose .v-toc .v-toc-title
+- article: Article: long-form pages such as a blog post, legal terms or a help article. .v-article holds an optional .v-article-aside (a table of contents, author details) and the .v-article-body (usually a .v-prose). From 64rem the aside moves beside the body at the inline end and stays in view while the body scrolls; below that it comes first. Headings with an id stop clear of the top edge when a link jumps to them. The table of contents that usually sits in the aside is the .v-toc component (components/toc.css). Classes: .v-article .v-article-aside .v-article-body .v-prose .v-toc
 - auth: Auth layouts: sign in, sign up, recovery and the rest. The wrapper picks the layout; the markup inside is the same in every one, so any flow drops into any layout by changing one class. <main class="v-auth"> centred card (default) <div class="v-auth-main"> <a class="v-auth-logo" href="/">..</a> <div class="v-auth-box"> .v-auth-header (.v-auth-title, .v-auth-text), a .v-form, .v-auth-alt <footer class="v-auth-footer">..</footer> </div> <aside class="v-auth-aside v-auth-art"> split layouts only: drawn art, or .v-auth-panel for a quote </main> Layouts: .v-auth-split (form beside an aside; stacks on phones), .v-auth-minimal (no card), .v-auth-bleed (card over a colour field; Glass shows its own), and .v-auth-dialog on a .v-dialog. .v-auth-wide widens the column for plan pickers, 2FA set-up and onboarding. Classes: .v-auth-header .v-auth-title .v-auth-text .v-form .v-auth-alt .v-auth-panel .v-auth-split .v-auth-minimal .v-auth-bleed .v-auth-dialog .v-dialog .v-auth-wide .v-auth .v-auth-main .v-auth-logo .v-icon .v-auth-box .v-auth-footer .v-auth-icon .v-auth-icon-success .v-auth-icon-warning .v-auth-icon-danger .v-auth-code .v-auth-qr .v-auth-codes .v-auth-aside .v-auth-art .v-testimonial-quote .v-dialog-close
 - cta: Call to action, on a card (.v-card, often .v-card-feature for the direction's emphasis surface). .v-cta centres a title, a line of copy and the actions with generous padding. .v-cta-split puts the copy beside the actions (or a newsletter form) once the card is 44rem wide. Classes: .v-card .v-card-feature .v-cta .v-cta-split .v-lead
 - features: Feature sections. Layout comes from .v-grid and .v-bento; this file adds only what they cannot do. - .v-feature-icon: the tinted tile an icon sits in. - .v-alternate: rows of copy and art, each row a direct child, art swapping sides on every second row from 48rem wide. - .v-howto: an <ol> of steps, numbered by CSS, in as many columns as fit. - .v-stats: a <dl> of .v-stat blocks (term first, shown under the number), split by rules. Classes: .v-grid .v-bento .v-feature-icon .v-alternate .v-howto .v-stats .v-stat .v-stat-value .v-stat-label
@@ -3135,7 +3653,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-card-pad --v-code-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 
@@ -3165,7 +3683,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-confirm-text data-v-connection data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 
@@ -3277,6 +3795,7 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/pages/system/coming-soon.html: Pages: Coming soon
 - examples/pages/system/offline-illustrated.html: Pages: Offline
 - examples/pages/system/offline.html: Pages: Offline
+- examples/plus/: More components
 - examples/sections/: Sections
 - examples/sections/app.html: Sections: app UI
 - examples/sections/chrome.html: Sections: navigation and chrome

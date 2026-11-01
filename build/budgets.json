@@ -1,13 +1,14 @@
 {
-  "_note": "Gzipped byte ceilings from PLAN.md section 1: core + one direction <= 8 KB; all v2.0 components <= 22 KB; sections <= 8 KB (CATALOGUE.md section 8). A * matches every file in that folder. { \"raw\": n } budgets the file size itself (fonts are already compressed).",
+  "_note": "Gzipped byte ceilings from PLAN.md section 1: core + one direction <= 8 KB; all v2.0 components <= 22 KB; sections <= 8 KB (CATALOGUE.md section 8); v2.1 components in vectra.plus.css <= 12 KB, and the full bundle grows by the same amount. vectra.js: the v2.0 modules were 9.9 KB at 2.0.0-alpha.1 (ceiling 11 KB); v2.1 modules may add up to 5 KB. A * matches every file in that folder. { \"raw\": n } budgets the file size itself (fonts are already compressed).",
   "dist/vectra.core.min.css": 6144,
   "dist/directions/*.min.css": 2048,
   "dist/vectra.components.min.css": 22528,
   "dist/components/*.min.css": 3072,
+  "dist/vectra.plus.min.css": 12288,
   "dist/vectra.sections.min.css": 8192,
   "dist/sections/*.min.css": 3072,
-  "dist/vectra.min.css": 30720,
-  "dist/vectra.js": 11264,
+  "dist/vectra.min.css": 43008,
+  "dist/vectra.js": 16384,
   "dist/icons/sprite.svg": 10240,
   "dist/fonts/inter-latin.woff2": { "raw": 46080 }
 }

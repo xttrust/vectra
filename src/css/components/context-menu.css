@@ -1,0 +1,12 @@
+/* Context menu: an ordinary .v-menu that data-v-context opens at the pointer on right-click, or at the
+   focused region on Shift+F10 and the Menu key. The JS sets --v-context-x and --v-context-y (viewport
+   pixels, already kept inside the viewport); this places the popover there instead of beside a trigger. */
+@layer components {
+  .v-menu.v-context-menu[popover] {
+    position-area: none;
+    inset: auto;
+    top: var(--v-context-y, 0);
+    left: var(--v-context-x, 0);
+    margin: 0;
+  }
+}

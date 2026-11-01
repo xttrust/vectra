@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · More components</title>
+  <meta name="description" content="Vectra v2.1 components: split button, back to top, table of contents, context menu, hover card, command palette, lightbox and notification centre.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+  <script type="module" src="../../src/js/index.js"></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2-6z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6-5.5-6-11a6 6 0 0112 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></symbol>
+    <symbol id="i-credit-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-log-out" viewBox="0 0 24 24"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../layout/">Vectra <span>more components</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack" id="top">
+      <p class="v-kicker">Components · v2.1</p>
+      <h1 class="v-display" data-contrast>More components.</h1>
+      <p class="v-lead" data-contrast>The first v2.1 additions: actions, navigation helpers and overlays. Each works without JavaScript where the platform allows, and the JS only adds keyboard and focus behaviour on top.</p>
+    </section>
+
+    <section id="split">
+      <h2 data-contrast>Split button</h2>
+      <p class="ex-label">A main action joined to a menu of related actions. The arrow button opens a .v-menu; ArrowDown on it opens the menu on the first item.</p>
+      <div class="v-cluster">
+        <div class="v-split">
+          <button class="v-btn v-btn-primary" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-save"/></svg>Save</button>
+          <button class="v-btn v-btn-primary" type="button" popovertarget="split-save" aria-haspopup="menu" aria-label="More save options"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <div class="v-menu v-menu-end" id="split-save" popover role="menu" data-v-menu aria-label="More save options">
+            <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Save as copy</button>
+            <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg>Save and schedule</button>
+            <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-send"/></svg>Save and publish</button>
+          </div>
+        </div>
+        <div class="v-split">
+          <button class="v-btn v-btn-secondary" type="button">Merge pull request</button>
+          <button class="v-btn v-btn-secondary" type="button" popovertarget="split-merge" aria-haspopup="menu" aria-label="Choose a merge method"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <div class="v-menu v-menu-end" id="split-merge" popover role="menu" data-v-menu aria-label="Merge method">
+            <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="true">Create a merge commit</button>
+            <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Squash and merge</button>
+            <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Rebase and merge</button>
+          </div>
+        </div>
+        <div class="v-split">
+          <button class="v-btn v-btn-danger v-btn-sm" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+          <button class="v-btn v-btn-danger v-btn-sm" type="button" popovertarget="split-delete" aria-haspopup="menu" aria-label="More delete options"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <div class="v-menu v-menu-end" id="split-delete" popover role="menu" data-v-menu aria-label="More delete options">
+            <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-delete" popovertargetaction="hide">Archive instead</button>
+            <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="split-delete" popovertargetaction="hide">Delete forever</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="toc">
+      <h2 data-contrast>Table of contents</h2>
+      <p class="ex-label">Scroll the article: the list marks the part you are reading. Without JS the links still jump to each part.</p>
+      <div class="v-sidebar" style="--v-side: 13rem">
+        <nav class="v-toc" aria-labelledby="toc-title" data-v-toc>
+          <p class="v-toc-title" id="toc-title" data-contrast>On this page</p>
+          <ol>
+            <li><a href="#toc-install" data-contrast>Install</a></li>
+            <li><a href="#toc-setup" data-contrast>Set up</a>
+              <ol>
+                <li><a href="#toc-tokens" data-contrast>Tokens</a></li>
+                <li><a href="#toc-directions" data-contrast>Directions</a></li>
+              </ol>
+            </li>
+            <li><a href="#toc-ship" data-contrast>Ship it</a></li>
+          </ol>
+        </nav>
+        <div class="v-overflow-auto v-border v-rounded v-p-4 v-prose" style="block-size: 22rem" tabindex="0" role="region" aria-label="Example article" id="toc-article">
+          <h3 id="toc-install">Install</h3>
+          <p>Paragraph 1 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <p>Paragraph 2 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <p>Paragraph 3 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <h3 id="toc-setup">Set up</h3>
+          <p>Paragraph 1 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <p>Paragraph 2 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <h4 id="toc-tokens">Tokens</h4>
+          <p>Paragraph 1 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <p>Paragraph 2 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <p>Paragraph 3 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <h4 id="toc-directions">Directions</h4>
+          <p>Paragraph 1 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <p>Paragraph 2 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <p>Paragraph 3 of this part. Long pages need a way to see where you are and jump around; the list on the side follows along as you scroll.</p>
+          <h3 id="toc-ship">Ship it</h3>
+          <p>The last part is short. Scrolling to the end still marks it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="context">
+      <h2 data-contrast>Context menu</h2>
+      <p class="ex-label">Right-click the file panel, or focus it and press Shift+F10. The menu opens at the pointer and closes with Escape, returning focus to the panel. Without JS the browser's own menu shows.</p>
+      <div class="v-panel" data-v-context="ctx-files" tabindex="0" aria-label="Project files. Press Shift+F10 for actions." id="ctx-region" style="max-inline-size: 28rem">
+        <div class="v-panel-header"><p class="v-panel-title" data-contrast>Project files</p></div>
+        <div class="v-panel-body">
+          <ul class="v-list v-list-plain" role="list">
+            <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>brief.pdf</span></li>
+            <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>moodboard.png</span></li>
+            <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>invoice-0042.pdf</span></li>
+          </ul>
+        </div>
+        <p class="v-panel-footer v-text-sm" data-contrast>The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>
+      </div>
+      <div class="v-menu v-context-menu" id="ctx-files" popover role="menu" data-v-menu aria-label="File actions">
+        <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg>Rename<kbd>F2</kbd></button>
+        <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button>
+        <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-download"/></svg>Download</button>
+        <hr class="v-menu-sep">
+        <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+      </div>
+    </section>
+
+    <section id="hovercard">
+      <h2 data-contrast>Hover card</h2>
+      <p class="ex-label">Rest the pointer on a linked name, or Tab to it: a preview opens after a moment and stays while you move onto it. Escape closes it. On touch a tap simply follows the link.</p>
+      <p class="v-max-prose" data-contrast>Reviewed by <a href="#hovercard" data-v-hovercard="hc-ana" id="hc-trigger-ana">Ana Ruiz</a> in <a href="#hovercard" data-v-hovercard="hc-repo">northwind/web</a>, two hours ago. <a href="#hovercard" data-v-hovercard="hc-ana">Ana</a> also approved the release notes.</p>
+      <div class="v-popover v-hovercard" id="hc-ana" popover="manual">
+        <div class="v-hovercard-head">
+          <span class="v-avatar" aria-hidden="true">AR</span>
+          <span><span class="v-hovercard-title">Ana Ruiz</span><span class="v-hovercard-sub">Design lead, Northwind</span></span>
+        </div>
+        <p class="v-popover-text">Looks after the design system and the docs. Usually replies within a day.</p>
+        <ul class="v-hovercard-meta" role="list">
+          <li><svg class="v-icon" aria-hidden="true"><use href="#i-pin"/></svg> Galway</li>
+          <li><strong>142</strong> reviews</li>
+        </ul>
+      </div>
+      <div class="v-popover v-hovercard" id="hc-repo" popover="manual">
+        <div class="v-hovercard-head">
+          <span><span class="v-hovercard-title">northwind/web</span><span class="v-hovercard-sub">The Northwind website and app</span></span>
+        </div>
+        <ul class="v-hovercard-meta" role="list">
+          <li><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg> <strong>1,204</strong> stars</li>
+          <li><strong>38</strong> open pull requests</li>
+          <li>Updated today</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="command">
+      <h2 data-contrast>Command palette</h2>
+      <p class="ex-label">Press Ctrl+K (Cmd+K on a Mac) anywhere on this page, or use the button. Type to filter, move with the arrow keys, Enter to run. Escape or a click outside closes it.</p>
+      <button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="cmdk" id="cmdk-open"><svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg><span data-contrast>Search commands</span><kbd>Ctrl K</kbd></button>
+      <dialog class="v-dialog v-command" id="cmdk" aria-label="Command palette" data-v-command data-v-dismissable>
+        <div class="v-command-search">
+          <svg class="v-icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <input class="v-command-input" type="text" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" aria-label="Search commands" placeholder="Type a command or search" autocomplete="off" spellcheck="false">
+          <kbd>Esc</kbd>
+        </div>
+        <div class="v-command-list" id="cmdk-list" role="listbox" aria-label="Commands">
+          <div role="group" aria-labelledby="cmdk-go">
+            <div class="v-command-label" id="cmdk-go" role="presentation">Go to</div>
+            <a class="v-command-item" role="option" href="#command" data-keywords="home overview"><svg class="v-icon" aria-hidden="true"><use href="#i-home"/></svg>Dashboard<kbd>G D</kbd></a>
+            <a class="v-command-item" role="option" href="#command"><svg class="v-icon" aria-hidden="true"><use href="#i-folder"/></svg>Projects<kbd>G P</kbd></a>
+            <a class="v-command-item" role="option" href="#command" data-keywords="members people"><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg>Team</a>
+            <a class="v-command-item" role="option" href="#command" data-keywords="invoices plan payment"><svg class="v-icon" aria-hidden="true"><use href="#i-credit-card"/></svg>Billing</a>
+            <a class="v-command-item" role="option" href="#command" data-keywords="preferences account"><svg class="v-icon" aria-hidden="true"><use href="#i-settings"/></svg>Settings<kbd>G S</kbd></a>
+          </div>
+          <div role="group" aria-labelledby="cmdk-do">
+            <div class="v-command-label" id="cmdk-do" role="presentation">Actions</div>
+            <button class="v-command-item" type="button" role="option" data-keywords="create add"><svg class="v-icon" aria-hidden="true"><use href="#i-plus"/></svg>New project</button>
+            <button class="v-command-item" type="button" role="option" data-keywords="add member"><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg>Invite a teammate</button>
+            <button class="v-command-item" type="button" role="option" data-keywords="theme"><svg class="v-icon" aria-hidden="true"><use href="#i-moon"/></svg>Switch to dark mode</button>
+            <button class="v-command-item" type="button" role="option" data-keywords="mute snooze"><svg class="v-icon" aria-hidden="true"><use href="#i-bell"/></svg>Pause notifications</button>
+            <button class="v-command-item" type="button" role="option" data-keywords="log out"><svg class="v-icon" aria-hidden="true"><use href="#i-log-out"/></svg>Sign out</button>
+          </div>
+        </div>
+        <p class="v-command-empty" role="status"></p>
+        <div class="v-command-footer" aria-hidden="true"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to choose</span><span><kbd>Esc</kbd> to close</span></div>
+      </dialog>
+    </section>
+
+    <section id="lightbox">
+      <h2 data-contrast>Lightbox</h2>
+      <p class="ex-label">Select a picture to view it large. Arrow keys or swipe to move between them, Escape to close. Without JS each link opens the image itself.</p>
+      <ul class="v-grid v-p-0" role="list" style="--v-min: 10rem">
+        <li><a class="v-frame v-frame-4x3 v-rounded" href="../shared/img/roof.svg" data-v-lightbox="lb-work" data-caption="Slate re-roof, Tuam. Two days, no skips on the street."><img src="../shared/img/roof.svg" alt="A slate roof under an evening sky" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+        <li><a class="v-frame v-frame-4x3 v-rounded" href="../shared/img/garden.svg" data-v-lightbox="lb-work" data-caption="Spring garden clean-up in Headford."><img src="../shared/img/garden.svg" alt="A green lawn and hedge under a blue sky" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+        <li><a class="v-frame v-frame-4x3 v-rounded" href="../shared/img/booth.svg" data-v-lightbox="lb-work" data-caption="Release night at the Bridge Bar."><img src="../shared/img/booth.svg" alt="A DJ booth lit in purple and green" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+        <li><a class="v-frame v-frame-4x3 v-rounded" href="../shared/img/coast.svg" data-v-lightbox="lb-work" data-caption="Golden hour on the Atlantic coast."><img src="../shared/img/coast.svg" alt="The Atlantic coastline at dusk" width="400" height="300" loading="lazy" class="v-object-cover"></a></li>
+      </ul>
+      <dialog class="v-lightbox" id="lb-work" aria-label="Image viewer" data-v-dismissable>
+        <p class="v-lightbox-count" aria-live="polite"></p>
+        <form method="dialog" class="v-lightbox-close"><button class="v-btn v-btn-secondary v-btn-icon" aria-label="Close viewer"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button></form>
+        <button class="v-btn v-btn-secondary v-btn-icon v-lightbox-prev" type="button" aria-label="Previous image"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+        <figure class="v-lightbox-figure">
+          <img class="v-lightbox-img" alt="">
+          <figcaption class="v-lightbox-caption"></figcaption>
+        </figure>
+        <button class="v-btn v-btn-secondary v-btn-icon v-lightbox-next" type="button" aria-label="Next image"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+      </dialog>
+    </section>
+
+    <section id="notifications">
+      <h2 data-contrast>Notification centre</h2>
+      <p class="ex-label">The bell shows how many are unread. Open it: following a notification marks it read, and "Mark all as read" clears the rest. The count and the button's name follow along.</p>
+      <button class="v-btn v-btn-secondary v-btn-icon v-notify" type="button" popovertarget="notif-panel" aria-label="Notifications, 3 unread" id="notif-trigger"><svg class="v-icon" aria-hidden="true"><use href="#i-bell"/></svg><span class="v-notify-count" aria-hidden="true">3</span></button>
+      <div class="v-popover v-notifications" id="notif-panel" popover role="dialog" aria-labelledby="notif-title" data-v-notifications>
+        <div class="v-notifications-head">
+          <h3 class="v-notifications-title" id="notif-title">Notifications</h3>
+          <button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-notifications-read>Mark all as read</button>
+        </div>
+        <ul class="v-notifications-list" role="list">
+            <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">AR</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Ana Ruiz</strong> commented on <strong>Pricing page</strong>: "Can we try the yearly toggle on the left?"<span class="v-notification-time">5 minutes ago</span></span></a></li>
+            <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">JK</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Joe Kelly</strong> assigned you <strong>Fix the footer links</strong><span class="v-notification-time">1 hour ago</span></span></a></li>
+            <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">NW</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Northwind</strong> deployed <strong>web v3.0.2</strong> to production<span class="v-notification-time">Today at 09:12</span></span></a></li>
+            <li class="v-notification"><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">MD</span><span><strong>Mia Doyle</strong> accepted your invite to <strong>Design</strong><span class="v-notification-time">Yesterday</span></span></a></li>
+        </ul>
+        <p class="v-notifications-empty">You're all caught up.</p>
+        <div class="v-notifications-foot"><a href="#notifications">View all notifications</a></div>
+      </div>
+    </section>
+
+    <section id="back-to-top">
+      <h2 data-contrast>Back to top</h2>
+      <p class="ex-label">Scroll down this page: a round button appears in the end corner once you are past the first screen. It is a plain link to #top, so it works without JS and moves focus back to the top.</p>
+    </section>
+  </main>
+  <a class="v-back-to-top" href="#top" aria-label="Back to top"><svg class="v-icon" aria-hidden="true"><use href="#i-up"/></svg></a>
+</body>
+</html>

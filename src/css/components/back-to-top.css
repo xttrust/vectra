@@ -1,0 +1,57 @@
+/* Back to top: a plain link to an element at the top of the page (href="#top"), fixed at the end corner.
+   Where scroll-driven animations exist it stays hidden until the page has scrolled a screen or so; the
+   animation includes visibility, so the hidden link is not a Tab stop either. Elsewhere it is always
+   shown, which still works. Following it moves focus to the target, as any same-page link does. */
+@layer components {
+  .v-back-to-top {
+    position: fixed;
+    z-index: 30;
+    inset-block-end: var(--v-back-to-top-offset, var(--v-space-5));
+    inset-inline-end: var(--v-back-to-top-offset, var(--v-space-5));
+    display: inline-grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    border: var(--v-border-w) solid var(--v-border);
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-surface);
+    color: var(--v-text);
+    box-shadow: var(--v-shadow-2);
+    text-decoration: none;
+    transition: background-color var(--v-dur-1), translate var(--v-dur-2) var(--v-ease-out);
+  }
+
+  .v-back-to-top:hover {
+    background-color: var(--v-surface-2);
+    translate: 0 -2px;
+  }
+
+  .v-back-to-top .v-icon {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .v-back-to-top {
+      animation: v-back-to-top-in linear both;
+      animation-timeline: scroll(root block);
+      animation-range: var(--v-back-to-top-after, 80vh) calc(var(--v-back-to-top-after, 80vh) + 1px);
+    }
+  }
+
+  @keyframes v-back-to-top-in {
+    from {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    to {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .v-back-to-top { border-color: ButtonText; }
+  }
+}

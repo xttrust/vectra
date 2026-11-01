@@ -1,5 +1,5 @@
 /* Builds dist/ from src/ with Lightning CSS (bundled + minified CSS) and esbuild (JS as IIFE + ESM).
-   CSS outputs: vectra.css (everything), vectra.core.css, vectra.components.css, vectra.sections.css,
+   CSS outputs: vectra.css (everything), vectra.core.css, vectra.components.css, vectra.plus.css, vectra.sections.css,
    directions/<name>.css, components/<name>.css and sections/<name>.css. Fonts are copied to dist/fonts/. */
 import { cp, mkdir, readdir, writeFile } from 'node:fs/promises';
 import { bundle } from 'lightningcss';
@@ -11,6 +11,7 @@ const entries = [
   ['src/css/vectra.css', 'dist/vectra'],
   ['src/css/vectra.core.css', 'dist/vectra.core'],
   ['src/css/vectra.components.css', 'dist/vectra.components'],
+  ['src/css/vectra.plus.css', 'dist/vectra.plus'],
   ['src/css/vectra.sections.css', 'dist/vectra.sections'],
   ...(await names('src/css/directions')).map((d) => [`src/css/directions/${d}.css`, `dist/directions/${d}`]),
   ...(await names('src/css/components')).map((c) => [`src/css/components/${c}.css`, `dist/components/${c}`]),

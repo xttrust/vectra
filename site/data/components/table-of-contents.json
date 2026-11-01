@@ -1,0 +1,88 @@
+{
+  "name": "Table of contents",
+  "slug": "table-of-contents",
+  "group": "Navigation",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A list of links to the headings on a page, with scrollspy that marks the section being read.",
+  "description": "Use it beside long content: docs, articles, legal pages. Put it in a .v-article-aside, or anywhere with .v-sticky so it stays in view.\n\nWithout JS it is a plain list of same-page links. data-v-toc marks the link to the section being read with aria-current=\"location\" as the page scrolls, or as the scrolling box the headings sit in scrolls. At the end of the scroller the last section is marked, so a short final section can still be reached.",
+  "native": "Same-page links, <nav>",
+  "catalogue": [
+    "Table of contents / scrollspy"
+  ],
+  "css": [
+    "toc.css"
+  ],
+  "js": [
+    "components/toc.js"
+  ],
+  "classes": [
+    {
+      "name": "v-toc",
+      "kind": "base",
+      "description": "The <nav>. Give it aria-labelledby pointing at its title."
+    },
+    {
+      "name": "v-toc-title",
+      "kind": "part",
+      "description": "The heading above the list, such as \"On this page\"."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "aria-current=\"location\"",
+      "description": "On a link: the section being read, set by data-v-toc. aria-current=\"true\" from the server looks the same; the JS replaces it once it runs."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-toc",
+      "value": "",
+      "on": "The .v-toc nav",
+      "description": "Follows the scroll and marks the current section. Set --v-sticky-top on the nav to move the reading line below a sticky header."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:toc",
+      "on": "The .v-toc nav",
+      "detail": "{ link, target }",
+      "cancelable": false,
+      "description": "Fires when the current section changes."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves through the links. Enter follows one: the page scrolls to the heading and focus moves there."
+    }
+  ],
+  "a11y": [
+    "aria-current=\"location\" tells screen readers which section the reader is in, not only the coloured rule.",
+    "Headings need ids. Give them scroll-margin so a sticky header does not cover them after a jump (.v-article-body does this).",
+    "Keep the labels the same as the headings, so the list and the page read the same."
+  ],
+  "tokens": [
+    "--v-accent",
+    "--v-accent-text",
+    "--v-border",
+    "--v-border-strong",
+    "--v-sticky-top"
+  ],
+  "related": [
+    "breadcrumb",
+    "sidenav",
+    "back-to-top"
+  ],
+  "examples": [
+    {
+      "title": "On this page",
+      "description": "Nested one level. On a real page the current link follows the scroll; here the targets are not on the page, so nothing is marked.",
+      "html": "<nav class=\"v-toc\" aria-labelledby=\"toc-docs-title\" data-v-toc>\n  <p class=\"v-toc-title\" id=\"toc-docs-title\">On this page</p>\n  <ol>\n    <li><a href=\"#install\">Install</a></li>\n    <li><a href=\"#setup\">Set up</a>\n      <ol>\n        <li><a href=\"#tokens\">Tokens</a></li>\n        <li><a href=\"#directions\">Directions</a></li>\n      </ol>\n    </li>\n    <li><a href=\"#ship\">Ship it</a></li>\n  </ol>\n</nav>",
+      "height": 260,
+      "source": "examples/plus/#toc"
+    }
+  ]
+}

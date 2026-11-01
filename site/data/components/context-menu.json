@@ -1,0 +1,98 @@
+{
+  "name": "Context menu",
+  "slug": "context-menu",
+  "group": "Overlays",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A menu of actions that opens at the pointer on right-click, or from the keyboard with Shift+F10.",
+  "description": "Use a context menu as a shortcut for actions on a region: files, cards, canvas items. It is never the only way to reach an action, because nothing on screen shows it exists; put the same actions in a visible menu too.\n\nThe menu is an ordinary .v-menu with .v-context-menu. data-v-context on the region names it; right-click opens it at the pointer and Shift+F10 or the Menu key opens it at the focused region. Without JS the browser's own context menu shows.",
+  "native": "popover, contextmenu event",
+  "catalogue": [
+    "Context menu"
+  ],
+  "css": [
+    "context-menu.css",
+    "menu.css"
+  ],
+  "js": [
+    "components/context.js",
+    "components/menu.js"
+  ],
+  "classes": [
+    {
+      "name": "v-context-menu",
+      "kind": "modifier",
+      "description": "On a .v-menu: placed at the pointer (--v-context-x and --v-context-y, set by the JS) instead of beside a trigger."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "tabindex=\"0\"",
+      "description": "On the region, so it can take focus for Shift+F10 and get focus back when the menu closes."
+    },
+    {
+      "attribute": "aria-label",
+      "description": "On the region: name it and mention the shortcut, such as \"Project files. Press Shift+F10 for actions.\""
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-context",
+      "value": "menu id",
+      "on": "The region",
+      "description": "Opens the menu at the pointer on right-click, or at the focused region on Shift+F10 and the Menu key, keeps it inside the viewport, and returns focus to the region on close."
+    },
+    {
+      "name": "data-v-menu",
+      "value": "",
+      "on": "The .v-menu",
+      "description": "Arrow keys, typeahead, checkable items and Escape, as for any dropdown menu."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Shift+F10",
+        "ContextMenu"
+      ],
+      "action": "On the focused region, opens the menu with focus on the first item."
+    },
+    {
+      "keys": [
+        "ArrowDown",
+        "ArrowUp",
+        "Home",
+        "End"
+      ],
+      "action": "Moves between items."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the menu and returns focus to the region."
+    }
+  ],
+  "a11y": [
+    "Right-click is invisible: every action in a context menu must also be in a visible control, such as a row's dropdown menu.",
+    "Shift+F10 and the Menu key open it from the keyboard, so keyboard and screen reader users get the same shortcut.",
+    "Shift with right-click still opens the browser's own menu, for copy, inspect and the rest."
+  ],
+  "tokens": [
+    "--v-overlay-bg",
+    "--v-shadow-3"
+  ],
+  "related": [
+    "dropdown-menu",
+    "popover"
+  ],
+  "examples": [
+    {
+      "title": "File actions",
+      "description": "Right-click the panel, or focus it and press Shift+F10.",
+      "html": "<div class=\"v-panel\" data-v-context=\"ctx-files\" tabindex=\"0\" aria-label=\"Project files. Press Shift+F10 for actions.\" style=\"max-inline-size: 28rem\">\n  <div class=\"v-panel-header\"><p class=\"v-panel-title\">Project files</p></div>\n  <div class=\"v-panel-body\">\n    <ul class=\"v-list v-list-plain\" role=\"list\">\n      <li class=\"v-list-item\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#file\"/></svg><span>brief.pdf</span></li>\n      <li class=\"v-list-item\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#file\"/></svg><span>moodboard.png</span></li>\n      <li class=\"v-list-item\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#file\"/></svg><span>invoice-0042.pdf</span></li>\n    </ul>\n  </div>\n  <p class=\"v-panel-footer v-text-sm\">The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>\n</div>\n<div class=\"v-menu v-context-menu\" id=\"ctx-files\" popover role=\"menu\" data-v-menu aria-label=\"File actions\">\n  <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" popovertarget=\"ctx-files\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#edit\"/></svg>Rename<kbd>F2</kbd></button>\n  <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" popovertarget=\"ctx-files\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#copy\"/></svg>Duplicate</button>\n  <button class=\"v-menu-item\" type=\"button\" role=\"menuitem\" popovertarget=\"ctx-files\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#download\"/></svg>Download</button>\n  <hr class=\"v-menu-sep\">\n  <button class=\"v-menu-item v-menu-item-danger\" type=\"button\" role=\"menuitem\" popovertarget=\"ctx-files\" popovertargetaction=\"hide\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#trash\"/></svg>Delete</button>\n</div>",
+      "height": 340,
+      "source": "examples/plus/#context"
+    }
+  ]
+}

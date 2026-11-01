@@ -87,6 +87,7 @@ Galleries to copy from:
 - examples/navigation/: Vectra navigation and disclosure components in every direction and theme.
 - examples/overlays/: Vectra dialogs, drawers, popovers, menus and tooltips in every direction and theme.
 - examples/pages/: Vectra example pages: a marketing site, app screens with their states, and system pages.
+- examples/plus/: Vectra v2.1 components: split button, back to top, table of contents, context menu, hover card, command palette, lightbox and notification centre.
 - examples/sections/: Vectra section galleries: navigation and chrome, marketing and app UI, plus two example pages.
 - examples/states/: Vectra states gallery and copy guide: loading, empty, errors, connection, permissions, session, validation, success, destructive actions, content status and edge cases.
 - examples/theming/: Vectra direction switch, theme toggle, customizer, toasts, connection banner, session warning and save status.
@@ -108,6 +109,7 @@ Actions:
 - Copy button: , hooks data-v-copy data-v-copy-target
 - Icon button: 
 - Segmented control: .v-segmented
+- Split button: .v-split, hooks data-v-menu
 - Toggle button: .v-toggle-group, hooks data-v-toggle
 
 Display:
@@ -135,6 +137,7 @@ Feedback:
 - Connection banner: , hooks data-v-connection data-v-when
 - Inline save status: .v-save-status, hooks data-v-save-status-text
 - Meter: .v-meter
+- Notification centre: .v-notify .v-notifications, hooks data-v-notifications data-v-notifications-read
 - Progress: .v-progress
 - Session timeout warning: 
 - Toast: .v-toast-region .v-toast
@@ -157,20 +160,27 @@ Forms:
 - Search field: .v-search, hooks data-v-clear data-v-shortcut
 
 Overlays:
+- Command palette: , hooks data-v-command data-v-dialog-open data-v-dismissable
+- Context menu: , hooks data-v-context data-v-menu
 - Dialog: .v-dialog, hooks data-v-dialog-open data-v-dialog-close data-v-dismissable
 - Drawer: .v-drawer, hooks data-v-dialog-open data-v-dialog-close data-v-dismissable
 - Dropdown menu: .v-menu, hooks data-v-menu
+- Hover card: .v-hovercard, hooks data-v-hovercard
+- Lightbox: .v-lightbox, hooks data-v-lightbox data-v-dismissable
 - Popover: .v-popover
 - Tooltip: .v-tooltip, hooks data-v-tooltip
 
 Navigation:
+- Back to top: .v-back-to-top
 - Bottom tab bar: .v-bottombar
 - Breadcrumb: .v-breadcrumb
+- Mega menu: .v-mega, hooks data-v-mega
 - Navbar: .v-navbar, hooks data-v-nav
 - Pagination: .v-pagination .v-load-more
 - Sidebar nav: .v-sidenav
 - Skip link: .v-skip-link
 - Steps: .v-steps
+- Table of contents: .v-toc, hooks data-v-toc
 - Tabs: .v-tabs, hooks data-v-tabs
 
 Disclosure:

@@ -1,0 +1,133 @@
+{
+  "name": "Lightbox",
+  "slug": "lightbox",
+  "group": "Overlays",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A full-screen image viewer that opens from thumbnails and steps through them.",
+  "description": "Use a lightbox for galleries of work, products or events, where people want to see each picture large without leaving the page.\n\nThumbnails are plain links to the full image with data-v-lightbox naming the viewer, so without JS they open the image itself. With JS a click opens the <dialog class=\"v-lightbox\"> on that picture; previous and next step through every link that names the same viewer, in page order. The viewer is always dark, whatever the theme.",
+  "native": "<dialog>, showModal(), <figure>",
+  "catalogue": [
+    "Lightbox"
+  ],
+  "css": [
+    "lightbox.css",
+    "dialog.css"
+  ],
+  "js": [
+    "components/lightbox.js",
+    "components/dialog.js"
+  ],
+  "classes": [
+    {
+      "name": "v-lightbox",
+      "kind": "base",
+      "description": "The <dialog>: full screen, dark, laid out as count and close on top, the image between previous and next (under it on phones)."
+    },
+    {
+      "name": "v-lightbox-figure",
+      "kind": "part",
+      "description": "The <figure> holding the image and caption."
+    },
+    {
+      "name": "v-lightbox-img",
+      "kind": "part",
+      "description": "The large image. Its src and alt are set from the link and its thumbnail."
+    },
+    {
+      "name": "v-lightbox-caption",
+      "kind": "part",
+      "description": "The caption, from the link's data-caption. Hidden while empty."
+    },
+    {
+      "name": "v-lightbox-count",
+      "kind": "part",
+      "description": "\"2 of 6\", in a polite live region. data-template changes the words; {n} and {total} are filled in."
+    },
+    {
+      "name": "v-lightbox-prev",
+      "kind": "part",
+      "description": "The previous button. The arrow flips in right-to-left."
+    },
+    {
+      "name": "v-lightbox-next",
+      "kind": "part",
+      "description": "The next button."
+    },
+    {
+      "name": "v-lightbox-close",
+      "kind": "part",
+      "description": "The close control: a <form method=\"dialog\"> with a button inside."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-caption",
+      "description": "On a thumbnail link: the caption shown under the large image."
+    },
+    {
+      "attribute": "data-single",
+      "description": "Set by the JS when the viewer has one picture: previous, next and the count are hidden."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-lightbox",
+      "value": "dialog id",
+      "on": "Each thumbnail link",
+      "description": "Opens the viewer on this picture instead of following the link (a modified click still opens the image in a new tab)."
+    },
+    {
+      "name": "data-v-dismissable",
+      "value": "",
+      "on": "The dialog",
+      "description": "A click on the dark area outside the picture closes it."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "On a thumbnail, opens the viewer."
+    },
+    {
+      "keys": [
+        "ArrowRight",
+        "ArrowLeft"
+      ],
+      "action": "Next and previous picture (swapped in right-to-left). Both wrap."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the viewer and returns focus to the thumbnail."
+    }
+  ],
+  "a11y": [
+    "The large image takes its alt text from the thumbnail, so write real alt text on the thumbnails.",
+    "The count is a polite live region, so stepping through announces \"3 of 6\" without moving focus.",
+    "Previous and next are real buttons with labels; a swipe on touch does the same, it is never the only way.",
+    "Ctrl, Cmd or Shift with a click still open the image in a new tab or window, as the link would."
+  ],
+  "tokens": [
+    "--v-bg",
+    "--v-text",
+    "--v-text-2",
+    "--v-radius-md"
+  ],
+  "related": [
+    "figure",
+    "dialog"
+  ],
+  "examples": [
+    {
+      "title": "Work gallery",
+      "description": "Select a picture, then use the arrows or the arrow keys.",
+      "html": "<ul class=\"v-grid v-p-0\" role=\"list\" style=\"--v-min: 10rem\">\n  <li><a class=\"v-frame v-frame-4x3 v-rounded\" href=\"/img/roof.svg\" data-v-lightbox=\"lb-work\" data-caption=\"Slate re-roof, Tuam. Two days, no skips on the street.\"><img src=\"/img/roof.svg\" alt=\"A slate roof under an evening sky\" width=\"400\" height=\"300\" loading=\"lazy\" class=\"v-object-cover\"></a></li>\n  <li><a class=\"v-frame v-frame-4x3 v-rounded\" href=\"/img/garden.svg\" data-v-lightbox=\"lb-work\" data-caption=\"Spring garden clean-up in Headford.\"><img src=\"/img/garden.svg\" alt=\"A green lawn and hedge under a blue sky\" width=\"400\" height=\"300\" loading=\"lazy\" class=\"v-object-cover\"></a></li>\n  <li><a class=\"v-frame v-frame-4x3 v-rounded\" href=\"/img/booth.svg\" data-v-lightbox=\"lb-work\" data-caption=\"Release night at the Bridge Bar.\"><img src=\"/img/booth.svg\" alt=\"A DJ booth lit in purple and green\" width=\"400\" height=\"300\" loading=\"lazy\" class=\"v-object-cover\"></a></li>\n  <li><a class=\"v-frame v-frame-4x3 v-rounded\" href=\"/img/coast.svg\" data-v-lightbox=\"lb-work\" data-caption=\"Golden hour on the Atlantic coast.\"><img src=\"/img/coast.svg\" alt=\"The Atlantic coastline at dusk\" width=\"400\" height=\"300\" loading=\"lazy\" class=\"v-object-cover\"></a></li>\n</ul>\n<dialog class=\"v-lightbox\" id=\"lb-work\" aria-label=\"Image viewer\" data-v-dismissable>\n  <p class=\"v-lightbox-count\" aria-live=\"polite\"></p>\n  <form method=\"dialog\" class=\"v-lightbox-close\"><button class=\"v-btn v-btn-secondary v-btn-icon\" aria-label=\"Close viewer\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#close\"/></svg></button></form>\n  <button class=\"v-btn v-btn-secondary v-btn-icon v-lightbox-prev\" type=\"button\" aria-label=\"Previous image\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-left\"/></svg></button>\n  <figure class=\"v-lightbox-figure\">\n    <img class=\"v-lightbox-img\" alt=\"\">\n    <figcaption class=\"v-lightbox-caption\"></figcaption>\n  </figure>\n  <button class=\"v-btn v-btn-secondary v-btn-icon v-lightbox-next\" type=\"button\" aria-label=\"Next image\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-right\"/></svg></button>\n</dialog>",
+      "height": 300,
+      "source": "examples/plus/#lightbox"
+    }
+  ]
+}

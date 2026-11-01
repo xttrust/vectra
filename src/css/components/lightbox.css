@@ -1,0 +1,92 @@
+/* Lightbox: a full-screen image viewer on <dialog class="v-lightbox">. Thumbnails are links to the full
+   image with data-v-lightbox="<dialog id>", so without JS they open the image itself; with JS they open
+   the viewer, which steps through every link with the same id. showModal() gives the backdrop, focus
+   trap, Escape and focus return. The viewer is always dark: color-scheme: dark makes every light-dark()
+   token inside it resolve to its dark value, whatever the page theme. */
+@layer components {
+  .v-lightbox {
+    inline-size: 100%;
+    max-inline-size: none;
+    block-size: 100%;
+    max-block-size: none;
+    margin: 0;
+    padding: var(--v-space-4);
+    border: 0;
+    background-color: color-mix(in oklch, var(--v-bg) 97%, transparent);
+    color: var(--v-text);
+    color-scheme: dark;
+  }
+
+  .v-lightbox[open] {
+    display: grid;
+    grid-template:
+      "count count close" auto
+      "prev figure next" 1fr / auto 1fr auto;
+    gap: var(--v-space-3);
+    align-items: center;
+  }
+
+  .v-lightbox::backdrop { background: transparent; }
+
+  .v-lightbox-figure {
+    display: grid;
+    grid-area: figure;
+    gap: var(--v-space-3);
+    justify-items: center;
+    min-inline-size: 0;
+    max-block-size: 100%;
+    margin: 0;
+  }
+
+  .v-lightbox-img {
+    max-inline-size: 100%;
+    max-block-size: calc(100dvh - 9rem);
+    border-radius: var(--v-radius-md);
+    object-fit: contain;
+  }
+
+  .v-lightbox-caption {
+    max-inline-size: 60ch;
+    color: var(--v-text-2);
+    text-align: center;
+  }
+
+  .v-lightbox-caption:empty { display: none; }
+
+  .v-lightbox-count {
+    grid-area: count;
+    margin: 0;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .v-lightbox-close { grid-area: close; }
+  .v-lightbox-prev { grid-area: prev; }
+  .v-lightbox-next { grid-area: next; }
+  .v-lightbox[data-single] :is(.v-lightbox-prev, .v-lightbox-next, .v-lightbox-count) { visibility: hidden; }
+
+  .v-lightbox-prev .v-icon,
+  .v-lightbox-next .v-icon {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+  }
+
+  .v-lightbox:dir(rtl) :is(.v-lightbox-prev, .v-lightbox-next) .v-icon { scale: -1 1; }
+
+  /* Phones: the arrows move under the image, where thumbs reach them. */
+  @media (width < 40rem) {
+    .v-lightbox[open] {
+      grid-template:
+        "count close" auto
+        "figure figure" 1fr
+        "prev next" auto / 1fr auto;
+    }
+
+    .v-lightbox-next { justify-self: end; }
+  }
+
+  @media (forced-colors: active) {
+    .v-lightbox { border: 1px solid CanvasText; }
+  }
+}

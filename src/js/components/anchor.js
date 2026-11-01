@@ -4,6 +4,8 @@
 const SEL = '.v-popover[popover], .v-menu[popover], .v-tooltip[popover]';
 const GAP = 6;
 const shown = new Map(); // popover -> invoker
+/** Invokers that are not popovertarget buttons (a hover card's link): set before showPopover(). */
+export const anchors = new WeakMap();
 
 function place(el, anchor) {
   const a = anchor.getBoundingClientRect();
@@ -33,7 +35,7 @@ export function fallback() {
     shown.delete(el);
     if (e.newState !== 'open') return;
     const id = el.id && CSS.escape(el.id);
-    const anchor = e.source ?? (id && document.querySelector(`[popovertarget="${id}"]:not(#${id} *), [aria-describedby~="${id}"]`));
+    const anchor = e.source ?? anchors.get(el) ?? (id && document.querySelector(`[popovertarget="${id}"]:not(#${id} *), [aria-describedby~="${id}"]`));
     if (!anchor) return;
     shown.set(el, anchor);
     requestAnimationFrame(update);

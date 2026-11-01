@@ -60,7 +60,9 @@ test('manifest: every class and hook it declares exists in the build', async () 
 });
 
 test('manifest: llms-full.txt covers every component, class, hook and rule', () => {
-  expect(Buffer.byteLength(llmsFull)).toBeLessThan(200 * 1024);
+  // About 2.3 KB per component (classes, keyboard, a11y and one full example). 300 KB is roughly 75k tokens:
+  // room for the v2.1 components while still fitting one assistant context with space to work.
+  expect(Buffer.byteLength(llmsFull)).toBeLessThan(300 * 1024);
   for (const c of manifest.components) {
     expect(llmsFull, c.slug).toContain(`${c.name} (${c.slug})`);
     for (const k of c.classes) expect(llmsFull, `${c.slug} .${k.name}`).toContain(`.${k.name}`);
