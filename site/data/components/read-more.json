@@ -1,0 +1,85 @@
+{
+  "name": "Read more",
+  "slug": "read-more",
+  "group": "Disclosure",
+  "tier": "P1",
+  "status": "done",
+  "summary": "Long text cut to a few lines, with a button that shows the rest.",
+  "description": "Use it for reviews, bios and descriptions in cards and lists, where a long one would push everything else down.\n\nWithout JS the whole text shows. data-v-readmore cuts .v-readmore-body to --v-lines lines (default 4) only when it is longer, shows the button and swaps its words and aria-expanded. It checks again when the width changes, so the button appears only where it is needed.",
+  "native": "-webkit-line-clamp",
+  "catalogue": [
+    "Read more / line clamp"
+  ],
+  "css": [
+    "readmore.css"
+  ],
+  "js": [
+    "components/readmore.js"
+  ],
+  "classes": [
+    {
+      "name": "v-readmore",
+      "kind": "base",
+      "description": "The wrapper. Set --v-lines to change how many lines show before the button."
+    },
+    {
+      "name": "v-readmore-body",
+      "kind": "part",
+      "description": "The text, clamped while closed."
+    },
+    {
+      "name": "v-readmore-toggle",
+      "kind": "part",
+      "description": "The button. Hidden when the text fits. data-more and data-less set its words."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-clamped",
+      "description": "Set on .v-readmore by the JS: \"true\" while the text is cut."
+    },
+    {
+      "attribute": "aria-expanded",
+      "description": "On the button, set by the JS, with aria-controls pointing at the body."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-readmore",
+      "value": "",
+      "on": "The .v-readmore wrapper",
+      "description": "Clamps the body when it is longer than --v-lines, shows and labels the button, and re-measures when the width changes."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On the button, shows or hides the rest of the text."
+    }
+  ],
+  "a11y": [
+    "Nothing is hidden without JS: the clamp only applies once the script has measured the text.",
+    "The button says Read more or Show less and carries aria-expanded, so the change is announced.",
+    "Screen readers read the whole text even while it is clamped visually; the button is for sighted readers."
+  ],
+  "tokens": [
+    "--v-lines",
+    "--v-accent-text"
+  ],
+  "related": [
+    "collapsible",
+    "accordion"
+  ],
+  "examples": [
+    {
+      "title": "Long and short",
+      "description": "Only the long text gets the button.",
+      "html": "<div class=\"v-grid\" style=\"--v-min: 18rem\">\n  <div class=\"v-readmore\" data-v-readmore>\n    <p class=\"v-readmore-body\">Long text is cut to four lines here, with a button to show the rest. Without JavaScript the whole text shows, so nothing is ever hidden from someone whose script failed to load. The button only appears when the text really is longer than the limit, and it keeps track as the width changes: make the window narrower and a short paragraph may need the button after all. It says whether the text is open or closed, so a screen reader hears the change as well as seeing it.</p>\n    <button class=\"v-readmore-toggle\" type=\"button\">Read more</button>\n  </div>\n  <div class=\"v-readmore\" data-v-readmore>\n    <p class=\"v-readmore-body\">A short review fits on its own.</p>\n    <button class=\"v-readmore-toggle\" type=\"button\">Read more</button>\n  </div>\n</div>",
+      "height": 240,
+      "source": "examples/plus-content/#readmore"
+    }
+  ]
+}

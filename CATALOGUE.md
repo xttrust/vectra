@@ -150,7 +150,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 |---|---|---|---|
 | Accordion (exclusive via `<details name>`) | P0 | done | |
 | Collapsible | P0 | done | |
-| Read more / line clamp | P1 | | |
+| Read more / line clamp | P1 | done | clamps only when longer; full text without JS |
 
 ### Data
 

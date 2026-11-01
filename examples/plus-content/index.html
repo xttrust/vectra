@@ -67,6 +67,21 @@
       </div>
     </section>
 
+    <section id="readmore">
+      <h2 data-contrast>Read more</h2>
+      <p class="ex-label">The first paragraph is long and gets the button; the second fits and does not.</p>
+      <div class="v-grid" style="--v-min: 18rem">
+        <div class="v-readmore" data-v-readmore id="readmore-long">
+          <p class="v-readmore-body" data-contrast>Long text is cut to four lines here, with a button to show the rest. Without JavaScript the whole text shows, so nothing is ever hidden from someone whose script failed to load. The button only appears when the text really is longer than the limit, and it keeps track as the width changes: make the window narrower and a short paragraph may need the button after all. It says whether the text is open or closed, so a screen reader hears the change as well as seeing it.</p>
+          <button class="v-readmore-toggle" type="button">Read more</button>
+        </div>
+        <div class="v-readmore" data-v-readmore id="readmore-short">
+          <p class="v-readmore-body" data-contrast>A short review fits on its own.</p>
+          <button class="v-readmore-toggle" type="button">Read more</button>
+        </div>
+      </div>
+    </section>
+
   </main>
 </body>
 </html>

@@ -1,0 +1,32 @@
+/* Read more: long text cut to a few lines with a button to show the rest. Without JS the whole text
+   shows. data-v-readmore clamps .v-readmore-body to --v-lines (default 4) only when it is longer than
+   that, shows the .v-readmore-toggle button and swaps aria-expanded and its label when pressed. */
+@layer components {
+  .v-readmore {
+    display: grid;
+    gap: var(--v-space-2);
+    justify-items: start;
+  }
+
+  .v-readmore[data-clamped="true"] .v-readmore-body {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--v-lines, 4);
+  }
+
+  .v-readmore-toggle[hidden] { display: none; }
+
+  .v-readmore-toggle {
+    min-block-size: 1.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--v-accent-text);
+    font: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+}
