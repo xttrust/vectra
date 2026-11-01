@@ -18,6 +18,11 @@
       "name": "v-back-to-top",
       "kind": "base",
       "description": "The link, fixed in the end corner (bottom right, bottom left in right-to-left). Holds an icon and needs an aria-label."
+    },
+    {
+      "name": "v-back-to-top-progress",
+      "kind": "modifier",
+      "description": "A ring around the button that fills as the page is read. Add data-v-scroll-progress for browsers without scroll timelines."
     }
   ],
   "states": [
@@ -55,9 +60,17 @@
     {
       "title": "Back to top link",
       "description": "In this preview it is always in the corner; on a real page it appears after the first screen. Set --v-back-to-top-after to change when, and --v-back-to-top-offset to move it clear of a bottom bar.",
-      "html": "<a class=\"v-back-to-top\" href=\"#top\" aria-label=\"Back to top\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#arrow-up\"/></svg></a>",
+      "html": "<a class=\"v-back-to-top v-back-to-top-progress\" href=\"#top\" aria-label=\"Back to top\" data-v-scroll-progress><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#arrow-up\"/></svg></a>",
       "height": 160,
       "source": "examples/plus/#back-to-top"
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-scroll-progress",
+      "value": "",
+      "on": "A .v-back-to-top-progress link",
+      "description": "Fills the progress ring from a scroll listener where scroll timelines are missing."
     }
   ]
 }

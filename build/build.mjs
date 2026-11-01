@@ -12,6 +12,7 @@ const entries = [
   ['src/css/vectra.core.css', 'dist/vectra.core'],
   ['src/css/vectra.components.css', 'dist/vectra.components'],
   ['src/css/vectra.plus.css', 'dist/vectra.plus'],
+  ['src/css/vectra.transitions.css', 'dist/vectra.transitions'],
   ['src/css/vectra.sections.css', 'dist/vectra.sections'],
   ...(await names('src/css/directions')).map((d) => [`src/css/directions/${d}.css`, `dist/directions/${d}`]),
   ...(await names('src/css/components')).map((c) => [`src/css/components/${c}.css`, `dist/components/${c}`]),
@@ -35,5 +36,7 @@ await cp('src/fonts', 'dist/fonts', { recursive: true });
 
 const shared = { entryPoints: ['src/js/index.js'], bundle: true, target: esbuildTargets, legalComments: 'none' };
 await build({ ...shared, format: 'iife', globalName: 'Vectra', minify: true, outfile: 'dist/vectra.js' });
+// The v2.0 modules on their own, for pages that use none of the v2.1 components.
+await build({ ...shared, entryPoints: ['src/js/index.core.js'], format: 'iife', globalName: 'Vectra', minify: true, outfile: 'dist/vectra.core.js' });
 await build({ ...shared, format: 'esm', minify: false, outfile: 'dist/vectra.esm.js' });
-console.log('built dist/vectra.js, dist/vectra.esm.js');
+console.log('built dist/vectra.js, dist/vectra.core.js, dist/vectra.esm.js');

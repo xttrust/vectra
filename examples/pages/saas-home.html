@@ -19,14 +19,17 @@
     })();
   </script>
   <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../src/css/vectra.transitions.css">
   <link rel="stylesheet" href="../shared/examples.css">
   <script src="../shared/switcher.js" defer></script>
 </head>
 <body id="top">
+  <div class="v-scroll-progress" data-v-scroll-progress aria-hidden="true"></div>
   <a class="v-skip-link" href="#main">Skip to content</a>
 
   <svg class="v-sr-only" aria-hidden="true" focusable="false">
     <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
@@ -520,5 +523,6 @@
       </div>
     </footer>
   <script type="module" src="../../src/js/index.js"></script>
+  <a class="v-back-to-top v-back-to-top-progress" href="#top" aria-label="Back to top" data-v-scroll-progress><svg class="v-icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
 </body>
 </html>

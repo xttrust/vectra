@@ -198,14 +198,17 @@ async function patterns() {
   return list;
 }
 
+// The full entry re-exports the core entry (index.core.js) and adds the v2.1 modules: read both.
+const entrySource = async () => (await Promise.all(['src/js/index.core.js', 'src/js/index.js'].map((f) => readFile(f, 'utf8')))).join('\n');
+
 async function registeredModules() {
-  const src = await readFile('src/js/index.js', 'utf8');
+  const src = await entrySource();
   return [...src.matchAll(/^register\('([a-z0-9-]+)'/gm)].map((m) => `data-v-${m[1]}`);
 }
 
-/** The named exports of src/js/index.js, which are also the keys of window.Vectra. */
+/** The named exports of the JS entry (index.core.js and index.js), which are also the keys of window.Vectra. */
 export async function publicExports() {
-  const src = await readFile('src/js/index.js', 'utf8');
+  const src = await entrySource();
   const names = new Set();
   for (const m of src.matchAll(/^export \{([^}]+)\}/gm)) for (const n of m[1].split(',')) names.add(n.trim().split(/\s+as\s+/).pop());
   for (const m of src.matchAll(/^export (?:const|function) ([A-Za-z]+)/gm)) names.add(m[1]);
@@ -616,7 +619,7 @@ export async function validateManifest(manifest, texts) {
   checkSchema(manifest, await readJSON('build/manifest.schema.json'), 'manifest', errors);
   for (const [path, text] of Object.entries(texts)) if (text.includes(EM_DASH)) errors.push(`${path}: contains an em dash`);
   const covered = new Set(manifest.api.map((a) => a.name));
-  for (const name of await publicExports()) if (!covered.has(name)) errors.push(`manifest api: export "${name}" of src/js/index.js is not documented`);
+  for (const name of await publicExports()) if (!covered.has(name)) errors.push(`manifest api: export "${name}" of the JS entry is not documented`);
   return errors;
 }
 

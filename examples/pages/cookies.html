@@ -19,6 +19,7 @@
     })();
   </script>
   <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../src/css/vectra.transitions.css">
   <link rel="stylesheet" href="../shared/examples.css">
   <link rel="stylesheet" href="pages.css">
   <script src="../shared/switcher.js" defer></script>
@@ -41,6 +42,7 @@
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7a4.3 4.3 0 017.5 2.8C19.5 15.4 12 20 12 20z"/></symbol>
     <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2zM4 20a2 2 0 002 2h13v-4"/></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
   </svg>
   <a class="v-skip-link" href="#main">Skip to content</a>
   <aside class="ex-bar" aria-label="Example settings">
@@ -63,6 +65,7 @@
       </label>
     </div>
   </aside>
+  <div class="v-scroll-progress" data-v-scroll-progress aria-hidden="true"></div>
   <header class="v-navbar v-navbar-contained" data-v-nav>
     <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
     <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
@@ -132,7 +135,7 @@
   </header>
   <main id="main" class="v-skip-target" tabindex="-1">
     <section class="v-section" style="--v-section-pad: clamp(2.5rem, 5vw, 4rem) var(--v-space-6)">
-      <div class="v-container">
+      <div class="v-container v-reveal">
         <div class="v-stack" style="--v-gap: var(--v-space-4)">
           <p class="v-kicker">Legal</p>
           <h1 class="v-display" style="font-size: var(--v-step-display)">Cookie policy</h1>
@@ -229,6 +232,7 @@
       </div>
     </div>
   </footer>
+  <a class="v-back-to-top v-back-to-top-progress" href="#main" aria-label="Back to top" data-v-scroll-progress><svg class="v-icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
   <script type="module" src="../../src/js/index.js"></script>
 </body>
 </html>

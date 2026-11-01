@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-94 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+96 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -2631,9 +2631,14 @@ A round link in the end corner that appears once the page has scrolled and takes
 
 Base:
 - .v-back-to-top: The link, fixed in the end corner (bottom right, bottom left in right-to-left). Holds an icon and needs an aria-label.
+Modifiers:
+- .v-back-to-top-progress: A ring around the button that fills as the page is read. Add data-v-scroll-progress for browsers without scroll timelines.
 
 States:
 - href="#top": Points at an element at the top of the page. Any id works.
+
+Hooks:
+- data-v-scroll-progress (on A .v-back-to-top-progress link): Fills the progress ring from a scroll listener where scroll timelines are missing.
 
 Keyboard:
 - Enter: Follows the link: scrolls to the top and moves focus there.
@@ -2647,7 +2652,7 @@ Accessibility:
 Example (Back to top link):
 
 ```html
-<a class="v-back-to-top" href="#top" aria-label="Back to top"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#arrow-up"/></svg></a>
+<a class="v-back-to-top v-back-to-top-progress" href="#top" aria-label="Back to top" data-v-scroll-progress><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#arrow-up"/></svg></a>
 ```
 
 #### Bottom tab bar (bottom-bar)
@@ -2920,6 +2925,29 @@ Example (Numbered):
     <li><a class="v-page v-page-next" href="#" rel="next"><span class="v-page-label">Next</span></a></li>
   </ul>
 </nav>
+```
+
+#### Scroll progress (scroll-progress)
+
+A thin bar across the top of the page that fills as the reader scrolls. Native: animation-timeline: scroll(), @property.
+
+Base:
+- .v-scroll-progress: The bar: a full-width track whose fill grows from the start side. Decorative: give it aria-hidden="true". --v-scroll-progress-h sets its height, --v-scroll-progress-color the fill, --v-scroll-progress-track the track (transparent by default).
+
+States:
+- --v-scroll-p: How far the page has scrolled, 0 to 1, set by the scroll timeline or the JS.
+
+Hooks:
+- data-v-scroll-progress (on the bar, or a .v-back-to-top-progress link): Fills it from a scroll listener in browsers without scroll timelines; does nothing where the CSS can.
+
+Accessibility:
+- The bar is decoration and is aria-hidden; the scrollbar already tells assistive tech where the reader is.
+- It reflects the reader's own scrolling, so it is not motion to switch off under reduced motion.
+
+Example (Reading progress):
+
+```html
+<div class="v-scroll-progress" data-v-scroll-progress aria-hidden="true"></div>
 ```
 
 #### Sidebar nav (sidenav)
@@ -3836,6 +3864,34 @@ Example (Article):
 </article>
 ```
 
+#### Scroll reveal (scroll-reveal)
+
+Sections and cards that fade and rise into place as they scroll into view, plus page transitions. Native: animation-timeline: view(), @view-transition.
+
+Base:
+- .v-reveal: Rises and fades in as it enters the viewport.
+- .v-reveal-stagger: On a grid or list: each child reveals a little after the one before (up to five steps).
+Modifiers:
+- .v-reveal-left: With .v-reveal: comes in from the start side (mirrored in right to left).
+- .v-reveal-right: With .v-reveal: comes in from the end side.
+- .v-reveal-scale: With .v-reveal: grows into place.
+
+Accessibility:
+- Off under prefers-reduced-motion, and nothing is ever hidden: without view timelines the content shows straight away.
+- Reveals run on scroll position, not on a timer, so content is never invisible while the reader looks at it.
+- Page transitions are off under reduced motion too.
+
+Example (Staggered cards and a side reveal):
+
+```html
+<div class="v-grid v-grid-fit v-reveal-stagger" style="--v-min: 12rem">
+  <article class="v-card"><h3 class="v-card-title">Quotes</h3><p class="v-card-text">Send them from the van.</p></article>
+  <article class="v-card"><h3 class="v-card-title">Bookings</h3><p class="v-card-text">Your real free slots.</p></article>
+  <article class="v-card"><h3 class="v-card-title">Invoices</h3><p class="v-card-text">Paid in days, not weeks.</p></article>
+</div>
+<div class="v-card v-reveal v-reveal-left">From the start side</div>
+```
+
 #### Testimonial (testimonial)
 
 A customer quote with the author, their avatar and role, and an optional star rating. Native: <figure>, <blockquote>, <figcaption>.
@@ -4240,7 +4296,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-chart-1 --v-chart-2 --v-chart-3 --v-chart-4 --v-chart-5 --v-chart-height --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-donut-size --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-marquee-duration --v-marquee-gap --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-video-ratio --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-chart-1 --v-chart-2 --v-chart-3 --v-chart-4 --v-chart-5 --v-chart-height --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-donut-size --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-marquee-duration --v-marquee-gap --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-scroll-progress-color --v-scroll-progress-h --v-scroll-progress-track --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-video-ratio --v-warning
 
 ## Icons
 
@@ -4270,7 +4326,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-carousel data-v-clear data-v-combobox data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-tag-input data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video data-v-wizard
+data-v-carousel data-v-clear data-v-combobox data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-scroll-progress data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-tag-input data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video data-v-wizard
 
 ## Patterns
 

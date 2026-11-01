@@ -19,6 +19,7 @@
     })();
   </script>
   <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../../src/css/vectra.transitions.css">
   <link rel="stylesheet" href="../shared/examples.css">
   <link rel="stylesheet" href="pages.css">
   <script src="../shared/switcher.js" defer></script>
@@ -43,6 +44,7 @@
     <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14M5 19l7-7"/></symbol>
     <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2zM4 20a2 2 0 002 2h13v-4"/></symbol>
     <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
   </svg>
   <a class="v-skip-link" href="#main">Skip to content</a>
   <aside class="ex-bar" aria-label="Example settings">
@@ -65,6 +67,7 @@
       </label>
     </div>
   </aside>
+  <div class="v-scroll-progress" data-v-scroll-progress aria-hidden="true"></div>
   <header class="v-navbar v-navbar-contained" data-v-nav>
     <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
     <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
@@ -143,7 +146,7 @@
       </div>
     </section>
     <section class="v-section">
-      <div class="v-container">
+      <div class="v-container v-reveal">
         <div class="v-sidebar" style="--v-side: 18rem; --v-gap: var(--v-space-7)">
           <div class="v-section-head v-mb-0">
             <p class="v-kicker">Our story</p>
@@ -158,7 +161,7 @@
       </div>
     </section>
     <section class="v-section" aria-label="Northwind in numbers">
-      <div class="v-container">
+      <div class="v-container v-reveal">
         <dl class="v-stats">
           <div class="v-stat"><dt class="v-stat-label">businesses run on Northwind</dt><dd class="v-stat-value">1,200+</dd></div>
           <div class="v-stat"><dt class="v-stat-label">people on the team</dt><dd class="v-stat-value">9</dd></div>
@@ -168,7 +171,7 @@
       </div>
     </section>
     <section class="v-section">
-      <div class="v-container">
+      <div class="v-container v-reveal">
         <div class="v-section-head v-section-head-center">
           <p class="v-kicker">What we believe</p>
           <h2>Three rules we will not break</h2>
@@ -193,7 +196,7 @@
       </div>
     </section>
     <section class="v-section">
-      <div class="v-container">
+      <div class="v-container v-reveal">
         <div class="v-sidebar" style="--v-side: 18rem; --v-gap: var(--v-space-7)">
           <div class="v-section-head v-mb-0">
             <p class="v-kicker">Milestones</p>
@@ -241,7 +244,7 @@
       </div>
     </section>
     <section class="v-section">
-      <div class="v-container">
+      <div class="v-container v-reveal">
         <div class="v-section-head v-section-head-center">
           <p class="v-kicker">The team</p>
           <h2>Small team, west of Ireland</h2>
@@ -300,7 +303,7 @@
       </div>
     </section>
     <section class="v-section">
-      <div class="v-container">
+      <div class="v-container v-reveal">
         <div class="v-card v-cta">
           <div class="v-cta-split">
             <div class="v-stack" style="--v-gap: var(--v-space-3)">
@@ -362,6 +365,7 @@
       </div>
     </div>
   </footer>
+  <a class="v-back-to-top v-back-to-top-progress" href="#main" aria-label="Back to top" data-v-scroll-progress><svg class="v-icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
   <script type="module" src="../../src/js/index.js"></script>
 </body>
 </html>

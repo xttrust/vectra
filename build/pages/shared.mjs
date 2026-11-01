@@ -67,6 +67,7 @@ const ICONS = {
   coffee: '<path d="M4 9h13v5a5 5 0 01-5 5H9a5 5 0 01-5-5zM17 10h1.5a2.5 2.5 0 010 5H17M8 3v3M12 3v3"/>',
   printer: '<path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/>',
   chevron: '<path d="M6 9l6 6 6-6"/>',
+  'arrow-up': '<path d="M12 19V5M6 11l6-6 6 6"/>',
   link: '<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>',
   quote: '<path d="M10 7H6a2 2 0 00-2 2v3a2 2 0 002 2h2v3H5M20 7h-4a2 2 0 00-2 2v3a2 2 0 002 2h2v3h-3"/>',
 };
@@ -128,6 +129,7 @@ export function page({ title, description, depth = 0, label, variants, body, scr
   <link rel="icon" href="data:,">
   ${THEME_SCRIPT}
   <link rel="stylesheet" href="${root}src/css/vectra.css">
+  <link rel="stylesheet" href="${root}src/css/vectra.transitions.css">
   <link rel="stylesheet" href="${p}../shared/examples.css">
   <link rel="stylesheet" href="${p}pages.css">
   <script src="${p}../shared/switcher.js" defer></script>
@@ -243,11 +245,13 @@ ${brand('{p}saas-home.html')}
 </footer>`;
 
 /** A marketing page: shared header, main, shared footer. */
-export const site = (current, main) => `${siteHeader(current)}
+export const site = (current, main) => `<div class="v-scroll-progress" data-v-scroll-progress aria-hidden="true"></div>
+${siteHeader(current)}
 <main id="main" class="v-skip-target" tabindex="-1">
 ${main}
 </main>
-${siteFooter}`;
+${siteFooter}
+<a class="v-back-to-top v-back-to-top-progress" href="#main" aria-label="Back to top" data-v-scroll-progress>${icon('arrow-up')}</a>`;
 
 // App shell (sidebar). Links stay inside the example set: app pages, the dashboard, settings.
 const APP_NAV = [
