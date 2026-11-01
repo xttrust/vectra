@@ -140,3 +140,64 @@ test.describe('table of contents on a real page', () => {
     await expect(current).toHaveCount(1);
   });
 });
+
+test.describe('context menu', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await ready(page);
+    await page.locator('#ctx-region').scrollIntoViewIfNeeded(); // mouse coordinates are viewport-relative
+  });
+  const menu = (page) => page.locator('#ctx-files');
+  const region = (page) => page.locator('#ctx-region');
+
+  test('right-click opens it at the pointer with focus on the first item', async ({ page }) => {
+    const box = await region(page).boundingBox();
+    const [x, y] = [box.x + 60, box.y + 40];
+    await page.mouse.click(x, y, { button: 'right' });
+    await expect(menu(page)).toBeVisible();
+    const m = await menu(page).boundingBox();
+    expect(Math.abs(m.x - x)).toBeLessThan(2);
+    expect(Math.abs(m.y - y)).toBeLessThan(2);
+    await expect(menu(page).locator('.v-menu-item').first()).toBeFocused();
+  });
+
+  test('Escape closes it and returns focus to the region', async ({ page }) => {
+    const box = await region(page).boundingBox();
+    await page.mouse.click(box.x + 40, box.y + 40, { button: 'right' });
+    await page.keyboard.press('ArrowDown');
+    await expect(menu(page).locator('.v-menu-item').nth(1)).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(menu(page)).toBeHidden();
+    await expect(region(page)).toBeFocused();
+  });
+
+  test('Shift+F10 on the focused region opens it from the keyboard', async ({ page }) => {
+    await region(page).focus();
+    await page.keyboard.press('Shift+F10');
+    await expect(menu(page)).toBeVisible();
+    await expect(menu(page).locator('.v-menu-item').first()).toBeFocused();
+    const [m, r] = [await menu(page).boundingBox(), await region(page).boundingBox()];
+    expect(m.x).toBeGreaterThanOrEqual(r.x);
+    expect(m.y).toBeGreaterThanOrEqual(r.y);
+  });
+
+  test('near the viewport edge it flips to stay on screen', async ({ page }) => {
+    await page.setViewportSize({ width: 600, height: 500 });
+    await region(page).scrollIntoViewIfNeeded();
+    await page.evaluate(() => {
+      const r = document.getElementById('ctx-region');
+      r.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 590, clientY: 490, button: 2 }));
+    });
+    const m = await menu(page).boundingBox();
+    expect(m.x + m.width).toBeLessThanOrEqual(600);
+    expect(m.y + m.height).toBeLessThanOrEqual(500);
+  });
+
+  test('choosing an item closes it', async ({ page }) => {
+    const box = await region(page).boundingBox();
+    await page.mouse.click(box.x + 40, box.y + 40, { button: 'right' });
+    await menu(page).getByRole('menuitem', { name: /Download/ }).click();
+    await expect(menu(page)).toBeHidden();
+  });
+});

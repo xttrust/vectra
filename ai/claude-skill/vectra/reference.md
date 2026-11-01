@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-76 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+77 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1772,6 +1772,52 @@ Example (With a clear button):
 
 ### Overlays
 
+#### Context menu (context-menu)
+
+A menu of actions that opens at the pointer on right-click, or from the keyboard with Shift+F10. Native: popover, contextmenu event.
+
+Modifiers:
+- .v-context-menu: On a .v-menu: placed at the pointer (--v-context-x and --v-context-y, set by the JS) instead of beside a trigger.
+
+States:
+- tabindex="0": On the region, so it can take focus for Shift+F10 and get focus back when the menu closes.
+- aria-label: On the region: name it and mention the shortcut, such as "Project files. Press Shift+F10 for actions."
+
+Hooks:
+- data-v-context = menu id (on the region): Opens the menu at the pointer on right-click, or at the focused region on Shift+F10 and the Menu key, keeps it inside the viewport, and returns focus to the region on close.
+- data-v-menu (on the .v-menu): Arrow keys, typeahead, checkable items and Escape, as for any dropdown menu.
+
+Keyboard:
+- Shift+F10 / ContextMenu: On the focused region, opens the menu with focus on the first item.
+- ArrowDown / ArrowUp / Home / End: Moves between items.
+- Escape: Closes the menu and returns focus to the region.
+
+Accessibility:
+- Right-click is invisible: every action in a context menu must also be in a visible control, such as a row's dropdown menu.
+- Shift+F10 and the Menu key open it from the keyboard, so keyboard and screen reader users get the same shortcut.
+- Shift with right-click still opens the browser's own menu, for copy, inspect and the rest.
+
+Example (File actions):
+
+```html
+<div class="v-panel v-stack" data-v-context="ctx-files" tabindex="0" aria-label="Project files. Press Shift+F10 for actions." style="--v-gap: var(--v-space-2); max-inline-size: 28rem">
+  <p class="v-fw-semibold">Project files</p>
+  <ul class="v-list" role="list">
+    <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>brief.pdf</span></li>
+    <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>moodboard.png</span></li>
+    <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>invoice-0042.pdf</span></li>
+  </ul>
+  <p class="v-text-sm v-text-secondary">The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>
+</div>
+<div class="v-menu v-context-menu" id="ctx-files" popover role="menu" data-v-menu aria-label="File actions">
+  <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#edit"/></svg>Rename<kbd>F2</kbd></button>
+  <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#copy"/></svg>Duplicate</button>
+  <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#download"/></svg>Download</button>
+  <hr class="v-menu-sep">
+  <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#trash"/></svg>Delete</button>
+</div>
+```
+
 #### Dialog (dialog)
 
 A modal window on the native <dialog>, with a header, a scrolling body, a footer, three sizes and an alert dialog for confirms. Native: <dialog>, showModal(), <form method="dialog">.
@@ -3391,7 +3437,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-confirm-text data-v-connection data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 

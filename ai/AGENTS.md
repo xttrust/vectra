@@ -159,6 +159,7 @@ Forms:
 - Search field: .v-search, hooks data-v-clear data-v-shortcut
 
 Overlays:
+- Context menu: , hooks data-v-context data-v-menu
 - Dialog: .v-dialog, hooks data-v-dialog-open data-v-dialog-close data-v-dismissable
 - Drawer: .v-drawer, hooks data-v-dialog-open data-v-dialog-close data-v-dismissable
 - Dropdown menu: .v-menu, hooks data-v-menu

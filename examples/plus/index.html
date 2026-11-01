@@ -31,6 +31,9 @@
     <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2-6z"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
     <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></symbol>
     <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
   </svg>
 
@@ -130,6 +133,27 @@
           <h3 id="toc-ship">Ship it</h3>
           <p>The last part is short. Scrolling to the end still marks it.</p>
         </div>
+      </div>
+    </section>
+
+    <section id="context">
+      <h2 data-contrast>Context menu</h2>
+      <p class="ex-label">Right-click the file panel, or focus it and press Shift+F10. The menu opens at the pointer and closes with Escape, returning focus to the panel. Without JS the browser's own menu shows.</p>
+      <div class="v-panel v-stack" data-v-context="ctx-files" tabindex="0" aria-label="Project files. Press Shift+F10 for actions." id="ctx-region" style="--v-gap: var(--v-space-2); max-inline-size: 28rem">
+        <p class="v-fw-semibold" data-contrast>Project files</p>
+        <ul class="v-list" role="list">
+          <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>brief.pdf</span></li>
+          <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>moodboard.png</span></li>
+          <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>invoice-0042.pdf</span></li>
+        </ul>
+        <p class="v-text-sm v-text-secondary" data-contrast>The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>
+      </div>
+      <div class="v-menu v-context-menu" id="ctx-files" popover role="menu" data-v-menu aria-label="File actions">
+        <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg>Rename<kbd>F2</kbd></button>
+        <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Duplicate</button>
+        <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-download"/></svg>Download</button>
+        <hr class="v-menu-sep">
+        <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
       </div>
     </section>
 
