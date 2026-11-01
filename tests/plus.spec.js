@@ -201,3 +201,49 @@ test.describe('context menu', () => {
     await expect(menu(page)).toBeHidden();
   });
 });
+
+test.describe('hover card', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await ready(page);
+    await page.locator('#hovercard').scrollIntoViewIfNeeded();
+  });
+  const card = (page) => page.locator('#hc-ana');
+  const trigger = (page) => page.locator('#hc-trigger-ana');
+
+  test('opens after a delay on hover, beside the link, and stays while the pointer moves onto it', async ({ page }) => {
+    await trigger(page).hover();
+    await expect(card(page)).toBeHidden(); // not instantly
+    await expect(card(page)).toBeVisible({ timeout: 2000 });
+    const [c, t] = [await card(page).boundingBox(), await trigger(page).boundingBox()];
+    expect(c.y).toBeGreaterThan(t.y + t.height - 1);
+    expect(Math.abs(c.x - t.x)).toBeLessThan(40);
+    await page.mouse.move(c.x + 20, c.y + 20, { steps: 4 });
+    await page.waitForTimeout(500);
+    await expect(card(page)).toBeVisible();
+    await page.mouse.move(5, 5);
+    await expect(card(page)).toBeHidden({ timeout: 2000 });
+  });
+
+  test('keyboard focus opens it and Escape closes it, focus stays on the link', async ({ page }) => {
+    await trigger(page).focus();
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Tab');
+    await expect(card(page)).toBeVisible({ timeout: 2000 });
+    await page.keyboard.press('Escape');
+    await expect(card(page)).toBeHidden();
+    await expect(trigger(page)).toBeFocused();
+  });
+
+  test('a second link to the same card moves it there, and an open menu stays open', async ({ page }) => {
+    await page.locator('[popovertarget="split-save"][aria-haspopup]').click();
+    await expect(page.locator('#split-save')).toBeVisible();
+    const second = page.locator('[data-v-hovercard="hc-ana"]').nth(1);
+    await second.hover();
+    await expect(card(page)).toBeVisible({ timeout: 2000 });
+    await expect(page.locator('#split-save')).toBeVisible(); // a manual popover does not close auto ones
+    const [c, t] = [await card(page).boundingBox(), await second.boundingBox()];
+    expect(Math.abs(c.x - t.x)).toBeLessThan(40);
+  });
+});

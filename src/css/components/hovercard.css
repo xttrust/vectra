@@ -1,0 +1,49 @@
+/* Hover card: a preview of what a link points at (a person, a repository, a product), shown after a
+   short delay on hover or keyboard focus. A .v-popover with popover="manual", so it never closes menus
+   or other popovers, opened by data-v-hovercard on the link. Keep it informational: anything to act on
+   belongs on the page the link opens. */
+@layer components {
+  .v-hovercard {
+    display: grid;
+    gap: var(--v-space-3);
+    inline-size: min(20rem, 100vw - 2rem);
+  }
+
+  .v-hovercard[popover]:not(:popover-open) { display: none; }
+
+  .v-hovercard-head {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+  }
+
+  .v-hovercard-title {
+    display: block;
+    font-weight: var(--v-heading-weight);
+  }
+
+  .v-hovercard-sub {
+    display: block;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+  }
+
+  .v-hovercard-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-1) var(--v-space-4);
+    margin: 0;
+    padding: 0;
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    list-style: none;
+  }
+
+  .v-hovercard-meta li {
+    display: inline-flex;
+    gap: 0.35em;
+    align-items: center;
+  }
+
+  .v-hovercard-meta strong { color: var(--v-text); }
+}

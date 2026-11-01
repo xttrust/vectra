@@ -34,6 +34,8 @@
     <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
     <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6-5.5-6-11a6 6 0 0112 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
     <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
   </svg>
 
@@ -139,14 +141,16 @@
     <section id="context">
       <h2 data-contrast>Context menu</h2>
       <p class="ex-label">Right-click the file panel, or focus it and press Shift+F10. The menu opens at the pointer and closes with Escape, returning focus to the panel. Without JS the browser's own menu shows.</p>
-      <div class="v-panel v-stack" data-v-context="ctx-files" tabindex="0" aria-label="Project files. Press Shift+F10 for actions." id="ctx-region" style="--v-gap: var(--v-space-2); max-inline-size: 28rem">
-        <p class="v-fw-semibold" data-contrast>Project files</p>
-        <ul class="v-list" role="list">
-          <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>brief.pdf</span></li>
-          <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>moodboard.png</span></li>
-          <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>invoice-0042.pdf</span></li>
-        </ul>
-        <p class="v-text-sm v-text-secondary" data-contrast>The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>
+      <div class="v-panel" data-v-context="ctx-files" tabindex="0" aria-label="Project files. Press Shift+F10 for actions." id="ctx-region" style="max-inline-size: 28rem">
+        <div class="v-panel-header"><p class="v-panel-title" data-contrast>Project files</p></div>
+        <div class="v-panel-body">
+          <ul class="v-list v-list-plain" role="list">
+            <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>brief.pdf</span></li>
+            <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>moodboard.png</span></li>
+            <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span data-contrast>invoice-0042.pdf</span></li>
+          </ul>
+        </div>
+        <p class="v-panel-footer v-text-sm" data-contrast>The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>
       </div>
       <div class="v-menu v-context-menu" id="ctx-files" popover role="menu" data-v-menu aria-label="File actions">
         <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-edit"/></svg>Rename<kbd>F2</kbd></button>
@@ -154,6 +158,33 @@
         <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-download"/></svg>Download</button>
         <hr class="v-menu-sep">
         <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+      </div>
+    </section>
+
+    <section id="hovercard">
+      <h2 data-contrast>Hover card</h2>
+      <p class="ex-label">Rest the pointer on a linked name, or Tab to it: a preview opens after a moment and stays while you move onto it. Escape closes it. On touch a tap simply follows the link.</p>
+      <p class="v-max-prose" data-contrast>Reviewed by <a href="#hovercard" data-v-hovercard="hc-ana" id="hc-trigger-ana">Ana Ruiz</a> in <a href="#hovercard" data-v-hovercard="hc-repo">northwind/web</a>, two hours ago. <a href="#hovercard" data-v-hovercard="hc-ana">Ana</a> also approved the release notes.</p>
+      <div class="v-popover v-hovercard" id="hc-ana" popover="manual">
+        <div class="v-hovercard-head">
+          <span class="v-avatar" aria-hidden="true">AR</span>
+          <span><span class="v-hovercard-title">Ana Ruiz</span><span class="v-hovercard-sub">Design lead, Northwind</span></span>
+        </div>
+        <p class="v-popover-text">Looks after the design system and the docs. Usually replies within a day.</p>
+        <ul class="v-hovercard-meta" role="list">
+          <li><svg class="v-icon" aria-hidden="true"><use href="#i-pin"/></svg> Galway</li>
+          <li><strong>142</strong> reviews</li>
+        </ul>
+      </div>
+      <div class="v-popover v-hovercard" id="hc-repo" popover="manual">
+        <div class="v-hovercard-head">
+          <span><span class="v-hovercard-title">northwind/web</span><span class="v-hovercard-sub">The Northwind website and app</span></span>
+        </div>
+        <ul class="v-hovercard-meta" role="list">
+          <li><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg> <strong>1,204</strong> stars</li>
+          <li><strong>38</strong> open pull requests</li>
+          <li>Updated today</li>
+        </ul>
       </div>
     </section>
 

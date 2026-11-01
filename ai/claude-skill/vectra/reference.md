@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-77 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+78 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1800,14 +1800,16 @@ Accessibility:
 Example (File actions):
 
 ```html
-<div class="v-panel v-stack" data-v-context="ctx-files" tabindex="0" aria-label="Project files. Press Shift+F10 for actions." style="--v-gap: var(--v-space-2); max-inline-size: 28rem">
-  <p class="v-fw-semibold">Project files</p>
-  <ul class="v-list" role="list">
-    <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>brief.pdf</span></li>
-    <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>moodboard.png</span></li>
-    <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>invoice-0042.pdf</span></li>
-  </ul>
-  <p class="v-text-sm v-text-secondary">The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>
+<div class="v-panel" data-v-context="ctx-files" tabindex="0" aria-label="Project files. Press Shift+F10 for actions." style="max-inline-size: 28rem">
+  <div class="v-panel-header"><p class="v-panel-title">Project files</p></div>
+  <div class="v-panel-body">
+    <ul class="v-list v-list-plain" role="list">
+      <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>brief.pdf</span></li>
+      <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>moodboard.png</span></li>
+      <li class="v-list-item"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#file"/></svg><span>invoice-0042.pdf</span></li>
+    </ul>
+  </div>
+  <p class="v-panel-footer v-text-sm">The same actions are in each file's own menu on the full page; a context menu is a shortcut, never the only way.</p>
 </div>
 <div class="v-menu v-context-menu" id="ctx-files" popover role="menu" data-v-menu aria-label="File actions">
   <button class="v-menu-item" type="button" role="menuitem" popovertarget="ctx-files" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#edit"/></svg>Rename<kbd>F2</kbd></button>
@@ -1998,6 +2000,60 @@ Example (Actions menu):
   </div>
   <hr class="v-menu-sep">
   <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="menu-project" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#trash"/></svg>Delete</button>
+</div>
+```
+
+#### Hover card (hover-card)
+
+A preview of what a link points at, shown after a short delay on hover or keyboard focus. Native: popover="manual", CSS anchor positioning.
+
+Base:
+- .v-hovercard: On a .v-popover with popover="manual": the card.
+Parts:
+- .v-hovercard-head: An avatar or logo beside the title and subtitle.
+- .v-hovercard-title: The name of the thing previewed.
+- .v-hovercard-sub: A role, description or path under the title.
+- .v-hovercard-meta: A row of small facts, on a <ul role="list">; <strong> inside stands out.
+
+States:
+- popover="manual": On the card. Manual, so opening it leaves other popovers alone and it only closes when the JS says.
+
+Hooks:
+- data-v-hovercard = card id (on the link): Opens the card beside the link after a delay on hover or focus and closes it on leave, blur or Escape.
+
+Keyboard:
+- Tab: Focusing the link opens the card after a moment; moving on closes it.
+- Escape: Closes the card; focus stays on the link.
+
+Accessibility:
+- Meets WCAG 1.4.13: the card can be dismissed with Escape, the pointer can move onto it, and it stays until the pointer or focus leaves.
+- Keep it informational. A Follow or Buy button inside would be hard to reach by keyboard and invisible on touch; put actions on the linked page.
+- The link must make sense on its own: screen reader users get the link, not the preview.
+
+Example (Person and repository):
+
+```html
+<p class="v-max-prose">Reviewed by <a href="#hovercard" data-v-hovercard="hc-ana">Ana Ruiz</a> in <a href="#hovercard" data-v-hovercard="hc-repo">northwind/web</a>, two hours ago. <a href="#hovercard" data-v-hovercard="hc-ana">Ana</a> also approved the release notes.</p>
+<div class="v-popover v-hovercard" id="hc-ana" popover="manual">
+  <div class="v-hovercard-head">
+    <span class="v-avatar" aria-hidden="true">AR</span>
+    <span><span class="v-hovercard-title">Ana Ruiz</span><span class="v-hovercard-sub">Design lead, Northwind</span></span>
+  </div>
+  <p class="v-popover-text">Looks after the design system and the docs. Usually replies within a day.</p>
+  <ul class="v-hovercard-meta" role="list">
+    <li><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#map-pin"/></svg> Galway</li>
+    <li><strong>142</strong> reviews</li>
+  </ul>
+</div>
+<div class="v-popover v-hovercard" id="hc-repo" popover="manual">
+  <div class="v-hovercard-head">
+    <span><span class="v-hovercard-title">northwind/web</span><span class="v-hovercard-sub">The Northwind website and app</span></span>
+  </div>
+  <ul class="v-hovercard-meta" role="list">
+    <li><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg> <strong>1,204</strong> stars</li>
+    <li><strong>38</strong> open pull requests</li>
+    <li>Updated today</li>
+  </ul>
 </div>
 ```
 
@@ -3437,7 +3493,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 

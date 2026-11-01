@@ -163,6 +163,7 @@ Overlays:
 - Dialog: .v-dialog, hooks data-v-dialog-open data-v-dialog-close data-v-dismissable
 - Drawer: .v-drawer, hooks data-v-dialog-open data-v-dialog-close data-v-dismissable
 - Dropdown menu: .v-menu, hooks data-v-menu
+- Hover card: .v-hovercard, hooks data-v-hovercard
 - Popover: .v-popover
 - Tooltip: .v-tooltip, hooks data-v-tooltip
 
