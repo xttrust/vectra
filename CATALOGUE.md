@@ -38,7 +38,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Link button | P0 | done | |
 | Segmented control | P0 | done | |
 | Toggle button (`aria-pressed`) | P0 | done | |
-| Split button (action + menu) | P1 | | uses dropdown menu |
+| Split button (action + menu) | P1 | done | uses dropdown menu |
 | Copy button | P0 | done | |
 | Floating action button | P2 | | mobile apps |
 

@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-73 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+74 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -166,6 +166,55 @@ Example (Billing period):
   <label><input type="radio" name="period" value="yearly"><span>Yearly</span></label>
   <label><input type="radio" name="period" value="lifetime"><span>Lifetime</span></label>
 </fieldset>
+```
+
+#### Split button (split-button)
+
+A main action joined to a button that opens a menu of related actions. Native: popover, popovertarget.
+
+Base:
+- .v-split: The wrapper. Joins the first two .v-btn children; the .v-menu after them is not part of the join.
+Modifiers:
+- .v-menu-end: On the menu: lines it up with the end edge of the arrow button. It flips to the start edge when there is no room.
+
+States:
+- aria-haspopup="menu": On the arrow button, with popovertarget pointing at the menu.
+- aria-label: On the arrow button: name what it opens, such as "More save options". It has only an icon.
+
+Hooks:
+- data-v-menu (on the .v-menu): Focus on open, arrow keys, typeahead, checkable items and focus return, as for any dropdown menu.
+
+Keyboard:
+- Enter / Space: On the main button, runs the main action. On the arrow button, opens the menu.
+- ArrowDown / ArrowUp: On the arrow button, opens the menu on the first or last item.
+- Escape: Closes the menu and returns focus to the arrow button.
+
+Accessibility:
+- The two buttons are separate Tab stops with their own names, so a screen reader hears the main action and the menu button apart.
+- The arrow button needs an aria-label that says what the menu holds, not just "More".
+- Put the most common action on the main button; the menu is for the variants.
+
+Example (Save and merge):
+
+```html
+<div class="v-split">
+  <button class="v-btn v-btn-primary" type="button"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#save"/></svg>Save</button>
+  <button class="v-btn v-btn-primary" type="button" popovertarget="split-save" aria-haspopup="menu" aria-label="More save options"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-down"/></svg></button>
+  <div class="v-menu v-menu-end" id="split-save" popover role="menu" data-v-menu aria-label="More save options">
+    <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#copy"/></svg>Save as copy</button>
+    <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#clock"/></svg>Save and schedule</button>
+    <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#send"/></svg>Save and publish</button>
+  </div>
+</div>
+<div class="v-split">
+  <button class="v-btn v-btn-secondary" type="button">Merge pull request</button>
+  <button class="v-btn v-btn-secondary" type="button" popovertarget="split-merge" aria-haspopup="menu" aria-label="Choose a merge method"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-down"/></svg></button>
+  <div class="v-menu v-menu-end" id="split-merge" popover role="menu" data-v-menu aria-label="Merge method">
+    <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="true">Create a merge commit</button>
+    <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Squash and merge</button>
+    <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Rebase and merge</button>
+  </div>
+</div>
 ```
 
 #### Toggle button (toggle-button)
@@ -3385,6 +3434,7 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/pages/system/coming-soon.html: Pages: Coming soon
 - examples/pages/system/offline-illustrated.html: Pages: Offline
 - examples/pages/system/offline.html: Pages: Offline
+- examples/plus/: More components
 - examples/sections/: Sections
 - examples/sections/app.html: Sections: app UI
 - examples/sections/chrome.html: Sections: navigation and chrome

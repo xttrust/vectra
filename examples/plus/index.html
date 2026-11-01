@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vectra · More components</title>
+  <meta name="description" content="Vectra v2.1 components: split button, back to top, table of contents, context menu, hover card, command palette, lightbox and notification centre.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <script src="../shared/switcher.js" defer></script>
+  <script type="module" src="../../src/js/index.js"></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2-6z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  </svg>
+
+  <header class="ex-bar">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="../layout/">Vectra <span>more components</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="v-container ex-main">
+    <section class="v-stack">
+      <p class="v-kicker">Components · v2.1</p>
+      <h1 class="v-display">More components.</h1>
+      <p class="v-lead">The first v2.1 additions: actions, navigation helpers and overlays. Each works without JavaScript where the platform allows, and the JS only adds keyboard and focus behaviour on top.</p>
+    </section>
+
+    <section id="split">
+      <h2>Split button</h2>
+      <p class="ex-label">A main action joined to a menu of related actions. The arrow button opens a .v-menu; ArrowDown on it opens the menu on the first item.</p>
+      <div class="v-cluster">
+        <div class="v-split">
+          <button class="v-btn v-btn-primary" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-save"/></svg>Save</button>
+          <button class="v-btn v-btn-primary" type="button" popovertarget="split-save" aria-haspopup="menu" aria-label="More save options"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <div class="v-menu v-menu-end" id="split-save" popover role="menu" data-v-menu aria-label="More save options">
+            <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-copy"/></svg>Save as copy</button>
+            <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-clock"/></svg>Save and schedule</button>
+            <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-save" popovertargetaction="hide"><svg class="v-icon" aria-hidden="true"><use href="#i-send"/></svg>Save and publish</button>
+          </div>
+        </div>
+        <div class="v-split">
+          <button class="v-btn v-btn-secondary" type="button">Merge pull request</button>
+          <button class="v-btn v-btn-secondary" type="button" popovertarget="split-merge" aria-haspopup="menu" aria-label="Choose a merge method"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <div class="v-menu v-menu-end" id="split-merge" popover role="menu" data-v-menu aria-label="Merge method">
+            <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="true">Create a merge commit</button>
+            <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Squash and merge</button>
+            <button class="v-menu-item" type="button" role="menuitemradio" aria-checked="false">Rebase and merge</button>
+          </div>
+        </div>
+        <div class="v-split">
+          <button class="v-btn v-btn-danger v-btn-sm" type="button"><svg class="v-icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+          <button class="v-btn v-btn-danger v-btn-sm" type="button" popovertarget="split-delete" aria-haspopup="menu" aria-label="More delete options"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <div class="v-menu v-menu-end" id="split-delete" popover role="menu" data-v-menu aria-label="More delete options">
+            <button class="v-menu-item" type="button" role="menuitem" popovertarget="split-delete" popovertargetaction="hide">Archive instead</button>
+            <button class="v-menu-item v-menu-item-danger" type="button" role="menuitem" popovertarget="split-delete" popovertargetaction="hide">Delete forever</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

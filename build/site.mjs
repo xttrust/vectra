@@ -431,6 +431,7 @@ const GALLERIES = [
   ['elements', 'Display and form additions', 'Banners, callouts, tags, lists, search, choice cards and form layouts.'],
   ['navigation', 'Navigation and disclosure', 'Navbar, sidebar, tabs, pagination, steps, accordions, and a right-to-left check.'],
   ['overlays', 'Overlays', 'Dialogs, drawers, popovers, menus and tooltips.'],
+  ['plus', 'More components (v2.1)', 'Split button, back to top, table of contents, context menu, hover card, command palette, lightbox and notification centre.'],
   ['content', 'Content', 'Tables, timelines, prose, code, testimonials, pricing and logos.'],
   ['theming', 'Theming and feedback', 'The customizer, toasts, connection, session and save status.'],
   ['layout', 'Layout and utilities', 'The layout primitives and helpers, in every direction.'],
