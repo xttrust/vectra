@@ -137,6 +137,7 @@ Feedback:
 - Connection banner: , hooks data-v-connection data-v-when
 - Inline save status: .v-save-status, hooks data-v-save-status-text
 - Meter: .v-meter
+- Notification centre: .v-notify .v-notifications, hooks data-v-notifications data-v-notifications-read
 - Progress: .v-progress
 - Session timeout warning: 
 - Toast: .v-toast-region .v-toast

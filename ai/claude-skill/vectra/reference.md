@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-80 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+81 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -988,6 +988,68 @@ Example (Three zones):
 <meter class="v-meter" min="0" max="100" low="70" high="90" optimum="20" value="82" aria-labelledby="disk-b">82%</meter>
 <span class="v-text-sm v-text-secondary" id="disk-c">Disk usage, 96%</span>
 <meter class="v-meter" min="0" max="100" low="70" high="90" optimum="20" value="96" aria-labelledby="disk-c">96%</meter>
+```
+
+#### Notification centre (notification-centre)
+
+A bell button with an unread count that opens a panel of recent notifications. Native: popover, popovertarget.
+
+Base:
+- .v-notify: On the icon button that opens the panel: room for the count badge.
+- .v-notifications: On a .v-popover with role="dialog" and aria-labelledby on its title: the panel.
+Parts:
+- .v-notify-count: The unread count on the bell, aria-hidden (the number is in the button's aria-label). Hidden at zero; shows 99+ above 99.
+- .v-notifications-head: The title and the "Mark all as read" button.
+- .v-notifications-title: The panel heading.
+- .v-notifications-list: The scrolling <ul role="list"> of items.
+- .v-notification: One item, on an <li>. data-unread marks it unread.
+- .v-notification-link: The link that fills the item: an avatar, the text and a time.
+- .v-notification-time: When it happened, under the text.
+- .v-notifications-empty: The line shown when the list is empty, such as "You're all caught up."
+- .v-notifications-foot: A link to the full notifications page.
+
+States:
+- data-unread: On a .v-notification: unread, tinted with a dot. Remove it to mark the item read.
+- data-unread-label: On a .v-sr-only span at the start of an unread item's text, saying "Unread: ". The JS removes it when the item is read.
+- data-label: On the bell: the name without unread items (default "Notifications"). data-label-unread sets the name with them; {n} is the count.
+- data-empty: Set on the panel by the JS: "true" shows the empty line.
+
+Hooks:
+- data-v-notifications (on the .v-notifications panel): Marks an item read when its link is followed, keeps the badge, the bell's name and the empty line in step, and fires v:read.
+- data-v-notifications-read (on A button in the panel): Marks every item read. Disabled when nothing is unread.
+
+Events:
+- v:read detail { items }: Fires after items are marked read, so you can tell the server.
+
+Keyboard:
+- Enter / Space: On the bell, opens the panel.
+- Tab: Moves through "Mark all as read", the notifications and the footer link.
+- Escape: Closes the panel and returns focus to the bell.
+
+Accessibility:
+- The bell's accessible name carries the count ("Notifications, 3 unread"), so the badge itself is aria-hidden.
+- Unread is said in words by a visually hidden label, not only shown by the tint and dot.
+- The panel is role="dialog" with a heading, because it holds links and a button, not menu items.
+- New notifications are not announced on their own: if one is urgent, raise a toast as well.
+
+Example (Inbox of updates):
+
+```html
+<button class="v-btn v-btn-secondary v-btn-icon v-notify" type="button" popovertarget="notif-panel" aria-label="Notifications, 3 unread"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#bell"/></svg><span class="v-notify-count" aria-hidden="true">3</span></button>
+<div class="v-popover v-notifications" id="notif-panel" popover role="dialog" aria-labelledby="notif-title" data-v-notifications>
+  <div class="v-notifications-head">
+    <h3 class="v-notifications-title" id="notif-title">Notifications</h3>
+    <button class="v-btn v-btn-ghost v-btn-sm" type="button" data-v-notifications-read>Mark all as read</button>
+  </div>
+  <ul class="v-notifications-list" role="list">
+      <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">AR</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Ana Ruiz</strong> commented on <strong>Pricing page</strong>: "Can we try the yearly toggle on the left?"<span class="v-notification-time">5 minutes ago</span></span></a></li>
+      <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">JK</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Joe Kelly</strong> assigned you <strong>Fix the footer links</strong><span class="v-notification-time">1 hour ago</span></span></a></li>
+      <li class="v-notification" data-unread><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">NW</span><span><span class="v-sr-only" data-unread-label>Unread: </span><strong>Northwind</strong> deployed <strong>web v3.0.2</strong> to production<span class="v-notification-time">Today at 09:12</span></span></a></li>
+      <li class="v-notification"><a class="v-notification-link" href="#notifications"><span class="v-avatar v-avatar-sm" aria-hidden="true">MD</span><span><strong>Mia Doyle</strong> accepted your invite to <strong>Design</strong><span class="v-notification-time">Yesterday</span></span></a></li>
+  </ul>
+  <p class="v-notifications-empty">You're all caught up.</p>
+  <div class="v-notifications-foot"><a href="#notifications">View all notifications</a></div>
+</div>
 ```
 
 #### Progress (progress)
@@ -3591,7 +3653,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 
@@ -3621,7 +3683,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 

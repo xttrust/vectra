@@ -371,3 +371,57 @@ test.describe('lightbox without JS', () => {
     await expect(page).toHaveURL(/roof\.svg$/);
   });
 });
+
+test.describe('notification centre', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); await ready(page); });
+  const trigger = (page) => page.locator('#notif-trigger');
+  const panel = (page) => page.locator('#notif-panel');
+  const badge = (page) => page.locator('#notif-trigger .v-notify-count');
+
+  test('the bell names the unread count and opens the panel below it', async ({ page }) => {
+    await expect(trigger(page)).toHaveAttribute('aria-label', 'Notifications, 3 unread');
+    await expect(badge(page)).toHaveText('3');
+    // The demo sits near the end of the page: add room below so the panel has no reason to flip up.
+    await page.evaluate(() => document.querySelector('main').append(Object.assign(document.createElement('div'), { style: 'block-size: 1200px' })));
+    await trigger(page).evaluate((el) => el.scrollIntoView({ block: 'start' }));
+    await trigger(page).click();
+    await expect(panel(page)).toBeVisible();
+    const [p, t] = [await panel(page).boundingBox(), await trigger(page).boundingBox()];
+    expect(p.y).toBeGreaterThan(t.y + t.height - 1);
+  });
+
+  test('following a notification marks only that one read', async ({ page }) => {
+    await trigger(page).click();
+    const read = page.evaluate(() => new Promise((r) => document.getElementById('notif-panel').addEventListener('v:read', (e) => r(e.detail.items.length), { once: true })));
+    await panel(page).locator('.v-notification-link').first().click();
+    expect(await read).toBe(1);
+    await expect(badge(page)).toHaveText('2');
+    await expect(trigger(page)).toHaveAttribute('aria-label', 'Notifications, 2 unread');
+    await expect(panel(page).locator('.v-notification').first()).not.toHaveAttribute('data-unread', '');
+    await expect(panel(page).locator('.v-notification').first().locator('[data-unread-label]')).toHaveCount(0);
+  });
+
+  test('mark all as read clears the badge, renames the bell and disables itself', async ({ page }) => {
+    await trigger(page).click();
+    await panel(page).locator('[data-v-notifications-read]').click();
+    await expect(badge(page)).toBeHidden();
+    await expect(trigger(page)).toHaveAttribute('aria-label', 'Notifications');
+    await expect(panel(page).locator('[data-v-notifications-read]')).toBeDisabled();
+    await expect(panel(page).locator('.v-notification[data-unread]')).toHaveCount(0);
+  });
+
+  test('a live notification added to the list updates the count; an empty list shows the empty line', async ({ page }) => {
+    await page.evaluate(() => {
+      const li = document.querySelector('#notif-panel .v-notification').cloneNode(true);
+      li.setAttribute('data-unread', '');
+      document.querySelector('#notif-panel .v-notifications-list').prepend(li);
+    });
+    await expect(badge(page)).toHaveText('4');
+    await trigger(page).click();
+    await expect(panel(page).locator('.v-notifications-empty')).toBeHidden();
+    await page.evaluate(() => { document.querySelector('#notif-panel .v-notifications-list').replaceChildren(); });
+    await expect(panel(page).locator('.v-notifications-empty')).toBeVisible();
+    await expect(badge(page)).toBeHidden();
+  });
+});

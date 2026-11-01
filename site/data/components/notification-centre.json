@@ -1,0 +1,168 @@
+{
+  "name": "Notification centre",
+  "slug": "notification-centre",
+  "group": "Feedback",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A bell button with an unread count that opens a panel of recent notifications.",
+  "description": "Use it in an app's top bar for comments, assignments, deploys and invites: things that happened while the person was elsewhere. For something that needs attention right now, use a toast or a banner instead.\n\nThe bell is a .v-notify button with a .v-notify-count badge; the panel is a .v-popover.v-notifications, so it opens and light-dismisses natively. Unread items carry data-unread and a visually hidden \"Unread\" label (data-unread-label). data-v-notifications marks items read as they are followed, or all at once, and keeps the badge, the bell's accessible name and the empty line in step, including when your code adds items live.",
+  "native": "popover, popovertarget",
+  "catalogue": [
+    "Notification centre"
+  ],
+  "css": [
+    "notifications.css",
+    "popover.css"
+  ],
+  "js": [
+    "components/notifications.js",
+    "components/anchor.js"
+  ],
+  "classes": [
+    {
+      "name": "v-notify",
+      "kind": "base",
+      "description": "On the icon button that opens the panel: room for the count badge."
+    },
+    {
+      "name": "v-notify-count",
+      "kind": "part",
+      "description": "The unread count on the bell, aria-hidden (the number is in the button's aria-label). Hidden at zero; shows 99+ above 99."
+    },
+    {
+      "name": "v-notifications",
+      "kind": "base",
+      "description": "On a .v-popover with role=\"dialog\" and aria-labelledby on its title: the panel."
+    },
+    {
+      "name": "v-notifications-head",
+      "kind": "part",
+      "description": "The title and the \"Mark all as read\" button."
+    },
+    {
+      "name": "v-notifications-title",
+      "kind": "part",
+      "description": "The panel heading."
+    },
+    {
+      "name": "v-notifications-list",
+      "kind": "part",
+      "description": "The scrolling <ul role=\"list\"> of items."
+    },
+    {
+      "name": "v-notification",
+      "kind": "part",
+      "description": "One item, on an <li>. data-unread marks it unread."
+    },
+    {
+      "name": "v-notification-link",
+      "kind": "part",
+      "description": "The link that fills the item: an avatar, the text and a time."
+    },
+    {
+      "name": "v-notification-time",
+      "kind": "part",
+      "description": "When it happened, under the text."
+    },
+    {
+      "name": "v-notifications-empty",
+      "kind": "part",
+      "description": "The line shown when the list is empty, such as \"You're all caught up.\""
+    },
+    {
+      "name": "v-notifications-foot",
+      "kind": "part",
+      "description": "A link to the full notifications page."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-unread",
+      "description": "On a .v-notification: unread, tinted with a dot. Remove it to mark the item read."
+    },
+    {
+      "attribute": "data-unread-label",
+      "description": "On a .v-sr-only span at the start of an unread item's text, saying \"Unread: \". The JS removes it when the item is read."
+    },
+    {
+      "attribute": "data-label",
+      "description": "On the bell: the name without unread items (default \"Notifications\"). data-label-unread sets the name with them; {n} is the count."
+    },
+    {
+      "attribute": "data-empty",
+      "description": "Set on the panel by the JS: \"true\" shows the empty line."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-notifications",
+      "value": "",
+      "on": "The .v-notifications panel",
+      "description": "Marks an item read when its link is followed, keeps the badge, the bell's name and the empty line in step, and fires v:read."
+    },
+    {
+      "name": "data-v-notifications-read",
+      "value": "",
+      "on": "A button in the panel",
+      "description": "Marks every item read. Disabled when nothing is unread."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:read",
+      "on": "The panel",
+      "detail": "{ items }",
+      "cancelable": false,
+      "description": "Fires after items are marked read, so you can tell the server."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On the bell, opens the panel."
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves through \"Mark all as read\", the notifications and the footer link."
+    },
+    {
+      "keys": [
+        "Escape"
+      ],
+      "action": "Closes the panel and returns focus to the bell."
+    }
+  ],
+  "a11y": [
+    "The bell's accessible name carries the count (\"Notifications, 3 unread\"), so the badge itself is aria-hidden.",
+    "Unread is said in words by a visually hidden label, not only shown by the tint and dot.",
+    "The panel is role=\"dialog\" with a heading, because it holds links and a button, not menu items.",
+    "New notifications are not announced on their own: if one is urgent, raise a toast as well."
+  ],
+  "tokens": [
+    "--v-danger",
+    "--v-on-danger",
+    "--v-accent",
+    "--v-accent-soft",
+    "--v-overlay-bg"
+  ],
+  "related": [
+    "popover",
+    "badge",
+    "toast",
+    "avatar"
+  ],
+  "examples": [
+    {
+      "title": "Inbox of updates",
+      "description": "Open the bell, follow one notification, then mark the rest as read.",
+      "html": "<button class=\"v-btn v-btn-secondary v-btn-icon v-notify\" type=\"button\" popovertarget=\"notif-panel\" aria-label=\"Notifications, 3 unread\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#bell\"/></svg><span class=\"v-notify-count\" aria-hidden=\"true\">3</span></button>\n<div class=\"v-popover v-notifications\" id=\"notif-panel\" popover role=\"dialog\" aria-labelledby=\"notif-title\" data-v-notifications>\n  <div class=\"v-notifications-head\">\n    <h3 class=\"v-notifications-title\" id=\"notif-title\">Notifications</h3>\n    <button class=\"v-btn v-btn-ghost v-btn-sm\" type=\"button\" data-v-notifications-read>Mark all as read</button>\n  </div>\n  <ul class=\"v-notifications-list\" role=\"list\">\n      <li class=\"v-notification\" data-unread><a class=\"v-notification-link\" href=\"#notifications\"><span class=\"v-avatar v-avatar-sm\" aria-hidden=\"true\">AR</span><span><span class=\"v-sr-only\" data-unread-label>Unread: </span><strong>Ana Ruiz</strong> commented on <strong>Pricing page</strong>: \"Can we try the yearly toggle on the left?\"<span class=\"v-notification-time\">5 minutes ago</span></span></a></li>\n      <li class=\"v-notification\" data-unread><a class=\"v-notification-link\" href=\"#notifications\"><span class=\"v-avatar v-avatar-sm\" aria-hidden=\"true\">JK</span><span><span class=\"v-sr-only\" data-unread-label>Unread: </span><strong>Joe Kelly</strong> assigned you <strong>Fix the footer links</strong><span class=\"v-notification-time\">1 hour ago</span></span></a></li>\n      <li class=\"v-notification\" data-unread><a class=\"v-notification-link\" href=\"#notifications\"><span class=\"v-avatar v-avatar-sm\" aria-hidden=\"true\">NW</span><span><span class=\"v-sr-only\" data-unread-label>Unread: </span><strong>Northwind</strong> deployed <strong>web v3.0.2</strong> to production<span class=\"v-notification-time\">Today at 09:12</span></span></a></li>\n      <li class=\"v-notification\"><a class=\"v-notification-link\" href=\"#notifications\"><span class=\"v-avatar v-avatar-sm\" aria-hidden=\"true\">MD</span><span><strong>Mia Doyle</strong> accepted your invite to <strong>Design</strong><span class=\"v-notification-time\">Yesterday</span></span></a></li>\n  </ul>\n  <p class=\"v-notifications-empty\">You're all caught up.</p>\n  <div class=\"v-notifications-foot\"><a href=\"#notifications\">View all notifications</a></div>\n</div>",
+      "height": 520,
+      "source": "examples/plus/#notifications"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+/* Notification centre: a bell button with an unread count (.v-notify) that opens a panel of recent
+   notifications (.v-popover.v-notifications, a native popover). Unread items carry data-unread and a
+   visually hidden "Unread" label; data-v-notifications marks them read (one by one when followed, or all
+   at once), keeps the count and the button's name in step, and shows the empty line when none are left. */
+@layer components {
+  .v-notify { position: relative; }
+
+  .v-notify-count {
+    position: absolute;
+    inset-block-start: 0.1rem;
+    inset-inline-end: 0.1rem;
+    display: grid;
+    place-items: center;
+    min-inline-size: 1.15rem;
+    block-size: 1.15rem;
+    padding-inline: 0.3rem;
+    border: 2px solid var(--v-surface);
+    border-radius: var(--v-radius-pill);
+    background-color: var(--v-danger);
+    color: var(--v-on-danger);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .v-notifications {
+    --v-popover-gap: 0.375rem;
+
+    display: grid;
+    inline-size: min(24rem, 100vw - 1.5rem);
+    padding: 0;
+  }
+
+  .v-notifications[popover]:not(:popover-open) { display: none; }
+
+  .v-notifications-head,
+  .v-notifications-foot {
+    display: flex;
+    gap: var(--v-space-2);
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--v-space-3) var(--v-space-4);
+  }
+
+  .v-notifications-head { border-block-end: var(--v-border-w) solid var(--v-border); }
+
+  .v-notifications-title {
+    margin: 0;
+    font-size: var(--v-step-0);
+    font-weight: var(--v-heading-weight);
+  }
+
+  .v-notifications-list {
+    overflow-y: auto;
+    max-block-size: min(60dvh, 26rem);
+    margin: 0;
+    padding: var(--v-space-1);
+    list-style: none;
+    overscroll-behavior: contain;
+  }
+
+  .v-notification-link {
+    position: relative;
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: flex-start;
+    padding: var(--v-space-3);
+    padding-inline-end: var(--v-space-6);
+    border-radius: var(--v-radius-md);
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+    line-height: 1.45;
+    text-decoration: none;
+  }
+
+  .v-notification-link:hover { background-color: var(--v-surface-2); }
+  .v-notification-link strong { color: var(--v-text); }
+
+  .v-notification-time {
+    display: block;
+    margin-block-start: 0.15rem;
+    color: var(--v-text-2);
+    font-size: 0.75rem;
+  }
+
+  /* Unread: a tint and a dot at the end. The words "Unread" are in a visually hidden span. */
+  .v-notification[data-unread] .v-notification-link { background-color: color-mix(in oklch, var(--v-accent-soft) 55%, transparent); }
+
+  .v-notification[data-unread] .v-notification-link::after {
+    position: absolute;
+    inset-block-start: calc(var(--v-space-3) + 0.4rem);
+    inset-inline-end: var(--v-space-3);
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--v-accent);
+    content: "";
+  }
+
+  .v-notifications-empty {
+    margin: 0;
+    padding: var(--v-space-6) var(--v-space-4);
+    color: var(--v-text-2);
+    text-align: center;
+  }
+
+  /* Without JS the list itself decides; with JS, data-empty does (it stays right when items change live). */
+  .v-notifications:has(.v-notification) .v-notifications-empty { display: none; }
+  .v-notifications[data-empty="false"] .v-notifications-empty { display: none; }
+  .v-notifications[data-empty="true"] .v-notifications-empty { display: block; }
+
+  .v-notifications-foot {
+    justify-content: center;
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    font-size: var(--v-step-minus-1);
+  }
+
+  @media (forced-colors: active) {
+    .v-notify-count { border-color: Canvas; }
+    .v-notification[data-unread] .v-notification-link::after { background-color: Highlight; }
+  }
+}
