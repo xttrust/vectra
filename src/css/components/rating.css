@@ -36,6 +36,9 @@
 
   .v-rating-input-star:hover { scale: 1.1; }
 
+  /* The hidden radio's own ring would be clipped away; the star around it shows focus instead. */
+  .v-rating-input-star input:focus-visible { outline: none; }
+
   .v-rating-input-star:has(:focus-visible) {
     outline: var(--v-focus-w) solid var(--v-accent);
     outline-offset: 1px;

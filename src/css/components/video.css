@@ -2,7 +2,8 @@
    third-party player loads (no cookies, no requests) until the reader asks for it, and without JS the
    link simply opens the video. data-v-video swaps the link for the player on click: an <iframe> for an
    embed URL, or a native <video> for an .mp4 or .webm file. The frame keeps its ratio (--v-video-ratio).
-   Always dark, like a player: color-scheme: dark resolves the light-dark() tokens inside it. */
+   The overlay is always dark, like a player (color-scheme: dark resolves the light-dark() tokens inside
+   it); the link itself keeps the page's scheme, so its focus ring uses the page's accent. */
 @layer components {
   .v-video {
     position: relative;
@@ -13,7 +14,6 @@
     background-color: var(--v-surface-2);
     color: var(--v-text);
     text-decoration: none;
-    color-scheme: dark;
   }
 
   .v-video > img,
@@ -34,6 +34,7 @@
     justify-items: center;
     gap: var(--v-space-2);
     background: linear-gradient(transparent 40%, color-mix(in oklch, var(--v-bg) 70%, transparent));
+    color-scheme: dark;
   }
 
   /* The round button around the play icon. */

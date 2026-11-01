@@ -10,6 +10,7 @@
     --v-otp-cell: 2.75rem;
     --v-otp-gap: 0.5rem;
     --v-otp-line: var(--v-border-strong);
+    --v-otp-fill: var(--v-surface);
     --v-otp-step: calc(var(--v-otp-cell) + var(--v-otp-gap));
     --v-otp-bw: var(--v-border-w);
 
@@ -22,7 +23,7 @@
     overflow: clip;
     border-radius: var(--v-radius-sm);
     background:
-      linear-gradient(to right, var(--v-surface) calc(var(--v-otp-cell) - 2 * var(--v-otp-bw)), transparent 0) var(--v-otp-bw) var(--v-otp-bw) / var(--v-otp-step) calc(100% - 2 * var(--v-otp-bw)) repeat-x,
+      linear-gradient(to right, var(--v-otp-fill) calc(var(--v-otp-cell) - 2 * var(--v-otp-bw)), transparent 0) var(--v-otp-bw) var(--v-otp-bw) / var(--v-otp-step) calc(100% - 2 * var(--v-otp-bw)) repeat-x,
       linear-gradient(to right, var(--v-otp-line) var(--v-otp-cell), transparent 0) 0 0 / var(--v-otp-step) 100% repeat-x;
     direction: ltr;
   }
@@ -58,7 +59,16 @@
 
   .v-otp-input:focus { outline: none; }
 
+  /* Forced colours drop gradient backgrounds, which would erase the boxes: draw them in system colours. */
   @media (forced-colors: active) {
-    .v-otp { --v-otp-line: CanvasText; }
+    .v-otp {
+      --v-otp-line: CanvasText;
+      --v-otp-fill: Canvas;
+
+      forced-color-adjust: none;
+    }
+
+    .v-otp:focus-within { --v-otp-line: Highlight; }
+    .v-otp-input { color: CanvasText; }
   }
 }

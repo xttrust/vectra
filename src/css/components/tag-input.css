@@ -50,4 +50,9 @@
   }
 
   .v-tag-input-field::placeholder { color: var(--v-text-3); }
+
+  /* Forced colours: the field inside the box keeps an edge of its own. */
+  @media (forced-colors: active) {
+    .v-tag-input-field { border-block-end: 1px solid GrayText; }
+  }
 }
