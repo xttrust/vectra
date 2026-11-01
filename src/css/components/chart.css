@@ -48,16 +48,19 @@
     align-items: center;
   }
 
-  /* Bars use up to 85% of the track, leaving room for the value after them. */
+  /* Bars use up to 85% of the track and shrink when the value after them needs the room. */
   .v-chart-bar {
-    flex: 0 0 calc(var(--v-value, 0%) * 0.85);
+    flex: 0 1 calc(var(--v-value, 0%) * 0.85);
+    min-inline-size: 0.5rem;
     block-size: 0.875rem;
     border-radius: var(--v-radius-sm);
     background-color: var(--v-chart-color, var(--v-chart-1));
   }
 
   .v-chart-value {
+    flex: none;
     color: var(--v-text);
+    white-space: nowrap;
     font-variant-numeric: tabular-nums;
     font-weight: 600;
   }

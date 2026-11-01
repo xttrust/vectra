@@ -446,7 +446,7 @@ Replaces the M3 to M9 rows of PLAN.md section 14. Same gates as before: one bran
 | M8 | Hardening | automated part done (M8a: RTL, forced colours, 400% reflow, text spacing, focus, reduced motion and transparency, target size); manual screen reader and real-device pass still to do | M |
 | M8b | AI manifest | done: manifest, `llms.txt`, `llms-full.txt`, Claude Code skill and `AGENTS.md`, every component example validated from the manifest alone | S |
 | M9 | Release v2.0 | unchanged | S |
-| v2.1 | Reach | P1 components, P1 pages, print, Blade package, `npx vectra add`, starter kits, playground, first Pro blocks | L |
+| v2.1 | Reach | P1 components, P1 pages, print, Blade package, `npx vectra add`, starter kits, playground, first Pro blocks. In progress: utilities, 22 P1 components and 18 P1 pages done (marketing: features, changelog, careers, job, customers, case study, help centre, help article, docs, status, waitlist; app: billing, team, API keys, integrations, notifications, search, profile) | L |
 | v2.2 | Templates and Pro | Pro sections and pages, e-commerce, site templates, email templates, Vue, token exports | L |
 
 ## 10. Decisions (agreed 31 Oct 2026)

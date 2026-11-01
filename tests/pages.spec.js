@@ -177,4 +177,31 @@ test.describe('pages', () => {
     }
     await context.close();
   });
+  test('the site header mega menus open, and the current page is marked inside its panel', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(bySlug('features').path);
+    const product = page.locator('header .v-mega').first();
+    await product.locator('summary').click();
+    await expect(product).toHaveAttribute('open', '');
+    await expect(product.locator('a[aria-current="page"]')).toHaveText(/Features/);
+    await page.keyboard.press('Escape');
+    await expect(product).not.toHaveAttribute('open', '');
+  });
+
+  test('the app shell has a working notification centre and command palette', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(bySlug('app/settings-billing').path);
+    const bell = page.locator('[popovertarget="app-notifications"]');
+    await expect(bell).toHaveAttribute('aria-label', 'Notifications, 3 unread');
+    await bell.click();
+    await page.locator('#app-notifications [data-v-notifications-read]').click();
+    await expect(bell).toHaveAttribute('aria-label', 'Notifications');
+    await page.keyboard.press('Escape');
+    await page.keyboard.press('Control+k');
+    await expect(page.locator('#app-commands')).toBeVisible();
+    await page.locator('#app-commands [role="combobox"]').fill('api');
+    await expect(page.locator('#app-commands [role="option"]:visible')).toHaveCount(1);
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(/settings-api\.html$/);
+  });
 });

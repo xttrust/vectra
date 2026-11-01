@@ -2,25 +2,25 @@
    legal pages. Each one shares the site header and footer with saas-home.html. */
 import { icon, site, CSRF } from './shared.mjs';
 
-const TRIAL = '{root}examples/auth/sign-up/single.html';
-const check = (text) => `<li class="v-flex v-gap-2">${icon('check-circle')}<span>${text}</span></li>`;
-const head = (kicker, title, lead, { center = true, level = 2 } = {}) => `<div class="v-section-head${center ? ' v-section-head-center' : ''}">
+export const TRIAL = '{root}examples/auth/sign-up/single.html';
+export const check = (text) => `<li class="v-flex v-gap-2">${icon('check-circle')}<span>${text}</span></li>`;
+export const head = (kicker, title, lead, { center = true, level = 2 } = {}) => `<div class="v-section-head${center ? ' v-section-head-center' : ''}">
 <p class="v-kicker">${kicker}</p>
 <h${level}${level === 1 ? ' class="v-display"' : ''}>${title}</h${level}>
 ${lead ? `<p class="v-lead">${lead}</p>` : ''}
 </div>`;
-const section = (inner, attrs = '') => `<section class="v-section"${attrs}>
+export const section = (inner, attrs = '') => `<section class="v-section"${attrs}>
 <div class="v-container">
 ${inner}
 </div>
 </section>`;
-const faq = (name, items) => `<div class="v-accordion">
+export const faq = (name, items) => `<div class="v-accordion">
 ${items.map(([q, a], i) => `<details name="${name}"${i === 0 ? ' open' : ''}>
 <summary>${q}</summary>
 <p>${a}</p>
 </details>`).join('\n')}
 </div>`;
-const cta = (title, text, primary = 'Start free trial') => section(`<div class="v-card v-card-feature v-cta">
+export const cta = (title, text, primary = 'Start free trial') => section(`<div class="v-card v-card-feature v-cta">
 <h2 class="v-display" style="font-size: var(--v-step-3)">${title}</h2>
 <p class="v-lead">${text}</p>
 <div class="v-cluster v-justify-center">
@@ -39,7 +39,7 @@ const COVERS = [
   '<rect width="480" height="270" style="fill: var(--v-surface-2)"/><rect x="90" y="50" width="300" height="170" rx="14" style="fill: var(--v-surface)"/><rect x="90" y="50" width="300" height="34" rx="14" style="fill: var(--v-accent)"/><g style="fill: var(--v-accent-soft)"><rect x="112" y="104" width="60" height="44" rx="6"/><rect x="186" y="104" width="60" height="44" rx="6"/><rect x="260" y="104" width="60" height="44" rx="6"/><rect x="112" y="160" width="60" height="44" rx="6"/></g>',
   '<rect width="480" height="270" style="fill: var(--v-accent-soft)"/><circle cx="160" cy="135" r="60" style="fill: var(--v-accent)" opacity="0.7"/><circle cx="260" cy="135" r="60" style="fill: var(--v-accent-text)" opacity="0.7"/><circle cx="360" cy="135" r="30" style="fill: var(--v-accent-2)"/>',
 ];
-const cover = (i, ratio = '') => `<div class="v-card-media"><div class="v-frame${ratio}"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${COVERS[i % COVERS.length]}</svg></div></div>`;
+export const cover = (i, ratio = '') => `<div class="v-card-media"><div class="v-frame${ratio}"><svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${COVERS[i % COVERS.length]}</svg></div></div>`;
 
 export const POSTS = [
   ['Pricing', '28 October 2026', 6, 'How to put your prices up without losing customers', 'A three-step plan, a letter you can copy, and what happened when 40 trades tried it.'],
@@ -495,7 +495,7 @@ ${CSRF}
 
 // ---------------------------------------------------------------- Blog post
 const TOC = [['why', 'Why prices have to move'], ['numbers', 'Step 1: know your numbers'], ['notice', 'Step 2: give fair notice'], ['value', 'Step 3: show what they get'], ['results', 'What happened when 40 trades tried it'], ['short', 'The short version']];
-const toc = (items, label = 'On this page') => `<nav class="v-toc" aria-labelledby="toc-title" data-v-toc>
+export const toc = (items, label = 'On this page') => `<nav class="v-toc" aria-labelledby="toc-title" data-v-toc>
 <p class="v-toc-title" id="toc-title">${label}</p>
 <ol>
 ${items.map(([id, text], i) => `<li><a href="#${id}"${i === 0 ? ' aria-current="true"' : ''}>${text}</a></li>`).join('\n')}

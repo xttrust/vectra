@@ -4332,13 +4332,24 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/pages/app-shell.html: Northwind
 - examples/pages/blog-post.html: How to put your prices up without losing customers
 - examples/pages/blog.html: Blog
+- examples/pages/careers-job.html: Senior front-end developer
+- examples/pages/careers.html: Careers
+- examples/pages/case-study.html: Harbour Roofing case study
+- examples/pages/changelog.html: Changelog
 - examples/pages/contact.html: Contact
 - examples/pages/cookies.html: Cookie policy
+- examples/pages/customers.html: Customers
+- examples/pages/docs.html: API introduction
+- examples/pages/features.html: Features
+- examples/pages/help-article.html: Take a card payment on your phone
+- examples/pages/help.html: Help centre
 - examples/pages/landing.html: Online booking
 - examples/pages/pricing.html: Pricing
 - examples/pages/privacy.html: Privacy notice
 - examples/pages/saas-home.html: Northwind
+- examples/pages/status.html: System status
 - examples/pages/terms.html: Terms of service
+- examples/pages/waitlist.html: Northwind Teams waitlist
 - examples/pages/app/detail-empty.html: Pages: Customer detail (empty)
 - examples/pages/app/detail-error.html: Pages: Customer detail (error)
 - examples/pages/app/detail-loading.html: Pages: Customer detail (loading)
@@ -4347,10 +4358,16 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/pages/app/list-error.html: Pages: Customer list (error)
 - examples/pages/app/list-loading.html: Pages: Customer list (loading)
 - examples/pages/app/list.html: Pages: Customer list
+- examples/pages/app/notifications.html: Pages: Notifications
+- examples/pages/app/profile.html: Pages: Business profile
+- examples/pages/app/search.html: Pages: Search results
 - examples/pages/app/settings-account-empty.html: Pages: Account settings (empty)
 - examples/pages/app/settings-account-error.html: Pages: Account settings (error)
 - examples/pages/app/settings-account-loading.html: Pages: Account settings (loading)
 - examples/pages/app/settings-account.html: Pages: Account settings
+- examples/pages/app/settings-api.html: Pages: API keys
+- examples/pages/app/settings-billing.html: Pages: Billing settings
+- examples/pages/app/settings-integrations.html: Pages: Integrations
 - examples/pages/app/settings-notifications-empty.html: Pages: Notification settings (empty)
 - examples/pages/app/settings-notifications-error.html: Pages: Notification settings (error)
 - examples/pages/app/settings-notifications-loading.html: Pages: Notification settings (loading)
@@ -4363,6 +4380,7 @@ Complete pages and galleries in the repository to copy from. Classes starting wi
 - examples/pages/app/settings-security-error.html: Pages: Security settings (error)
 - examples/pages/app/settings-security-loading.html: Pages: Security settings (loading)
 - examples/pages/app/settings-security.html: Pages: Security settings
+- examples/pages/app/settings-team.html: Pages: Team settings
 - examples/pages/app/stacked.html: Pages: Jobs
 - examples/pages/system/401-illustrated.html: Pages: 401 Sign in needed
 - examples/pages/system/401.html: Pages: 401 Sign in needed

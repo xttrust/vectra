@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Changelog · Northwind</title>
+  <meta name="description" content="Northwind release notes with a table of contents. An example page built with Vectra.">
+  <link rel="icon" href="data:,">
+  <script>
+    /* Applies the saved direction and theme before first paint. No theme saved: follow the OS. */
+    (function () {
+      var root = document.documentElement;
+      try {
+        var d = localStorage.getItem('vectra-direction');
+        var t = localStorage.getItem('vectra-theme');
+        if (['tech', 'editorial', 'soft', 'glass'].indexOf(d) > -1) root.dataset.direction = d;
+        if (t === 'light' || t === 'dark') root.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../../src/css/vectra.css">
+  <link rel="stylesheet" href="../shared/examples.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="../shared/switcher.js" defer></script>
+</head>
+<body>
+  <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3l7.5 17.5L12 16.5l-7.5 4z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.3-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.8c1.6.8 2.6 2.5 3 5.2"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 014.8 1c0 1.7-2.4 2-2.4 3.5M12 17h.01"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16M15 9h4a1 1 0 011 1v11M3 21h18M8 8h3M8 12h3M8 16h3"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0112 7a4.3 4.3 0 017.5 2.8C19.5 15.4 12 20 12 20z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h13v15H6a2 2 0 00-2 2zM4 20a2 2 0 002 2h13v-4"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  </svg>
+  <a class="v-skip-link" href="#main">Skip to content</a>
+  <aside class="ex-bar" aria-label="Example settings">
+    <div class="v-container ex-bar-inner">
+      <a class="ex-title" href="index.html">Vectra <span>example: changelog</span></a>
+      <label>Direction
+        <select id="direction">
+          <option value="tech">Dark tech</option>
+          <option value="editorial">Editorial</option>
+          <option value="soft">Soft depth</option>
+          <option value="glass">Glass</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="auto">Follow OS</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+  <header class="v-navbar v-navbar-contained" data-v-nav>
+    <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+    <button class="v-btn v-btn-ghost v-btn-icon v-navbar-toggle" type="button" popovertarget="site-menu" aria-label="Open menu"><svg class="v-icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="v-navbar-menu" id="site-menu" popover aria-label="Main">
+      <button class="v-btn v-btn-ghost v-btn-icon v-navbar-close" type="button" popovertarget="site-menu" popovertargetaction="hide" aria-label="Close menu"><svg class="v-icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      <ul class="v-navbar-links">
+        <li>
+          <details class="v-mega" name="site-mega" data-v-mega>
+            <summary>Product<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <div class="v-mega-panel">
+              <div class="v-mega-grid">
+                <div>
+                  <p class="v-mega-title" id="mega-product-0">Build</p>
+                  <ul class="v-mega-links" aria-labelledby="mega-product-0">
+                    <li><a class="v-mega-link" href="features.html"><svg class="v-icon" aria-hidden="true"><use href="#i-zap"/></svg><span>Features<span class="v-mega-link-text">Everything Northwind does, in one tour.</span></span></a></li>
+                    <li><a class="v-mega-link" href="landing.html"><svg class="v-icon" aria-hidden="true"><use href="#i-calendar"/></svg><span>Online booking<span class="v-mega-link-text">Let customers book a slot themselves.</span></span></a></li>
+                    <li><a class="v-mega-link" href="pricing.html"><svg class="v-icon" aria-hidden="true"><use href="#i-card"/></svg><span>Pricing<span class="v-mega-link-text">Plans for one van or a whole crew.</span></span></a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="v-mega-title" id="mega-product-1">Customers</p>
+                  <ul class="v-mega-links" aria-labelledby="mega-product-1">
+                    <li><a class="v-mega-link" href="customers.html"><svg class="v-icon" aria-hidden="true"><use href="#i-users"/></svg><span>Customer stories<span class="v-mega-link-text">How trades across Ireland use it.</span></span></a></li>
+                    <li><a class="v-mega-link" href="case-study.html"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span>Case study: Harbour Roofing<span class="v-mega-link-text">Quotes out in an hour, not a week.</span></span></a></li>
+                  </ul>
+                </div>
+                <a class="v-mega-feature" href="changelog.html"><span class="v-badge v-badge-accent">New</span><strong>Changelog</strong><span class="v-text-sm v-text-secondary">Recurring jobs, offline mode and more in the last release.</span></a>
+              </div>
+              <div class="v-mega-footer"><span>Northwind Teams is coming.</span><a href="waitlist.html">Join the waitlist</a></div>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details class="v-mega" name="site-mega" data-v-mega>
+            <summary>Resources<svg class="v-icon v-mega-chevron" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+            <div class="v-mega-panel">
+              <div class="v-mega-grid">
+                <div>
+                  <p class="v-mega-title" id="mega-resources-0">Learn</p>
+                  <ul class="v-mega-links" aria-labelledby="mega-resources-0">
+                    <li><a class="v-mega-link" href="help.html"><svg class="v-icon" aria-hidden="true"><use href="#i-help"/></svg><span>Help centre<span class="v-mega-link-text">Answers, in plain words.</span></span></a></li>
+                    <li><a class="v-mega-link" href="docs.html"><svg class="v-icon" aria-hidden="true"><use href="#i-book"/></svg><span>Developer docs<span class="v-mega-link-text">The API, webhooks and exports.</span></span></a></li>
+                    <li><a class="v-mega-link" href="blog.html"><svg class="v-icon" aria-hidden="true"><use href="#i-file"/></svg><span>Blog<span class="v-mega-link-text">Guides on pricing and cash flow.</span></span></a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="v-mega-title" id="mega-resources-1">Company</p>
+                  <ul class="v-mega-links" aria-labelledby="mega-resources-1">
+                    <li><a class="v-mega-link" href="about.html"><svg class="v-icon" aria-hidden="true"><use href="#i-building"/></svg><span>About us<span class="v-mega-link-text">Who we are and how we work.</span></span></a></li>
+                    <li><a class="v-mega-link" href="careers.html"><svg class="v-icon" aria-hidden="true"><use href="#i-heart"/></svg><span>Careers<span class="v-mega-link-text">Four open roles, two remote.</span></span></a></li>
+                    <li><a class="v-mega-link" href="status.html"><svg class="v-icon" aria-hidden="true"><use href="#i-chart"/></svg><span>System status<span class="v-mega-link-text">Live status and past incidents.</span></span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="v-mega-footer"><span>Need a person?</span><a href="contact.html">Contact us</a></div>
+            </div>
+          </details>
+        </li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="v-navbar-actions">
+        <a class="v-btn v-btn-ghost" href="../../examples/auth/sign-in/password.html">Sign in</a>
+        <a class="v-btn v-btn-primary" href="../../examples/auth/sign-up/single.html">Start free trial</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="v-skip-target" tabindex="-1">
+    <section class="v-section">
+      <div class="v-container">
+        <div class="v-section-head">
+          <p class="v-kicker">Changelog</p>
+          <h1 class="v-display">What is new in Northwind</h1>
+          <p class="v-lead">A new release most months. Every change, big or small, is written up here.</p>
+        </div>
+        <div class="v-article">
+          <aside class="v-article-aside"><nav class="v-toc" aria-labelledby="toc-title" data-v-toc>
+              <p class="v-toc-title" id="toc-title">Releases</p>
+              <ol>
+                <li><a href="#v3-2" aria-current="true">Version 3.2</a></li>
+                <li><a href="#v3-1">Version 3.1</a></li>
+                <li><a href="#v3-0">Version 3.0</a></li>
+                <li><a href="#v2-9">Version 2.9</a></li>
+              </ol>
+          </nav></aside>
+          <div class="v-article-body v-stack" style="--v-gap: var(--v-space-6)">
+            <article class="v-card v-stack" aria-labelledby="v3-2" style="--v-gap: var(--v-space-3)">
+              <div class="v-flex v-flex-col" style="gap: 0.15rem">
+                <h2 id="v3-2">Version 3.2</h2>
+                <p class="v-text-sm v-text-secondary"><time>28 October 2026</time></p>
+              </div>
+              <ul class="v-stack" role="list" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-accent" style="min-inline-size: 5.5rem; justify-content: center">New</span><span>Recurring jobs: set a gutter clean to repeat every six months and it books itself.</span></li>
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-accent" style="min-inline-size: 5.5rem; justify-content: center">New</span><span>Offline mode for quotes and job notes.</span></li>
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-info" style="min-inline-size: 5.5rem; justify-content: center">Improved</span><span>Invoices load twice as fast on a weak signal.</span></li>
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-success" style="min-inline-size: 5.5rem; justify-content: center">Fixed</span><span>Eircodes with a space no longer fail the address lookup.</span></li>
+              </ul>
+            </article>
+            <article class="v-card v-stack" aria-labelledby="v3-1" style="--v-gap: var(--v-space-3)">
+              <div class="v-flex v-flex-col" style="gap: 0.15rem">
+                <h2 id="v3-1">Version 3.1</h2>
+                <p class="v-text-sm v-text-secondary"><time>30 September 2026</time></p>
+              </div>
+              <ul class="v-stack" role="list" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-accent" style="min-inline-size: 5.5rem; justify-content: center">New</span><span>Ask for a Google review when a job is marked done.</span></li>
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-info" style="min-inline-size: 5.5rem; justify-content: center">Improved</span><span>The booking page shows travel time between jobs.</span></li>
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-success" style="min-inline-size: 5.5rem; justify-content: center">Fixed</span><span>Card payments in sterling show the right currency on receipts.</span></li>
+              </ul>
+            </article>
+            <article class="v-card v-stack" aria-labelledby="v3-0" style="--v-gap: var(--v-space-3)">
+              <div class="v-flex v-flex-col" style="gap: 0.15rem">
+                <h2 id="v3-0">Version 3.0</h2>
+                <p class="v-text-sm v-text-secondary"><time>2 September 2026</time></p>
+              </div>
+              <ul class="v-stack" role="list" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-accent" style="min-inline-size: 5.5rem; justify-content: center">New</span><span>A new app, rebuilt for phones first.</span></li>
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-accent" style="min-inline-size: 5.5rem; justify-content: center">New</span><span>Team accounts with roles for office staff and crews.</span></li>
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-info" style="min-inline-size: 5.5rem; justify-content: center">Improved</span><span>Search finds customers by phone number and Eircode.</span></li>
+              </ul>
+            </article>
+            <article class="v-card v-stack" aria-labelledby="v2-9" style="--v-gap: var(--v-space-3)">
+              <div class="v-flex v-flex-col" style="gap: 0.15rem">
+                <h2 id="v2-9">Version 2.9</h2>
+                <p class="v-text-sm v-text-secondary"><time>29 July 2026</time></p>
+              </div>
+              <ul class="v-stack" role="list" style="--v-gap: var(--v-space-2)">
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-info" style="min-inline-size: 5.5rem; justify-content: center">Improved</span><span>Quotes remember the last price you charged each customer.</span></li>
+                <li class="v-flex v-gap-3 v-items-baseline"><span class="v-badge v-badge-success" style="min-inline-size: 5.5rem; justify-content: center">Fixed</span><span>Calendar sync with Outlook keeps your time zone.</span></li>
+              </ul>
+            </article>
+            <form class="v-card v-stack" action="changelog.html" method="post" aria-labelledby="changelog-subscribe" style="--v-gap: var(--v-space-3)">
+              <!-- Laravel: @csrf goes here. It prints the hidden _token field. -->
+              <h2 id="changelog-subscribe" style="font-size: var(--v-step-1)">Get the next release in your inbox</h2>
+              <div class="v-field">
+                <label class="v-label" for="changelog-email">Email address</label>
+                <div class="v-cluster" style="--v-gap: var(--v-space-2)">
+                  <input class="v-input" id="changelog-email" name="email" type="email" autocomplete="email" required style="flex: 1 1 14rem; inline-size: auto">
+                  <button class="v-btn v-btn-primary" type="submit">Subscribe</button>
+                </div>
+                <p class="v-hint">One email a month at most. Unsubscribe from any of them.</p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid">
+        <div class="v-footer-brand v-stack" style="--v-gap: var(--v-space-4)">
+          <a class="v-navbar-brand" href="saas-home.html"><svg class="v-icon" aria-hidden="true" style="color: var(--v-accent-text)"><use href="#i-logo"/></svg>Northwind</a>
+          <p class="v-max-prose">Bookings, quotes and invoices for small service businesses. Built in the west of Ireland, used from Cork to Inverness.</p>
+          <span class="v-status">All systems running</span>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Product</h2>
+          <ul class="v-footer-links">
+            <li><a href="features.html">Features</a></li>
+            <li><a href="landing.html">Online booking</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="changelog.html">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Company</h2>
+          <ul class="v-footer-links">
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="v-footer-title">Help</h2>
+          <ul class="v-footer-links">
+            <li><a href="help.html">Help centre</a></li>
+            <li><a href="docs.html">Developer docs</a></li>
+            <li><a href="status.html">Status</a></li>
+            <li><a href="privacy.html#security">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="v-footer-bottom">
+        <p>&copy; 2026 Northwind Ltd. Registered in Ireland.</p>
+        <ul class="v-cluster" style="--v-gap: var(--v-space-5)">
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="../../src/js/index.js"></script>
+</body>
+</html>
