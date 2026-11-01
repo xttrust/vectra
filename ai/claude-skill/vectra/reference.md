@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-85 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+86 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1818,6 +1818,47 @@ const out = document.getElementById('r-budget-out');
 range.addEventListener('input', () => {
   out.textContent = range.ariaValueText = '€' + Number(range.value).toLocaleString('en-IE');
 });
+```
+
+#### Rating input (rating-input)
+
+A star rating made of radio buttons, for reviews and feedback forms. Native: <fieldset>, <input type="radio">, :has().
+
+Base:
+- .v-rating-input: The <fieldset>. Add .v-fieldset-plain and a .v-legend for the question.
+Modifiers:
+- .v-rating-input-sm: Smaller stars, for a compact form.
+Parts:
+- .v-rating-input-stars: The row of stars.
+- .v-rating-input-star: One <label> holding a visually hidden radio, the star icon and the words for screen readers.
+
+States:
+- checked: On a radio: the current score. Stars up to it fill.
+- required: On the first radio: the form will not submit without a score.
+- disabled: On the fieldset: dims the stars and blocks changes.
+
+Keyboard:
+- Tab: Moves into the group, onto the checked star (or the first).
+- ArrowRight / ArrowLeft: Changes the score by one, as in any radio group (flipped in right-to-left).
+
+Accessibility:
+- Each radio has words ("3 stars") in a visually hidden span, so screen readers read a score, not "star, star, star".
+- The legend is the question; screen readers announce it when focus enters the group.
+- The focus ring sits on the star around the hidden radio, so keyboard users see where they are.
+
+Example (Visit feedback):
+
+```html
+<fieldset class="v-rating-input v-fieldset-plain">
+  <legend class="v-legend">How was your visit?</legend>
+  <div class="v-rating-input-stars">
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="1" required><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">1 star</span></label>
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="2"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">2 stars</span></label>
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="3"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">3 stars</span></label>
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="4" checked><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">4 stars</span></label>
+    <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="5"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#star"/></svg><span class="v-sr-only">5 stars</span></label>
+  </div>
+</fieldset>
 ```
 
 #### Search field (search-field)
@@ -3790,7 +3831,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-masonry-col --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-masonry-col --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 

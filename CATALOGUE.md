@@ -106,7 +106,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Multi-select | P1 | | built on combobox |
 | Date and time input styling | P1 | | native inputs |
 | Dual-thumb range | P1 | | |
-| Rating input | P1 | | radio group |
+| Rating input | P1 | done | radio group, no JS; .v-rating stays the read-only score |
 | File list with upload progress | P1 | | |
 | Multi-step form (wizard) | P1 | | uses steps |
 | Repeater fields (add and remove rows, e.g. extra emails or line items) | P1 | | small JS |

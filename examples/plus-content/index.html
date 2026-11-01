@@ -25,6 +25,7 @@
 </head>
 <body>
   <svg class="v-sr-only" aria-hidden="true" focusable="false">
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
   </svg>
 
@@ -110,6 +111,23 @@
         <li><img src="../shared/img/garden.svg" alt="The same lawn in summer" width="1200" height="900" style="aspect-ratio: 16/9; object-fit: cover"></li>
         <li><img src="../shared/img/roof.svg" alt="A roof ridge at sunset" width="1200" height="900" style="aspect-ratio: 4/3; object-fit: cover"></li>
       </ul>
+    </section>
+    <section id="rating">
+      <h2 data-contrast>Rating</h2>
+      <p class="ex-label">Radio buttons drawn as stars: arrow keys move the choice, forms submit the value. Hover to preview. Below it, the existing .v-rating shows a fixed score.</p>
+      <div class="v-stack" style="--v-gap: var(--v-space-4)">
+        <fieldset class="v-rating-input v-fieldset-plain" id="rating-visit">
+          <legend class="v-legend" data-contrast>How was your visit?</legend>
+          <div class="v-rating-input-stars">
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="1" required><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">1 star</span></label>
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="2"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">2 stars</span></label>
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="3"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">3 stars</span></label>
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="4" checked><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">4 stars</span></label>
+            <label class="v-rating-input-star"><input class="v-sr-only" type="radio" name="visit" value="5"><svg class="v-icon" aria-hidden="true"><use href="#i-star"/></svg><span class="v-sr-only">5 stars</span></label>
+          </div>
+        </fieldset>
+        <span class="v-rating" role="img" aria-label="Rated 4.5 out of 5" style="--v-rating: 4.5" id="rating-display"></span>
+      </div>
     </section>
   </main>
 </body>

@@ -159,6 +159,7 @@ Forms:
 - Password reveal: , hooks data-v-password
 - Password strength meter: , hooks data-v-strength
 - Range: .v-range
+- Rating input: .v-rating-input
 - Search field: .v-search, hooks data-v-clear data-v-shortcut
 
 Overlays:

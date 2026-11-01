@@ -100,3 +100,34 @@ test.describe('masonry gallery', () => {
     expect((await lefts()).size).toBe(1);
   });
 });
+
+test.describe('rating input', () => {
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); });
+  const stars = (page) => page.locator('#rating-visit .v-rating-input-star');
+  const filled = (page) => stars(page).evaluateAll((els) => els.map((e) => getComputedStyle(e.querySelector('.v-icon')).fill !== 'none'));
+
+  test('every star up to the checked one is filled', async ({ page }) => {
+    expect(await filled(page)).toEqual([true, true, true, true, false]);
+  });
+
+  test('arrow keys change the choice like any radio group, and the fill and focus ring follow', async ({ page }) => {
+    await page.locator('#rating-visit input[value="4"]').focus();
+    await page.keyboard.press('ArrowLeft');
+    await expect(page.locator('#rating-visit input[value="3"]')).toBeChecked();
+    expect(await filled(page)).toEqual([true, true, true, false, false]);
+    expect(await stars(page).nth(2).evaluate((el) => getComputedStyle(el).outlineStyle)).toBe('solid');
+  });
+
+  test('hover previews without changing the value; each radio has words', async ({ page }) => {
+    await stars(page).nth(1).hover();
+    expect(await filled(page)).toEqual([true, true, false, false, false]);
+    await expect(page.locator('#rating-visit input[value="4"]')).toBeChecked();
+    await expect(page.locator('#rating-visit input[value="2"]')).toHaveAccessibleName('2 stars');
+  });
+
+  test('a click picks a value and the form gets it', async ({ page }) => {
+    await stars(page).nth(4).click();
+    await expect(page.locator('#rating-visit input[value="5"]')).toBeChecked();
+    expect(await filled(page)).toEqual([true, true, true, true, true]);
+  });
+});
