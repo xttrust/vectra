@@ -2,3 +2,4 @@
    vectra.components.css keeps its 22 KB ceiling. Load after vectra.components.css; vectra.css includes it. */
 @import url("./components/megamenu.css");
 @import url("./components/split.css");
+@import url("./components/back-to-top.css");

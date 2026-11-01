@@ -44,3 +44,42 @@ test.describe('split button', () => {
     await expect(page.locator('#split-merge [role="menuitemradio"]', { hasText: 'merge commit' })).toHaveAttribute('aria-checked', 'false');
   });
 });
+
+test.describe('back to top', () => {
+  test.use({ viewport: { width: 1280, height: 700 } });
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    // Make the page long enough to scroll well past the threshold whatever the gallery holds.
+    await page.evaluate(() => document.querySelector('main').append(Object.assign(document.createElement('div'), { style: 'block-size: 3000px' })));
+  });
+  const link = (page) => page.locator('.v-back-to-top');
+
+  test('hidden and out of the Tab order at the top of the page (always shown without scroll timelines)', async ({ page }) => {
+    const timelines = await page.evaluate(() => CSS.supports('animation-timeline: scroll()'));
+    if (timelines) {
+      await expect(link(page)).toBeHidden();
+      expect(await link(page).evaluate((el) => getComputedStyle(el).visibility)).toBe('hidden');
+    } else {
+      await expect(link(page)).toBeVisible();
+    }
+  });
+
+  test('appears after scrolling, sits in the end corner, and following it returns to the top', async ({ page }) => {
+    await page.evaluate(() => window.scrollTo(0, 1500));
+    await expect(link(page)).toBeVisible();
+    const box = await link(page).boundingBox();
+    expect(box.x + box.width).toBeGreaterThan(1280 - 60);
+    expect(box.y + box.height).toBeGreaterThan(700 - 60);
+    expect(box.width).toBeGreaterThanOrEqual(44);
+    await page.emulateMedia({ reducedMotion: 'reduce' }); // jump, no smooth scroll to wait for
+    await link(page).click();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(200);
+    await expect(page).toHaveURL(/#top$/);
+  });
+
+  test('right to left: it moves to the left corner', async ({ page }) => {
+    await page.evaluate(() => { document.documentElement.dir = 'rtl'; window.scrollTo(0, 1500); });
+    const box = await link(page).boundingBox();
+    expect(box.x).toBeLessThan(60);
+  });
+});

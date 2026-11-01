@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-74 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+75 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -2036,6 +2036,31 @@ Example (On hover and focus):
 
 ### Navigation
 
+#### Back to top (back-to-top)
+
+A round link in the end corner that appears once the page has scrolled and takes the reader back to the top. Native: Same-page link, animation-timeline: scroll().
+
+Base:
+- .v-back-to-top: The link, fixed in the end corner (bottom right, bottom left in right-to-left). Holds an icon and needs an aria-label.
+
+States:
+- href="#top": Points at an element at the top of the page. Any id works.
+
+Keyboard:
+- Enter: Follows the link: scrolls to the top and moves focus there.
+
+Accessibility:
+- While hidden it is visibility: hidden, not just transparent, so it is not a Tab stop and screen readers skip it.
+- Give it an aria-label such as "Back to top": it shows only an arrow.
+- Following it moves focus to the target, so keyboard users continue from the top too, not only the viewport.
+- Smooth scrolling comes from the page and is switched off under reduced motion.
+
+Example (Back to top link):
+
+```html
+<a class="v-back-to-top" href="#top" aria-label="Back to top"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#arrow-up"/></svg></a>
+```
+
 #### Bottom tab bar (bottom-bar)
 
 Up to five icon and label links fixed to the bottom of the screen, for the main sections of a phone app. Native: <nav>, aria-current, env(safe-area-inset-*).
@@ -3292,7 +3317,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 

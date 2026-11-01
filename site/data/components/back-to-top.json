@@ -1,0 +1,63 @@
+{
+  "name": "Back to top",
+  "slug": "back-to-top",
+  "group": "Navigation",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A round link in the end corner that appears once the page has scrolled and takes the reader back to the top.",
+  "description": "Use it on long pages: docs, articles, long lists. Put id=\"top\" on an element at the top of the page (the header or the first section) and link to it.\n\nIt is a plain same-page link, so it works without JS and moves focus to the top as well as the scroll position. Where scroll-driven animations are supported it stays hidden until the page has scrolled about one screen; elsewhere it is always shown.",
+  "native": "Same-page link, animation-timeline: scroll()",
+  "catalogue": [
+    "Back to top"
+  ],
+  "css": [
+    "back-to-top.css"
+  ],
+  "classes": [
+    {
+      "name": "v-back-to-top",
+      "kind": "base",
+      "description": "The link, fixed in the end corner (bottom right, bottom left in right-to-left). Holds an icon and needs an aria-label."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "href=\"#top\"",
+      "description": "Points at an element at the top of the page. Any id works."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "Follows the link: scrolls to the top and moves focus there."
+    }
+  ],
+  "a11y": [
+    "While hidden it is visibility: hidden, not just transparent, so it is not a Tab stop and screen readers skip it.",
+    "Give it an aria-label such as \"Back to top\": it shows only an arrow.",
+    "Following it moves focus to the target, so keyboard users continue from the top too, not only the viewport.",
+    "Smooth scrolling comes from the page and is switched off under reduced motion."
+  ],
+  "tokens": [
+    "--v-back-to-top-offset",
+    "--v-back-to-top-after",
+    "--v-surface",
+    "--v-shadow-2",
+    "--v-radius-pill"
+  ],
+  "related": [
+    "skip-link",
+    "icon-button"
+  ],
+  "examples": [
+    {
+      "title": "Back to top link",
+      "description": "In this preview it is always in the corner; on a real page it appears after the first screen. Set --v-back-to-top-after to change when, and --v-back-to-top-offset to move it clear of a bottom bar.",
+      "html": "<a class=\"v-back-to-top\" href=\"#top\" aria-label=\"Back to top\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#arrow-up\"/></svg></a>",
+      "height": 160,
+      "source": "examples/plus/#back-to-top"
+    }
+  ]
+}

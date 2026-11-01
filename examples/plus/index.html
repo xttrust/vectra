@@ -30,6 +30,7 @@
     <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/></symbol>
     <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2-6z"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
     <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
   </svg>
 
@@ -55,14 +56,14 @@
   </header>
 
   <main class="v-container ex-main">
-    <section class="v-stack">
-      <p class="v-kicker">Components · v2.1</p>
-      <h1 class="v-display">More components.</h1>
-      <p class="v-lead">The first v2.1 additions: actions, navigation helpers and overlays. Each works without JavaScript where the platform allows, and the JS only adds keyboard and focus behaviour on top.</p>
+    <section class="v-stack" id="top">
+      <p class="v-kicker" data-contrast>Components · v2.1</p>
+      <h1 class="v-display" data-contrast>More components.</h1>
+      <p class="v-lead" data-contrast>The first v2.1 additions: actions, navigation helpers and overlays. Each works without JavaScript where the platform allows, and the JS only adds keyboard and focus behaviour on top.</p>
     </section>
 
     <section id="split">
-      <h2>Split button</h2>
+      <h2 data-contrast>Split button</h2>
       <p class="ex-label">A main action joined to a menu of related actions. The arrow button opens a .v-menu; ArrowDown on it opens the menu on the first item.</p>
       <div class="v-cluster">
         <div class="v-split">
@@ -93,6 +94,11 @@
         </div>
       </div>
     </section>
+    <section id="back-to-top">
+      <h2 data-contrast>Back to top</h2>
+      <p class="ex-label">Scroll down this page: a round button appears in the end corner once you are past the first screen. It is a plain link to #top, so it works without JS and moves focus back to the top.</p>
+    </section>
   </main>
+  <a class="v-back-to-top" href="#top" aria-label="Back to top"><svg class="v-icon" aria-hidden="true"><use href="#i-up"/></svg></a>
 </body>
 </html>

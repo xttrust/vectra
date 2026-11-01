@@ -166,6 +166,7 @@ Overlays:
 - Tooltip: .v-tooltip, hooks data-v-tooltip
 
 Navigation:
+- Back to top: .v-back-to-top
 - Bottom tab bar: .v-bottombar
 - Breadcrumb: .v-breadcrumb
 - Mega menu: .v-mega, hooks data-v-mega
