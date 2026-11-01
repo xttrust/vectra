@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-89 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+90 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -3642,6 +3642,41 @@ Example (Cards with ratings):
 </div>
 ```
 
+#### Video embed (video-embed)
+
+A video poster with a play button that loads the player only when pressed. Native: <iframe>, <video>, a link.
+
+Base:
+- .v-video: The link (and later the player's frame). Keeps --v-video-ratio (default 16 / 9). Always dark, like a player.
+Parts:
+- .v-video-play: The overlay holding the button and the label.
+- .v-video-button: The round play button around the play icon.
+- .v-video-label: What the video is and how long, such as "Play: Product tour (2:14)". It names the link.
+
+States:
+- href: The video's own page, used without JS and for a new-tab click.
+- data-title: The player's title (the iframe's title attribute). Defaults to the link text.
+
+Hooks:
+- data-v-video = player URL (on the a.v-video link): On click, replaces the link with an iframe (embed URL) or a native video (file URL) and moves focus into it.
+
+Keyboard:
+- Enter: On the poster, loads the player and moves focus into it.
+
+Accessibility:
+- The label inside the link names it ("Play: Product tour (2:14)"), so screen readers hear what will play; the poster image is decorative with alt="".
+- The iframe gets a title, which is how screen readers name an embedded player.
+- Focus moves into the player after the swap, so keyboard users do not have to find it again.
+
+Example (Product tour):
+
+```html
+<a class="v-video" href="/media/player.html" data-v-video="/media/player.html" data-title="Northwind product tour" style="max-inline-size: 40rem">
+  <img src="/img/booth.svg" alt="" width="1200" height="900">
+  <span class="v-video-play"><span class="v-video-button"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#play"/></svg></span><span class="v-video-label">Play: Northwind product tour (2:14)</span></span>
+</a>
+```
+
 ### Theming
 
 #### Customizer (customizer)
@@ -3956,7 +3991,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-marquee-duration --v-marquee-gap --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-marquee-duration --v-marquee-gap --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-video-ratio --v-warning
 
 ## Icons
 
@@ -3986,7 +4021,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-carousel data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-carousel data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video
 
 ## Patterns
 

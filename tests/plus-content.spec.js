@@ -277,3 +277,38 @@ test.describe('marquee with reduced motion', () => {
     expect(await page.locator('#marquee-clients .v-marquee-track').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
   });
 });
+
+test.describe('video, click to load', () => {
+  test('nothing is fetched from the player until the click, which swaps in a titled, focused iframe', async ({ page }) => {
+    const requested = [];
+    page.on('request', (r) => { if (r.url().includes('player.html')) requested.push(r.url()); });
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await expect(page.locator('#video iframe')).toHaveCount(0);
+    expect(requested).toEqual([]);
+    await page.locator('#video-tour').click();
+    const frame = page.locator('#video iframe');
+    await expect(frame).toHaveAttribute('title', 'Northwind product tour');
+    await expect(frame).toBeFocused();
+    expect(requested.length).toBe(1);
+    await expect(page.frameLocator('#video iframe').locator('h1')).toHaveText('The video plays here');
+    const box = await page.locator('#video .v-video').boundingBox();
+    expect(box.width / box.height).toBeCloseTo(16 / 9, 1);
+  });
+
+  test('a file URL becomes a native video with controls', async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await page.locator('#video-tour').evaluate((el) => { el.dataset.vVideo = '../shared/media/missing.mp4'; });
+    await page.locator('#video-tour').click();
+    await expect(page.locator('#video video[controls]')).toHaveAttribute('aria-label', 'Northwind product tour');
+  });
+});
+
+test.describe('video without JS', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('the poster is a link to the video', async ({ page }) => {
+    await page.goto(target.path);
+    await page.locator('#video-tour').click();
+    await expect(page).toHaveURL(/player\.html$/);
+  });
+});

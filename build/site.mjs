@@ -97,7 +97,7 @@ function demoDoc(root, { title, html, js, layout = 'row', needsJs }) {
   // Docs examples point at the sprite and the shared demo images from the site root; demos live deeper.
   const markup = html
     .replace(/href="\/icons\/sprite\.svg#/g, `href="${root}assets/icons/sprite.svg#`)
-    .replace(/(href|src)="\/img\//g, `$1="${root}assets/img/`);
+    .replace(/(href|src|data-v-video)="\/(img|media)\//g, `$1="${root}assets/$2/`);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -472,7 +472,8 @@ await cp('dist/vectra.js', `${OUT}/assets/vectra.js`);
 await cp('dist/fonts', `${OUT}/assets/fonts`, { recursive: true });
 await cp('dist/icons/sprite.svg', `${OUT}/assets/icons/sprite.svg`);
 await cp('dist/icons/icons.json', `${OUT}/assets/icons/icons.json`);
-await cp('examples/shared/img', `${OUT}/assets/img`, { recursive: true }); // demo images for docs examples
+// Demo images and media for docs examples, which point at /img/ and /media/ from the site root.
+for (const d of ['img', 'media']) await cp(`examples/shared/${d}`, `${OUT}/assets/${d}`, { recursive: true });
 for (const f of await readdir('site/assets')) await cp(`site/assets/${f}`, `${OUT}/assets/${f}`);
 for (const f of ['llms.txt', 'llms-full.txt']) if (existsSync(`dist/ai/${f}`)) await cp(`dist/ai/${f}`, `${OUT}/${f}`); // AI manifest (build/manifest.mjs)
 // The galleries load ../../src/ and ../shared/, so both are copied with the same layout.

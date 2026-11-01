@@ -175,7 +175,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Logo cloud | P0 | done | |
 | Carousel (scroll-snap + buttons) | P1 | done | no autoplay; slides per view follow the carousel width |
 | Gallery / masonry grid | P1 | done | CSS multi-column |
-| Video embed (lite, click to load) | P1 | | no third-party request until clicked |
+| Video embed (lite, click to load) | P1 | done | no third-party request until clicked; iframe or native video |
 | Marquee / logo ticker | P1 | done | respects reduced motion; pause button (WCAG 2.2.2) |
 | Device frames (phone, laptop, browser window) for screenshots in heroes and features | P1 | done | pure CSS, holds real Vectra UI or an image |
 | Countdown | P1 | | |

@@ -206,6 +206,7 @@ Content:
 - Pricing card: .v-pricing
 - Prose: .v-prose
 - Testimonial: .v-testimonial
+- Video embed: .v-video, hooks data-v-video
 
 Theming:
 - Customizer: .v-customizer, hooks data-v-customizer data-v-reset

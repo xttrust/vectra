@@ -28,6 +28,7 @@
     <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
     <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
     <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
   </svg>
 
@@ -174,6 +175,14 @@
         </div>
         <button class="v-btn v-btn-ghost v-btn-sm v-marquee-toggle" type="button" hidden>Pause</button>
       </div>
+    </section>
+    <section id="video">
+      <h2 data-contrast>Video, click to load</h2>
+      <p class="ex-label">Nothing loads from the video site until you press play, so there are no cookies or requests before then. Without JS the link opens the video.</p>
+      <a class="v-video" href="../shared/media/player.html" data-v-video="../shared/media/player.html" data-title="Northwind product tour" id="video-tour" style="max-inline-size: 40rem">
+        <img src="../shared/img/booth.svg" alt="" width="1200" height="900">
+        <span class="v-video-play"><span class="v-video-button"><svg class="v-icon" aria-hidden="true"><use href="#i-play"/></svg></span><span class="v-video-label" data-contrast>Play: Northwind product tour (2:14)</span></span>
+      </a>
     </section>
   </main>
 </body>
