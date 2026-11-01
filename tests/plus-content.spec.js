@@ -502,3 +502,38 @@ test.describe('multi-step form without JS', () => {
     await expect(page.locator('#wizard-quote [type="submit"]')).toBeVisible();
   });
 });
+
+test.describe('charts', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); });
+
+  test('the bar chart is a real table, and bar lengths follow the values', async ({ page }) => {
+    const table = page.getByRole('table', { name: 'Leads by source this quarter' });
+    await expect(table.getByRole('row')).toHaveCount(6);
+    await expect(table.getByRole('rowheader', { name: 'Referrals' })).toBeVisible();
+    const widths = await page.locator('#chart-bars .v-chart-bar').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().width));
+    expect(widths[1] / widths[0]).toBeCloseTo(0.62, 1);
+    expect(widths).toEqual([...widths].sort((a, b) => b - a));
+  });
+
+  test('columns grow from the baseline in proportion, with each value in text', async ({ page }) => {
+    const cols = await page.locator('#chart-columns .v-chart-col').evaluateAll((els) => els.map((e) => { const r = e.getBoundingClientRect(); return [r.height, Math.round(r.bottom)]; }));
+    expect(cols[5][0] / cols[0][0]).toBeCloseTo(100 / 35, 0);
+    expect(new Set(cols.map((c) => c[1])).size).toBe(1);
+    await expect(page.locator('#chart-columns li').nth(3)).toContainText('Apr: 32 jobs');
+  });
+
+  test('the donut is an image with the numbers in its name and in the legend', async ({ page }) => {
+    await expect(page.getByRole('img', { name: /roofing 45%, gutters 27%/ })).toBeVisible();
+    await expect(page.locator('#chart-donut .v-chart-legend li')).toHaveCount(4);
+    const bg = await page.locator('#chart-donut .v-donut').evaluate((el) => getComputedStyle(el, '::before').backgroundImage);
+    expect(bg).toContain('conic-gradient');
+  });
+
+  test('lines keep a 2px stroke however the SVG stretches', async ({ page }) => {
+    const stroke = await page.locator('#chart-line polyline').first().evaluate((el) => getComputedStyle(el).vectorEffect);
+    expect(stroke).toBe('non-scaling-stroke');
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+});

@@ -272,6 +272,64 @@
         </div>
       </form>
     </section>
+    <section id="charts">
+      <h2 data-contrast>Charts</h2>
+      <p class="ex-label">Built from tables, lists and inline SVG, with no chart library. Every chart can be read without seeing it: the bars are a real table, the columns and donut carry their numbers in text.</p>
+      <div class="v-grid" style="--v-min: 18rem; --v-gap: var(--v-space-6)">
+        <figure class="v-chart v-card v-p-4" id="chart-bars">
+          <figcaption class="v-chart-title" data-contrast>Where leads came from</figcaption>
+          <table class="v-chart-bars">
+            <caption class="v-sr-only">Leads by source this quarter</caption>
+            <thead class="v-sr-only"><tr><th scope="col">Source</th><th scope="col">Leads</th></tr></thead>
+            <tbody>
+              <tr><th scope="row" data-contrast>Website</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 100%"></span><span class="v-chart-value" data-contrast>48</span></div></td></tr>
+              <tr><th scope="row" data-contrast>Referrals</th><td><div class="v-chart-track"><span class="v-chart-bar v-chart-c2" style="--v-value: 62%"></span><span class="v-chart-value" data-contrast>30</span></div></td></tr>
+              <tr><th scope="row" data-contrast>Google Business</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 46%"></span><span class="v-chart-value" data-contrast>22</span></div></td></tr>
+              <tr><th scope="row" data-contrast>Facebook</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 25%"></span><span class="v-chart-value" data-contrast>12</span></div></td></tr>
+              <tr><th scope="row" data-contrast>Flyers</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 8%"></span><span class="v-chart-value" data-contrast>4</span></div></td></tr>
+            </tbody>
+          </table>
+        </figure>
+        <figure class="v-chart v-card v-p-4" id="chart-columns">
+          <figcaption class="v-chart-title" data-contrast>Jobs booked, January to June</figcaption>
+          <ul class="v-chart-columns" role="list">
+            <li><span class="v-chart-col" style="--v-value: 35%"></span><span class="v-chart-label" aria-hidden="true">Jan</span><span class="v-sr-only">Jan: 14 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 45%"></span><span class="v-chart-label" aria-hidden="true">Feb</span><span class="v-sr-only">Feb: 18 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 60%"></span><span class="v-chart-label" aria-hidden="true">Mar</span><span class="v-sr-only">Mar: 24 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 80%"></span><span class="v-chart-label" aria-hidden="true">Apr</span><span class="v-sr-only">Apr: 32 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 70%"></span><span class="v-chart-label" aria-hidden="true">May</span><span class="v-sr-only">May: 28 jobs</span></li>
+            <li><span class="v-chart-col" style="--v-value: 100%"></span><span class="v-chart-label" aria-hidden="true">Jun</span><span class="v-sr-only">Jun: 40 jobs</span></li>
+          </ul>
+        </figure>
+        <figure class="v-chart v-card v-p-4" id="chart-donut">
+          <figcaption class="v-chart-title" data-contrast>Revenue by service</figcaption>
+          <div class="v-cluster" style="--v-gap: var(--v-space-5)">
+            <div class="v-donut" role="img" aria-label="Revenue by service: roofing 45%, gutters 27%, repairs 18%, other 10%" style="--v-donut: conic-gradient(var(--v-chart-1) 0 45%, var(--v-chart-2) 0 72%, var(--v-chart-3) 0 90%, var(--v-chart-5) 0)">
+              <span class="v-donut-total" aria-hidden="true"><span data-contrast>€86k</span><small>this year</small></span>
+            </div>
+            <ul class="v-chart-legend" role="list" style="flex-direction: column">
+              <li><span class="v-chart-swatch" aria-hidden="true"></span><span data-contrast>Roofing <strong>45%</strong></span></li>
+              <li><span class="v-chart-swatch v-chart-c2" aria-hidden="true"></span><span data-contrast>Gutters <strong>27%</strong></span></li>
+              <li><span class="v-chart-swatch v-chart-c3" aria-hidden="true"></span><span data-contrast>Repairs <strong>18%</strong></span></li>
+              <li><span class="v-chart-swatch v-chart-c5" aria-hidden="true"></span><span data-contrast>Other <strong>10%</strong></span></li>
+            </ul>
+          </div>
+        </figure>
+        <figure class="v-chart v-card v-p-4" id="chart-line">
+          <figcaption class="v-chart-title" data-contrast>Website visits, last 12 weeks</figcaption>
+          <svg class="v-chart-line" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="Website visits rose from 120 to 480 a week over 12 weeks">
+            <line class="v-chart-grid" x1="0" y1="20.0" x2="100" y2="20.0"/>
+            <line class="v-chart-grid" x1="0" y1="40" x2="100" y2="40"/>
+            <polygon class="v-chart-area" points="0,40 0.0,30.4 9.09,25.6 18.18,28.0 27.27,20.8 36.36,22.4 45.45,16.0 54.55,17.6 63.64,11.2 72.73,12.8 81.82,6.4 90.91,8.0 100.0,1.6 100,40"/>
+            <polyline points="0.0,30.4 9.09,25.6 18.18,28.0 27.27,20.8 36.36,22.4 45.45,16.0 54.55,17.6 63.64,11.2 72.73,12.8 81.82,6.4 90.91,8.0 100.0,1.6"/>
+          </svg>
+          <div class="v-cluster v-justify-between v-items-center">
+            <span class="v-text-sm v-text-secondary" data-contrast>Signups</span>
+            <svg class="v-sparkline v-chart-c3" viewBox="0 0 100 20" preserveAspectRatio="none" role="img" aria-label="Signups up from 5 to 13 a week" style="inline-size: 8rem"><polyline points="0.0,12.86 14.29,10.0 28.57,11.43 42.86,7.14 57.14,8.57 71.43,4.29 85.71,5.71 100.0,1.43"/></svg>
+          </div>
+        </figure>
+      </div>
+    </section>
   </main>
 </body>
 </html>

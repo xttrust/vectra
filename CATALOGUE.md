@@ -159,8 +159,8 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Table (responsive, sticky header, zebra, selectable rows, dense) | P0 | done | |
 | Timeline / activity feed | P0 | done | |
 | Data table (sort, filter, column toggle, bulk actions) | P1 | | |
-| Charts: sparkline, bar, line, area, donut | P1 | | SVG, no library |
-| Chart legend and legend indicator | P1 | | with the charts |
+| Charts: sparkline, bar, line, area, donut | P1 | done | tables, lists and SVG, no library |
+| Chart legend and legend indicator | P1 | done | with the charts |
 | Calendar (month, week) | P2 | | |
 | Kanban board | P2 | | |
 

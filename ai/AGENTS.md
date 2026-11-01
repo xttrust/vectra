@@ -196,6 +196,7 @@ Disclosure:
 - Read more: .v-readmore, hooks data-v-readmore
 
 Data:
+- Charts: .v-chart
 - Table: .v-table
 - Timeline: .v-timeline
 

@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-93 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+94 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -3265,6 +3265,64 @@ Example (Long and short):
 
 ### Data
 
+#### Charts (charts)
+
+Bar, column, donut, line and sparkline charts in CSS and SVG, with no library. Native: <table>, <svg>, conic-gradient().
+
+Base:
+- .v-chart: The <figure> around any chart. Defines the series colours --v-chart-1 to --v-chart-5.
+Modifiers:
+- .v-chart-c2: Series colour 2 on any bar, column, line or swatch. Also .v-chart-c3, .v-chart-c4 and .v-chart-c5.
+- .v-chart-c3: Series colour 3.
+- .v-chart-c4: Series colour 4.
+- .v-chart-c5: Series colour 5, a neutral for "other".
+Parts:
+- .v-chart-title: The chart's <figcaption>.
+- .v-chart-bars: A <table> of horizontal bars: a row header and a cell holding a .v-chart-track.
+- .v-chart-track: The row of a bar and its value inside a table cell.
+- .v-chart-bar: One bar. Set --v-value as a percentage of the largest value.
+- .v-chart-value: The number after a bar.
+- .v-chart-columns: A <ul role="list"> of vertical columns. --v-chart-height sets the height.
+- .v-chart-col: One column, its height set by --v-value. Put the value in a .v-sr-only beside it.
+- .v-chart-label: The label under a column, aria-hidden because the hidden text says it.
+- .v-donut: A ring with role="img" and a label listing the shares. --v-donut takes a conic-gradient with cumulative stops; --v-donut-size its size.
+- .v-donut-total: The figure in the middle of the ring, with an optional <small> line.
+- .v-sparkline: A small inline <svg> with one <polyline>, for stat cards and table cells.
+- .v-chart-line: A larger line chart <svg>, with optional .v-chart-grid lines and a .v-chart-area polygon.
+- .v-chart-area: The tinted area under a line, on a <polygon>.
+- .v-chart-grid: A guide line, on an SVG <line>.
+- .v-chart-legend: A list of series names with their swatches and numbers.
+- .v-chart-swatch: The colour key in a legend item, aria-hidden.
+
+States:
+- --v-value: On a bar or column: its size as a percentage of the chart's largest value.
+- --v-donut: On the donut: conic-gradient(var(--v-chart-1) 0 45%, var(--v-chart-2) 0 72%, ...): each stop is the running total.
+
+Accessibility:
+- Every chart carries its numbers in text: a table, hidden text in each column, a labelled image with a visible legend.
+- Colour is never the only key: the legend names each series next to its swatch and number.
+- SVG lines keep a 2px stroke however wide the chart is (vector-effect: non-scaling-stroke).
+- In forced colours the bars and swatches switch to the system text colour so they stay visible.
+
+Example (Bar chart):
+
+```html
+<figure class="v-chart v-card v-p-4">
+  <figcaption class="v-chart-title">Where leads came from</figcaption>
+  <table class="v-chart-bars">
+    <caption class="v-sr-only">Leads by source this quarter</caption>
+    <thead class="v-sr-only"><tr><th scope="col">Source</th><th scope="col">Leads</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Website</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 100%"></span><span class="v-chart-value">48</span></div></td></tr>
+      <tr><th scope="row">Referrals</th><td><div class="v-chart-track"><span class="v-chart-bar v-chart-c2" style="--v-value: 62%"></span><span class="v-chart-value">30</span></div></td></tr>
+      <tr><th scope="row">Google Business</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 46%"></span><span class="v-chart-value">22</span></div></td></tr>
+      <tr><th scope="row">Facebook</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 25%"></span><span class="v-chart-value">12</span></div></td></tr>
+      <tr><th scope="row">Flyers</th><td><div class="v-chart-track"><span class="v-chart-bar" style="--v-value: 8%"></span><span class="v-chart-value">4</span></div></td></tr>
+    </tbody>
+  </table>
+</figure>
+```
+
 #### Table (table)
 
 Native table markup with zebra, hover, dense, bordered and sticky-header variants, selectable rows and a scrolling wrapper. Native: <table>.
@@ -4182,7 +4240,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-marquee-duration --v-marquee-gap --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-video-ratio --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-chart-1 --v-chart-2 --v-chart-3 --v-chart-4 --v-chart-5 --v-chart-height --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-donut-size --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-marquee-duration --v-marquee-gap --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-video-ratio --v-warning
 
 ## Icons
 
