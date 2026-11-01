@@ -495,7 +495,7 @@ ${CSRF}
 
 // ---------------------------------------------------------------- Blog post
 const TOC = [['why', 'Why prices have to move'], ['numbers', 'Step 1: know your numbers'], ['notice', 'Step 2: give fair notice'], ['value', 'Step 3: show what they get'], ['results', 'What happened when 40 trades tried it'], ['short', 'The short version']];
-const toc = (items, label = 'On this page') => `<nav class="v-toc" aria-labelledby="toc-title">
+const toc = (items, label = 'On this page') => `<nav class="v-toc" aria-labelledby="toc-title" data-v-toc>
 <p class="v-toc-title" id="toc-title">${label}</p>
 <ol>
 ${items.map(([id, text], i) => `<li><a href="#${id}"${i === 0 ? ' aria-current="true"' : ''}>${text}</a></li>`).join('\n')}

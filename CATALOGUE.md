@@ -139,7 +139,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Steps (horizontal, vertical) | P0 | done | |
 | Skip link | P0 | done | |
 | Bottom tab bar (mobile) | P0 | done | |
-| Table of contents / scrollspy | P1 | | scroll-driven where supported |
+| Table of contents / scrollspy | P1 | done | styles shipped with the article section in v2.0; scrollspy JS in v2.1 |
 | Mega menu | P1 | done | `<details name>` disclosure; inline in the mobile menu |
 | Back to top | P1 | done | plain link; scroll-driven reveal |
 | Tree view | P2 | | |

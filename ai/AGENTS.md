@@ -175,6 +175,7 @@ Navigation:
 - Sidebar nav: .v-sidenav
 - Skip link: .v-skip-link
 - Steps: .v-steps
+- Table of contents: .v-toc, hooks data-v-toc
 - Tabs: .v-tabs, hooks data-v-tabs
 
 Disclosure:

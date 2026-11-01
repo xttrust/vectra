@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-75 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+76 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -2459,6 +2459,50 @@ Example (Horizontal):
 </ol>
 ```
 
+#### Table of contents (table-of-contents)
+
+A list of links to the headings on a page, with scrollspy that marks the section being read. Native: Same-page links, <nav>.
+
+Base:
+- .v-toc: The <nav>. Give it aria-labelledby pointing at its title.
+Parts:
+- .v-toc-title: The heading above the list, such as "On this page".
+
+States:
+- aria-current="location": On a link: the section being read, set by data-v-toc. aria-current="true" from the server looks the same; the JS replaces it once it runs.
+
+Hooks:
+- data-v-toc (on the .v-toc nav): Follows the scroll and marks the current section. Set --v-sticky-top on the nav to move the reading line below a sticky header.
+
+Events:
+- v:toc detail { link, target }: Fires when the current section changes.
+
+Keyboard:
+- Tab: Moves through the links. Enter follows one: the page scrolls to the heading and focus moves there.
+
+Accessibility:
+- aria-current="location" tells screen readers which section the reader is in, not only the coloured rule.
+- Headings need ids. Give them scroll-margin so a sticky header does not cover them after a jump (.v-article-body does this).
+- Keep the labels the same as the headings, so the list and the page read the same.
+
+Example (On this page):
+
+```html
+<nav class="v-toc" aria-labelledby="toc-docs-title" data-v-toc>
+  <p class="v-toc-title" id="toc-docs-title">On this page</p>
+  <ol>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#setup">Set up</a>
+      <ol>
+        <li><a href="#tokens">Tokens</a></li>
+        <li><a href="#directions">Directions</a></li>
+      </ol>
+    </li>
+    <li><a href="#ship">Ship it</a></li>
+  </ol>
+</nav>
+```
+
 #### Tabs (tabs)
 
 Switch between panels of related content in one place, as line, pill or vertical tabs. Native: role="tablist", role="tab", role="tabpanel", hidden.
@@ -3186,7 +3230,7 @@ Page sections (dist/vectra.sections.css, included in dist/vectra.css) built from
 
 - app-shell: App shell. .v-app holds a sidebar (.v-app-sidebar), the main column (.v-app-main: a .v-app-topbar and the .v-app-page) and, for phones, an optional .v-bottombar. - From 64rem of shell width the sidebar sits beside the main column and stays put while the page scrolls. Below that, a sidebar with the popover attribute and an id hides, and the top bar's .v-app-toggle (popovertarget) opens it as a sheet from the start edge; a .v-app-close button inside shows only while it is open. No JS needed. - The top bar is its own size container: the toggle hides once the bar is 48rem wide, which is when a 16rem sidebar is showing beside it. - A sidebar holding a .v-sidenav-rail stays an icon rail at every width. Classes: .v-app .v-app-sidebar .v-app-main .v-app-topbar .v-app-page .v-bottombar .v-app-toggle .v-app-close .v-sidenav-rail .v-navbar-brand .v-search .v-app-stacked .v-navbar .v-navbar-contained
 - app-ui: App UI sections. Most are composition (panels, lists, tables, forms, description lists, empty states); this file adds the two pieces that are not: - .v-toolbar: a filter row above a table or list. The search grows, filters and actions wrap. - .v-danger-zone: a .v-panel for destructive actions, in the danger tone, one action per .v-panel-body row (text first, button last). Classes: .v-toolbar .v-danger-zone .v-panel .v-panel-body .v-search .v-panel-title
-- article: Article: long-form pages such as a blog post, legal terms or a help article. .v-article holds an optional .v-article-aside (a table of contents, author details) and the .v-article-body (usually a .v-prose). From 64rem the aside moves beside the body at the inline end and stays in view while the body scrolls; below that it comes first. Headings with an id stop clear of the top edge when a link jumps to them. .v-toc: a <nav> with a .v-toc-title and an <ol> of links (nest an <ol> for sub-sections). Mark the section in view with aria-current="true"; the rule beside it turns accent. Classes: .v-article .v-article-aside .v-article-body .v-prose .v-toc .v-toc-title
+- article: Article: long-form pages such as a blog post, legal terms or a help article. .v-article holds an optional .v-article-aside (a table of contents, author details) and the .v-article-body (usually a .v-prose). From 64rem the aside moves beside the body at the inline end and stays in view while the body scrolls; below that it comes first. Headings with an id stop clear of the top edge when a link jumps to them. The table of contents that usually sits in the aside is the .v-toc component (components/toc.css). Classes: .v-article .v-article-aside .v-article-body .v-prose .v-toc
 - auth: Auth layouts: sign in, sign up, recovery and the rest. The wrapper picks the layout; the markup inside is the same in every one, so any flow drops into any layout by changing one class. <main class="v-auth"> centred card (default) <div class="v-auth-main"> <a class="v-auth-logo" href="/">..</a> <div class="v-auth-box"> .v-auth-header (.v-auth-title, .v-auth-text), a .v-form, .v-auth-alt <footer class="v-auth-footer">..</footer> </div> <aside class="v-auth-aside v-auth-art"> split layouts only: drawn art, or .v-auth-panel for a quote </main> Layouts: .v-auth-split (form beside an aside; stacks on phones), .v-auth-minimal (no card), .v-auth-bleed (card over a colour field; Glass shows its own), and .v-auth-dialog on a .v-dialog. .v-auth-wide widens the column for plan pickers, 2FA set-up and onboarding. Classes: .v-auth-header .v-auth-title .v-auth-text .v-form .v-auth-alt .v-auth-panel .v-auth-split .v-auth-minimal .v-auth-bleed .v-auth-dialog .v-dialog .v-auth-wide .v-auth .v-auth-main .v-auth-logo .v-icon .v-auth-box .v-auth-footer .v-auth-icon .v-auth-icon-success .v-auth-icon-warning .v-auth-icon-danger .v-auth-code .v-auth-qr .v-auth-codes .v-auth-aside .v-auth-art .v-testimonial-quote .v-dialog-close
 - cta: Call to action, on a card (.v-card, often .v-card-feature for the direction's emphasis surface). .v-cta centres a title, a line of copy and the actions with generous padding. .v-cta-split puts the copy beside the actions (or a newsletter form) once the card is 44rem wide. Classes: .v-card .v-card-feature .v-cta .v-cta-split .v-lead
 - features: Feature sections. Layout comes from .v-grid and .v-bento; this file adds only what they cannot do. - .v-feature-icon: the tinted tile an icon sits in. - .v-alternate: rows of copy and art, each row a direct child, art swapping sides on every second row from 48rem wide. - .v-howto: an <ol> of steps, numbered by CSS, in as many columns as fit. - .v-stats: a <dl> of .v-stat blocks (term first, shown under the number), split by rules. Classes: .v-grid .v-bento .v-feature-icon .v-alternate .v-howto .v-stats .v-stat .v-stat-value .v-stat-label
@@ -3317,7 +3361,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-info --v-input-h --v-logos-h --v-logos-min --v-menu-pad --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-size --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 
@@ -3347,7 +3391,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-confirm-text data-v-connection data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-confirm-text data-v-connection data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 

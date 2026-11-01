@@ -83,3 +83,60 @@ test.describe('back to top', () => {
     expect(box.x).toBeLessThan(60);
   });
 });
+
+test.describe('table of contents', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); await ready(page); });
+  const current = (page) => page.locator('#toc .v-toc a[aria-current="location"]');
+  const scrollTo = (page, id) => page.evaluate((i) => {
+    const box = document.getElementById('toc-article');
+    box.scrollTop = document.getElementById(i).offsetTop - box.offsetTop - 8;
+  }, id);
+
+  test('starts on the first part and follows the scroll, nested parts included', async ({ page }) => {
+    await expect(current(page)).toHaveText('Install');
+    await scrollTo(page, 'toc-tokens');
+    await expect(current(page)).toHaveText('Tokens');
+    await scrollTo(page, 'toc-setup');
+    await expect(current(page)).toHaveText('Set up');
+    await expect(current(page)).toHaveCount(1);
+  });
+
+  test('the end of the scroller marks the last part even when it is short', async ({ page }) => {
+    await page.evaluate(() => { const box = document.getElementById('toc-article'); box.scrollTop = box.scrollHeight; });
+    await expect(current(page)).toHaveText('Ship it');
+  });
+
+  test('fires v:toc with the link when the section changes', async ({ page }) => {
+    const detail = page.evaluate(() => new Promise((resolve) => {
+      document.querySelector('#toc .v-toc').addEventListener('v:toc', (e) => resolve(e.detail.link.textContent), { once: true });
+    }));
+    await scrollTo(page, 'toc-directions');
+    expect(await detail).toBe('Directions');
+  });
+});
+
+test.describe('table of contents without JS', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('links still jump to each part, and nothing is marked', async ({ page }) => {
+    await page.goto(target.path);
+    await page.click('#toc a[href="#toc-ship"]');
+    await expect(page).toHaveURL(/#toc-ship$/);
+    await expect(page.locator('#toc [aria-current]')).toHaveCount(0);
+  });
+});
+
+test.describe('table of contents on a real page', () => {
+  test.use({ viewport: { width: 1280, height: 800 } });
+
+  test('the blog post follows the window scroll, and only one link is marked', async ({ page }) => {
+    await page.goto('/examples/pages/blog-post.html');
+    const current = page.locator('.v-toc a[aria-current]');
+    await expect(current).toHaveCount(1);
+    await expect(current).toHaveAttribute('aria-current', 'location');
+    await page.evaluate(() => window.scrollTo(0, document.getElementById('results').getBoundingClientRect().top + window.scrollY - 40));
+    await expect(current).toHaveText('What happened when 40 trades tried it');
+    await expect(current).toHaveCount(1);
+  });
+});
