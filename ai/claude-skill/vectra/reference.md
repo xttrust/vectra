@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-78 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+79 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1772,6 +1772,79 @@ Example (With a clear button):
 
 ### Overlays
 
+#### Command palette (command-palette)
+
+A searchable list of pages and actions in a dialog, opened with Ctrl+K or Cmd+K. Native: <dialog>, showModal().
+
+Modifiers:
+- .v-command: On a .v-dialog: the palette layout, placed high in the viewport.
+Parts:
+- .v-command-search: The row with the search icon, the input and an Esc hint.
+- .v-command-input: The input, with role="combobox", aria-controls pointing at the list and aria-autocomplete="list".
+- .v-command-list: The role="listbox" of options. Group them in role="group" with aria-labelledby on a .v-command-label.
+- .v-command-label: A group heading, with role="presentation".
+- .v-command-item: One option: an <a> or <button> with role="option". An icon and a <kbd> hint can sit inside.
+- .v-command-empty: A role="status" element that says when nothing matches. Hidden while empty. Set data-template to change the words; {q} is the query.
+- .v-command-footer: An optional row of key hints, aria-hidden because the keys are announced by the combobox pattern itself.
+
+States:
+- aria-selected="true": On the highlighted option, set by the JS together with aria-activedescendant on the input.
+- data-keywords: On an option: extra words it should match, such as "invoices plan" on Billing.
+- hidden: Set by the JS on options and groups that do not match.
+
+Hooks:
+- data-v-command = letter (default k) (on the dialog): Ctrl or Cmd plus the letter opens and closes it. Resets and focuses the input on every open, filters as you type, and runs the highlighted option on Enter.
+- data-v-dialog-open = dialog id (on A button): Opens the palette from a visible control. Always offer one: a shortcut alone is not discoverable.
+- data-v-dismissable (on the dialog): A click on the backdrop closes it.
+
+Events:
+- v:command detail { item }, cancelable: Fires before an option runs. Call preventDefault() to keep the dialog open and skip the default click.
+
+Keyboard:
+- Ctrl+K / Cmd+K: Opens or closes the palette from anywhere on the page.
+- ArrowDown / ArrowUp: Moves the highlight through the visible options, across groups, and wraps.
+- Enter: Runs the highlighted option.
+- Escape: Closes the palette and returns focus to where it was.
+
+Accessibility:
+- Focus stays in the input while the highlight moves: aria-activedescendant tells screen readers which option is active.
+- Ctrl+K uses a modifier, so it does not clash with typing (WCAG 2.1.4). Show it on the button that opens the palette.
+- The empty message is a live region that stays in the page, so "No results" is announced.
+- Options are links and buttons underneath: a mouse click, Enter and assistive tech all run the same thing.
+
+Example (App commands):
+
+```html
+<button class="v-btn v-btn-secondary" type="button" data-v-dialog-open="cmdk"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg>Search commands<kbd>Ctrl K</kbd></button>
+<dialog class="v-dialog v-command" id="cmdk" aria-label="Command palette" data-v-command data-v-dismissable>
+  <div class="v-command-search">
+    <svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg>
+    <input class="v-command-input" type="text" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" aria-label="Search commands" placeholder="Type a command or search" autocomplete="off" spellcheck="false">
+    <kbd>Esc</kbd>
+  </div>
+  <div class="v-command-list" id="cmdk-list" role="listbox" aria-label="Commands">
+    <div role="group" aria-labelledby="cmdk-go">
+      <div class="v-command-label" id="cmdk-go" role="presentation">Go to</div>
+      <a class="v-command-item" role="option" href="#command" data-keywords="home overview"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#home"/></svg>Dashboard<kbd>G D</kbd></a>
+      <a class="v-command-item" role="option" href="#command"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#folder"/></svg>Projects<kbd>G P</kbd></a>
+      <a class="v-command-item" role="option" href="#command" data-keywords="members people"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#users"/></svg>Team</a>
+      <a class="v-command-item" role="option" href="#command" data-keywords="invoices plan payment"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#credit-card"/></svg>Billing</a>
+      <a class="v-command-item" role="option" href="#command" data-keywords="preferences account"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#settings"/></svg>Settings<kbd>G S</kbd></a>
+    </div>
+    <div role="group" aria-labelledby="cmdk-do">
+      <div class="v-command-label" id="cmdk-do" role="presentation">Actions</div>
+      <button class="v-command-item" type="button" role="option" data-keywords="create add"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#plus"/></svg>New project</button>
+      <button class="v-command-item" type="button" role="option" data-keywords="add member"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#users"/></svg>Invite a teammate</button>
+      <button class="v-command-item" type="button" role="option" data-keywords="theme"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#moon"/></svg>Switch to dark mode</button>
+      <button class="v-command-item" type="button" role="option" data-keywords="mute snooze"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#bell"/></svg>Pause notifications</button>
+      <button class="v-command-item" type="button" role="option" data-keywords="log out"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#log-out"/></svg>Sign out</button>
+    </div>
+  </div>
+  <p class="v-command-empty" role="status"></p>
+  <div class="v-command-footer" aria-hidden="true"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to choose</span><span><kbd>Esc</kbd> to close</span></div>
+</dialog>
+```
+
 #### Context menu (context-menu)
 
 A menu of actions that opens at the pointer on right-click, or from the keyboard with Shift+F10. Native: popover, contextmenu event.
@@ -3493,7 +3566,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-mega data-v-menu data-v-nav data-v-password data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 

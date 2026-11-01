@@ -124,7 +124,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Tooltip | P0 | done | Escape dismisses, stays open on hover |
 | Context menu | P1 | done | a .v-menu at the pointer; Shift+F10 and the Menu key |
 | Hover card | P1 | done | popover="manual" with an explicit anchor |
-| Command palette (Ctrl/Cmd+K) | P1 | | |
+| Command palette (Ctrl/Cmd+K) | P1 | done | `<dialog>` + combobox and listbox |
 | Lightbox (image viewer) | P1 | | `<dialog>` |
 
 ### Navigation

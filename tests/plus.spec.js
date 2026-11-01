@@ -247,3 +247,66 @@ test.describe('hover card', () => {
     expect(Math.abs(c.x - t.x)).toBeLessThan(40);
   });
 });
+
+test.describe('command palette', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); await ready(page); });
+  const dialog = (page) => page.locator('#cmdk');
+  const input = (page) => page.locator('#cmdk [role="combobox"]');
+  const selected = (page) => page.locator('#cmdk [role="option"][aria-selected="true"]');
+
+  test('Ctrl+K opens it with focus in the input and the first option highlighted; Ctrl+K again closes', async ({ page }) => {
+    await page.keyboard.press('Control+k');
+    await expect(dialog(page)).toBeVisible();
+    await expect(input(page)).toBeFocused();
+    await expect(selected(page)).toHaveText('DashboardG D');
+    expect(await input(page).getAttribute('aria-activedescendant')).toBe(await selected(page).getAttribute('id'));
+    await page.keyboard.press('Control+k');
+    await expect(dialog(page)).toBeHidden();
+  });
+
+  test('typing filters by text and keywords, hides empty groups, and says when nothing matches', async ({ page }) => {
+    await page.click('#cmdk-open');
+    await input(page).fill('invoices');
+    await expect(page.locator('#cmdk [role="option"]:visible')).toHaveCount(1);
+    await expect(selected(page)).toContainText('Billing');
+    await expect(page.locator('#cmdk [aria-labelledby="cmdk-do"]')).toBeHidden();
+    await input(page).fill('zzz');
+    await expect(page.locator('#cmdk [role="option"]:visible')).toHaveCount(0);
+    await expect(page.locator('#cmdk .v-command-empty')).toHaveText('No results for "zzz"');
+    await expect(input(page)).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('arrow keys move and wrap across groups; Enter runs the option and closes', async ({ page }) => {
+    await page.click('#cmdk-open');
+    await page.keyboard.press('ArrowUp');
+    await expect(selected(page)).toHaveText('Sign out');
+    await page.keyboard.press('ArrowDown');
+    await expect(selected(page)).toContainText('Dashboard');
+    for (let i = 0; i < 5; i += 1) await page.keyboard.press('ArrowDown');
+    await expect(selected(page)).toHaveText('New project');
+    const ran = page.evaluate(() => new Promise((r) => document.getElementById('cmdk').addEventListener('v:command', (e) => r(e.detail.item.textContent), { once: true })));
+    await page.keyboard.press('Enter');
+    expect(await ran).toBe('New project');
+    await expect(dialog(page)).toBeHidden();
+    await expect(page.locator('#cmdk-open')).toBeFocused();
+  });
+
+  test('reopening starts fresh, and a click on an option runs it', async ({ page }) => {
+    await page.click('#cmdk-open');
+    await input(page).fill('team');
+    await page.keyboard.press('Escape');
+    await page.click('#cmdk-open');
+    await expect(input(page)).toHaveValue('');
+    await expect(page.locator('#cmdk [role="option"]:visible')).toHaveCount(10);
+    await page.locator('#cmdk [role="option"]', { hasText: 'Projects' }).click();
+    await expect(dialog(page)).toBeHidden();
+  });
+
+  test('preventDefault on v:command keeps it open', async ({ page }) => {
+    await page.evaluate(() => document.getElementById('cmdk').addEventListener('v:command', (e) => e.preventDefault()));
+    await page.click('#cmdk-open');
+    await page.keyboard.press('Enter');
+    await expect(dialog(page)).toBeVisible();
+  });
+});

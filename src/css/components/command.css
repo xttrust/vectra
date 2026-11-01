@@ -1,0 +1,117 @@
+/* Command palette: a .v-dialog.v-command with a search input (role="combobox") over a listbox of
+   commands, opened with Ctrl+K or Cmd+K (data-v-command) or any data-v-dialog-open button. Typing
+   filters the list, the arrow keys move the highlight (aria-activedescendant) and Enter runs the item.
+   It sits high in the viewport so the list has room to grow below the input. */
+@layer components {
+  .v-dialog.v-command {
+    --v-dialog-w: 38rem;
+
+    margin-block-start: min(14vh, 8rem);
+    overflow: hidden;
+  }
+
+  .v-command-search {
+    display: flex;
+    gap: var(--v-space-3);
+    align-items: center;
+    padding: var(--v-space-3) var(--v-space-4);
+    border-block-end: var(--v-border-w) solid var(--v-border);
+  }
+
+  .v-command-search > .v-icon {
+    flex: none;
+    color: var(--v-text-3);
+  }
+
+  .v-command-input {
+    flex: 1;
+    min-inline-size: 0;
+    min-block-size: 2.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--v-text);
+    font: inherit;
+    font-size: var(--v-step-0);
+  }
+
+  .v-command-input::placeholder { color: var(--v-text-3); }
+  .v-command-input:focus { outline: none; }
+  .v-command-search:focus-within { box-shadow: inset 0 -2px 0 var(--v-accent); }
+
+  .v-command-list {
+    overflow-y: auto;
+    max-block-size: min(60dvh, 24rem);
+    padding: var(--v-space-2);
+    overscroll-behavior: contain;
+  }
+
+  .v-command-list [role="group"] + [role="group"] { margin-block-start: var(--v-space-2); }
+
+  .v-command-label {
+    padding: var(--v-space-2) 0.65rem var(--v-space-1);
+    color: var(--v-text-2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .v-command-item {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    inline-size: 100%;
+    min-block-size: 2.5rem;
+    padding: 0.45rem 0.65rem;
+    border: 0;
+    border-radius: var(--v-radius-md);
+    background: none;
+    color: var(--v-text);
+    font: inherit;
+    font-size: 0.9375rem;
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .v-command-item .v-icon {
+    flex: none;
+    color: var(--v-text-3);
+  }
+
+  .v-command-item kbd { margin-inline-start: auto; }
+
+  .v-command-item[aria-selected="true"] {
+    background-color: var(--v-accent-soft);
+    color: var(--v-accent-text);
+  }
+
+  .v-command-item[aria-selected="true"] .v-icon { color: inherit; }
+
+  .v-command-empty {
+    padding: var(--v-space-6) var(--v-space-4);
+    color: var(--v-text-2);
+    text-align: center;
+  }
+
+  .v-command-empty:empty { display: none; }
+
+  .v-command-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-1) var(--v-space-4);
+    padding: var(--v-space-2) var(--v-space-4);
+    border-block-start: var(--v-border-w) solid var(--v-border);
+    color: var(--v-text-2);
+    font-size: var(--v-step-minus-1);
+  }
+
+  @media (forced-colors: active) {
+    .v-command-item[aria-selected="true"] {
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
+    }
+  }
+}
