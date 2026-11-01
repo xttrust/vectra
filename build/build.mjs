@@ -12,6 +12,7 @@ const entries = [
   ['src/css/vectra.core.css', 'dist/vectra.core'],
   ['src/css/vectra.components.css', 'dist/vectra.components'],
   ['src/css/vectra.plus.css', 'dist/vectra.plus'],
+  ['src/css/vectra.transitions.css', 'dist/vectra.transitions'],
   ['src/css/vectra.sections.css', 'dist/vectra.sections'],
   ...(await names('src/css/directions')).map((d) => [`src/css/directions/${d}.css`, `dist/directions/${d}`]),
   ...(await names('src/css/components')).map((c) => [`src/css/components/${c}.css`, `dist/components/${c}`]),

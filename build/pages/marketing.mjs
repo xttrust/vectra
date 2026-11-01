@@ -10,7 +10,7 @@ export const head = (kicker, title, lead, { center = true, level = 2 } = {}) => 
 ${lead ? `<p class="v-lead">${lead}</p>` : ''}
 </div>`;
 export const section = (inner, attrs = '') => `<section class="v-section"${attrs}>
-<div class="v-container">
+<div class="v-container v-reveal">
 ${inner}
 </div>
 </section>`;

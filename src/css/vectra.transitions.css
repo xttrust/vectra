@@ -1,0 +1,31 @@
+/* Page transitions (opt-in): load this file and same-site page loads cross-fade, with the new page
+   rising slightly, using the browser's cross-document view transitions; no JS. Give matching elements
+   on two pages the same view-transition-name (style="view-transition-name: hero") and the browser
+   morphs one into the other. Browsers without cross-document transitions just load the page. It is
+   its own file because it changes every navigation on a site, and it is off with reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+    types: v-page;
+  }
+
+  /* Only the page navigation type: the theme switcher's own transition keeps its plain cross-fade. */
+  :root:active-view-transition-type(v-page)::view-transition-old(root) {
+    animation: v-page-out var(--v-dur-2, 180ms) var(--v-ease-out, ease-out) both;
+  }
+
+  :root:active-view-transition-type(v-page)::view-transition-new(root) {
+    animation: v-page-in var(--v-dur-3, 320ms) var(--v-ease-out, ease-out) both;
+  }
+
+  @keyframes v-page-out {
+    to { opacity: 0; }
+  }
+
+  @keyframes v-page-in {
+    from {
+      opacity: 0;
+      translate: 0 0.75rem;
+    }
+  }
+}

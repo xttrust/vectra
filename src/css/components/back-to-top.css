@@ -31,11 +31,28 @@
     block-size: 1.25rem;
   }
 
+  /* .v-back-to-top-progress: a ring around the button fills as the page is read (--v-scroll-p, from
+     motion.css: a scroll timeline where supported, data-v-scroll-progress elsewhere). */
+  .v-back-to-top-progress::before {
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    background: conic-gradient(var(--v-accent) calc(var(--v-scroll-p) * 1turn), var(--v-border) 0);
+    content: "";
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), var(--v-text) calc(100% - 2.5px));
+  }
+
   @supports (animation-timeline: scroll()) {
     .v-back-to-top {
       animation: v-back-to-top-in linear both;
       animation-timeline: scroll(root block);
       animation-range: var(--v-back-to-top-after, 80vh) calc(var(--v-back-to-top-after, 80vh) + 1px);
+    }
+
+    .v-back-to-top-progress {
+      animation: v-back-to-top-in linear both, v-scroll-p linear both;
+      animation-timeline: scroll(root block), scroll(root block);
+      animation-range: var(--v-back-to-top-after, 80vh) calc(var(--v-back-to-top-after, 80vh) + 1px), normal;
     }
   }
 

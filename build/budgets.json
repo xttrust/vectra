@@ -5,6 +5,7 @@
   "dist/vectra.components.min.css": 22528,
   "dist/components/*.min.css": 3072,
   "dist/vectra.plus.min.css": 12288,
+  "dist/vectra.transitions.min.css": 1024,
   "dist/vectra.sections.min.css": 8192,
   "dist/sections/*.min.css": 3072,
   "dist/vectra.min.css": 43008,

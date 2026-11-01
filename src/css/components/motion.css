@@ -1,0 +1,101 @@
+/* Motion: a scroll progress bar and scroll reveals for page sections. CSS only where the browser can do
+   it. The progress value is the registered --v-scroll-p (0 to 1): a scroll-driven animation sets it
+   where scroll timelines exist, and data-v-scroll-progress sets it from JS elsewhere. Reveals only run
+   with no reduced-motion preference and with view timelines; anywhere else the content simply shows. */
+@property --v-scroll-p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@layer components {
+  /* A thin bar across the top of the viewport that fills as the page scrolls. Decorative: aria-hidden.
+     The element is the full-width track (transparent unless --v-scroll-progress-track is set); the
+     ::before fill grows across it from the start side. */
+  .v-scroll-progress {
+    position: fixed;
+    z-index: 60;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: var(--v-scroll-progress-h, 3px);
+    background-color: var(--v-scroll-progress-track, transparent);
+    pointer-events: none;
+  }
+
+  .v-scroll-progress::before {
+    position: absolute;
+    inset: 0;
+    background-color: var(--v-scroll-progress-color, var(--v-accent));
+    content: "";
+    scale: var(--v-scroll-p) 1;
+    transform-origin: left center;
+  }
+
+  .v-scroll-progress:dir(rtl)::before { transform-origin: right center; }
+
+  @supports (animation-timeline: scroll()) {
+    .v-scroll-progress {
+      animation: v-scroll-p linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+
+  @keyframes v-scroll-p {
+    from { --v-scroll-p: 0; }
+    to { --v-scroll-p: 1; }
+  }
+
+  /* Scroll reveal: .v-reveal rises and fades in as it enters the viewport; -left, -right and -scale come
+     from the side or grow; .v-reveal-stagger reveals its children one after another. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .v-reveal,
+      .v-reveal-stagger > * {
+        animation: v-reveal-up linear both;
+        animation-timeline: view();
+        animation-range: entry 5% entry 65%;
+      }
+
+      .v-reveal-left { animation-name: v-reveal-left; }
+      .v-reveal-right { animation-name: v-reveal-right; }
+      .v-reveal-scale { animation-name: v-reveal-scale; }
+
+      .v-reveal-stagger > :nth-child(2) { animation-range: entry 10% entry 70%; }
+      .v-reveal-stagger > :nth-child(3) { animation-range: entry 15% entry 75%; }
+      .v-reveal-stagger > :nth-child(4) { animation-range: entry 20% entry 80%; }
+      .v-reveal-stagger > :nth-child(n + 5) { animation-range: entry 25% entry 85%; }
+    }
+  }
+
+  @keyframes v-reveal-up {
+    from {
+      opacity: 0;
+      translate: 0 1.5rem;
+    }
+  }
+
+  /* "Left" and "right" are the start and end sides, so they swap in right to left. */
+  @keyframes v-reveal-left {
+    from {
+      opacity: 0;
+      translate: calc(-2rem * var(--v-dir-x, 1)) 0;
+    }
+  }
+
+  @keyframes v-reveal-right {
+    from {
+      opacity: 0;
+      translate: calc(2rem * var(--v-dir-x, 1)) 0;
+    }
+  }
+
+  @keyframes v-reveal-scale {
+    from {
+      opacity: 0;
+      scale: 0.94;
+    }
+  }
+
+  .v-reveal-left:dir(rtl),
+  .v-reveal-right:dir(rtl) { --v-dir-x: -1; }
+}

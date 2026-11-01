@@ -1,0 +1,62 @@
+{
+  "name": "Scroll progress",
+  "slug": "scroll-progress",
+  "group": "Navigation",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A thin bar across the top of the page that fills as the reader scrolls.",
+  "description": "Use it on long articles, docs and landing pages to show how far through the page the reader is.\n\nIt is one empty element, fixed to the top. Where the browser has scroll-driven animations the CSS fills it with no JS; data-v-scroll-progress fills it from a scroll listener elsewhere. The same progress (--v-scroll-p) also drives the ring of .v-back-to-top-progress.",
+  "native": "animation-timeline: scroll(), @property",
+  "catalogue": [],
+  "css": [
+    "motion.css"
+  ],
+  "js": [
+    "components/scroll-progress.js"
+  ],
+  "classes": [
+    {
+      "name": "v-scroll-progress",
+      "kind": "base",
+      "description": "The bar: a full-width track whose fill grows from the start side. Decorative: give it aria-hidden=\"true\". --v-scroll-progress-h sets its height, --v-scroll-progress-color the fill, --v-scroll-progress-track the track (transparent by default)."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "--v-scroll-p",
+      "description": "How far the page has scrolled, 0 to 1, set by the scroll timeline or the JS."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-scroll-progress",
+      "value": "",
+      "on": "The bar, or a .v-back-to-top-progress link",
+      "description": "Fills it from a scroll listener in browsers without scroll timelines; does nothing where the CSS can."
+    }
+  ],
+  "a11y": [
+    "The bar is decoration and is aria-hidden; the scrollbar already tells assistive tech where the reader is.",
+    "It reflects the reader's own scrolling, so it is not motion to switch off under reduced motion."
+  ],
+  "tokens": [
+    "--v-scroll-progress-h",
+    "--v-scroll-progress-color",
+    "--v-scroll-progress-track",
+    "--v-accent"
+  ],
+  "related": [
+    "back-to-top",
+    "table-of-contents",
+    "scroll-reveal"
+  ],
+  "examples": [
+    {
+      "title": "Reading progress",
+      "description": "On a real page it is fixed to the top of the viewport.",
+      "html": "<div class=\"v-scroll-progress\" data-v-scroll-progress aria-hidden=\"true\"></div>",
+      "height": 80,
+      "source": "examples/plus-content/#motion"
+    }
+  ]
+}

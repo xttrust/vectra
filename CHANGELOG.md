@@ -30,6 +30,7 @@ Vectra follows [semantic versioning](https://semver.org). Pre-release versions (
   - **Combobox** (`.v-combobox`, `data-v-combobox`): upgrades `<input list>` + `<datalist>`.
   - **Multi-step form** (`.v-wizard`, `data-v-wizard`): one form, checked step by step.
   - **Charts** (`.v-chart`, `.v-chart-bars`, `.v-chart-columns`, `.v-donut`, `.v-sparkline`, `.v-chart-line`, `.v-chart-legend`): tables, lists and SVG, no library.
+- **Motion**: `.v-scroll-progress` (a reading-progress bar), `.v-back-to-top-progress` (a ring that fills as you read), `.v-reveal` and `.v-reveal-stagger` (sections and cards reveal as they scroll into view, off under reduced motion), and page transitions in the opt-in `vectra.transitions.css` (cross-document view transitions, no JS). The example pages use all four.
 - **18 new example pages** (`examples/pages/`): features, changelog, careers and a job with a multi-step application, customers and a case study, help centre and an article, developer docs, status and a waitlist; and in the app, billing, team, API keys and integrations settings, notifications, search results and a business profile.
 - The example marketing header now has two mega menus (Product, Resources), the footer links to the new pages instead of the coming-soon page, and the app shell's top bar has a working notification centre and a Ctrl+K command palette.
 
@@ -37,7 +38,7 @@ Vectra follows [semantic versioning](https://semver.org). Pre-release versions (
 
 ### Changed
 
-- `vectra.js` budget is now 16 KB (the v2.0 modules were 9.9 KB at alpha.1); `llms-full.txt` may grow to 300 KB.
+- `dist/vectra.core.js` is new: the core and the v2.0 modules under the original 11 KB budget. `dist/vectra.js` stays everything (budget 28 KB). `llms-full.txt` may grow to 300 KB.
 - The anchor fallback exports an `anchors` map, so invokers that are not `popovertarget` buttons can be placed.
 - `data-v-validate` also answers a `v:validate` event with `detail.scope`, checking part of a form (used by the multi-step form).
 - The docs site copies `examples/shared/media` and rewrites `/media/` in examples, as it does `/img/`.

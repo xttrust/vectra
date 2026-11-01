@@ -401,7 +401,7 @@ Full multi-page sites, each 5 to 10 pages, each shown in its best-fitting direct
 | Reduced motion, reduced transparency, forced colours | P0 | |
 | Works without JS | P0 | test run with JS off |
 | Container-query responsive components | P0 | components adapt to their slot, not the viewport |
-| Motion set: enter/exit, view-transition theme reveal, scroll reveal | P0 | progressive enhancement |
+| Motion set: enter/exit, view-transition theme reveal, scroll reveal | P0 | done in v2.1: scroll progress bar, back-to-top progress ring, scroll reveal (.v-reveal), page transitions (vectra.transitions.css) |
 | Icon sprite (about 150) + subset tool | P0 | M5 |
 | Self-hosted Inter, subset | P0 | M5 |
 | Docs site with live direction switch on every example | P0 | M6 |

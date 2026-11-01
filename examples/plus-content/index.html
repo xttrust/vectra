@@ -24,6 +24,7 @@
   <script type="module" src="../../src/js/index.js"></script>
 </head>
 <body>
+  <div class="v-scroll-progress" data-v-scroll-progress aria-hidden="true"></div>
   <svg class="v-sr-only" aria-hidden="true" focusable="false">
     <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
     <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
@@ -328,6 +329,23 @@
             <svg class="v-sparkline v-chart-c3" viewBox="0 0 100 20" preserveAspectRatio="none" role="img" aria-label="Signups up from 5 to 13 a week" style="inline-size: 8rem"><polyline points="0.0,12.86 14.29,10.0 28.57,11.43 42.86,7.14 57.14,8.57 71.43,4.29 85.71,5.71 100.0,1.43"/></svg>
           </div>
         </figure>
+      </div>
+    </section>
+    <section id="motion">
+      <h2 data-contrast>Motion</h2>
+      <p class="ex-label">The bar at the very top of this page fills as you scroll (.v-scroll-progress). Below, sections reveal as they scroll into view: staggered cards, from the start and end sides, and scaling. With reduced motion, or in a browser without view timelines, everything simply shows.</p>
+      <div class="v-stack" style="--v-gap: var(--v-space-6)">
+        <div class="v-grid v-grid-fit v-reveal-stagger" style="--v-min: 12rem" id="reveal-stagger">
+          <article class="v-card"><h3 class="v-card-title" data-contrast>Quotes</h3><p class="v-card-text" data-contrast>Send them from the van.</p></article>
+          <article class="v-card"><h3 class="v-card-title" data-contrast>Bookings</h3><p class="v-card-text" data-contrast>Your real free slots.</p></article>
+          <article class="v-card"><h3 class="v-card-title" data-contrast>Invoices</h3><p class="v-card-text" data-contrast>Paid in days, not weeks.</p></article>
+          <article class="v-card"><h3 class="v-card-title" data-contrast>Reviews</h3><p class="v-card-text" data-contrast>Asked for automatically.</p></article>
+        </div>
+        <div class="v-grid v-grid-fit" style="--v-min: 16rem">
+          <div class="v-card v-reveal v-reveal-left" id="reveal-left"><p class="v-fw-semibold" data-contrast>From the start side</p><p class="v-text-secondary" data-contrast>.v-reveal .v-reveal-left</p></div>
+          <div class="v-card v-reveal v-reveal-right"><p class="v-fw-semibold" data-contrast>From the end side</p><p class="v-text-secondary" data-contrast>.v-reveal .v-reveal-right</p></div>
+        </div>
+        <div class="v-card v-reveal v-reveal-scale v-text-center"><p class="v-fw-semibold" data-contrast>Growing into place</p><p class="v-text-secondary" data-contrast>.v-reveal .v-reveal-scale</p></div>
       </div>
     </section>
   </main>

@@ -16,6 +16,7 @@ import { init as video } from './components/video.js';
 import { init as tagInput } from './components/tag-input.js';
 import { init as combobox } from './components/combobox.js';
 import { init as wizard } from './components/wizard.js';
+import { init as scrollProgress } from './components/scroll-progress.js';
 
 export * from './index.core.js';
 
@@ -33,3 +34,4 @@ register('video', video);
 register('tag-input', tagInput);
 register('combobox', combobox);
 register('wizard', wizard);
+register('scroll-progress', scrollProgress);

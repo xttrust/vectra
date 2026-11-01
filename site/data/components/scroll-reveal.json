@@ -1,0 +1,64 @@
+{
+  "name": "Scroll reveal",
+  "slug": "scroll-reveal",
+  "group": "Content",
+  "tier": "P1",
+  "status": "done",
+  "summary": "Sections and cards that fade and rise into place as they scroll into view, plus page transitions.",
+  "description": "Use reveals sparingly on marketing pages, on section content and groups of cards, to give a page some life as it is read. Never on app screens people use all day.\n\nThey are pure CSS on view timelines: .v-reveal rises, -left and -right come from the start or end side, -scale grows, and .v-reveal-stagger reveals its children one after another. They only run when the reader has no reduced-motion preference and the browser has view timelines; everywhere else the content simply shows.\n\nPage transitions are a separate opt-in file, dist/vectra.transitions.css: load it and same-site page loads cross-fade (cross-document view transitions, no JS). Give an element on two pages the same view-transition-name and it morphs between them.",
+  "native": "animation-timeline: view(), @view-transition",
+  "catalogue": [],
+  "css": [
+    "motion.css"
+  ],
+  "classes": [
+    {
+      "name": "v-reveal",
+      "kind": "base",
+      "description": "Rises and fades in as it enters the viewport."
+    },
+    {
+      "name": "v-reveal-left",
+      "kind": "modifier",
+      "description": "With .v-reveal: comes in from the start side (mirrored in right to left)."
+    },
+    {
+      "name": "v-reveal-right",
+      "kind": "modifier",
+      "description": "With .v-reveal: comes in from the end side."
+    },
+    {
+      "name": "v-reveal-scale",
+      "kind": "modifier",
+      "description": "With .v-reveal: grows into place."
+    },
+    {
+      "name": "v-reveal-stagger",
+      "kind": "base",
+      "description": "On a grid or list: each child reveals a little after the one before (up to five steps)."
+    }
+  ],
+  "a11y": [
+    "Off under prefers-reduced-motion, and nothing is ever hidden: without view timelines the content shows straight away.",
+    "Reveals run on scroll position, not on a timer, so content is never invisible while the reader looks at it.",
+    "Page transitions are off under reduced motion too."
+  ],
+  "tokens": [
+    "--v-dur-2",
+    "--v-dur-3",
+    "--v-ease-out"
+  ],
+  "related": [
+    "scroll-progress",
+    "back-to-top"
+  ],
+  "examples": [
+    {
+      "title": "Staggered cards and a side reveal",
+      "description": "Scroll the preview; with reduced motion on, they simply show.",
+      "html": "<div class=\"v-grid v-grid-fit v-reveal-stagger\" style=\"--v-min: 12rem\">\n  <article class=\"v-card\"><h3 class=\"v-card-title\">Quotes</h3><p class=\"v-card-text\">Send them from the van.</p></article>\n  <article class=\"v-card\"><h3 class=\"v-card-title\">Bookings</h3><p class=\"v-card-text\">Your real free slots.</p></article>\n  <article class=\"v-card\"><h3 class=\"v-card-title\">Invoices</h3><p class=\"v-card-text\">Paid in days, not weeks.</p></article>\n</div>\n<div class=\"v-card v-reveal v-reveal-left\">From the start side</div>",
+      "height": 340,
+      "source": "examples/plus-content/#motion"
+    }
+  ]
+}

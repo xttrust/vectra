@@ -178,12 +178,13 @@ Overlays:
 - Tooltip: .v-tooltip, hooks data-v-tooltip
 
 Navigation:
-- Back to top: .v-back-to-top
+- Back to top: .v-back-to-top, hooks data-v-scroll-progress
 - Bottom tab bar: .v-bottombar
 - Breadcrumb: .v-breadcrumb
 - Mega menu: .v-mega, hooks data-v-mega
 - Navbar: .v-navbar, hooks data-v-nav
 - Pagination: .v-pagination .v-load-more
+- Scroll progress: .v-scroll-progress, hooks data-v-scroll-progress
 - Sidebar nav: .v-sidenav
 - Skip link: .v-skip-link
 - Steps: .v-steps
@@ -209,6 +210,7 @@ Content:
 - Masonry gallery: .v-masonry
 - Pricing card: .v-pricing
 - Prose: .v-prose
+- Scroll reveal: .v-reveal .v-reveal-stagger
 - Testimonial: .v-testimonial
 - Video embed: .v-video, hooks data-v-video
 
