@@ -1,0 +1,53 @@
+/* Tag input: type a value and press Enter or comma to turn it into a removable tag. Without JS it is a
+   plain text field taking comma-separated values. data-v-tag-input turns the field's value into tags,
+   keeps a hidden input with the same name (and the same comma-separated value) for the form, and makes
+   the wrapper look like one field holding the tags and the input. */
+@layer components {
+  .v-tag-input[data-ready] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-1) var(--v-space-2);
+    align-items: center;
+    min-block-size: var(--v-control-h);
+    padding: 0.3rem 0.5rem;
+    border: var(--v-border-w) solid var(--v-input-border);
+    border-radius: var(--v-input-radius);
+    background-color: var(--v-input-bg);
+    box-shadow: var(--v-input-shadow);
+    cursor: text;
+  }
+
+  .v-tag-input[data-ready]:focus-within {
+    border-color: var(--v-accent);
+    outline: var(--v-focus-w) solid var(--v-accent);
+    outline-offset: 0;
+  }
+
+  .v-tag-input-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--v-space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .v-tag-input-list:empty { display: none; }
+
+  /* The real input becomes a bare text field inside the box (the JS swaps .v-input for this class, so no
+     direction's input styling applies); the box shows the focus ring. */
+  .v-tag-input-field {
+    flex: 1 1 8rem;
+    min-inline-size: 6rem;
+    min-block-size: 1.75rem;
+    padding: 0.15rem 0.35rem;
+    border: 0;
+    background: none;
+    color: var(--v-text);
+    font: inherit;
+    font-size: 0.9375rem;
+    outline: none;
+  }
+
+  .v-tag-input-field::placeholder { color: var(--v-text-3); }
+}

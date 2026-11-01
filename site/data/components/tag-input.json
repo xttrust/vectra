@@ -1,0 +1,119 @@
+{
+  "name": "Tag input",
+  "slug": "tag-input",
+  "group": "Forms",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A field where each value typed becomes a removable tag.",
+  "description": "Use a tag input for a short, open list: skills, keywords, email recipients. For a fixed set of choices, checkboxes or a multi-select are clearer.\n\nWithout JS it is a plain text field that takes comma-separated values. data-v-tag-input turns the value into tags and moves the field's name to a hidden input holding the same comma-separated value, so the server needs no changes. Enter or a comma adds, a pasted list adds each item, Backspace in the empty field removes the last tag, and each tag has its own remove button.",
+  "native": "<input>, <input type=\"hidden\">",
+  "catalogue": [
+    "Tag input"
+  ],
+  "css": [
+    "tag-input.css",
+    "tag.css",
+    "input.css"
+  ],
+  "js": [
+    "components/tag-input.js"
+  ],
+  "classes": [
+    {
+      "name": "v-tag-input",
+      "kind": "base",
+      "description": "The wrapper around one .v-input. Once the JS runs it draws the field box that holds the tags and the input."
+    },
+    {
+      "name": "v-tag-input-list",
+      "kind": "part",
+      "description": "The list of tags, added by the JS, labelled with the field's label and the count."
+    },
+    {
+      "name": "v-tag-input-field",
+      "kind": "part",
+      "description": "The text input inside the box. The JS swaps .v-input for this class so no direction styles it as a second field."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-separator",
+      "description": "On the wrapper: the character that ends a tag and joins the form value (default \",\")."
+    },
+    {
+      "attribute": "data-max",
+      "description": "On the wrapper: the most tags allowed."
+    },
+    {
+      "attribute": "data-added, data-removed, data-remove",
+      "description": "On the wrapper: the announced and button words, with {tag} for the value (defaults \"{tag} added\", \"{tag} removed\", \"Remove {tag}\")."
+    },
+    {
+      "attribute": "data-ready",
+      "description": "Set by the JS once it has taken over the field."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-tag-input",
+      "value": "",
+      "on": "The .v-tag-input wrapper",
+      "description": "Turns the field's value into tags, keeps the form value in a hidden input with the same name, and announces each change."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:tags",
+      "on": "The wrapper",
+      "detail": "{ tags }",
+      "cancelable": false,
+      "description": "Fires whenever the list changes, with every tag in order."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter",
+        ","
+      ],
+      "action": "Adds what was typed as a tag. An empty Enter submits the form as usual."
+    },
+    {
+      "keys": [
+        "Backspace"
+      ],
+      "action": "In the empty field, removes the last tag."
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves through each tag's remove button and the field. Leaving the field keeps a half-typed value as a tag."
+    }
+  ],
+  "a11y": [
+    "Each added or removed tag is announced in a polite live region, since nothing else tells a screen reader the list changed.",
+    "Each remove button is labelled \"Remove Roofing\", not just an x.",
+    "The label stays on the real input, so the field keeps its name and hint."
+  ],
+  "tokens": [
+    "--v-input-border",
+    "--v-input-bg",
+    "--v-input-radius",
+    "--v-accent"
+  ],
+  "related": [
+    "tag",
+    "input",
+    "search-field"
+  ],
+  "examples": [
+    {
+      "title": "Skills",
+      "description": "Add a skill with Enter or a comma, remove one with its button.",
+      "html": "<div class=\"v-field\">\n  <label class=\"v-label\" for=\"tags-skills\">Skills</label>\n  <span class=\"v-hint\" id=\"tags-hint\">Up to 8. Press Enter or a comma after each.</span>\n  <div class=\"v-tag-input\" data-v-tag-input data-max=\"8\">\n    <input class=\"v-input\" id=\"tags-skills\" name=\"skills\" value=\"Roofing, Guttering, Chimney repair\" aria-describedby=\"tags-hint\" autocomplete=\"off\">\n  </div>\n</div>",
+      "height": 200,
+      "source": "examples/plus-content/#tag-input"
+    }
+  ]
+}

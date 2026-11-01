@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-90 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+91 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1934,6 +1934,50 @@ Example (With a clear button):
     <span class="v-input-addon"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#search"/></svg></span>
     <input class="v-input" id="s-clients" type="search" placeholder="Name or email" value="Kelly">
     <button class="v-btn v-btn-ghost v-btn-icon v-search-clear" type="button" aria-label="Clear search"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#close"/></svg></button>
+  </div>
+</div>
+```
+
+#### Tag input (tag-input)
+
+A field where each value typed becomes a removable tag. Native: <input>, <input type="hidden">.
+
+Base:
+- .v-tag-input: The wrapper around one .v-input. Once the JS runs it draws the field box that holds the tags and the input.
+Parts:
+- .v-tag-input-list: The list of tags, added by the JS, labelled with the field's label and the count.
+- .v-tag-input-field: The text input inside the box. The JS swaps .v-input for this class so no direction styles it as a second field.
+
+States:
+- data-separator: On the wrapper: the character that ends a tag and joins the form value (default ",").
+- data-max: On the wrapper: the most tags allowed.
+- data-added, data-removed, data-remove: On the wrapper: the announced and button words, with {tag} for the value (defaults "{tag} added", "{tag} removed", "Remove {tag}").
+- data-ready: Set by the JS once it has taken over the field.
+
+Hooks:
+- data-v-tag-input (on the .v-tag-input wrapper): Turns the field's value into tags, keeps the form value in a hidden input with the same name, and announces each change.
+
+Events:
+- v:tags detail { tags }: Fires whenever the list changes, with every tag in order.
+
+Keyboard:
+- Enter / ,: Adds what was typed as a tag. An empty Enter submits the form as usual.
+- Backspace: In the empty field, removes the last tag.
+- Tab: Moves through each tag's remove button and the field. Leaving the field keeps a half-typed value as a tag.
+
+Accessibility:
+- Each added or removed tag is announced in a polite live region, since nothing else tells a screen reader the list changed.
+- Each remove button is labelled "Remove Roofing", not just an x.
+- The label stays on the real input, so the field keeps its name and hint.
+
+Example (Skills):
+
+```html
+<div class="v-field">
+  <label class="v-label" for="tags-skills">Skills</label>
+  <span class="v-hint" id="tags-hint">Up to 8. Press Enter or a comma after each.</span>
+  <div class="v-tag-input" data-v-tag-input data-max="8">
+    <input class="v-input" id="tags-skills" name="skills" value="Roofing, Guttering, Chimney repair" aria-describedby="tags-hint" autocomplete="off">
   </div>
 </div>
 ```
@@ -4021,7 +4065,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-carousel data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video
+data-v-carousel data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-tag-input data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video
 
 ## Patterns
 

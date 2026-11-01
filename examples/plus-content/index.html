@@ -184,6 +184,17 @@
         <span class="v-video-play"><span class="v-video-button"><svg class="v-icon" aria-hidden="true"><use href="#i-play"/></svg></span><span class="v-video-label" data-contrast>Play: Northwind product tour (2:14)</span></span>
       </a>
     </section>
+    <section id="tag-input">
+      <h2 data-contrast>Tag input</h2>
+      <p class="ex-label">Type a skill and press Enter or a comma. Backspace in the empty field removes the last one. Without JS it is a comma-separated text field, and the form gets the same value either way.</p>
+      <form class="v-field" style="max-inline-size: 32rem" id="tags-form" action="#tag-input">
+        <label class="v-label" for="tags-skills" data-contrast>Skills</label>
+        <span class="v-hint" id="tags-hint" data-contrast>Up to 8. Press Enter or a comma after each.</span>
+        <div class="v-tag-input" data-v-tag-input data-max="8" id="tags-skills-box">
+          <input class="v-input" id="tags-skills" name="skills" value="Roofing, Guttering, Chimney repair" aria-describedby="tags-hint" autocomplete="off">
+        </div>
+      </form>
+    </section>
   </main>
 </body>
 </html>

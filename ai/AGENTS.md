@@ -162,6 +162,7 @@ Forms:
 - Range: .v-range
 - Rating input: .v-rating-input
 - Search field: .v-search, hooks data-v-clear data-v-shortcut
+- Tag input: .v-tag-input, hooks data-v-tag-input
 
 Overlays:
 - Command palette: , hooks data-v-command data-v-dialog-open data-v-dismissable

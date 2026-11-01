@@ -312,3 +312,72 @@ test.describe('video without JS', () => {
     await expect(page).toHaveURL(/player\.html$/);
   });
 });
+
+test.describe('tag input', () => {
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await expect(page.locator('#tags-skills-box[data-ready]')).toBeAttached();
+  });
+  const tags = (page) => page.locator('#tags-skills-box .v-tag').evaluateAll((els) => els.map((e) => e.firstChild.textContent));
+  const hidden = (page) => page.locator('#tags-skills-box input[type="hidden"][name="skills"]');
+
+  test('turns the server value into tags and keeps the same form value', async ({ page }) => {
+    expect(await tags(page)).toEqual(['Roofing', 'Guttering', 'Chimney repair']);
+    await expect(hidden(page)).toHaveValue('Roofing,Guttering,Chimney repair');
+    await expect(page.locator('#tags-skills')).not.toHaveAttribute('name', /.*/);
+  });
+
+  test('Enter and comma add, duplicates are skipped, and each change is announced', async ({ page }) => {
+    const input = page.locator('#tags-skills');
+    await input.fill('Flat roofs');
+    await input.press('Enter');
+    await input.fill('roofing');
+    await input.press(',');
+    await input.type('Fascias,');
+    expect(await tags(page)).toEqual(['Roofing', 'Guttering', 'Chimney repair', 'Flat roofs', 'Fascias']);
+    await expect(page.locator('[aria-live="polite"]').last()).toHaveText('Fascias added');
+  });
+
+  test('Backspace in the empty field and the remove buttons take tags away', async ({ page }) => {
+    const input = page.locator('#tags-skills');
+    await input.focus();
+    await page.keyboard.press('Backspace');
+    expect(await tags(page)).toEqual(['Roofing', 'Guttering']);
+    await page.getByRole('button', { name: 'Remove Roofing' }).click();
+    expect(await tags(page)).toEqual(['Guttering']);
+    await expect(input).toBeFocused();
+    await expect(hidden(page)).toHaveValue('Guttering');
+  });
+
+  test('a pasted list adds each item', async ({ page, browserName }) => {
+    // Firefox drops clipboardData passed to the ClipboardEvent constructor, so a scripted paste is empty there.
+    test.skip(browserName === 'firefox', 'synthetic paste carries no data in Firefox');
+    await page.locator('#tags-skills').focus();
+    await page.evaluate(() => {
+      const dt = new DataTransfer();
+      dt.setData('text', 'Soffits, Leadwork, Velux');
+      document.getElementById('tags-skills').dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true }));
+    });
+    expect(await tags(page)).toEqual(['Roofing', 'Guttering', 'Chimney repair', 'Soffits', 'Leadwork', 'Velux']);
+  });
+
+  test('a half-typed value is kept on leaving, and data-max caps the count', async ({ page }) => {
+    const input = page.locator('#tags-skills');
+    await input.fill('Slating');
+    await page.locator('#tag-input h2').click();
+    expect(await tags(page)).toEqual(['Roofing', 'Guttering', 'Chimney repair', 'Slating']);
+    await input.fill('Ridge, Valleys, Moss, Lead, Felt, Vents');
+    await input.press('Enter');
+    expect((await tags(page)).length).toBe(8);
+  });
+});
+
+test.describe('tag input without JS', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('is a plain comma-separated field', async ({ page }) => {
+    await page.goto(target.path);
+    await expect(page.locator('#tags-skills')).toHaveValue('Roofing, Guttering, Chimney repair');
+    await expect(page.locator('#tags-skills')).toHaveAttribute('name', 'skills');
+  });
+});
