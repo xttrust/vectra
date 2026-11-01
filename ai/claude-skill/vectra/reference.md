@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-86 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+87 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1707,6 +1707,38 @@ Example (Seats):
     <input class="v-input" id="f-qty" name="seats" type="number" min="1" max="50" value="3">
     <button class="v-btn v-btn-ghost v-btn-icon" type="button" data-v-step="up" aria-label="More seats" aria-controls="f-qty" hidden><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#plus"/></svg></button>
   </div>
+</div>
+```
+
+#### One-time code input (otp-input)
+
+A verification code field drawn as a row of boxes, one per digit. Native: <input autocomplete="one-time-code" inputmode="numeric">, pattern, maxlength.
+
+Base:
+- .v-otp: The wrapper that draws the boxes. --v-otp-length sets how many (default 6); --v-otp-cell and --v-otp-gap their size.
+Parts:
+- .v-otp-input: The input inside. Give it autocomplete="one-time-code", inputmode="numeric", maxlength and a pattern.
+
+States:
+- autocomplete="one-time-code": Lets phones offer the code from a text message and password managers fill it.
+- pattern: Such as [0-9]{6}. A code that does not match marks the boxes in the danger colour after the person has typed (:user-invalid).
+- maxlength: The code length, so a seventh digit cannot be typed.
+
+Keyboard:
+- 0-9: Types a digit into the next box. Backspace, arrow keys and paste work as in any text field.
+
+Accessibility:
+- One field means one label and one announcement, not six fields called "digit 1" to "digit 6".
+- Pasting the whole code works because it is a single field; nothing has to spread it across boxes.
+- Link the hint ("We sent a 6-digit code to your phone") with aria-describedby.
+
+Example (Six-digit code):
+
+```html
+<div class="v-field" style="max-inline-size: 24rem">
+  <label class="v-label" for="otp-code">Verification code</label>
+  <span class="v-hint" id="otp-hint">We sent a 6-digit code to your phone.</span>
+  <span class="v-otp"><input class="v-otp-input" id="otp-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required aria-describedby="otp-hint"></span>
 </div>
 ```
 
@@ -3831,7 +3863,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-masonry-col --v-menu-pad --v-on-danger --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 

@@ -100,7 +100,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Async field check (checking, available, taken) | P0 | done | |
 | Checkbox / radio cards (rich selectable tiles) | P0 | done | pricing, onboarding |
 | Form layouts (stacked, two-column, sectioned settings, inline) | P0 | done | |
-| OTP input | P1 | | 2FA flows use a plain input in v2.0 |
+| OTP input | P1 | done | one real input drawn as boxes; no JS |
 | Tag input | P1 | | |
 | Combobox / autocomplete | P1 | | |
 | Multi-select | P1 | | built on combobox |

@@ -131,3 +131,35 @@ test.describe('rating input', () => {
     expect(await filled(page)).toEqual([true, true, true, true, true]);
   });
 });
+
+test.describe('one-time code', () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+  test.beforeEach(async ({ page }) => { await open(page, target, { direction: 'tech', theme: 'light' }); });
+  const input = (page) => page.locator('#otp-code');
+
+  test('is one ordinary field the browser can autofill', async ({ page }) => {
+    await expect(input(page)).toHaveAttribute('autocomplete', 'one-time-code');
+    await expect(input(page)).toHaveAttribute('inputmode', 'numeric');
+    await expect(input(page)).toHaveAccessibleName('Verification code');
+  });
+
+  test('the boxes never scroll away from the digits, even with the caret after the last one', async ({ page }) => {
+    await input(page).focus();
+    await page.keyboard.type('482719');
+    const wrap = page.locator('#otp .v-otp');
+    expect(await wrap.evaluate((el) => el.scrollLeft)).toBe(0);
+    expect(await input(page).evaluate((el) => el.scrollLeft)).toBe(0);
+    // Six 2.75rem boxes and five 0.5rem gaps: 6 x 44 + 5 x 8 = 304 px.
+    expect(Math.abs((await wrap.boundingBox()).width - 304)).toBeLessThan(2);
+  });
+
+  test('a pasted code fills it, the pattern decides validity, and maxlength stops a seventh digit', async ({ page }) => {
+    await input(page).fill('48271');
+    expect(await input(page).evaluate((el) => el.validity.valid)).toBe(false);
+    await input(page).fill('482719');
+    expect(await input(page).evaluate((el) => el.validity.valid)).toBe(true);
+    await input(page).focus();
+    await page.keyboard.type('5');
+    await expect(input(page)).toHaveValue('482719');
+  });
+});

@@ -1,0 +1,79 @@
+{
+  "name": "One-time code input",
+  "slug": "otp-input",
+  "group": "Forms",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A verification code field drawn as a row of boxes, one per digit.",
+  "description": "Use it for two-step sign-in, email and phone verification codes.\n\nIt is one real <input> in a .v-otp wrapper, not six separate fields, so pasting a code, SMS autofill on phones, password managers and screen readers all work as with any field, and it needs no JS. The wrapper draws a box per digit and the digits are spaced to sit in them. Set --v-otp-length to the code's length and match maxlength and pattern.",
+  "native": "<input autocomplete=\"one-time-code\" inputmode=\"numeric\">, pattern, maxlength",
+  "catalogue": [
+    "OTP input"
+  ],
+  "css": [
+    "otp.css",
+    "field.css"
+  ],
+  "classes": [
+    {
+      "name": "v-otp",
+      "kind": "base",
+      "description": "The wrapper that draws the boxes. --v-otp-length sets how many (default 6); --v-otp-cell and --v-otp-gap their size."
+    },
+    {
+      "name": "v-otp-input",
+      "kind": "part",
+      "description": "The input inside. Give it autocomplete=\"one-time-code\", inputmode=\"numeric\", maxlength and a pattern."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "autocomplete=\"one-time-code\"",
+      "description": "Lets phones offer the code from a text message and password managers fill it."
+    },
+    {
+      "attribute": "pattern",
+      "description": "Such as [0-9]{6}. A code that does not match marks the boxes in the danger colour after the person has typed (:user-invalid)."
+    },
+    {
+      "attribute": "maxlength",
+      "description": "The code length, so a seventh digit cannot be typed."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "0-9"
+      ],
+      "action": "Types a digit into the next box. Backspace, arrow keys and paste work as in any text field."
+    }
+  ],
+  "a11y": [
+    "One field means one label and one announcement, not six fields called \"digit 1\" to \"digit 6\".",
+    "Pasting the whole code works because it is a single field; nothing has to spread it across boxes.",
+    "Link the hint (\"We sent a 6-digit code to your phone\") with aria-describedby."
+  ],
+  "tokens": [
+    "--v-otp-length",
+    "--v-otp-cell",
+    "--v-otp-gap",
+    "--v-border-strong",
+    "--v-accent",
+    "--v-danger",
+    "--v-font-mono"
+  ],
+  "related": [
+    "input",
+    "field",
+    "password-reveal"
+  ],
+  "examples": [
+    {
+      "title": "Six-digit code",
+      "description": "Type, paste or let the phone fill it.",
+      "html": "<div class=\"v-field\" style=\"max-inline-size: 24rem\">\n  <label class=\"v-label\" for=\"otp-code\">Verification code</label>\n  <span class=\"v-hint\" id=\"otp-hint\">We sent a 6-digit code to your phone.</span>\n  <span class=\"v-otp\"><input class=\"v-otp-input\" id=\"otp-code\" name=\"code\" type=\"text\" inputmode=\"numeric\" autocomplete=\"one-time-code\" maxlength=\"6\" pattern=\"[0-9]{6}\" required aria-describedby=\"otp-hint\"></span>\n</div>",
+      "height": 180,
+      "source": "examples/plus-content/#otp"
+    }
+  ]
+}

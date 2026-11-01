@@ -129,6 +129,15 @@
         <span class="v-rating" role="img" aria-label="Rated 4.5 out of 5" style="--v-rating: 4.5" id="rating-display"></span>
       </div>
     </section>
+    <section id="otp">
+      <h2 data-contrast>One-time code</h2>
+      <p class="ex-label">One real input drawn as six boxes: paste a code, or let the phone fill it from a text message. It needs no JavaScript.</p>
+      <div class="v-field" style="max-inline-size: 24rem">
+        <label class="v-label" for="otp-code" data-contrast>Verification code</label>
+        <span class="v-hint" id="otp-hint" data-contrast>We sent a 6-digit code to your phone.</span>
+        <span class="v-otp"><input class="v-otp-input" id="otp-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required aria-describedby="otp-hint"></span>
+      </div>
+    </section>
   </main>
 </body>
 </html>

@@ -156,6 +156,7 @@ Forms:
 - Input group: .v-input-group
 - Input, textarea and select: .v-input .v-select
 - Number stepper: .v-stepper, hooks data-v-stepper data-v-step
+- One-time code input: .v-otp
 - Password reveal: , hooks data-v-password
 - Password strength meter: , hooks data-v-strength
 - Range: .v-range
