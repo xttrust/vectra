@@ -437,3 +437,68 @@ test.describe('combobox', () => {
     await expect(active(page)).toContainText('Tuam');
   });
 });
+
+test.describe('multi-step form', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await expect(page.locator('#wizard-quote [data-v-wizard-next]')).toBeVisible();
+  });
+  const step = (page, n) => page.locator(`#wizard-step-${n}`);
+  const marks = (page) => page.locator('#wizard-quote .v-step');
+
+  test('shows the first step only, with the indicator on it and no Back or submit yet', async ({ page }) => {
+    await expect(step(page, 1)).toBeVisible();
+    await expect(step(page, 2)).toBeHidden();
+    await expect(marks(page).nth(0)).toHaveAttribute('aria-current', 'step');
+    await expect(page.locator('#wizard-quote [data-v-wizard-back]')).toBeHidden();
+    await expect(page.locator('#wizard-quote [type="submit"]')).toBeHidden();
+    expect(await step(page, 3).evaluate((el) => el.disabled)).toBe(true);
+  });
+
+  test('Continue checks the step: a missing answer stays put and shows the summary', async ({ page }) => {
+    await page.locator('#wizard-quote [data-v-wizard-next]').click();
+    await expect(step(page, 1)).toBeVisible();
+    await expect(page.locator('#wizard-quote .v-error-summary')).toBeFocused();
+    await expect(page.locator('#wz-job')).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('#wizard-quote .v-error-summary a')).toHaveCount(1); // later steps are not checked yet
+  });
+
+  test('moving on marks the step done, focuses the new title, and Back returns without checking', async ({ page }) => {
+    await page.locator('#wz-job').selectOption('New roof');
+    await page.locator('#wizard-quote [data-v-wizard-next]').click();
+    await expect(step(page, 2)).toBeVisible();
+    await expect(step(page, 2)).toBeFocused();
+    await expect(step(page, 2)).toHaveAccessibleName('Where is it?');
+    await expect(marks(page).nth(0)).toHaveClass(/v-step-complete/);
+    await expect(marks(page).nth(0)).toContainText('Completed:');
+    await expect(marks(page).nth(1)).toHaveAttribute('aria-current', 'step');
+    await page.locator('#wizard-quote [data-v-wizard-back]').click();
+    await expect(step(page, 1)).toBeVisible();
+    await expect(page.locator('#wz-job')).toHaveValue('New roof');
+  });
+
+  test('Enter in a field acts as Continue, and the last step submits everything', async ({ page }) => {
+    await page.locator('#wz-job').selectOption('Roof repair');
+    await page.locator('#wizard-quote [data-v-wizard-next]').click();
+    await page.locator('#wz-town').fill('Tuam');
+    await page.locator('#wz-town').press('Enter');
+    await expect(step(page, 3)).toBeVisible();
+    await expect(page.locator('#wizard-quote [type="submit"]')).toBeVisible();
+    await page.locator('#wz-name').fill('Florin');
+    await page.locator('#wz-phone').fill('087 000 0000');
+    const data = await page.locator('#wizard-quote').evaluate((form) => Object.fromEntries(new FormData(form)));
+    expect(data).toMatchObject({ job: 'Roof repair', town: 'Tuam', name: 'Florin', phone: '087 000 0000' });
+  });
+});
+
+test.describe('multi-step form without JS', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('every step shows, with the submit button and no Back or Continue', async ({ page }) => {
+    await page.goto(target.path);
+    for (const n of [1, 2, 3]) await expect(page.locator(`#wizard-step-${n}`)).toBeVisible();
+    await expect(page.locator('#wizard-quote [data-v-wizard-next]')).toBeHidden();
+    await expect(page.locator('#wizard-quote [type="submit"]')).toBeVisible();
+  });
+});

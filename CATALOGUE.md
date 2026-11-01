@@ -108,7 +108,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Dual-thumb range | P1 | | |
 | Rating input | P1 | done | radio group, no JS; .v-rating stays the read-only score |
 | File list with upload progress | P1 | | |
-| Multi-step form (wizard) | P1 | | uses steps |
+| Multi-step form (wizard) | P1 | done | uses steps; one form, every step shows without JS |
 | Repeater fields (add and remove rows, e.g. extra emails or line items) | P1 | | small JS |
 | Date picker calendar | P2 | | |
 | Colour picker | P2 | | |

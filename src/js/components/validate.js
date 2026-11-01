@@ -1,7 +1,8 @@
 /* Form validation: data-v-validate on a <form>. Without JS the browser's own validation runs. With JS the
    form gets novalidate and, on a submit with problems: every invalid control gets aria-invalid and its
    .v-field-error linked by aria-describedby, an error summary (.v-error-summary) at the top lists each
-   problem as a link to its field, and focus moves to the summary. A fixed field clears its own error. */
+   problem as a link to its field, and focus moves to the summary. A fixed field clears its own error.
+   A v:validate event with detail { scope } runs the same check on part of the form (a wizard step). */
 import { listen, describedBy } from './util.js';
 
 export function init(form) {
@@ -45,12 +46,10 @@ export function init(form) {
     },
   }, { signal: ac.signal });
 
-  // Capture phase, so submit listeners added later (unsaved.js, app code) see defaultPrevented.
-  form.addEventListener('submit', (e) => {
-    const bad = [...form.elements].filter((c) => c.willValidate && !c.validity.valid);
+  // Marks every control in `bad`, fills the summary and moves focus to it. True when there is nothing to report.
+  const report = (bad) => {
     if (summary) summary.hidden = !bad.length;
-    if (!bad.length) return;
-    e.preventDefault();
+    if (!bad.length) return true;
     if (!summary) {
       const id = `${form.id || 'v'}-summary`;
       form.insertAdjacentHTML('afterbegin', `<div class="v-error-summary" role="group" aria-labelledby="${id}" tabindex="-1"><p class="v-error-summary-title" id="${id}"></p><ul></ul></div>`);
@@ -72,7 +71,21 @@ export function init(form) {
     const n = listed.size;
     summary.querySelector('.v-error-summary-title').textContent = n > 1 ? `There are ${n} problems` : 'There is a problem';
     summary.focus();
+    return false;
+  };
+  const invalid = (controls) => [...controls].filter((c) => c.willValidate && !c.validity.valid);
+
+  // Capture phase, so submit listeners added later (unsaved.js, app code) see defaultPrevented.
+  form.addEventListener('submit', (e) => {
+    if (!report(invalid(form.elements))) e.preventDefault();
   }, { signal: ac.signal, capture: true });
+
+  // Part of a form, such as one step of a wizard: dispatch v:validate with detail { scope } and read
+  // detail.valid afterwards. The same marks and summary as a submit, for the controls inside scope only.
+  form.addEventListener('v:validate', (e) => {
+    const scope = e.detail?.scope ?? form;
+    e.detail.valid = report(invalid(scope.querySelectorAll('input, select, textarea')));
+  }, { signal: ac.signal });
 
   return {
     destroy() {

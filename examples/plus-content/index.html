@@ -218,6 +218,60 @@
         </div>
       </div>
     </section>
+    <section id="wizard">
+      <h2 data-contrast>Multi-step form</h2>
+      <p class="ex-label">One form in three steps. Continue checks the step first; Back does not. Without JS every step shows and the form submits as one.</p>
+      <form class="v-wizard v-card" style="max-inline-size: 36rem; padding: var(--v-space-6)" data-v-wizard data-v-validate id="wizard-quote" action="#wizard">
+        <ol class="v-steps" aria-label="Quote request progress">
+          <li class="v-step"><span class="v-step-label" data-contrast>The job</span></li>
+          <li class="v-step"><span class="v-step-label" data-contrast>Where</span></li>
+          <li class="v-step"><span class="v-step-label" data-contrast>Contact</span></li>
+        </ol>
+        <fieldset class="v-wizard-step" id="wizard-step-1">
+          <legend class="v-wizard-title" data-contrast>What needs doing?</legend>
+          <div class="v-field">
+            <label class="v-label" for="wz-job" data-contrast>Type of job</label>
+            <select class="v-select" id="wz-job" name="job" required>
+              <option value="">Choose one</option>
+              <option>Roof repair</option>
+              <option>New roof</option>
+              <option>Gutters and fascias</option>
+            </select>
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="wz-details" data-contrast>Details <span class="v-text-secondary">(optional)</span></label>
+            <textarea class="v-input" id="wz-details" name="details" rows="3"></textarea>
+          </div>
+        </fieldset>
+        <fieldset class="v-wizard-step" id="wizard-step-2">
+          <legend class="v-wizard-title" data-contrast>Where is it?</legend>
+          <div class="v-field">
+            <label class="v-label" for="wz-town" data-contrast>Town</label>
+            <input class="v-input" id="wz-town" name="town" required autocomplete="address-level2">
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="wz-eircode" data-contrast>Eircode <span class="v-text-secondary">(optional)</span></label>
+            <input class="v-input" id="wz-eircode" name="eircode" autocomplete="postal-code">
+          </div>
+        </fieldset>
+        <fieldset class="v-wizard-step" id="wizard-step-3">
+          <legend class="v-wizard-title" data-contrast>How do we reach you?</legend>
+          <div class="v-field">
+            <label class="v-label" for="wz-name" data-contrast>Name</label>
+            <input class="v-input" id="wz-name" name="name" required autocomplete="name">
+          </div>
+          <div class="v-field">
+            <label class="v-label" for="wz-phone" data-contrast>Phone</label>
+            <input class="v-input" id="wz-phone" name="phone" type="tel" required autocomplete="tel">
+          </div>
+        </fieldset>
+        <div class="v-wizard-actions">
+          <button class="v-btn v-btn-ghost" type="button" data-v-wizard-back hidden>Back</button>
+          <button class="v-btn v-btn-primary" type="button" data-v-wizard-next hidden>Continue</button>
+          <button class="v-btn v-btn-primary" type="submit">Send request</button>
+        </div>
+      </form>
+    </section>
   </main>
 </body>
 </html>

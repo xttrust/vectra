@@ -156,6 +156,7 @@ Forms:
 - Form layouts: .v-form .v-form-inline, hooks data-v-unsaved
 - Input group: .v-input-group
 - Input, textarea and select: .v-input .v-select
+- Multi-step form: .v-wizard, hooks data-v-wizard data-v-wizard-back data-v-wizard-next data-v-validate
 - Number stepper: .v-stepper, hooks data-v-stepper data-v-step
 - One-time code input: .v-otp
 - Password reveal: , hooks data-v-password

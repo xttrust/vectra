@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-92 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+93 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -1726,6 +1726,96 @@ Example (Text inputs):
   <label class="v-label" for="f-date">Start date</label>
   <input class="v-input" id="f-date" name="start" type="date" value="2026-11-02">
 </div>
+```
+
+#### Multi-step form (wizard)
+
+One form split into steps, checked step by step, with a progress indicator. Native: <form>, <fieldset>, <legend>, constraint validation.
+
+Base:
+- .v-wizard: The <form>.
+Parts:
+- .v-wizard-step: One step, a <fieldset>. Hidden and disabled by the JS until it is reached.
+- .v-wizard-title: The step's <legend>, styled as a heading. It names the step when focus moves to it.
+- .v-wizard-actions: The Back, Continue and submit buttons. Back sits at the start, the others at the end.
+
+States:
+- hidden: On the Back and Continue buttons in the markup, so readers without JS see only the submit button.
+- aria-current="step": Set by the JS on the current .v-step; finished steps get .v-step-complete and a hidden "Completed: " prefix.
+- data-completed: On the form: the hidden prefix for finished steps (default "Completed: ").
+
+Hooks:
+- data-v-wizard (on the <form>): Shows one step at a time, checks a step before moving on, keeps the indicator in step and moves focus.
+- data-v-wizard-back (on the Back button): Goes to the previous step without checking.
+- data-v-wizard-next (on the Continue button): Checks the current step and goes to the next one.
+- data-v-validate (on the <form> (optional)): Gives each step the kit's inline errors and error summary instead of the browser's message.
+
+Events:
+- v:step detail { index, step }: Fires when a step is shown, including the first.
+
+Keyboard:
+- Enter: In a field, acts as Continue before the last step and submits on the last.
+- Tab: Moves through the current step's fields and the buttons. Focus starts on the step each time it changes.
+
+Accessibility:
+- Focus moves to the new step, and its legend is announced, so screen reader users know the page changed.
+- Finished steps say "Completed" in hidden text, not only with the drawn check.
+- Errors are found step by step, so nobody is told about fields they have not seen yet.
+- Without JS nothing is hidden: the whole form is there and submits.
+
+Example (Quote request):
+
+```html
+<form class="v-wizard v-card" data-v-wizard data-v-validate action="/quotes" method="post">
+  <ol class="v-steps" aria-label="Quote request progress">
+    <li class="v-step"><span class="v-step-label">The job</span></li>
+    <li class="v-step"><span class="v-step-label">Where</span></li>
+    <li class="v-step"><span class="v-step-label">Contact</span></li>
+  </ol>
+  <fieldset class="v-wizard-step">
+    <legend class="v-wizard-title">What needs doing?</legend>
+    <div class="v-field">
+      <label class="v-label" for="wz-job">Type of job</label>
+      <select class="v-select" id="wz-job" name="job" required>
+        <option value="">Choose one</option>
+        <option>Roof repair</option>
+        <option>New roof</option>
+        <option>Gutters and fascias</option>
+      </select>
+    </div>
+    <div class="v-field">
+      <label class="v-label" for="wz-details">Details <span class="v-text-secondary">(optional)</span></label>
+      <textarea class="v-input" id="wz-details" name="details" rows="3"></textarea>
+    </div>
+  </fieldset>
+  <fieldset class="v-wizard-step">
+    <legend class="v-wizard-title">Where is it?</legend>
+    <div class="v-field">
+      <label class="v-label" for="wz-town">Town</label>
+      <input class="v-input" id="wz-town" name="town" required autocomplete="address-level2">
+    </div>
+    <div class="v-field">
+      <label class="v-label" for="wz-eircode">Eircode <span class="v-text-secondary">(optional)</span></label>
+      <input class="v-input" id="wz-eircode" name="eircode" autocomplete="postal-code">
+    </div>
+  </fieldset>
+  <fieldset class="v-wizard-step">
+    <legend class="v-wizard-title">How do we reach you?</legend>
+    <div class="v-field">
+      <label class="v-label" for="wz-name">Name</label>
+      <input class="v-input" id="wz-name" name="name" required autocomplete="name">
+    </div>
+    <div class="v-field">
+      <label class="v-label" for="wz-phone">Phone</label>
+      <input class="v-input" id="wz-phone" name="phone" type="tel" required autocomplete="tel">
+    </div>
+  </fieldset>
+  <div class="v-wizard-actions">
+    <button class="v-btn v-btn-ghost" type="button" data-v-wizard-back hidden>Back</button>
+    <button class="v-btn v-btn-primary" type="button" data-v-wizard-next hidden>Continue</button>
+    <button class="v-btn v-btn-primary" type="submit">Send request</button>
+  </div>
+</form>
 ```
 
 #### Number stepper (number-stepper)
@@ -4122,7 +4212,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-carousel data-v-clear data-v-combobox data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-tag-input data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video
+data-v-carousel data-v-clear data-v-combobox data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-marquee data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-tag-input data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate data-v-video data-v-wizard
 
 ## Patterns
 

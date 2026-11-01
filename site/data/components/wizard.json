@@ -1,0 +1,133 @@
+{
+  "name": "Multi-step form",
+  "slug": "wizard",
+  "group": "Forms",
+  "tier": "P1",
+  "status": "done",
+  "summary": "One form split into steps, checked step by step, with a progress indicator.",
+  "description": "Use a multi-step form when a long form falls into clear parts: a quote request, an onboarding flow, a checkout. Keep each step short; if the parts are not really separate, one page is faster.\n\nIt is one <form> of .v-wizard-step fieldsets with a .v-steps indicator. Without JS every step shows and the form submits as one. data-v-wizard shows one step at a time: Continue checks the step first (with data-v-validate, using the same inline errors and summary as a submit), Back never checks, steps not reached yet are disabled so they are not checked early, and focus moves to each new step.",
+  "native": "<form>, <fieldset>, <legend>, constraint validation",
+  "catalogue": [
+    "Multi-step form"
+  ],
+  "css": [
+    "wizard.css",
+    "steps.css",
+    "field.css"
+  ],
+  "js": [
+    "components/wizard.js",
+    "components/validate.js"
+  ],
+  "classes": [
+    {
+      "name": "v-wizard",
+      "kind": "base",
+      "description": "The <form>."
+    },
+    {
+      "name": "v-wizard-step",
+      "kind": "part",
+      "description": "One step, a <fieldset>. Hidden and disabled by the JS until it is reached."
+    },
+    {
+      "name": "v-wizard-title",
+      "kind": "part",
+      "description": "The step's <legend>, styled as a heading. It names the step when focus moves to it."
+    },
+    {
+      "name": "v-wizard-actions",
+      "kind": "part",
+      "description": "The Back, Continue and submit buttons. Back sits at the start, the others at the end."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "hidden",
+      "description": "On the Back and Continue buttons in the markup, so readers without JS see only the submit button."
+    },
+    {
+      "attribute": "aria-current=\"step\"",
+      "description": "Set by the JS on the current .v-step; finished steps get .v-step-complete and a hidden \"Completed: \" prefix."
+    },
+    {
+      "attribute": "data-completed",
+      "description": "On the form: the hidden prefix for finished steps (default \"Completed: \")."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-wizard",
+      "value": "",
+      "on": "The <form>",
+      "description": "Shows one step at a time, checks a step before moving on, keeps the indicator in step and moves focus."
+    },
+    {
+      "name": "data-v-wizard-back",
+      "value": "",
+      "on": "The Back button",
+      "description": "Goes to the previous step without checking."
+    },
+    {
+      "name": "data-v-wizard-next",
+      "value": "",
+      "on": "The Continue button",
+      "description": "Checks the current step and goes to the next one."
+    },
+    {
+      "name": "data-v-validate",
+      "value": "",
+      "on": "The <form> (optional)",
+      "description": "Gives each step the kit's inline errors and error summary instead of the browser's message."
+    }
+  ],
+  "events": [
+    {
+      "name": "v:step",
+      "on": "The form",
+      "detail": "{ index, step }",
+      "cancelable": false,
+      "description": "Fires when a step is shown, including the first."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Enter"
+      ],
+      "action": "In a field, acts as Continue before the last step and submits on the last."
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Moves through the current step's fields and the buttons. Focus starts on the step each time it changes."
+    }
+  ],
+  "a11y": [
+    "Focus moves to the new step, and its legend is announced, so screen reader users know the page changed.",
+    "Finished steps say \"Completed\" in hidden text, not only with the drawn check.",
+    "Errors are found step by step, so nobody is told about fields they have not seen yet.",
+    "Without JS nothing is hidden: the whole form is there and submits."
+  ],
+  "tokens": [
+    "--v-border",
+    "--v-font-display",
+    "--v-heading-weight"
+  ],
+  "related": [
+    "steps",
+    "form-layouts",
+    "error-summary",
+    "field"
+  ],
+  "examples": [
+    {
+      "title": "Quote request",
+      "description": "Press Continue without choosing a job to see the step check, then go through all three steps.",
+      "html": "<form class=\"v-wizard v-card\" data-v-wizard data-v-validate action=\"/quotes\" method=\"post\">\n  <ol class=\"v-steps\" aria-label=\"Quote request progress\">\n    <li class=\"v-step\"><span class=\"v-step-label\">The job</span></li>\n    <li class=\"v-step\"><span class=\"v-step-label\">Where</span></li>\n    <li class=\"v-step\"><span class=\"v-step-label\">Contact</span></li>\n  </ol>\n  <fieldset class=\"v-wizard-step\">\n    <legend class=\"v-wizard-title\">What needs doing?</legend>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"wz-job\">Type of job</label>\n      <select class=\"v-select\" id=\"wz-job\" name=\"job\" required>\n        <option value=\"\">Choose one</option>\n        <option>Roof repair</option>\n        <option>New roof</option>\n        <option>Gutters and fascias</option>\n      </select>\n    </div>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"wz-details\">Details <span class=\"v-text-secondary\">(optional)</span></label>\n      <textarea class=\"v-input\" id=\"wz-details\" name=\"details\" rows=\"3\"></textarea>\n    </div>\n  </fieldset>\n  <fieldset class=\"v-wizard-step\">\n    <legend class=\"v-wizard-title\">Where is it?</legend>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"wz-town\">Town</label>\n      <input class=\"v-input\" id=\"wz-town\" name=\"town\" required autocomplete=\"address-level2\">\n    </div>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"wz-eircode\">Eircode <span class=\"v-text-secondary\">(optional)</span></label>\n      <input class=\"v-input\" id=\"wz-eircode\" name=\"eircode\" autocomplete=\"postal-code\">\n    </div>\n  </fieldset>\n  <fieldset class=\"v-wizard-step\">\n    <legend class=\"v-wizard-title\">How do we reach you?</legend>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"wz-name\">Name</label>\n      <input class=\"v-input\" id=\"wz-name\" name=\"name\" required autocomplete=\"name\">\n    </div>\n    <div class=\"v-field\">\n      <label class=\"v-label\" for=\"wz-phone\">Phone</label>\n      <input class=\"v-input\" id=\"wz-phone\" name=\"phone\" type=\"tel\" required autocomplete=\"tel\">\n    </div>\n  </fieldset>\n  <div class=\"v-wizard-actions\">\n    <button class=\"v-btn v-btn-ghost\" type=\"button\" data-v-wizard-back hidden>Back</button>\n    <button class=\"v-btn v-btn-primary\" type=\"button\" data-v-wizard-next hidden>Continue</button>\n    <button class=\"v-btn v-btn-primary\" type=\"submit\">Send request</button>\n  </div>\n</form>",
+      "height": 560,
+      "source": "examples/plus-content/#wizard"
+    }
+  ]
+}
