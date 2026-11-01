@@ -173,7 +173,7 @@ About 115 components. Every one gets: all states (hover, focus, active, disabled
 | Blockquote / testimonial | P0 | done | |
 | Pricing card | P0 | done | |
 | Logo cloud | P0 | done | |
-| Carousel (scroll-snap + buttons) | P1 | | |
+| Carousel (scroll-snap + buttons) | P1 | done | no autoplay; slides per view follow the carousel width |
 | Gallery / masonry grid | P1 | done | CSS multi-column |
 | Video embed (lite, click to load) | P1 | | no third-party request until clicked |
 | Marquee / logo ticker | P1 | | respects reduced motion |

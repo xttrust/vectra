@@ -1,0 +1,118 @@
+{
+  "name": "Carousel",
+  "slug": "carousel",
+  "group": "Content",
+  "tier": "P1",
+  "status": "done",
+  "summary": "A row of cards or pictures that scrolls sideways, with previous and next buttons.",
+  "description": "Use a carousel for a set of similar items when space is short: testimonials, products, team members. If people need to compare or see everything, use a grid instead.\n\nThe track is a scroll-snap row, so swiping, trackpad scrolling and the arrow keys on the focused track work without JS. data-v-carousel shows the buttons, moves one slide per press and disables a button at its end. It never moves on its own. How many slides show follows the carousel's own width.",
+  "native": "scroll-snap, container queries",
+  "catalogue": [
+    "Carousel"
+  ],
+  "css": [
+    "carousel.css"
+  ],
+  "js": [
+    "components/carousel.js"
+  ],
+  "classes": [
+    {
+      "name": "v-carousel",
+      "kind": "base",
+      "description": "The wrapper, with aria-roledescription=\"carousel\" and an aria-label. Set --v-per-view-sm, -md and -lg to change how many slides show at each width (defaults 1.15, 2.2, 3)."
+    },
+    {
+      "name": "v-carousel-track",
+      "kind": "part",
+      "description": "The scrolling list (<ul role=\"list\">). Give it tabindex=\"0\" and an aria-label so keyboard users can scroll it."
+    },
+    {
+      "name": "v-carousel-slide",
+      "kind": "part",
+      "description": "One slide, an <li>. The JS labels it \"2 of 5\" unless it has a label."
+    },
+    {
+      "name": "v-carousel-controls",
+      "kind": "part",
+      "description": "The button row, hidden until the JS runs."
+    }
+  ],
+  "states": [
+    {
+      "attribute": "data-ready",
+      "description": "Set on .v-carousel by the JS: the buttons are shown and the scrollbar is hidden."
+    },
+    {
+      "attribute": "disabled",
+      "description": "Set on a button at its end of the track."
+    }
+  ],
+  "hooks": [
+    {
+      "name": "data-v-carousel",
+      "value": "",
+      "on": "The .v-carousel wrapper",
+      "description": "Shows the buttons, moves one slide per press (smoothly unless reduced motion is on), disables them at the ends and labels the slides."
+    },
+    {
+      "name": "data-v-carousel-prev",
+      "value": "",
+      "on": "The previous button",
+      "description": "Moves back one slide. Its arrow flips in right-to-left."
+    },
+    {
+      "name": "data-v-carousel-next",
+      "value": "",
+      "on": "The next button",
+      "description": "Moves forward one slide."
+    }
+  ],
+  "keyboard": [
+    {
+      "keys": [
+        "Tab"
+      ],
+      "action": "Reaches the track, the links inside the slides, then the buttons."
+    },
+    {
+      "keys": [
+        "ArrowRight",
+        "ArrowLeft"
+      ],
+      "action": "On the focused track, scrolls it; snapping lands on a slide."
+    },
+    {
+      "keys": [
+        "Enter",
+        "Space"
+      ],
+      "action": "On a button, moves one slide."
+    }
+  ],
+  "a11y": [
+    "No autoplay, so nothing moves that the reader did not ask for (WCAG 2.2.2).",
+    "Every slide stays in the page and in the reading order; the buttons are a shortcut, not the only way to reach them.",
+    "Slides are labelled \"2 of 5\" with aria-roledescription=\"slide\" so screen readers know where they are."
+  ],
+  "tokens": [
+    "--v-per-view-sm",
+    "--v-per-view-md",
+    "--v-per-view-lg",
+    "--v-carousel-gap"
+  ],
+  "related": [
+    "testimonial",
+    "card",
+    "masonry"
+  ],
+  "examples": [
+    {
+      "title": "Customer quotes",
+      "description": "Five quote cards; the buttons move one card at a time.",
+      "html": "<div class=\"v-carousel\" aria-roledescription=\"carousel\" aria-label=\"What customers say\" data-v-carousel>\n  <ul class=\"v-carousel-track\" role=\"list\" tabindex=\"0\" aria-label=\"Customer quotes\">\n    <li class=\"v-carousel-slide\"><blockquote class=\"v-card v-testimonial\"><p class=\"v-testimonial-quote\">\"They turned up when they said, and the garden has never looked better.\"</p><footer class=\"v-testimonial-author\"><span class=\"v-testimonial-name\">Mike, Headford</span></footer></blockquote></li>\n    <li class=\"v-carousel-slide\"><blockquote class=\"v-card v-testimonial\"><p class=\"v-testimonial-quote\">\"Quick, tidy and the price we were quoted. Booked them again for the gutters.\"</p><footer class=\"v-testimonial-author\"><span class=\"v-testimonial-name\">Siobhan, Tuam</span></footer></blockquote></li>\n    <li class=\"v-carousel-slide\"><blockquote class=\"v-card v-testimonial\"><p class=\"v-testimonial-quote\">\"Our bookings page finally works on phones. Friday nights are full.\"</p><footer class=\"v-testimonial-author\"><span class=\"v-testimonial-name\">The Bridge Bar</span></footer></blockquote></li>\n    <li class=\"v-carousel-slide\"><blockquote class=\"v-card v-testimonial\"><p class=\"v-testimonial-quote\">\"Release pages in an afternoon, and every one looks like us.\"</p><footer class=\"v-testimonial-author\"><span class=\"v-testimonial-name\">Contrasts Records</span></footer></blockquote></li>\n    <li class=\"v-carousel-slide\"><blockquote class=\"v-card v-testimonial\"><p class=\"v-testimonial-quote\">\"Clear quote, no surprises, and they cleaned up after themselves.\"</p><footer class=\"v-testimonial-author\"><span class=\"v-testimonial-name\">Sean, Claregalway</span></footer></blockquote></li>\n  </ul>\n  <div class=\"v-carousel-controls\" hidden>\n    <button class=\"v-btn v-btn-secondary v-btn-icon\" type=\"button\" data-v-carousel-prev aria-label=\"Previous quote\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-left\"/></svg></button>\n    <button class=\"v-btn v-btn-secondary v-btn-icon\" type=\"button\" data-v-carousel-next aria-label=\"Next quote\"><svg class=\"v-icon\" aria-hidden=\"true\"><use href=\"/icons/sprite.svg#chevron-right\"/></svg></button>\n  </div>\n</div>",
+      "height": 320,
+      "source": "examples/plus-content/#carousel"
+    }
+  ]
+}

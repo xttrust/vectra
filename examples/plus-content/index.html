@@ -26,6 +26,8 @@
 <body>
   <svg class="v-sr-only" aria-hidden="true" focusable="false">
     <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
   </svg>
 
@@ -136,6 +138,23 @@
         <label class="v-label" for="otp-code" data-contrast>Verification code</label>
         <span class="v-hint" id="otp-hint" data-contrast>We sent a 6-digit code to your phone.</span>
         <span class="v-otp"><input class="v-otp-input" id="otp-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required aria-describedby="otp-hint"></span>
+      </div>
+    </section>
+    <section id="carousel">
+      <h2 data-contrast>Carousel</h2>
+      <p class="ex-label">Swipe, scroll or use the arrow buttons; each press moves one card. It never moves by itself. Without JS the row still scrolls and snaps.</p>
+      <div class="v-carousel" aria-roledescription="carousel" aria-label="What customers say" data-v-carousel id="carousel-quotes">
+        <ul class="v-carousel-track" role="list" tabindex="0" aria-label="Customer quotes">
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"They turned up when they said, and the garden has never looked better."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Mike, Headford</span></footer></blockquote></li>
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"Quick, tidy and the price we were quoted. Booked them again for the gutters."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Siobhan, Tuam</span></footer></blockquote></li>
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"Our bookings page finally works on phones. Friday nights are full."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>The Bridge Bar</span></footer></blockquote></li>
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"Release pages in an afternoon, and every one looks like us."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Contrasts Records</span></footer></blockquote></li>
+          <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote" data-contrast>"Clear quote, no surprises, and they cleaned up after themselves."</p><footer class="v-testimonial-author"><span class="v-testimonial-name" data-contrast>Sean, Claregalway</span></footer></blockquote></li>
+        </ul>
+        <div class="v-carousel-controls" hidden>
+          <button class="v-btn v-btn-secondary v-btn-icon" type="button" data-v-carousel-prev aria-label="Previous quote"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+          <button class="v-btn v-btn-secondary v-btn-icon" type="button" data-v-carousel-next aria-label="Next quote"><svg class="v-icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+        </div>
       </div>
     </section>
   </main>

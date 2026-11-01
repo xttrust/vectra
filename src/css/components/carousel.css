@@ -1,0 +1,57 @@
+/* Carousel: a row of slides that scrolls sideways with scroll snapping, so swipe, trackpad and keyboard
+   scrolling work without JS (the track is focusable). data-v-carousel shows the previous and next buttons
+   (hidden until then), steps one slide at a time and disables a button at its end. No autoplay: motion
+   the reader did not ask for is a WCAG 2.2.2 problem. How many slides show depends on the carousel's own
+   width: --v-per-view-sm, -md and -lg (fractions hint that there is more to scroll to). */
+@layer components {
+  .v-carousel {
+    --v-carousel-gap: var(--v-space-4);
+
+    display: grid;
+    gap: var(--v-space-3);
+    container-type: inline-size;
+  }
+
+  .v-carousel-track {
+    --v-per-view: var(--v-per-view-sm, 1.15);
+
+    display: flex;
+    gap: var(--v-carousel-gap);
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    list-style: none;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .v-carousel-track:focus-visible { outline-offset: 4px; }
+
+  .v-carousel-slide {
+    flex: 0 0 calc((100% - (var(--v-per-view) - 1) * var(--v-carousel-gap)) / var(--v-per-view));
+    min-inline-size: 0;
+    scroll-snap-align: start;
+  }
+
+  /* A container query cannot restyle the container itself, so the count is set on the track. */
+  @container (width >= 36rem) {
+    .v-carousel-track { --v-per-view: var(--v-per-view-md, 2.2); }
+  }
+
+  @container (width >= 60rem) {
+    .v-carousel-track { --v-per-view: var(--v-per-view-lg, 3); }
+  }
+
+  .v-carousel-controls {
+    display: flex;
+    gap: var(--v-space-2);
+    justify-content: flex-end;
+  }
+
+  .v-carousel-controls[hidden] { display: none; }
+
+  /* With the buttons there, the scrollbar is noise. */
+  .v-carousel[data-ready] .v-carousel-track { scrollbar-width: none; }
+  .v-carousel:dir(rtl) .v-carousel-controls .v-icon { scale: -1 1; }
+}

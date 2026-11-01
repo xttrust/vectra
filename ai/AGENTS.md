@@ -197,6 +197,7 @@ Data:
 - Timeline: .v-timeline
 
 Content:
+- Carousel: .v-carousel, hooks data-v-carousel data-v-carousel-prev data-v-carousel-next
 - Code block: .v-code, hooks data-v-copy data-v-copy-target
 - Device frames: .v-device
 - Logo cloud: .v-logos

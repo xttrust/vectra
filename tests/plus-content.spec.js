@@ -163,3 +163,68 @@ test.describe('one-time code', () => {
     await expect(input(page)).toHaveValue('482719');
   });
 });
+
+test.describe('carousel', () => {
+  test.use({ viewport: { width: 1280, height: 900 } });
+  test.beforeEach(async ({ page }) => {
+    await open(page, target, { direction: 'tech', theme: 'light' });
+    await expect(page.locator('#carousel-quotes[data-ready]')).toBeAttached();
+  });
+  const track = (page) => page.locator('#carousel-quotes .v-carousel-track');
+  const offset = (page) => track(page).evaluate((el) => Math.abs(el.scrollLeft));
+
+  test('shows its buttons, labels slides, and starts with previous disabled', async ({ page }) => {
+    await expect(page.locator('#carousel-quotes .v-carousel-controls')).toBeVisible();
+    await expect(page.locator('#carousel-quotes [data-v-carousel-prev]')).toBeDisabled();
+    await expect(page.locator('#carousel-quotes .v-carousel-slide').nth(1)).toHaveAttribute('aria-label', '2 of 5');
+  });
+
+  test('next moves exactly one slide, and the last press disables next', async ({ page }) => {
+    const slide = await page.locator('#carousel-quotes .v-carousel-slide').first().boundingBox();
+    await page.locator('#carousel-quotes [data-v-carousel-next]').click();
+    await expect.poll(() => offset(page)).toBeGreaterThan(slide.width * 0.9);
+    expect(await offset(page)).toBeLessThan(slide.width * 1.3);
+    // Step to the end, waiting for each scroll to land before reading the button again.
+    const next = page.locator('#carousel-quotes [data-v-carousel-next]');
+    for (let i = 0; i < 4 && (await next.isEnabled()); i += 1) {
+      const before = await offset(page);
+      await next.click();
+      await expect.poll(() => offset(page)).toBeGreaterThan(before);
+      await page.evaluate(() => new Promise(requestAnimationFrame));
+    }
+    await expect(page.locator('#carousel-quotes [data-v-carousel-next]')).toBeDisabled();
+    await expect(page.locator('#carousel-quotes [data-v-carousel-prev]')).toBeEnabled();
+  });
+
+  test('right to left: next still moves forward, and the page never scrolls sideways', async ({ page }) => {
+    await page.evaluate(() => { document.documentElement.dir = 'rtl'; });
+    await page.locator('#carousel-quotes [data-v-carousel-next]').click();
+    await expect.poll(() => offset(page)).toBeGreaterThan(100);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+
+  test('a phone shows one slide and a peek of the next', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const [t, s] = [await track(page).boundingBox(), await page.locator('#carousel-quotes .v-carousel-slide').first().boundingBox()];
+    expect(s.width / t.width).toBeGreaterThan(0.8);
+    expect(s.width / t.width).toBeLessThan(0.95);
+  });
+});
+
+test.describe('carousel without JS', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('the buttons stay hidden and the track still scrolls', async ({ page }) => {
+    await page.goto(target.path);
+    await expect(page.locator('#carousel-quotes .v-carousel-controls')).toBeHidden();
+    expect(await page.locator('#carousel-quotes .v-carousel-track').evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+  });
+});
+
+test('carousel: three slides per view on a wide page, set by the carousel width', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await open(page, target, { direction: 'tech', theme: 'light' });
+  const [t, s] = [await page.locator('#carousel-quotes .v-carousel-track').boundingBox(), await page.locator('#carousel-quotes .v-carousel-slide').first().boundingBox()];
+  expect(t.width / s.width).toBeGreaterThan(2.8);
+  expect(t.width / s.width).toBeLessThan(3.3);
+});

@@ -4,7 +4,7 @@ Generated from dist/ai/vectra.manifest.json by build/manifest.mjs (npm run ai:sk
 
 ## Components
 
-87 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
+88 components. Icons in examples point at /icons/sprite.svg; change the path to where dist/icons/sprite.svg is served.
 
 ### Actions
 
@@ -3238,6 +3238,54 @@ Example (Activity feed):
 
 ### Content
 
+#### Carousel (carousel)
+
+A row of cards or pictures that scrolls sideways, with previous and next buttons. Native: scroll-snap, container queries.
+
+Base:
+- .v-carousel: The wrapper, with aria-roledescription="carousel" and an aria-label. Set --v-per-view-sm, -md and -lg to change how many slides show at each width (defaults 1.15, 2.2, 3).
+Parts:
+- .v-carousel-track: The scrolling list (<ul role="list">). Give it tabindex="0" and an aria-label so keyboard users can scroll it.
+- .v-carousel-slide: One slide, an <li>. The JS labels it "2 of 5" unless it has a label.
+- .v-carousel-controls: The button row, hidden until the JS runs.
+
+States:
+- data-ready: Set on .v-carousel by the JS: the buttons are shown and the scrollbar is hidden.
+- disabled: Set on a button at its end of the track.
+
+Hooks:
+- data-v-carousel (on the .v-carousel wrapper): Shows the buttons, moves one slide per press (smoothly unless reduced motion is on), disables them at the ends and labels the slides.
+- data-v-carousel-prev (on the previous button): Moves back one slide. Its arrow flips in right-to-left.
+- data-v-carousel-next (on the next button): Moves forward one slide.
+
+Keyboard:
+- Tab: Reaches the track, the links inside the slides, then the buttons.
+- ArrowRight / ArrowLeft: On the focused track, scrolls it; snapping lands on a slide.
+- Enter / Space: On a button, moves one slide.
+
+Accessibility:
+- No autoplay, so nothing moves that the reader did not ask for (WCAG 2.2.2).
+- Every slide stays in the page and in the reading order; the buttons are a shortcut, not the only way to reach them.
+- Slides are labelled "2 of 5" with aria-roledescription="slide" so screen readers know where they are.
+
+Example (Customer quotes):
+
+```html
+<div class="v-carousel" aria-roledescription="carousel" aria-label="What customers say" data-v-carousel>
+  <ul class="v-carousel-track" role="list" tabindex="0" aria-label="Customer quotes">
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"They turned up when they said, and the garden has never looked better."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Mike, Headford</span></footer></blockquote></li>
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"Quick, tidy and the price we were quoted. Booked them again for the gutters."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Siobhan, Tuam</span></footer></blockquote></li>
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"Our bookings page finally works on phones. Friday nights are full."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">The Bridge Bar</span></footer></blockquote></li>
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"Release pages in an afternoon, and every one looks like us."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Contrasts Records</span></footer></blockquote></li>
+    <li class="v-carousel-slide"><blockquote class="v-card v-testimonial"><p class="v-testimonial-quote">"Clear quote, no surprises, and they cleaned up after themselves."</p><footer class="v-testimonial-author"><span class="v-testimonial-name">Sean, Claregalway</span></footer></blockquote></li>
+  </ul>
+  <div class="v-carousel-controls" hidden>
+    <button class="v-btn v-btn-secondary v-btn-icon" type="button" data-v-carousel-prev aria-label="Previous quote"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-left"/></svg></button>
+    <button class="v-btn v-btn-secondary v-btn-icon" type="button" data-v-carousel-next aria-label="Next quote"><svg class="v-icon" aria-hidden="true"><use href="/icons/sprite.svg#chevron-right"/></svg></button>
+  </div>
+</div>
+```
+
 #### Code block (code-block)
 
 A framed code sample with a language or file name, a copy button and a scrolling body. Native: <pre><code>.
@@ -3863,7 +3911,7 @@ Set tokens on :root to change the whole site, or on any element to change one ar
 - --v-danger-soft (optional): Soft danger background.
 - --v-info-soft (optional): Soft info background.
 
-Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
+Component tokens: --v-avatar-size --v-back-to-top-after --v-back-to-top-offset --v-card-pad --v-carousel-gap --v-code-max --v-container-max --v-control-h --v-danger --v-density --v-device-bezel --v-device-ratio --v-device-width --v-dialog-pad --v-dialog-w --v-drawer-pad --v-drawer-size --v-dur-1 --v-dur-2 --v-dur-3 --v-ease-out --v-ease-spring --v-focus-w --v-font-mono --v-font-serif --v-gap --v-info --v-input-h --v-lines --v-logos-h --v-logos-min --v-masonry-col --v-menu-pad --v-on-danger --v-otp-cell --v-otp-gap --v-otp-length --v-per-view-lg --v-per-view-md --v-per-view-sm --v-popover-gap --v-prose-flow --v-prose-measure --v-prose-size --v-range-thumb --v-range-track --v-rating --v-rating-input-size --v-rating-size --v-ring-color --v-ring-size --v-ring-width --v-save-icon --v-save-tone --v-scroll-fade --v-scroll-max --v-skeleton-size --v-space-2 --v-space-3 --v-space-4 --v-space-5 --v-space-7 --v-spinner-size --v-status-color --v-status-size --v-step-1 --v-step-3 --v-step-minus-1 --v-step-size --v-sticky-top --v-success --v-switch-travel --v-table-head-bg --v-table-max --v-table-min --v-table-pad-x --v-table-pad-y --v-tag-border --v-tl-dot --v-tl-size --v-tl-space --v-tone --v-tone-soft --v-warning
 
 ## Icons
 
@@ -3893,7 +3941,7 @@ window.Vectra from dist/vectra.js, or named exports of dist/vectra.esm.js. Hooks
 - `Vectra.version`: The kit version as a string ("2.0.0-alpha.1").
 
 Hooks registered as modules (they start on their own):
-data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
+data-v-carousel data-v-clear data-v-command data-v-confirm-text data-v-connection data-v-context data-v-copy data-v-countdown data-v-counter data-v-customizer data-v-dialog-close data-v-dialog-open data-v-dismiss data-v-dismissable data-v-dropzone data-v-hovercard data-v-lightbox data-v-mega data-v-menu data-v-nav data-v-notifications data-v-password data-v-readmore data-v-shortcut data-v-slow data-v-stepper data-v-strength data-v-tabs data-v-theme-switch data-v-theme-toggle data-v-toc data-v-toggle data-v-tooltip data-v-unsaved data-v-validate
 
 ## Patterns
 
